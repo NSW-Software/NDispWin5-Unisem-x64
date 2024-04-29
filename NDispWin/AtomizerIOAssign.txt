@@ -1,0 +1,14 @@
+﻿Created 20180922
+Created 20180922
+
+
+Motor	DI1		DI2		DI3		DI4		DO4			DO5			DO6			DO7
+***************************************************************************************
+M1		DA Busy	-		HomeX	-		DA Trig		-			-			-
+M2		Start	Stop	HomeY	Reset	Pres		?			-			-
+M3		-		-		HomeZ	-		-			ChuckVac	-			-	
+M4		-		SensDoor?		?		TL_R		TL_Y		TL_G		TL_Bzr	
+M5		-		-		-		-		LockDoor	-			-			-
+M6		-		-		-		-		PPSprayIO	-			-			-
+M7		-		-		-		-		SvExhaust	PPAtomAir	-			-
+M8		-		-		-		-		USonicAir	USonicOn	-			-

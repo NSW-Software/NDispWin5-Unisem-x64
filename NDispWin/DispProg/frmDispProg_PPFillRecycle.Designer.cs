@@ -1,0 +1,213 @@
+﻿namespace NDispWin
+{
+    partial class frm_DispCore_DispProg_PPFillRecycle
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_Cancel = new System.Windows.Forms.Button();
+            this.btn_OK = new System.Windows.Forms.Button();
+            this.pnl_Count = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbl_Count = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_Method = new System.Windows.Forms.Label();
+            this.pnl_Method = new System.Windows.Forms.Panel();
+            this.lbox_Cond = new System.Windows.Forms.ListBox();
+            this.btn_Cond = new System.Windows.Forms.Button();
+            this.panel2.SuspendLayout();
+            this.pnl_Count.SuspendLayout();
+            this.pnl_Method.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btn_Cancel);
+            this.panel2.Controls.Add(this.btn_OK);
+            this.panel2.Location = new System.Drawing.Point(8, 162);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.panel2.Size = new System.Drawing.Size(234, 50);
+            this.panel2.TabIndex = 134;
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.AccessibleDescription = "Cancel";
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.Location = new System.Drawing.Point(152, 7);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(75, 36);
+            this.btn_Cancel.TabIndex = 101;
+            this.btn_Cancel.Text = "Cancel";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
+            // btn_OK
+            // 
+            this.btn_OK.AccessibleDescription = "OK";
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_OK.Location = new System.Drawing.Point(73, 7);
+            this.btn_OK.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(75, 36);
+            this.btn_OK.TabIndex = 100;
+            this.btn_OK.Text = "OK";
+            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
+            // 
+            // pnl_Count
+            // 
+            this.pnl_Count.AutoSize = true;
+            this.pnl_Count.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl_Count.Controls.Add(this.label2);
+            this.pnl_Count.Controls.Add(this.lbl_Count);
+            this.pnl_Count.Location = new System.Drawing.Point(8, 100);
+            this.pnl_Count.Name = "pnl_Count";
+            this.pnl_Count.Size = new System.Drawing.Size(178, 25);
+            this.pnl_Count.TabIndex = 133;
+            // 
+            // label2
+            // 
+            this.label2.AccessibleDescription = "Count";
+            this.label2.Location = new System.Drawing.Point(-3, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(2);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.TabIndex = 115;
+            this.label2.Text = "Count";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbl_Count
+            // 
+            this.lbl_Count.BackColor = System.Drawing.SystemColors.Window;
+            this.lbl_Count.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_Count.Location = new System.Drawing.Point(101, 0);
+            this.lbl_Count.Margin = new System.Windows.Forms.Padding(2);
+            this.lbl_Count.Name = "lbl_Count";
+            this.lbl_Count.Size = new System.Drawing.Size(75, 23);
+            this.lbl_Count.TabIndex = 114;
+            this.lbl_Count.Text = "lbl_HeadNo";
+            this.lbl_Count.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_Count.Click += new System.EventHandler(this.lbl_Count_Click);
+            // 
+            // label1
+            // 
+            this.label1.AccessibleDescription = "Method";
+            this.label1.Location = new System.Drawing.Point(-3, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Method";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbl_Method
+            // 
+            this.lbl_Method.BackColor = System.Drawing.SystemColors.Window;
+            this.lbl_Method.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_Method.Location = new System.Drawing.Point(101, 0);
+            this.lbl_Method.Margin = new System.Windows.Forms.Padding(2);
+            this.lbl_Method.Name = "lbl_Method";
+            this.lbl_Method.Size = new System.Drawing.Size(75, 23);
+            this.lbl_Method.TabIndex = 113;
+            this.lbl_Method.Text = "lbl_Method";
+            this.lbl_Method.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_Method.Click += new System.EventHandler(this.lbl_Method_Click);
+            // 
+            // pnl_Method
+            // 
+            this.pnl_Method.AutoSize = true;
+            this.pnl_Method.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnl_Method.Controls.Add(this.label1);
+            this.pnl_Method.Controls.Add(this.lbl_Method);
+            this.pnl_Method.Location = new System.Drawing.Point(8, 131);
+            this.pnl_Method.Name = "pnl_Method";
+            this.pnl_Method.Size = new System.Drawing.Size(178, 25);
+            this.pnl_Method.TabIndex = 135;
+            // 
+            // lbox_Cond
+            // 
+            this.lbox_Cond.FormattingEnabled = true;
+            this.lbox_Cond.ItemHeight = 14;
+            this.lbox_Cond.Location = new System.Drawing.Point(8, 8);
+            this.lbox_Cond.Name = "lbox_Cond";
+            this.lbox_Cond.Size = new System.Drawing.Size(234, 46);
+            this.lbox_Cond.TabIndex = 137;
+            // 
+            // btn_Cond
+            // 
+            this.btn_Cond.AccessibleDescription = "Cond";
+            this.btn_Cond.Location = new System.Drawing.Point(167, 59);
+            this.btn_Cond.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Cond.Name = "btn_Cond";
+            this.btn_Cond.Size = new System.Drawing.Size(75, 36);
+            this.btn_Cond.TabIndex = 136;
+            this.btn_Cond.Text = "Cond";
+            this.btn_Cond.UseVisualStyleBackColor = true;
+            this.btn_Cond.Click += new System.EventHandler(this.btn_Cond_Click);
+            // 
+            // frm_DispCore_DispProg_PPFillRecycle
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(263, 246);
+            this.ControlBox = false;
+            this.Controls.Add(this.lbox_Cond);
+            this.Controls.Add(this.btn_Cond);
+            this.Controls.Add(this.pnl_Method);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnl_Count);
+            this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ForeColor = System.Drawing.Color.Navy;
+            this.Name = "frm_DispCore_DispProg_PPFillRecycle";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.Text = "frm_DispCore_DispProg_PPFillRecycle";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frm_DispCore_DispProg_PPRecycleB_FormClosed);
+            this.Load += new System.EventHandler(this.frm_DispCore_DispProg_RecycleB_Load);
+            this.panel2.ResumeLayout(false);
+            this.pnl_Count.ResumeLayout(false);
+            this.pnl_Method.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Panel pnl_Count;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_Method;
+        private System.Windows.Forms.Label lbl_Count;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel pnl_Method;
+        private System.Windows.Forms.ListBox lbox_Cond;
+        private System.Windows.Forms.Button btn_Cond;
+    }
+}

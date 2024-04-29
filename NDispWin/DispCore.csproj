@@ -1,0 +1,1693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6565DDBC-AC99-4DA9-AB8D-0AC008E511F4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DispCore</RootNamespace>
+    <AssemblyName>DispCore</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="AccessConfig, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\AccessConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="AdvMotAPI, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\AdvMotAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="AppLanguage, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\AppLanguage.dll</HintPath>
+    </Reference>
+    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Automation.BDaq4.dll</HintPath>
+    </Reference>
+    <Reference Include="CControl, Version=1.7.0.17726, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\CControl.dll</HintPath>
+    </Reference>
+    <Reference Include="CLaser, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\CLaser.dll</HintPath>
+    </Reference>
+    <Reference Include="CLaser_Temp, Version=1.0.0.6, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\CLaser_Temp.dll</HintPath>
+    </Reference>
+    <Reference Include="CReader, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\CReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV, Version=2.4.0.1717, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI, Version=2.4.0.1717, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util, Version=2.4.0.1717, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Emgu.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="FlyCap2CameraControl, Version=2.7.3.18, Culture=neutral, PublicKeyToken=5abeeda345e59824, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\FlyCap2CameraControl.dll</HintPath>
+    </Reference>
+    <Reference Include="FlyCapture2Managed, Version=2.7.3.18, Culture=neutral, PublicKeyToken=76c6583b4a4585f4, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\FlyCapture2Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="GrabberNET, Version=1.0.6.4, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\GrabberNET.dll</HintPath>
+    </Reference>
+    <Reference Include="HPC15, Version=1.5.0.3, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\HPC15.dll</HintPath>
+    </Reference>
+    <Reference Include="LEDStudio.Net">
+      <HintPath>..\dll\LEDStudio.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="LHS_ILD_Series, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\LHS_ILD_Series.dll</HintPath>
+    </Reference>
+    <Reference Include="LotCtrl">
+      <HintPath>..\dll\LotCtrl.dll</HintPath>
+    </Reference>
+    <Reference Include="Modbus">
+      <HintPath>..\dll\Modbus.dll</HintPath>
+    </Reference>
+    <Reference Include="NDispLicense, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\NDispLicense.dll</HintPath>
+    </Reference>
+    <Reference Include="NImager, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\dll\NImager.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Nspira_HPC_Series, Version=1.0.1.14, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Nspira_HPC_Series.dll</HintPath>
+    </Reference>
+    <Reference Include="NSW.Net, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\NSW.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NUtils, Version=1.0.9.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\NUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="NVision, Version=2.2.21.28579, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\NVision.dll</HintPath>
+    </Reference>
+    <Reference Include="Open_eVision_NetApi_2_5, Version=2.5.0.11304, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DispCore2_v15 2.1.55\dll\Open_eVision_NetApi_2_5.dll</HintPath>
+    </Reference>
+    <Reference Include="SocketV1, Version=1.0.0.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\SocketV1.dll</HintPath>
+    </Reference>
+    <Reference Include="SpinnakerNET_v140, Version=1.10.0.31, Culture=neutral, PublicKeyToken=e3ed2bf1f221d241, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\SpinnakerNET_v140.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vermes, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Vermes.dll</HintPath>
+    </Reference>
+    <Reference Include="WGH_Series, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\WGH_Series.dll</HintPath>
+    </Reference>
+    <Reference Include="ZEC3002, Version=2.1.0.24651, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\ZEC3002.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph">
+      <HintPath>..\dll\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing">
+      <HintPath>..\dll\zxing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmAppInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAppInfo.Designer.cs">
+      <DependentUpon>frmAppInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDevice.designer.cs">
+      <DependentUpon>frmDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSECSGEMConnect2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSECSGEMConnect2.Designer.cs">
+      <DependentUpon>frmSECSGEMConnect2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2Config.designer.cs">
+      <DependentUpon>frm_MHS2Config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvIO.designer.cs">
+      <DependentUpon>frm_MHS2ConvIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvPara.designer.cs">
+      <DependentUpon>frm_MHS2ConvPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevIO.designer.cs">
+      <DependentUpon>frm_MHS2ElevIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevMotorPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevMotorPara.designer.cs">
+      <DependentUpon>frm_MHS2ElevMotorPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevSetup.designer.cs">
+      <DependentUpon>frm_MHS2ElevSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MSH2Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MSH2Main.designer.cs">
+      <DependentUpon>frm_MSH2Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvCtrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ConvCtrl.designer.cs">
+      <DependentUpon>frm_MHS2ConvCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevCtrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frm_MHS2ElevCtrl.designer.cs">
+      <DependentUpon>frm_MHS2ElevCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MHS\frmMHS2PromptNewDIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MHS\frmMHS2PromptNewDIO.designer.cs">
+      <DependentUpon>frmMHS2PromptNewDIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMsgBox.designer.cs">
+      <DependentUpon>frmMsgBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOptions.Designer.cs">
+      <DependentUpon>frmOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmS320Prompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmS320Prompt.designer.cs">
+      <DependentUpon>frmS320Prompt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVermesMDS1560.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVermesMDS1560.Designer.cs">
+      <DependentUpon>frmVermesMDS1560.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Auto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Auto.designer.cs">
+      <DependentUpon>frm_Auto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Main.designer.cs">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\Camera.cs" />
+    <Compile Include="CMControl.cs" />
+    <Compile Include="Config\frmDeviceAxisConfigEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\frmDeviceAxisConfigEditor.Designer.cs">
+      <DependentUpon>frmDeviceAxisConfigEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\frmDeviceConfigEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\frmDeviceConfigEditor.Designer.cs">
+      <DependentUpon>frmDeviceConfigEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\frmDeviceIOConfigEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\frmDeviceIOConfigEditor.Designer.cs">
+      <DependentUpon>frmDeviceIOConfigEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DotAngArr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DotAngArr.designer.cs">
+      <DependentUpon>frmDispProg_DotAngArr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoVision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoVision.designer.cs">
+      <DependentUpon>frmDispProg_DoVision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoBdCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoBdCapture.Designer.cs">
+      <DependentUpon>frmDispProg_DoBdCapture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PPFillRecycle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PPFillRecycle.Designer.cs">
+      <DependentUpon>frmDispProg_PPFillRecycle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_RectFill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_RectFill.designer.cs">
+      <DependentUpon>frmDispProg_RectFill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ManageProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ManageProgram.Designer.cs">
+      <DependentUpon>frmDispProg_ManageProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Setting.Designer.cs">
+      <DependentUpon>frmDispProg_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_CreateMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_CreateMap.Designer.cs">
+      <DependentUpon>frmDispProg_CreateMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PurgeClean.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PurgeClean.Designer.cs">
+      <DependentUpon>frmDispProg_PurgeClean.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Comment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Comment.Designer.cs">
+      <DependentUpon>frmDispProg_Comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Condition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Condition.Designer.cs">
+      <DependentUpon>frmDispProg_Condition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ModelListSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ModelListSetting.Designer.cs">
+      <DependentUpon>frmDispProg_ModelListSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_BdOrient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_BdOrient.Designer.cs">
+      <DependentUpon>frmDispProg_BdOrient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Counter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Counter.Designer.cs">
+      <DependentUpon>frmDispProg_Counter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UISetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UISetting.Designer.cs">
+      <DependentUpon>frmDispProg_UISetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoUnitMark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoUnitMark.Designer.cs">
+      <DependentUpon>frmDispProg_DoUnitMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Dwell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Dwell.Designer.cs">
+      <DependentUpon>frmDispProg_Dwell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_MeasL_WH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_MeasL_WH.Designer.cs">
+      <DependentUpon>frmDispProg_MeasL_WH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PurgeDot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PurgeDot.Designer.cs">
+      <DependentUpon>frmDispProg_PurgeDot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Layout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Layout.designer.cs">
+      <DependentUpon>frmDispProg_Layout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frm_DispCore_DispProg_MeasL_H.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frm_DispCore_DispProg_MeasL_H.designer.cs">
+      <DependentUpon>frm_DispCore_DispProg_MeasL_H.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg2.designer.cs">
+      <DependentUpon>frm_DispProg2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Custom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Custom.designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_Custom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_DispControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_DispControl.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_DispControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_HeadCal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_HeadCal.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_HeadCal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ErrCode.cs" />
+    <Compile Include="DispProg\frmDispProg_PPRecycleN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PPRecycleN.Designer.cs">
+      <DependentUpon>frmDispProg_PPRecycleN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_VolumeMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_VolumeMap.Designer.cs">
+      <DependentUpon>frmDispProg_VolumeMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_VolumeOfst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_VolumeOfst.Designer.cs">
+      <DependentUpon>frmDispProg_VolumeOfst.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_CntrAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_CntrAction.Designer.cs">
+      <DependentUpon>frmDispProg_CntrAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_SmCircle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_SmCircle.Designer.cs">
+      <DependentUpon>frmDispProg_SmCircle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PPVolComp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_PPVolComp.Designer.cs">
+      <DependentUpon>frmDispProg_PPVolComp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoHeight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoHeight.designer.cs">
+      <DependentUpon>frmDispProg_DoHeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DotMulti.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DotMulti.designer.cs">
+      <DependentUpon>frmDispProg_DotMulti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_GoPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_GoPos.designer.cs">
+      <DependentUpon>frmDispProg_GoPos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ReadID_ManualEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ReadID_ManualEntry.Designer.cs">
+      <DependentUpon>frmDispProg_ReadID_ManualEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_InputMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_InputMap.Designer.cs">
+      <DependentUpon>frmDispProg_InputMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ReadID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ReadID.Designer.cs">
+      <DependentUpon>frmDispProg_ReadID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="External_Intf.cs" />
+    <Compile Include="DispProg\frmDispProg_FillPat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_FillPat.designer.cs">
+      <DependentUpon>frmDispProg_FillPat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ExtVis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ExtVis.Designer.cs">
+      <DependentUpon>frmDispProg_ExtVis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_GPOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_GPOut.designer.cs">
+      <DependentUpon>frmDispProg_GPOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_LineMulti.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_LineMulti.designer.cs">
+      <DependentUpon>frmDispProg_LineMulti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Repeat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Repeat.Designer.cs">
+      <DependentUpon>frmDispProg_Repeat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_SpiralFill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_SpiralFill.designer.cs">
+      <DependentUpon>frmDispProg_SpiralFill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_WaitStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_WaitStart.Designer.cs">
+      <DependentUpon>frmDispProg_WaitStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmCamera.designer.cs">
+      <DependentUpon>frmCamera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMap.Designer.cs">
+      <DependentUpon>frmMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frmProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frmProgress.Designer.cs">
+      <DependentUpon>frmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Options.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_HM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_HM.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_HM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.Designer.cs">
+      <DependentUpon>frm_AOT_TestCloseLoop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_LmdsCOBTestercs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_LmdsCOBTestercs.Designer.cs">
+      <DependentUpon>frm_LmdsCOBTestercs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmReticleSetup2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmReticleSetup2.designer.cs">
+      <DependentUpon>frmReticleSetup2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_DispSetup_WipeStage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_DispSetup_WipeStage.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_WipeStage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_MeasMen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_MeasMen.Designer.cs">
+      <DependentUpon>frm_DispCore_MeasMen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg_Condition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg_Condition.Designer.cs">
+      <DependentUpon>frm_DispProg_Condition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frm_ProgressReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frm_ProgressReport.designer.cs">
+      <DependentUpon>frm_ProgressReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_PumpActionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_PumpActionEditor.designer.cs">
+      <DependentUpon>frm_PumpActionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_CameraSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_CameraSetting.Designer.cs">
+      <DependentUpon>frm_DispCore_CameraSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_PurgeStage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_PurgeStage.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_PurgeStage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_DrawOfstAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_DrawOfstAdjust.Designer.cs">
+      <DependentUpon>frm_DispCore_DrawOfstAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_EditXY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_EditXY.Designer.cs">
+      <DependentUpon>frm_DispCore_EditXY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_IdlePurge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_IdlePurge.Designer.cs">
+      <DependentUpon>frm_DispCore_IdlePurge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Setup_PJ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Setup_PJ.Designer.cs">
+      <DependentUpon>frm_Setup_PJ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Setup_SP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Setup_SP.Designer.cs">
+      <DependentUpon>frm_Setup_SP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MsgBox2.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="MHS\TaskMHS.cs" />
+    <Compile Include="TEEvent.cs" />
+    <Compile Include="TEVermesMDS1560.cs" />
+    <Compile Include="Weight\frm_DispCore_WeightAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightAdjust.Designer.cs">
+      <DependentUpon>frm_DispCore_WeightAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantry2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantry2.Designer.cs">
+      <DependentUpon>frm_DispCore_JogGantry2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg_WeightCal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frm_DispProg_WeightCal.Designer.cs">
+      <DependentUpon>frm_DispProg_WeightCal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_HPC_Control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_HPC_Control.Designer.cs">
+      <DependentUpon>frm_HPC_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_InfoPanel_Program.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_InfoPanel_Program.Designer.cs">
+      <DependentUpon>frm_InfoPanel_Program.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_InfoPanel_Pump.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_InfoPanel_Pump.Designer.cs">
+      <DependentUpon>frm_InfoPanel_Pump.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_InfoPanel_VolAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_InfoPanel_VolAdjust.Designer.cs">
+      <DependentUpon>frm_InfoPanel_VolAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Vermes_Control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Vermes_Control.Designer.cs">
+      <DependentUpon>frm_Vermes_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Task_InputMap.cs" />
+    <Compile Include="uctrl_ExecCond.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uctrl_ExecCond.Designer.cs">
+      <DependentUpon>uctrl_ExecCond.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uctrl_FPress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uctrl_FPress.Designer.cs">
+      <DependentUpon>uctrl_FPress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightCal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightCal.Designer.cs">
+      <DependentUpon>frm_DispCore_WeightCal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightMeasure.Designer.cs">
+      <DependentUpon>frm_DispCore_WeightMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Weight\frm_DispCore_WeightSetting.Designer.cs">
+      <DependentUpon>frm_DispCore_WeightSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCtrl_FuncSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCtrl_FuncSetup.Designer.cs">
+      <DependentUpon>frm_DispCtrl_FuncSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispProg_View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispProg_View.Designer.cs">
+      <DependentUpon>frm_DispProg_View.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.Designer.cs">
+      <DependentUpon>frm_Lextar_TestCloseLoop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispTool_SpeedAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispTool_SpeedAdjust.Designer.cs">
+      <DependentUpon>frm_DispTool_SpeedAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frm_Message.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frm_Message.Designer.cs">
+      <DependentUpon>frm_Message.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_OsramSCC_LotInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_OsramSCC_LotInfo.Designer.cs">
+      <DependentUpon>frm_OsramSCC_LotInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_OsramSCC_Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\frm_OsramSCC_Setup.designer.cs">
+      <DependentUpon>frm_OsramSCC_Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeachNeedle\frm_TeachNeedle_LaserCrosshair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeachNeedle\frm_TeachNeedle_LaserCrosshair.Designer.cs">
+      <DependentUpon>frm_TeachNeedle_LaserCrosshair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeachNeedle\frm_TeachNeedle_StepByStep.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeachNeedle\frm_TeachNeedle_StepByStep.Designer.cs">
+      <DependentUpon>frm_TeachNeedle_StepByStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_DispInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_DispInfo.Designer.cs">
+      <DependentUpon>frm_DispCore_DispInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_CleanPurge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_CleanPurge.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_CleanPurge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Maint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Maint.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_Maint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_TeachNeedle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_TeachNeedle.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_TeachNeedle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Weight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_Weight.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_Weight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_PP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup_PP.Designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup_PP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispTool_VolumeAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispTool_VolumeAdjust.Designer.cs">
+      <DependentUpon>frm_DispTool_VolumeAdjust.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantry.designer.cs">
+      <DependentUpon>frm_DispCore_JogGantry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantryVision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_JogGantryVision.designer.cs">
+      <DependentUpon>frm_DispCore_JogGantryVision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_Lighting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frm_DispCore_Lighting.Designer.cs">
+      <DependentUpon>frm_DispCore_Lighting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frmHeightFailMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frmHeightFailMsg.Designer.cs">
+      <DependentUpon>frmHeightFailMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmReticleSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmReticleSetup.Designer.cs">
+      <DependentUpon>frmReticleSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\frmSystemConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\frmSystemConfig.Designer.cs">
+      <DependentUpon>frmSystemConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionSetup.designer.cs">
+      <DependentUpon>frmVisionSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frmVisionFailMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frmVisionFailMsg.Designer.cs">
+      <DependentUpon>frmVisionFailMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\frmVisionFailMsg2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Messages\frmVisionFailMsg2.Designer.cs">
+      <DependentUpon>frmVisionFailMsg2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom_VolumeAdjust\TaskVolOfst_Custom.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="StructEnum.cs" />
+    <Compile Include="Task\TaskZTouch.cs" />
+    <Compile Include="Task\TaskDispCtrl.cs" />
+    <Compile Include="Task\TaskGantry.cs" />
+    <Compile Include="Intf.cs">
+    </Compile>
+    <Compile Include="DispProg\DispProg.cs" />
+    <Compile Include="DispProg\frmDispProg_Arc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Arc.designer.cs">
+      <DependentUpon>frmDispProg_Arc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Delay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Delay.designer.cs">
+      <DependentUpon>frmDispProg_Delay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoRef.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_DoRef.designer.cs">
+      <DependentUpon>frmDispProg_DoRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Dot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Dot.designer.cs">
+      <DependentUpon>frmDispProg_Dot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ModelList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_ModelList.designer.cs">
+      <DependentUpon>frmDispProg_ModelList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_MoveLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_MoveLine.designer.cs">
+      <DependentUpon>frmDispProg_MoveLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Sub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_Sub.designer.cs">
+      <DependentUpon>frmDispProg_Sub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UseHeight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UseHeight.designer.cs">
+      <DependentUpon>frmDispProg_UseHeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UseRef.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProg_UseRef.designer.cs">
+      <DependentUpon>frmDispProg_UseRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispSetup\frm_DispCore_DispSetup.designer.cs">
+      <DependentUpon>frm_DispCore_DispSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_DispCore_DispTools.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_DispCore_DispTools.designer.cs">
+      <DependentUpon>frm_DispCore_DispTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmMotorPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmMotorPara.designer.cs">
+      <DependentUpon>frmMotorPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmIODiag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmIODiag.designer.cs">
+      <DependentUpon>frmIODiag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmMotorDiag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Motor_IO_Diag\frmMotorDiag.designer.cs">
+      <DependentUpon>frmMotorDiag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionSelectBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionSelectBox.designer.cs">
+      <DependentUpon>frmVisionSelectBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmVisionView.designer.cs">
+      <DependentUpon>frmVisionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDefine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Task\TaskDisp.cs" />
+    <Compile Include="JogAndVision\TaskVision.cs" />
+    <Compile Include="Task\TaskLaser.cs" />
+    <Compile Include="Task\TaskMeasure.cs" />
+    <Compile Include="Task\TaskOption.cs" />
+    <Compile Include="Weight\TaskWeight.cs" />
+    <Compile Include="TLayout.cs" />
+    <Compile Include="uctrl_JogGantry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uctrl_JogGantry.Designer.cs">
+      <DependentUpon>uctrl_JogGantry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Utils.cs" />
+    <Compile Include="ZKA.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\frmDeviceAxisConfigEditor.resx">
+      <DependentUpon>frmDeviceAxisConfigEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\frmDeviceConfigEditor.resx">
+      <DependentUpon>frmDeviceConfigEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\frmDeviceIOConfigEditor.resx">
+      <DependentUpon>frmDeviceIOConfigEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.resx">
+      <DependentUpon>frm_Lextar_TestCloseLoop.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DotAngArr.resx">
+      <DependentUpon>frmDispProg_DotAngArr.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DoVision.resx">
+      <DependentUpon>frmDispProg_DoVision.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Arc.resx">
+      <DependentUpon>frmDispProg_Arc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Delay.resx">
+      <DependentUpon>frmDispProg_Delay.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DoBdCapture.resx">
+      <DependentUpon>frmDispProg_DoBdCapture.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DoRef.resx">
+      <DependentUpon>frmDispProg_DoRef.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Dot.resx">
+      <DependentUpon>frmDispProg_Dot.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_PPFillRecycle.resx">
+      <DependentUpon>frmDispProg_PPFillRecycle.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_RectFill.resx">
+      <DependentUpon>frmDispProg_RectFill.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ManageProgram.resx">
+      <DependentUpon>frmDispProg_ManageProgram.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ModelList.resx">
+      <DependentUpon>frmDispProg_ModelList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_MoveLine.resx">
+      <DependentUpon>frmDispProg_MoveLine.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Sub.resx">
+      <DependentUpon>frmDispProg_Sub.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_UseHeight.resx">
+      <DependentUpon>frmDispProg_UseHeight.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_UseRef.resx">
+      <DependentUpon>frmDispProg_UseRef.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Setting.resx">
+      <DependentUpon>frmDispProg_Setting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_CreateMap.resx">
+      <DependentUpon>frmDispProg_CreateMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_PurgeClean.resx">
+      <DependentUpon>frmDispProg_PurgeClean.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Comment.resx">
+      <DependentUpon>frmDispProg_Comment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Condition.resx">
+      <DependentUpon>frmDispProg_Condition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ModelListSetting.resx">
+      <DependentUpon>frmDispProg_ModelListSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_BdOrient.resx">
+      <DependentUpon>frmDispProg_BdOrient.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Counter.resx">
+      <DependentUpon>frmDispProg_Counter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_UISetting.resx">
+      <DependentUpon>frmDispProg_UISetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DoUnitMark.resx">
+      <DependentUpon>frmDispProg_DoUnitMark.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Dwell.resx">
+      <DependentUpon>frmDispProg_Dwell.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_MeasL_WH.resx">
+      <DependentUpon>frmDispProg_MeasL_WH.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_PurgeDot.resx">
+      <DependentUpon>frmDispProg_PurgeDot.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Layout.resx">
+      <DependentUpon>frmDispProg_Layout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frm_DispCore_DispProg_MeasL_H.resx">
+      <DependentUpon>frm_DispCore_DispProg_MeasL_H.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frm_DispProg2.resx">
+      <DependentUpon>frm_DispProg2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup.resx">
+      <DependentUpon>frm_DispCore_DispSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_Custom.resx">
+      <DependentUpon>frm_DispCore_DispSetup_Custom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_DispControl.resx">
+      <DependentUpon>frm_DispCore_DispSetup_DispControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_HeadCal.resx">
+      <DependentUpon>frm_DispCore_DispSetup_HeadCal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_PPRecycleN.resx">
+      <DependentUpon>frmDispProg_PPRecycleN.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_VolumeMap.resx">
+      <DependentUpon>frmDispProg_VolumeMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_VolumeOfst.resx">
+      <DependentUpon>frmDispProg_VolumeOfst.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_CntrAction.resx">
+      <DependentUpon>frmDispProg_CntrAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_SmCircle.resx">
+      <DependentUpon>frmDispProg_SmCircle.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_PPVolComp.resx">
+      <DependentUpon>frmDispProg_PPVolComp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DoHeight.resx">
+      <DependentUpon>frmDispProg_DoHeight.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_DotMulti.resx">
+      <DependentUpon>frmDispProg_DotMulti.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_GoPos.resx">
+      <DependentUpon>frmDispProg_GoPos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.resx">
+      <DependentUpon>frm_AOT_TestCloseLoop.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ReadID_ManualEntry.resx">
+      <DependentUpon>frmDispProg_ReadID_ManualEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_InputMap.resx">
+      <DependentUpon>frmDispProg_InputMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ReadID.resx">
+      <DependentUpon>frmDispProg_ReadID.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_FillPat.resx">
+      <DependentUpon>frmDispProg_FillPat.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_ExtVis.resx">
+      <DependentUpon>frmDispProg_ExtVis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_LineMulti.resx">
+      <DependentUpon>frmDispProg_LineMulti.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_Repeat.resx">
+      <DependentUpon>frmDispProg_Repeat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_SpiralFill.resx">
+      <DependentUpon>frmDispProg_SpiralFill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProg_WaitStart.resx">
+      <DependentUpon>frmDispProg_WaitStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAppInfo.resx">
+      <DependentUpon>frmAppInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDevice.resx">
+      <DependentUpon>frmDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSECSGEMConnect2.resx">
+      <DependentUpon>frmSECSGEMConnect2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2Config.resx">
+      <DependentUpon>frm_MHS2Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ConvIO.resx">
+      <DependentUpon>frm_MHS2ConvIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ConvPara.resx">
+      <DependentUpon>frm_MHS2ConvPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ElevIO.resx">
+      <DependentUpon>frm_MHS2ElevIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ElevMotorPara.resx">
+      <DependentUpon>frm_MHS2ElevMotorPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ElevSetup.resx">
+      <DependentUpon>frm_MHS2ElevSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MSH2Main.resx">
+      <DependentUpon>frm_MSH2Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ConvCtrl.resx">
+      <DependentUpon>frm_MHS2ConvCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frm_MHS2ElevCtrl.resx">
+      <DependentUpon>frm_MHS2ElevCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MHS\frmMHS2PromptNewDIO.resx">
+      <DependentUpon>frmMHS2PromptNewDIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMsgBox.resx">
+      <DependentUpon>frmMsgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOptions.resx">
+      <DependentUpon>frmOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmS320Prompt.resx">
+      <DependentUpon>frmS320Prompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVermesMDS1560.resx">
+      <DependentUpon>frmVermesMDS1560.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Auto.resx">
+      <DependentUpon>frm_Auto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Main.resx">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmCamera.resx">
+      <DependentUpon>frmCamera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom_VolumeAdjust\frm_LmdsCOBTestercs.resx">
+      <DependentUpon>frm_LmdsCOBTestercs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmReticleSetup2.resx">
+      <DependentUpon>frmReticleSetup2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_DispSetup_WipeStage.resx">
+      <DependentUpon>frm_DispCore_DispSetup_WipeStage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_MeasMen.resx">
+      <DependentUpon>frm_DispCore_MeasMen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frm_DispProg_Condition.resx">
+      <DependentUpon>frm_DispProg_Condition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frm_ProgressReport.resx">
+      <DependentUpon>frm_ProgressReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_PumpActionEditor.resx">
+      <DependentUpon>frm_PumpActionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispCore_CameraSetting.resx">
+      <DependentUpon>frm_DispCore_CameraSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_DispInfo.resx">
+      <DependentUpon>frm_DispCore_DispInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_CleanPurge.resx">
+      <DependentUpon>frm_DispCore_DispSetup_CleanPurge.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_Maint.resx">
+      <DependentUpon>frm_DispCore_DispSetup_Maint.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_TeachNeedle.resx">
+      <DependentUpon>frm_DispCore_DispSetup_TeachNeedle.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_Weight.resx">
+      <DependentUpon>frm_DispCore_DispSetup_Weight.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_PP.resx">
+      <DependentUpon>frm_DispCore_DispSetup_PP.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_Options.resx">
+      <DependentUpon>frm_DispCore_DispSetup_Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_HM.resx">
+      <DependentUpon>frm_DispCore_DispSetup_HM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_PurgeStage.resx">
+      <DependentUpon>frm_DispCore_DispSetup_PurgeStage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_DispTools.resx">
+      <DependentUpon>frm_DispCore_DispTools.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMap.resx">
+      <DependentUpon>frmMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frmProgress.resx">
+      <DependentUpon>frmProgress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_DrawOfstAdjust.resx">
+      <DependentUpon>frm_DispCore_DrawOfstAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_EditXY.resx">
+      <DependentUpon>frm_DispCore_EditXY.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCore_IdlePurge.resx">
+      <DependentUpon>frm_DispCore_IdlePurge.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Setup_PJ.resx">
+      <DependentUpon>frm_Setup_PJ.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Setup_SP.resx">
+      <DependentUpon>frm_Setup_SP.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispCore_JogGantry2.resx">
+      <DependentUpon>frm_DispCore_JogGantry2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frm_DispProg_WeightCal.resx">
+      <DependentUpon>frm_DispProg_WeightCal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_HPC_Control.resx">
+      <DependentUpon>frm_HPC_Control.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_InfoPanel_Program.resx">
+      <DependentUpon>frm_InfoPanel_Program.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_InfoPanel_Pump.resx">
+      <DependentUpon>frm_InfoPanel_Pump.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_InfoPanel_VolAdjust.resx">
+      <DependentUpon>frm_InfoPanel_VolAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Vermes_Control.resx">
+      <DependentUpon>frm_Vermes_Control.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uctrl_ExecCond.resx">
+      <DependentUpon>uctrl_ExecCond.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uctrl_FPress.resx">
+      <DependentUpon>uctrl_FPress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Weight\frm_DispCore_WeightAdjust.resx">
+      <DependentUpon>frm_DispCore_WeightAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Weight\frm_DispCore_WeightCal.resx">
+      <DependentUpon>frm_DispCore_WeightCal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Weight\frm_DispCore_WeightMeasure.resx">
+      <DependentUpon>frm_DispCore_WeightMeasure.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Weight\frm_DispCore_WeightSetting.resx">
+      <DependentUpon>frm_DispCore_WeightSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispCtrl_FuncSetup.resx">
+      <DependentUpon>frm_DispCtrl_FuncSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispProg_View.resx">
+      <DependentUpon>frm_DispProg_View.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispTool_SpeedAdjust.resx">
+      <DependentUpon>frm_DispTool_SpeedAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frm_Message.resx">
+      <DependentUpon>frm_Message.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom_VolumeAdjust\frm_OsramSCC_LotInfo.resx">
+      <DependentUpon>frm_OsramSCC_LotInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom_VolumeAdjust\frm_OsramSCC_Setup.resx">
+      <DependentUpon>frm_OsramSCC_Setup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeachNeedle\frm_TeachNeedle_LaserCrosshair.resx">
+      <DependentUpon>frm_TeachNeedle_LaserCrosshair.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeachNeedle\frm_TeachNeedle_StepByStep.resx">
+      <DependentUpon>frm_TeachNeedle_StepByStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_DispTool_VolumeAdjust.resx">
+      <DependentUpon>frm_DispTool_VolumeAdjust.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispCore_JogGantry.resx">
+      <DependentUpon>frm_DispCore_JogGantry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispCore_JogGantryVision.resx">
+      <DependentUpon>frm_DispCore_JogGantryVision.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frm_DispCore_Lighting.resx">
+      <DependentUpon>frm_DispCore_Lighting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frmHeightFailMsg.resx">
+      <DependentUpon>frmHeightFailMsg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Motor_IO_Diag\frmMotorPara.resx">
+      <DependentUpon>frmMotorPara.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Motor_IO_Diag\frmIODiag.resx">
+      <DependentUpon>frmIODiag.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmReticleSetup.resx">
+      <DependentUpon>frmReticleSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Motor_IO_Diag\frmMotorDiag.resx">
+      <DependentUpon>frmMotorDiag.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\frmSystemConfig.resx">
+      <DependentUpon>frmSystemConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmVisionSelectBox.resx">
+      <DependentUpon>frmVisionSelectBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmVisionSetup.resx">
+      <DependentUpon>frmVisionSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmVisionView.resx">
+      <DependentUpon>frmVisionView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frmVisionFailMsg.resx">
+      <DependentUpon>frmVisionFailMsg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Messages\frmVisionFailMsg2.resx">
+      <DependentUpon>frmVisionFailMsg2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uctrl_JogGantry.resx">
+      <DependentUpon>uctrl_JogGantry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AtomizerIOAssign.txt" />
+    <Content Include="Revision_DispCore.txt" />
+    <None Include="App.config" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="icon\RunModeDry.bmp" />
+    <None Include="icon\RunModeNormal.bmp" />
+    <None Include="icon\Lock.bmp" />
+    <None Include="icon\UnLock.bmp" />
+    <None Include="PatternParaMatrix.xlsx" />
+    <None Include="Info.pptx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Bmp\FileManage.bmp" />
+    <Content Include="Bmp\FileNew.bmp" />
+    <Content Include="Bmp\FileOpen.bmp" />
+    <Content Include="Bmp\FileSave.bmp" />
+    <Content Include="Bmp\FileSaveAs.bmp" />
+    <Content Include="Bmp\Lock.bmp" />
+    <Content Include="Bmp\ProgLineAdd.bmp" />
+    <Content Include="Bmp\ProgLineDel.bmp" />
+    <Content Include="Bmp\ProgLineMoveDn.bmp" />
+    <Content Include="Bmp\ProgLineMoveUp.bmp" />
+    <None Include="Resources\Prog_ForceSingle.bmp" />
+    <Content Include="Resources\CamGotoOrigin.bmp" />
+    <Content Include="Resources\Camera.bmp" />
+    <Content Include="Resources\Rect_60x30.bmp" />
+    <Content Include="Resources\RunMode_Dry.bmp" />
+    <Content Include="Resources\RunMode_Normal.bmp" />
+    <Content Include="Resources\RunMode_Camera.bmp" />
+    <Content Include="Resources\NeddleGotoOrigin.bmp" />
+    <Content Include="Resources\Prog_Cancel.bmp" />
+    <Content Include="Resources\Prog_Cycle.bmp" />
+    <Content Include="Resources\Prog_CycleStop.bmp" />
+    <Content Include="Resources\Prog_Dual.bmp" />
+    <Content Include="Resources\Prog_Resume.bmp" />
+    <Content Include="Resources\Prog_Run.bmp" />
+    <Content Include="Resources\Prog_Stop.bmp" />
+    <Content Include="Resources\RunModeCamera.bmp" />
+    <Content Include="Resources\RunModeDry.bmp" />
+    <Content Include="Resources\RunModeNormal.bmp" />
+    <Content Include="Resources\Prog_Snail.bmp" />
+    <Content Include="Resources\SetOrigin.bmp" />
+    <Content Include="Resources\SetZ.bmp" />
+    <Content Include="Resources\ShowCamera.bmp" />
+    <Content Include="Resources\ShowJog.bmp" />
+    <Content Include="Resources\Sq_30x30.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
