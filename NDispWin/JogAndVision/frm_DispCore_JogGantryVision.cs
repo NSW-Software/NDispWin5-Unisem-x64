@@ -128,9 +128,9 @@ namespace NDispWin
                 //frmJog.Show();
             }
 
-            if (ShowVision && GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2)
-                {
-                    if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+            if (ShowVision && (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVCGenTL))
+            {
+                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                 {
                     PageVision.Visible = false;
 
@@ -176,7 +176,7 @@ namespace NDispWin
                 TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
             }
 
-            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2)
+            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVCGenTL)
             {
                 PageJog.ForceGantryMode = (int)ForceGantryMode;
                 PageJog.FormBorderStyle = FormBorderStyle.None;
