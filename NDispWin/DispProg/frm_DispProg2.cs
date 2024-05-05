@@ -107,7 +107,7 @@ namespace NDispWin
             #region RunMode display
             tsbtn_Snail.Enabled = (DispProg.RunMode == ERunMode.Dry || DispProg.RunMode == ERunMode.Camera);
 
-            tsbtn_Cancel.Enabled = (DispProg.LastLine > 0);
+            //tsbtn_Cancel.Enabled = (DispProg.LastLine > 0);
 
             tsddbtn_ForceSingle.Visible = TaskDisp.Option_EnableRunSingleHead && GDefine.HeadConfig == GDefine.EHeadConfig.Dual;
             if (!TaskDisp.ForceSingle) tsddbtn_ForceSingle.Image = tsmi_Dual.Image; else tsddbtn_ForceSingle.Image = tsmi_ForceSingle.Image;
@@ -2964,6 +2964,15 @@ namespace NDispWin
         private void tsbtn_Cancel_Click(object sender, EventArgs e)
         {
             bCycle = false;
+
+            Msg MsgBox = new Msg();
+            EMsgRes res = MsgBox.Show("Cancel will clear all current run state.", EMcState.Notice, EMsgBtn.smbOK_Cancel, false);
+            switch (res)
+            {
+                case EMsgRes.smrCancel: return;
+                default:
+                    break;
+            }
             DispProg.TR_Cancel();
             tsbtn_Cancel.Enabled = (DispProg.LastLine > 0);
             UpdateDisplay();

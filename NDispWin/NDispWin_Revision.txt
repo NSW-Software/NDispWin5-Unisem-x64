@@ -5,7 +5,9 @@ TaskWeight ReadImme at Open
 Todo:
 remove frmVisionView
 
-
+Ver 6.0.4 - 20240505 - KN - Gitted
+- [Change] Refactor frmVisionFailMsg2 to solve camera switching problem.
+- [Feature] Enable Cancel after program stop.
 Ver 6.0.2 - 20240505 - KN - Gitted
 - [Change] Removed NDispLicense
 - [Change] Removed LHS_ILD.dll, CReader.dll and Cognex.DataMan.SDK.dll references and dependencies

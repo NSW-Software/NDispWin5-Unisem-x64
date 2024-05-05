@@ -35,9 +35,9 @@
             this.btn_Skip = new System.Windows.Forms.Button();
             this.btn_Retry = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.btn_JogPos = new System.Windows.Forms.Button();
             this.lbl_Message = new System.Windows.Forms.Label();
+            this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,14 +138,6 @@
             this.panel1.TabIndex = 27;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // rtbMessage
-            // 
-            this.rtbMessage.Location = new System.Drawing.Point(6, 95);
-            this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(418, 81);
-            this.rtbMessage.TabIndex = 30;
-            this.rtbMessage.Text = "";
-            // 
             // btn_JogPos
             // 
             this.btn_JogPos.Location = new System.Drawing.Point(349, 6);
@@ -161,8 +153,16 @@
             this.lbl_Message.AutoSize = true;
             this.lbl_Message.Location = new System.Drawing.Point(3, 92);
             this.lbl_Message.Name = "lbl_Message";
-            this.lbl_Message.Size = new System.Drawing.Size(0, 14);
+            this.lbl_Message.Size = new System.Drawing.Size(0, 18);
             this.lbl_Message.TabIndex = 27;
+            // 
+            // rtbMessage
+            // 
+            this.rtbMessage.Location = new System.Drawing.Point(6, 95);
+            this.rtbMessage.Name = "rtbMessage";
+            this.rtbMessage.Size = new System.Drawing.Size(418, 81);
+            this.rtbMessage.TabIndex = 30;
+            this.rtbMessage.Text = "";
             // 
             // frmVisionFailMsg2
             // 
@@ -180,7 +180,6 @@
             this.Text = "frmVisionFailMsg2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmVisionFailMsg2_FormClosing);
             this.Load += new System.EventHandler(this.frmVisionFailMsg2_Load);
-            this.Shown += new System.EventHandler(this.frmVisionFailMsg2_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
