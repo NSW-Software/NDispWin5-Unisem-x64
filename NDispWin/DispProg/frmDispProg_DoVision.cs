@@ -261,7 +261,7 @@ namespace NDispWin
                     TaskVision.flirCamera2[0].GrabCont();
                 }
                 else
-                if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVCGenTL)
+                if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[CamID].GrabOneImage();
                     Image = TaskVision.genTLCamera[CamID].mImage.Clone();
@@ -277,7 +277,7 @@ namespace NDispWin
 
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.PtGrey)
                 {
-                    TaskVision.PtGrey_CamLive(CamID);
+                    //TaskVision.PtGrey_CamLive(CamID);
                 }
             }
             catch
@@ -326,9 +326,12 @@ namespace NDispWin
                 TaskVision.ExecVision(CamID, CmdLine.ID, ref X, ref Y, ref A, ref S, ref OK);
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.PtGrey)
                 {
-                    TaskVision.PtGrey_CamLive(CamID);
+                    //TaskVision.PtGrey_CamLive(CamID);
                 }
-
+                if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVSGenTL)
+                {
+                    TaskVision.genTLCamera[0].StartGrab();
+                }
 
                 DoRefData.XF = X;
                 DoRefData.YF = Y;
@@ -410,13 +413,13 @@ namespace NDispWin
                 TaskVision.ExecVision(CamID, CmdLine.ID, ref X, ref Y, ref A, ref S, ref OK);
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.PtGrey)
                 {
-                    TaskVision.PtGrey_CamLive(CamID);
+                    //TaskVision.PtGrey_CamLive(CamID);
                 }
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.Spinnaker2)
                 {
                     TaskVision.flirCamera2[0].GrabCont();
                 }
-                if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVCGenTL)
+                if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[0].StartGrab();
                 }

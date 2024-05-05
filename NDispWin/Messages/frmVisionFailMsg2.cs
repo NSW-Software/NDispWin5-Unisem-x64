@@ -116,7 +116,7 @@ namespace NDispWin
                 //frmCamera.Grab();
             }
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 this.WindowState = FormWindowState.Maximized;
                 AutoSize = false;
@@ -160,7 +160,7 @@ namespace NDispWin
                 //    }
                 //}));
             }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL) TaskVision.frmMVCGenTLCamera.Close();
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVision.frmMVCGenTLCamera.Close();
         }
 
         enum EJogWindPos { TR, BR, BL, TL };

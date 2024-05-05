@@ -75,12 +75,13 @@
             this.btnUploadMap = new System.Windows.Forms.Button();
             this.btnDownloadMap = new System.Windows.Forms.Button();
             this.tpSetting = new System.Windows.Forms.TabPage();
+            this.gbxStripMap = new System.Windows.Forms.GroupBox();
             this.cbEnableDnloadMap = new System.Windows.Forms.CheckBox();
-            this.cbEnableUploadMap = new System.Windows.Forms.CheckBox();
-            this.cbxStripMapDnloadFlip = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cbxStripMapUploadFlip = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.cbxStripMapUploadFlip = new System.Windows.Forms.ComboBox();
+            this.cbEnableUploadMap = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cbxStripMapDnloadFlip = new System.Windows.Forms.ComboBox();
             this.tbxTimeOut = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbEnableSECSGEMConnect2 = new System.Windows.Forms.CheckBox();
@@ -99,6 +100,7 @@
             this.tpInternal.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tpSetting.SuspendLayout();
+            this.gbxStripMap.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -250,7 +252,6 @@
             this.tpManual.Size = new System.Drawing.Size(899, 375);
             this.tpManual.TabIndex = 2;
             this.tpManual.Text = "Manual";
-            this.tpManual.Click += new System.EventHandler(this.tpManual_Click);
             // 
             // btnGenerateCEIDList
             // 
@@ -424,7 +425,6 @@
             this.tpStripMap.Size = new System.Drawing.Size(899, 375);
             this.tpStripMap.TabIndex = 1;
             this.tpStripMap.Text = "Strip Map E142";
-            this.tpStripMap.Click += new System.EventHandler(this.tpStripMap_Click);
             // 
             // cbFUseFile
             // 
@@ -559,12 +559,7 @@
             // 
             // tpSetting
             // 
-            this.tpSetting.Controls.Add(this.cbEnableDnloadMap);
-            this.tpSetting.Controls.Add(this.cbEnableUploadMap);
-            this.tpSetting.Controls.Add(this.cbxStripMapDnloadFlip);
-            this.tpSetting.Controls.Add(this.label11);
-            this.tpSetting.Controls.Add(this.cbxStripMapUploadFlip);
-            this.tpSetting.Controls.Add(this.label10);
+            this.tpSetting.Controls.Add(this.gbxStripMap);
             this.tpSetting.Controls.Add(this.tbxTimeOut);
             this.tpSetting.Controls.Add(this.label4);
             this.tpSetting.Controls.Add(this.cbEnableSECSGEMConnect2);
@@ -584,10 +579,27 @@
             this.tpSetting.Text = "Setting";
             this.tpSetting.Click += new System.EventHandler(this.tpSetting_Click);
             // 
+            // gbxStripMap
+            // 
+            this.gbxStripMap.AutoSize = true;
+            this.gbxStripMap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbxStripMap.Controls.Add(this.cbEnableDnloadMap);
+            this.gbxStripMap.Controls.Add(this.label10);
+            this.gbxStripMap.Controls.Add(this.cbxStripMapUploadFlip);
+            this.gbxStripMap.Controls.Add(this.cbEnableUploadMap);
+            this.gbxStripMap.Controls.Add(this.label11);
+            this.gbxStripMap.Controls.Add(this.cbxStripMapDnloadFlip);
+            this.gbxStripMap.Location = new System.Drawing.Point(27, 216);
+            this.gbxStripMap.Name = "gbxStripMap";
+            this.gbxStripMap.Size = new System.Drawing.Size(540, 106);
+            this.gbxStripMap.TabIndex = 65;
+            this.gbxStripMap.TabStop = false;
+            this.gbxStripMap.Text = "StripMap";
+            // 
             // cbEnableDnloadMap
             // 
             this.cbEnableDnloadMap.AutoSize = true;
-            this.cbEnableDnloadMap.Location = new System.Drawing.Point(27, 234);
+            this.cbEnableDnloadMap.Location = new System.Drawing.Point(6, 25);
             this.cbEnableDnloadMap.Name = "cbEnableDnloadMap";
             this.cbEnableDnloadMap.Size = new System.Drawing.Size(172, 22);
             this.cbEnableDnloadMap.TabIndex = 63;
@@ -595,10 +607,29 @@
             this.cbEnableDnloadMap.UseVisualStyleBackColor = true;
             this.cbEnableDnloadMap.Click += new System.EventHandler(this.cbEnableDnloadMap_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(204, 58);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(138, 18);
+            this.label10.TabIndex = 58;
+            this.label10.Text = "Upload StripMap Flip";
+            // 
+            // cbxStripMapUploadFlip
+            // 
+            this.cbxStripMapUploadFlip.FormattingEnabled = true;
+            this.cbxStripMapUploadFlip.Location = new System.Drawing.Point(360, 55);
+            this.cbxStripMapUploadFlip.Name = "cbxStripMapUploadFlip";
+            this.cbxStripMapUploadFlip.Size = new System.Drawing.Size(174, 26);
+            this.cbxStripMapUploadFlip.TabIndex = 59;
+            this.cbxStripMapUploadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapFlip_SelectionChangeCommitted);
+            // 
             // cbEnableUploadMap
             // 
             this.cbEnableUploadMap.AutoSize = true;
-            this.cbEnableUploadMap.Location = new System.Drawing.Point(27, 266);
+            this.cbEnableUploadMap.Location = new System.Drawing.Point(6, 57);
             this.cbEnableUploadMap.Name = "cbEnableUploadMap";
             this.cbEnableUploadMap.Size = new System.Drawing.Size(172, 22);
             this.cbEnableUploadMap.TabIndex = 62;
@@ -606,43 +637,24 @@
             this.cbEnableUploadMap.UseVisualStyleBackColor = true;
             this.cbEnableUploadMap.Click += new System.EventHandler(this.cbEnableUploadMap_Click);
             // 
-            // cbxStripMapDnloadFlip
-            // 
-            this.cbxStripMapDnloadFlip.FormattingEnabled = true;
-            this.cbxStripMapDnloadFlip.Location = new System.Drawing.Point(381, 232);
-            this.cbxStripMapDnloadFlip.Name = "cbxStripMapDnloadFlip";
-            this.cbxStripMapDnloadFlip.Size = new System.Drawing.Size(174, 26);
-            this.cbxStripMapDnloadFlip.TabIndex = 61;
-            this.cbxStripMapDnloadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapDnloadFlip_SelectionChangeCommitted);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(225, 235);
+            this.label11.Location = new System.Drawing.Point(204, 26);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(138, 18);
             this.label11.TabIndex = 60;
             this.label11.Text = "Dnload StripMap Flip";
             // 
-            // cbxStripMapUploadFlip
+            // cbxStripMapDnloadFlip
             // 
-            this.cbxStripMapUploadFlip.FormattingEnabled = true;
-            this.cbxStripMapUploadFlip.Location = new System.Drawing.Point(381, 264);
-            this.cbxStripMapUploadFlip.Name = "cbxStripMapUploadFlip";
-            this.cbxStripMapUploadFlip.Size = new System.Drawing.Size(174, 26);
-            this.cbxStripMapUploadFlip.TabIndex = 59;
-            this.cbxStripMapUploadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapFlip_SelectionChangeCommitted);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(225, 267);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(138, 18);
-            this.label10.TabIndex = 58;
-            this.label10.Text = "Upload StripMap Flip";
+            this.cbxStripMapDnloadFlip.FormattingEnabled = true;
+            this.cbxStripMapDnloadFlip.Location = new System.Drawing.Point(360, 23);
+            this.cbxStripMapDnloadFlip.Name = "cbxStripMapDnloadFlip";
+            this.cbxStripMapDnloadFlip.Size = new System.Drawing.Size(174, 26);
+            this.cbxStripMapDnloadFlip.TabIndex = 61;
+            this.cbxStripMapDnloadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapDnloadFlip_SelectionChangeCommitted);
             // 
             // tbxTimeOut
             // 
@@ -755,6 +767,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tpSetting.ResumeLayout(false);
             this.tpSetting.PerformLayout();
+            this.gbxStripMap.ResumeLayout(false);
+            this.gbxStripMap.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -821,5 +835,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox cbEnableUploadMap;
         private System.Windows.Forms.CheckBox cbEnableDnloadMap;
+        private System.Windows.Forms.GroupBox gbxStripMap;
     }
 }

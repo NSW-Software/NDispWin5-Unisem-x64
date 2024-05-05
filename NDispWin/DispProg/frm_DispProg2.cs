@@ -435,7 +435,6 @@ namespace NDispWin
                             Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
                             Para = "[" + CmdLine.Line[i].ID.ToString() + "] ";
                             Para = Para + (CmdLine.Line[i].IPara[0] > 0 ? "" : "[Disabled] ");
-                            Para = Para + GDefine.IDReader_Type.ToString() + " ";
                             break;
                         }
                     #endregion
@@ -989,7 +988,7 @@ namespace NDispWin
                 //frm_Jog.Show();
             }
             else
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 frmCamera.Dispose();
                 //Invoke(new Action(() =>
@@ -1079,7 +1078,7 @@ namespace NDispWin
 
             if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.PtGrey)
             {
-                TaskVision.PtGrey_CamLive((int)TaskVision.SelectedCam);
+                //TaskVision.PtGrey_CamLive((int)TaskVision.SelectedCam);
             }
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
@@ -1098,6 +1097,12 @@ namespace NDispWin
                 //TaskVision.frmGenImageView.EnableCamReticles = true;
                 //TaskVision.frmGenImageView.Grab();
                 //TaskVision.frmGenImageView.ZoomFit();
+            }
+            if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.MVSGenTL)
+            {
+                TaskVision.genTLCamera[(int)TaskVision.SelectedCam].GrabOneImage();
+                TaskVision.Image = TaskVision.genTLCamera[(int)TaskVision.SelectedCam].mImage.Clone();
+                if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[(int)TaskVision.SelectedCam].StartGrab();
             }
         }
         private void frm_DispCore_DispProg_Activated(object sender, EventArgs e)
@@ -1135,7 +1140,7 @@ namespace NDispWin
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
             {
-                TaskVision.PtGrey_CamStop();
+                //TaskVision.PtGrey_CamStop();
             }
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
@@ -1154,7 +1159,7 @@ namespace NDispWin
                 }
             }
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL) TaskVision.frmMVCGenTLCamera.Close();
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVision.frmMVCGenTLCamera.Close();
         }
         private void frm_DispProg2_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -1162,7 +1167,28 @@ namespace NDispWin
         }
         private void frm_DispProg2_Shown(object sender, EventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            //if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+            //{
+            //    Invoke(new Action(() =>
+            //{
+            //    TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
+            //    TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
+            //    TaskVision.frmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
+            //    TaskVision.frmMVCGenTLCamera.TopLevel = false;
+            //    TaskVision.frmMVCGenTLCamera.Parent = splitContainer2.Panel1;
+            //    TaskVision.frmMVCGenTLCamera.Dock = DockStyle.Fill;
+            //    TaskVision.frmMVCGenTLCamera.Show();
+
+            //    if (TaskVision.genTLCamera[0].IsConnected)
+            //    {
+            //        TaskVision.frmMVCGenTLCamera.SelectCamera(0);
+            //        TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
+            //        TaskVision.genTLCamera[0].StartGrab();
+            //    }
+            //}));
+            //}
+
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera.ZoomFit();
             }
@@ -1170,7 +1196,7 @@ namespace NDispWin
 
         private void frm_DispProg2_Resize(object sender, EventArgs e)
         {
-            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVSGenTL)
             {
                 ShowVision();
                 ShowJog();
@@ -2912,7 +2938,7 @@ namespace NDispWin
                 frmCamera.SelectCamera(0);
                 frmCamera.Grab();
             }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera.SelectCamera(0);
                 TaskVision.genTLCamera[0].StartGrab();
@@ -2968,7 +2994,7 @@ namespace NDispWin
                 frmCamera.SelectCamera(0);
                 frmCamera.Grab();
             }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera.SelectCamera(0);
                 TaskVision.genTLCamera[0].StartGrab();

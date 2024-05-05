@@ -2887,19 +2887,20 @@ namespace NDispWin
 
             internal static bool CheckEmpty()//check station is empty
             {
+                _Retry:
                 if (Out.SensPsnt)
                 {
                     Msg MsgBox = new Msg();
-                    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "OUT", EMcState.Error, EMsgBtn.smbStop, true);
+                    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "OUT", EMcState.Error, EMsgBtn.smbRetry_Stop, true);
+
+                    switch (MsgRes)
+                    {
+                        case EMsgRes.smrRetry:
+                            goto _Retry;
+                    }
                     return false;
                 }
 
-                if (Out.SensPsnt)
-                {
-                    Msg MsgBox = new Msg();
-                    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "OUT LF", EMcState.Error, EMsgBtn.smbStop, true);
-                    return false;
-                }
                 return true;
             }
             internal static bool CheckPsnt()//check part is present

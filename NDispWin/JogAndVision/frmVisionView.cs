@@ -96,7 +96,7 @@ namespace NDispWin
             {
                 try
                 {
-                    TaskVision.PtGrey_CamLive((int)SelectedCam);
+                    //TaskVision.PtGrey_CamLive((int)SelectedCam);
                 }
                 catch { };
 
@@ -113,8 +113,8 @@ namespace NDispWin
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
             {
-                TaskVision.PtGrey_CamStop();
-                TaskVision.fe.GrabbedEvent -= new TaskVision.OnGrabbedEventHandler(GrabbedEvent);
+                //TaskVision.PtGrey_CamStop();
+                //TaskVision.fe.GrabbedEvent -= new TaskVision.OnGrabbedEventHandler(GrabbedEvent);
             }
             frm_Lighting.Visible = false;
         }
@@ -193,30 +193,30 @@ namespace NDispWin
 
             if (!TaskVision.CameraRun) return;
 
-            if (!TaskVision.PGCamera[(int)SelectedCam].IsConnected) return;
+            //if (!TaskVision.PGCamera[(int)SelectedCam].IsConnected) return;
 
-            {
-                using (Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> ImageG = TaskVision.PGCamera[(int)SelectedCam].Image().ToImage<Gray, byte>())//new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[(int)SelectedCam].Image()))
-                {
-                    try
-                    {
-                        if (ImageG == null) return;
+            //{
+            //    using (Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> ImageG = TaskVision.PGCamera[(int)SelectedCam].Image().ToImage<Gray, byte>())//new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[(int)SelectedCam].Image()))
+            //    {
+            //        try
+            //        {
+            //            if (ImageG == null) return;
 
-                        using (Emgu.CV.Image<Emgu.CV.Structure.Bgr, byte> ImageC = ImageG.Convert<Emgu.CV.Structure.Bgr, byte>())
-                        {
-                            TaskVision.ImageDrawReticle(ImageG, ImageC);
-                            pbox_Image.Image = ImageC.ToBitmap();
-                            pbox_Image.Invalidate();
-                        }
-                    }
-                    catch (Exception Ex)
-                    {
-                        Log.AddToLog("frm_VisionView.GrabbedEvent, " + Ex.Message.ToString() + ".");
-                        GC.Collect();
-                    }
-                }
-                Thread.Sleep(5);
-            }
+            //            using (Emgu.CV.Image<Emgu.CV.Structure.Bgr, byte> ImageC = ImageG.Convert<Emgu.CV.Structure.Bgr, byte>())
+            //            {
+            //                TaskVision.ImageDrawReticle(ImageG, ImageC);
+            //                pbox_Image.Image = ImageC.ToBitmap();
+            //                pbox_Image.Invalidate();
+            //            }
+            //        }
+            //        catch (Exception Ex)
+            //        {
+            //            Log.AddToLog("frm_VisionView.GrabbedEvent, " + Ex.Message.ToString() + ".");
+            //            GC.Collect();
+            //        }
+            //    }
+            //    Thread.Sleep(5);
+            //}
         }
 
         Point pt_MouseDn = new Point();
@@ -452,17 +452,17 @@ namespace NDispWin
             }
             if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
             {
-                if (!TaskVision.PtGrey_Connected(0)) return;
-                TaskVision.SelectedCam = ECamNo.Cam00;
-                try
-                {
-                    TaskVision.PtGrey_CamLive(0);
-                }
-                catch (Exception ex)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ex.Message.ToString());
-                }
+                //if (!TaskVision.PtGrey_Connected(0)) return;
+                //TaskVision.SelectedCam = ECamNo.Cam00;
+                //try
+                //{
+                //    TaskVision.PtGrey_CamLive(0);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Msg MsgBox = new Msg();
+                //    MsgBox.Show(ex.Message.ToString());
+                //}
             }
             TaskVision.CameraRun = true;
         }
@@ -478,17 +478,17 @@ namespace NDispWin
 
             if (GDefine.CameraType[1] == GDefine.ECameraType.PtGrey)
             {
-                if (!TaskVision.PtGrey_Connected(1)) return;
-                TaskVision.SelectedCam = ECamNo.Cam01;
-                try
-                {
-                    TaskVision.PtGrey_CamLive(1);
-                }
-                catch (Exception ex)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ex.Message.ToString());
-                }
+                //if (!TaskVision.PtGrey_Connected(1)) return;
+                //TaskVision.SelectedCam = ECamNo.Cam01;
+                //try
+                //{
+                //    TaskVision.PtGrey_CamLive(1);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Msg MsgBox = new Msg();
+                //    MsgBox.Show(ex.Message.ToString());
+                //}
             }
             TaskVision.CameraRun = true;
         }
@@ -503,17 +503,17 @@ namespace NDispWin
 
             if (GDefine.CameraType[2] == GDefine.ECameraType.PtGrey)
             {
-                if (!TaskVision.PtGrey_Connected(2)) return;
-                TaskVision.SelectedCam = ECamNo.Cam02;
-                try
-                {
-                    TaskVision.PtGrey_CamLive(2);
-                }
-                catch (Exception ex)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ex.Message.ToString());
-                }
+                //if (!TaskVision.PtGrey_Connected(2)) return;
+                //TaskVision.SelectedCam = ECamNo.Cam02;
+                //try
+                //{
+                //    TaskVision.PtGrey_CamLive(2);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Msg MsgBox = new Msg();
+                //    MsgBox.Show(ex.Message.ToString());
+                //}
             }
             TaskVision.CameraRun = true;
         }
@@ -730,7 +730,7 @@ namespace NDispWin
             if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.Basler) StartGrab();
             if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.PtGrey)
             {
-                TaskVision.PtGrey_CamLive((int)SelectedCam);
+                //TaskVision.PtGrey_CamLive((int)SelectedCam);
             }
             if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.Spinnaker)
             {
@@ -746,8 +746,8 @@ namespace NDispWin
                 if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.Basler) StopGrab();
                 if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.PtGrey)
                 {
-                    TaskVision.PtGrey_CamStop();
-                    ImageG = TaskVision.PGCamera[(int)SelectedCam].Image().ToImage<Gray, byte>();//new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[(int)SelectedCam].Image());
+                    //TaskVision.PtGrey_CamStop();
+                    //ImageG = TaskVision.PGCamera[(int)SelectedCam].Image().ToImage<Gray, byte>();//new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[(int)SelectedCam].Image());
                 }
                 if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.Spinnaker)
                 {
@@ -780,7 +780,7 @@ namespace NDispWin
                     if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.Basler) StopGrab();
                     if (GDefine.CameraType[(int)SelectedCam] == GDefine.ECameraType.PtGrey)
                     {
-                        TaskVision.PtGrey_CamStop();
+                        //TaskVision.PtGrey_CamStop();
                     }
                 }
                 catch { };

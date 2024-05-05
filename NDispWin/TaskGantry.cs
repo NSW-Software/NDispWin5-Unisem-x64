@@ -1640,12 +1640,6 @@ namespace NDispWin
         {
             try
             {
-                TaskVision.PtGrey_CamStop();
-            }
-            catch { }
-
-            try
-            {
                 //if (!TaskVision.frmGenImageView.Visible)
                 //{
                 //    //TaskVision.frmGenImageView.Show();
@@ -1813,13 +1807,8 @@ namespace NDispWin
             catch { }
             #endregion
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                TaskVision.PtGrey_CamLive(0);
             return true;
-
-            _End:
-            if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                TaskVision.PtGrey_CamLive(0);
+        _End:
             return false;
         }
         public static bool GXHome()

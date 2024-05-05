@@ -1598,6 +1598,63 @@ namespace NDispWin
     {
         public static SECSGEMConnect2 sgc2 = new SECSGEMConnect2();
 
+        public static bool EnableDnloadStripMapE142
+        {
+            get
+            {
+                return DispProg.StripMapFollowRecipe ? DispProg.EnableDnloadStripMapE142 : sgc2.EnableDnloadStripMapE142;
+            }
+            set
+            {
+                if (DispProg.StripMapFollowRecipe)
+                    DispProg.EnableDnloadStripMapE142 = value;
+                else
+                    sgc2.EnableDnloadStripMapE142 = value;
+            }
+        }
+        public static int StripMapDnloadFlip
+        {
+            get
+            {
+                return DispProg.StripMapFollowRecipe ? DispProg.StripMapDnloadFlip : (int)sgc2.StripMapDnloadFlip;
+            }
+            set
+            {
+                if (DispProg.StripMapFollowRecipe)
+                    DispProg.StripMapDnloadFlip = value;
+                else
+                    sgc2.StripMapDnloadFlip = (SECSGEMConnect2.EStripMapFlip)value;
+            }
+        }
+        public static bool EnableUploadStripMapE142
+        {
+            get
+            {
+                return DispProg.StripMapFollowRecipe ? DispProg.EnableUploadStripMapE142 : sgc2.EnableUploadStripMapE142;
+            }
+            set
+            {
+                if (DispProg.StripMapFollowRecipe)
+                    DispProg.EnableUploadStripMapE142 = value;
+                else
+                    sgc2.EnableUploadStripMapE142 = value;
+            }
+        }
+        public static int StripMapUploadFlip
+        {
+            get
+            {
+                return DispProg.StripMapFollowRecipe ? DispProg.StripMapUploadFlip : (int)sgc2.StripMapUploadFlip;
+            }
+            set
+            {
+                if (DispProg.StripMapFollowRecipe)
+                    DispProg.StripMapUploadFlip = value;
+                else
+                    sgc2.StripMapUploadFlip = (SECSGEMConnect2.EStripMapFlip)value;
+            }
+        }
+
         public static bool CheckLic = false;
         public static bool SysOffline = false;
 
@@ -1827,7 +1884,7 @@ namespace NDispWin
         public enum EHeadConfig { Single, Dual };
         public static EHeadConfig HeadConfig = EHeadConfig.Single;
 
-        public enum ECameraType { None, Basler, Emulator, PtGrey, Spinnaker, Spinnaker2, MVCGenTL };
+        public enum ECameraType { None, Basler, Emulator, PtGrey, Spinnaker, Spinnaker2, MVSGenTL };
         public enum ELCType { None, LCSerial, LCSerLegacy };
         public enum EHeightSensorType { None, IDL1700, IDL1302, IFD2451, DONOTUSE, IDL1X20, IFD2421, IDL1750, IFD2422, CL3000};
         //public enum EWeightStType { None, JB1603, ALD214 };
@@ -1871,9 +1928,9 @@ namespace NDispWin
 
         public static int[] FPressComport = new int[2] { 1, 2 };
 
-        public enum EIDReader { None, DataMan, QRCode, DataMatrix }
-        public static EIDReader IDReader_Type = EIDReader.None;
-        public static string IDReader_Addr = "COM1";
+        //public enum EIDReader { None, DataMan, QRCode, DataMatrix }
+        //public static EIDReader IDReader_Type = EIDReader.None;
+        //public static string IDReader_Addr = "COM1";
 
         public enum ETempCtrl { None, Autonics_TX_TK }
         public static ETempCtrl TempCtrl_Type = ETempCtrl.None;
@@ -1949,9 +2006,6 @@ namespace NDispWin
             IniFile.WriteInteger("FPressCtrl2", "ComPort", FPressComport[1]);
 
             IniFile.WriteInteger("FPressCtrl", "PressUnit", (int)FPressCtrl.PressUnit);
-
-            IniFile.WriteInteger("IDReader", "Type", (int)IDReader_Type);
-            IniFile.WriteString("IDReader", "Address", IDReader_Addr);
 
             IniFile.WriteInteger("TempSensor", "Type", (int)SysConfig.TempSensorType);
             IniFile.WriteString("TempSensor", "Comport", SysConfig.TempSensorComport);
@@ -2058,9 +2112,6 @@ namespace NDispWin
             SysConfig.FPressAdjType = (SysConfig.EFPressAdjType)IniFile.ReadInteger("FPressCtrl", "Type", 0);
             FPressCtrl.Gain[0] = IniFile.ReadDouble("FPressCtrl", "Gain_A", 1);
             FPressCtrl.Gain[1] = IniFile.ReadDouble("FPressCtrl", "Gain_B", 1);
-
-            IDReader_Type = (EIDReader)IniFile.ReadInteger("IDReader", "Type", 0);
-            IDReader_Addr = IniFile.ReadString("IDReader", "Address", "COM1");
 
             try { SysConfig.TempSensorType = (SysConfig.ETempSensorType)IniFile.ReadInteger("TempSensor", "Type", 0); } catch { SysConfig.TempSensorType = 0; }
             SysConfig.TempSensorComport = IniFile.ReadString("TempSensor", "Comport", "COM1");

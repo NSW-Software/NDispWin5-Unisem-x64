@@ -66,7 +66,8 @@ namespace NDispWin
                 SetDllDirectory(@"C:\Program Files\Point Grey Research\Spinnaker\bin\vs2015");
             }
 
-            SetDllDirectory(@"C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\x86");
+            //SetDllDirectory(@"C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\x86");
+            //SetDllDirectory(@"C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\x86");
 
             if (Environment.Is64BitOperatingSystem)
             {
@@ -353,7 +354,7 @@ namespace NDispWin
         }
         private void tsbtnProgram_Click(object sender, EventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2 || GDefine.CameraType[0] is GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2 || GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
             {
                 try
                 {

@@ -13,10 +13,6 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Reflection;
 
-using ZXing;
-using ZXing.QrCode;
-using ZXing.Common;
-
 using Euresys.Open_eVision_2_5;
 using Emgu.CV;
 
@@ -1477,7 +1473,7 @@ namespace NDispWin
 
             GDefine.sgc2.EnableDnloadStripMapE142 = IniFile.ReadBool("sgc2", "EnableDnloadStripMapE142", false);
             s = IniFile.ReadString("sgc2", "StripMapDnloadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
-            Enum.TryParse(s, out GDefine.sgc2.StripMapUploadFlip);
+            Enum.TryParse(s, out GDefine.sgc2.StripMapDnloadFlip);
             GDefine.sgc2.EnableUploadStripMapE142 = IniFile.ReadBool("sgc2", "EnableUploadStripMapE142", false);
             s = IniFile.ReadString("sgc2", "StripMapUploadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
             Enum.TryParse(s, out GDefine.sgc2.StripMapUploadFlip);
@@ -1788,7 +1784,7 @@ namespace NDispWin
             IniFile.WriteInteger("sgc2", "TimeOut", GDefine.sgc2.TimeOut);
 
             IniFile.WriteBool("sgc2", "EnableDnloadStripMapE142", GDefine.sgc2.EnableDnloadStripMapE142);
-            IniFile.WriteString("sgc2", "StripMapDnloadFlip", GDefine.sgc2.StripMapUploadFlip.ToString());
+            IniFile.WriteString("sgc2", "StripMapDnloadFlip", GDefine.sgc2.StripMapDnloadFlip.ToString());
             IniFile.WriteBool("sgc2", "EnableUploadStripMapE142", GDefine.sgc2.EnableUploadStripMapE142);
             IniFile.WriteString("sgc2", "StripMapUploadFlip", GDefine.sgc2.StripMapUploadFlip.ToString());
 
@@ -2053,14 +2049,6 @@ namespace NDispWin
                                     //{
                                     TaskVision.GrabN((int)ECamNo.Cam02, ref Image);
                                     //}
-                                    if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.PtGrey)
-                                    {
-                                        TaskVision.PtGrey_CamStop();
-                                        TaskVision.PtGrey_CamArm((int)ECamNo.Cam02);
-                                        TaskVision.PtGrey_CamTrig((int)ECamNo.Cam02);
-                                        TaskVision.PtGrey_CamImage((int)ECamNo.Cam02, ref Image);
-                                        TaskVision.PtGrey_CamLive((int)ECamNo.Cam02);
-                                    }
 
                                     PointF[] Center = new PointF[1024];
                                     float[] Radius = new float[1024];
@@ -2179,156 +2167,159 @@ namespace NDispWin
                         }
                     #endregion
                     case ECalHeadOffsetMethod.BCamera:
-                        switch (GDefine.BottomCamType)
-                        {
-                            default:
-                                #region
-                                {
-                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                    frm.Inst = "Jog Camera to " + s_Type + " Position";
-                                    frm.ShowVision = true;
-                                    frm.ForceGantryMode = EForceGantryMode.XYZ;
-                                    DialogResult dr = frm.ShowDialog();
-                                    frm.ForceGantryMode = EForceGantryMode.None;
+                        { 
+                        MessageBox.Show("Function not Supported.");
+                        //switch (GDefine.BottomCamType)
+                        //{
+                        //    default:
+                        //        #region
+                        //        {
+                        //            frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                        //            frm.Inst = "Jog Camera to " + s_Type + " Position";
+                        //            frm.ShowVision = true;
+                        //            frm.ForceGantryMode = EForceGantryMode.XYZ;
+                        //            DialogResult dr = frm.ShowDialog();
+                        //            frm.ForceGantryMode = EForceGantryMode.None;
 
-                                    //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
-                                    //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
-                                    if (!TaskDisp.TaskMoveGZFocus(0)) return false;
+                        //            //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                        //            //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
+                        //            if (!TaskDisp.TaskMoveGZFocus(0)) return false;
 
-                                    if (dr == DialogResult.Cancel)
-                                    {
-                                        return false;
-                                    }
-                                    break;
-                                }
-                            #endregion
-                            case GDefine.EBottomCamType.ATNC:
-                                #region
-                                {
-                                    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Spinnaker)
-                                    {
-                                        //TaskVision.frmGenImageView.GrabStop();
-                                        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam00);
-                                        //TaskVision.frmGenImageView.Grab();
-                                        //TaskVision.frmGenImageView.Reticles.Clear();
-                                    }
+                        //            if (dr == DialogResult.Cancel)
+                        //            {
+                        //                return false;
+                        //            }
+                        //            break;
+                        //        }
+                        //    #endregion
+                        //    case GDefine.EBottomCamType.ATNC:
+                                //#region
+                                //{
+                                //    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Spinnaker)
+                                //    {
+                                //        //TaskVision.frmGenImageView.GrabStop();
+                                //        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam00);
+                                //        //TaskVision.frmGenImageView.Grab();
+                                //        //TaskVision.frmGenImageView.Reticles.Clear();
+                                //    }
 
-                                    TaskVision.SelectedCam = ECamNo.Cam00;
-                                    TaskVision.LightingOn(LightRGB_TopCamera);
+                                //    TaskVision.SelectedCam = ECamNo.Cam00;
+                                //    TaskVision.LightingOn(LightRGB_TopCamera);
 
-                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                    frm.Inst = "Jog Camera to " + s_Type + " Position";
-                                    frm.ShowVision = true;
-                                    TaskVision.FindCircle = 1;
-                                    frm.ForceGantryMode = EForceGantryMode.XYZ;
-                                    DialogResult dr = frm.ShowDialog();
-                                    frm.ForceGantryMode = EForceGantryMode.None;
-                                    TaskVision.FindCircle = 0;
+                                //    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                //    frm.Inst = "Jog Camera to " + s_Type + " Position";
+                                //    frm.ShowVision = true;
+                                //    TaskVision.FindCircle = 1;
+                                //    frm.ForceGantryMode = EForceGantryMode.XYZ;
+                                //    DialogResult dr = frm.ShowDialog();
+                                //    frm.ForceGantryMode = EForceGantryMode.None;
+                                //    TaskVision.FindCircle = 0;
 
-                                    //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
-                                    //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
-                                    if (!TaskDisp.TaskMoveGZFocus(0)) return false;
+                                //    //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                //    //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
+                                //    if (!TaskDisp.TaskMoveGZFocus(0)) return false;
 
-                                    if (dr == DialogResult.Cancel)
-                                    {
-                                        return false;
-                                    }
-                                    TaskDisp.BCamera_Cal_LightRGB = TaskVision.CurrentLightRGBA;
+                                //    if (dr == DialogResult.Cancel)
+                                //    {
+                                //        return false;
+                                //    }
+                                //    TaskDisp.BCamera_Cal_LightRGB = TaskVision.CurrentLightRGBA;
 
-                                    _RetryNew:
-                                    int RetryCount = 0;
-                                    string ATNCMsg = "ATNC: BUSY";
-                                    Color ATNCMsgColor = Color.Orange;
-                                    _Retry:
-                                    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Spinnaker)
-                                    {
-                                        //TaskVision.frmGenImageView.GrabStop();
-                                        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam00);
-                                        //TaskVision.frmGenImageView.Grab();
-                                    }
+                                //    _RetryNew:
+                                //    int RetryCount = 0;
+                                //    string ATNCMsg = "ATNC: BUSY";
+                                //    Color ATNCMsgColor = Color.Orange;
+                                //    _Retry:
+                                //    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Spinnaker)
+                                //    {
+                                //        //TaskVision.frmGenImageView.GrabStop();
+                                //        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam00);
+                                //        //TaskVision.frmGenImageView.Grab();
+                                //    }
 
-                                    int t = GDefine.GetTickCount() + 200;
-                                    while (GDefine.GetTickCount() < t) Thread.Sleep(0);
+                                //    int t = GDefine.GetTickCount() + 200;
+                                //    while (GDefine.GetTickCount() < t) Thread.Sleep(0);
 
-                                    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
-                                    //if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Basler)
-                                    {
-                                        TaskVision.GrabN(0, ref Image);
-                                    }
-                                    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.PtGrey)
-                                    {
-                                        TaskVision.PtGrey_CamStop();
-                                        TaskVision.PtGrey_CamArm((int)ECamNo.Cam00);
-                                        TaskVision.PtGrey_CamTrig((int)ECamNo.Cam00);
-                                        TaskVision.PtGrey_CamImage((int)ECamNo.Cam00, ref Image);
-                                        TaskVision.PtGrey_CamLive((int)ECamNo.Cam00);
-                                    }
+                                //    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
+                                //    //if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Basler)
+                                //    {
+                                //        TaskVision.GrabN(0, ref Image);
+                                //    }
+                                //    if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.PtGrey)
+                                //    {
+                                //        TaskVision.PtGrey_CamStop();
+                                //        TaskVision.PtGrey_CamArm((int)ECamNo.Cam00);
+                                //        TaskVision.PtGrey_CamTrig((int)ECamNo.Cam00);
+                                //        TaskVision.PtGrey_CamImage((int)ECamNo.Cam00, ref Image);
+                                //        TaskVision.PtGrey_CamLive((int)ECamNo.Cam00);
+                                //    }
 
 
-                                    PointF Center = new PointF(0, 0);// new PointF[1024];
-                                    float Radius = 0f;// new float[1024];
-                                    //int i_Circles = TaskVision.FindCircles(Image, true, ref Center, ref Radius);
-                                    int i_Circles = TaskVision.FindAperture(Image, ref Center, ref Radius);
+                                //    PointF Center = new PointF(0, 0);// new PointF[1024];
+                                //    float Radius = 0f;// new float[1024];
+                                //    //int i_Circles = TaskVision.FindCircles(Image, true, ref Center, ref Radius);
+                                //    int i_Circles = TaskVision.FindAperture(Image, ref Center, ref Radius);
 
-                                    if (i_Circles > 0)
-                                    {
-                                        double OfstX = (Center.X - (double)(Image.Width / 2)) * TaskVision.DistPerPixelX[0];
-                                        double OfstY = (Center.Y - (double)(Image.Height / 2)) * TaskVision.DistPerPixelY[0];
-                                        OfstY = -OfstY;
+                                //    if (i_Circles > 0)
+                                //    {
+                                //        double OfstX = (Center.X - (double)(Image.Width / 2)) * TaskVision.DistPerPixelX[0];
+                                //        double OfstY = (Center.Y - (double)(Image.Height / 2)) * TaskVision.DistPerPixelY[0];
+                                //        OfstY = -OfstY;
 
-                                        double GX = TaskGantry.GXPos();
-                                        double GY = TaskGantry.GYPos();
+                                //        double GX = TaskGantry.GXPos();
+                                //        double GY = TaskGantry.GYPos();
 
-                                        if (Math.Abs(OfstX) < 0.015 && Math.Abs(OfstY) < 0.015)
-                                        {
-                                            ATNCMsg = "ATNC: OK";
-                                            ATNCMsgColor = Color.Lime;
-                                            goto _End;
-                                        }
+                                //        if (Math.Abs(OfstX) < 0.015 && Math.Abs(OfstY) < 0.015)
+                                //        {
+                                //            ATNCMsg = "ATNC: OK";
+                                //            ATNCMsgColor = Color.Lime;
+                                //            goto _End;
+                                //        }
 
-                                        if (!TaskGantry.SetMotionParamGXY()) return false;
-                                        if (!TaskGantry.MoveAbsGXY(GX + OfstX, GY + OfstY)) return false;
+                                //        if (!TaskGantry.SetMotionParamGXY()) return false;
+                                //        if (!TaskGantry.MoveAbsGXY(GX + OfstX, GY + OfstY)) return false;
 
-                                        if (RetryCount < 3)
-                                        {
-                                            RetryCount++;
-                                            goto _Retry;
-                                        }
-                                        ATNCMsg = "ATNC ERROR: CORRECTION FAIL";
-                                        ATNCMsgColor = Color.Red;
-                                    }
-                                    ATNCMsg = "ATNC ERROR: APERTURE NOT FOUND";
-                                    ATNCMsgColor = Color.Red;
-                                    _End:
-                                    frm = new frm_DispCore_JogGantryVision();
-                                    frm.Inst = "Confirm Camera to " + s_Type + " Position";
-                                    frm.ShowVision = true;
-                                    TaskVision.FindCircle = 1;
-                                    TaskVision.TextString = ATNCMsg;
-                                    TaskVision.TextColor = ATNCMsgColor;
-                                    frm.ForceGantryMode = EForceGantryMode.XYZ;
-                                    dr = frm.ShowDialog();
-                                    frm.ForceGantryMode = EForceGantryMode.None;
-                                    TaskVision.FindCircle = 0;
+                                //        if (RetryCount < 3)
+                                //        {
+                                //            RetryCount++;
+                                //            goto _Retry;
+                                //        }
+                                //        ATNCMsg = "ATNC ERROR: CORRECTION FAIL";
+                                //        ATNCMsgColor = Color.Red;
+                                //    }
+                                //    ATNCMsg = "ATNC ERROR: APERTURE NOT FOUND";
+                                //    ATNCMsgColor = Color.Red;
+                                //    _End:
+                                //    frm = new frm_DispCore_JogGantryVision();
+                                //    frm.Inst = "Confirm Camera to " + s_Type + " Position";
+                                //    frm.ShowVision = true;
+                                //    TaskVision.FindCircle = 1;
+                                //    TaskVision.TextString = ATNCMsg;
+                                //    TaskVision.TextColor = ATNCMsgColor;
+                                //    frm.ForceGantryMode = EForceGantryMode.XYZ;
+                                //    dr = frm.ShowDialog();
+                                //    frm.ForceGantryMode = EForceGantryMode.None;
+                                //    TaskVision.FindCircle = 0;
 
-                                    //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
-                                    //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
-                                    if (!TaskDisp.TaskMoveGZFocus(0)) return false;
+                                //    //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                //    //if (!TaskDisp.TaskMoveAbsGZ(DispProg.CameraZPos)) return false;
+                                //    if (!TaskDisp.TaskMoveGZFocus(0)) return false;
 
-                                    if (dr == DialogResult.Retry)
-                                    {
-                                        goto _RetryNew;
-                                    }
-                                    if (dr == DialogResult.Cancel)
-                                    {
-                                        return false;
-                                    }
+                                //    if (dr == DialogResult.Retry)
+                                //    {
+                                //        goto _RetryNew;
+                                //    }
+                                //    if (dr == DialogResult.Cancel)
+                                //    {
+                                //        return false;
+                                //    }
 
-                                    break;
-                                }
-                                #endregion
-                        }
+                                //    break;
+                                //}
+                                //#endregion
+                        //}
                         break;
+                        }
                 }
 
                 LightRGB_TopCamera = TaskVision.CurrentLightRGBA;
@@ -2557,11 +2548,11 @@ namespace NDispWin
                                         }
                                         if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.PtGrey)
                                         {
-                                            TaskVision.PtGrey_CamStop();
-                                            TaskVision.PtGrey_CamArm((int)ECamNo.Cam02);
-                                            TaskVision.PtGrey_CamTrig((int)ECamNo.Cam02);
-                                            TaskVision.PtGrey_CamImage((int)ECamNo.Cam02, ref Image);
-                                            TaskVision.PtGrey_CamLive((int)ECamNo.Cam02);
+                                            //TaskVision.PtGrey_CamStop();
+                                            //TaskVision.PtGrey_CamArm((int)ECamNo.Cam02);
+                                            //TaskVision.PtGrey_CamTrig((int)ECamNo.Cam02);
+                                            //TaskVision.PtGrey_CamImage((int)ECamNo.Cam02, ref Image);
+                                            //TaskVision.PtGrey_CamLive((int)ECamNo.Cam02);
                                         }
 
 
@@ -5464,9 +5455,10 @@ namespace NDispWin
                     OK = TaskDisp.TaskTeachNeedle_ZSensor_BCamera();
                     break;
                 case TaskDisp.ETeachNeedleMethod.StepByStep:
-                    frm_TeachNeedle_StepByStep frm = new frm_TeachNeedle_StepByStep();
+                    //frm_TeachNeedle_StepByStep frm = new frm_TeachNeedle_StepByStep();
                     //return
-                    OK = frm.ShowDialog() == DialogResult.OK;
+                    //OK = frm.ShowDialog() == DialogResult.OK;
+                    MessageBox.Show("Function not Supported.");
                     break;
                 case TaskDisp.ETeachNeedleMethod.Laser_CrossHair:
                     frm_TeachNeedle_LaserCrosshair frm2 = new frm_TeachNeedle_LaserCrosshair();
@@ -5874,20 +5866,19 @@ namespace NDispWin
             }
             #endregion
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                TaskVision.PtGrey_CamLive(0);
             if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
                 TaskVision.flirCamera2[0].GrabCont();
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 TaskVision.genTLCamera[0].StartGrab();
             return true;
 
-            _Fail:
+        _Fail:
             if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                TaskVision.PtGrey_CamLive(0);
+            {// TaskVision.PtGrey_CamLive(0);
+            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
                 TaskVision.flirCamera2[0].GrabCont();
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 TaskVision.genTLCamera[0].StartGrab();
             return false;
         }
@@ -9273,131 +9264,14 @@ namespace NDispWin
             }
         }
 
-        public static CReader.DataMan DataMan = new CReader.DataMan();
+        //public static CReader.DataMan DataMan = new CReader.DataMan();
         public static bool IDReader_Enabled = true;
-        public static void IDReader_Open()
-        {
-            if (GDefine.IDReader_Type == GDefine.EIDReader.DataMan)
-                DataMan.Connect(GDefine.IDReader_Addr);
-
-            //if (GDefine.IDReader_Type == GDefine.EIDReader.DataMatrix)
-            //{
-            //    try
-            //    {
-            //        EImageBW8 m_Source = new EImageBW8();
-            //        EMatrixCode m_MatrixCode = new EMatrixCode();
-            //        EMatrixCodeReader m_MatrixCodeReader = new EMatrixCodeReader();
-            //    }
-            //    catch (Exception Ex)
-            //    {
-            //        MessageBox.Show(Ex.Message.ToString());
-            //    }
-            //}
-        }
-        public static bool IDReader_IsConnected
-        {
-            get
-            {
-                if (GDefine.IDReader_Type == GDefine.EIDReader.DataMan)
-                    return DataMan.IsConnected;
-
-                return false;
-            }
-        }
-        public static void IDReader_Close()
-        {
-            if (GDefine.IDReader_Type == GDefine.EIDReader.DataMan)
-                DataMan.Disconnect();
-        }
         public static bool IDReader_Read(bool ShowImg, ref string ReadData)
         {
-            switch (GDefine.IDReader_Type)
-            {
-                case GDefine.EIDReader.None:
-                    throw new Exception("IDReader Type not defined.");
-                case GDefine.EIDReader.DataMan:
-                    DataMan.Trig(ShowImg);
-                    ReadData = TaskDisp.DataMan._sReadData;
-                    return true;
-                case GDefine.EIDReader.QRCode:
-                    {
-                        Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
-
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Basler)
-                        {
-                            TaskVision.GrabN(0, ref Image);
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                        {
-                            TaskVision.PtGrey_CamStop();
-                            TaskVision.PtGrey_CamArm(0);
-                            TaskVision.PtGrey_CamTrig(0);
-                            TaskVision.PtGrey_CamImage(0, ref Image);
-                            TaskVision.PtGrey_CamLive(0);
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                        {
-                            TaskVision.GrabN(0, ref Image);
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                        {
-                            TaskVision.flirCamera2[0].Snap();
-                            Image = TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Clone();
-                            TaskVision.flirCamera2[0].GrabCont();
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
-                        {
-                            TaskVision.genTLCamera[0].GrabOneImage();
-                            Image = TaskVision.genTLCamera[0].mImage.Clone();
-                            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                        }
-                        if (DispProg.frm_CamView.Visible) DispProg.frm_CamView.Image = Image.ToBitmap();
-
-                        using (Image)
-                        {
-                            Bitmap bmp = Image.ToBitmap();
-
-                            LuminanceSource source;
-                            source = new BitmapLuminanceSource(bmp);
-                            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-                            if (bitmap == null) return false;
-
-                            QRCodeReader reader = new QRCodeReader();
-                            Result result = reader.decode(bitmap);
-
-                            if (result != null)
-                            {
-                                ReadData = result.Text;
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                case GDefine.EIDReader.DataMatrix:
                     {
                         Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
 
                         _Retry:
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Basler)
-                        {
-                            TaskVision.GrabN(0, ref Image);
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-                        {
-                            TaskVision.PtGrey_CamStop();
-                            TaskVision.PtGrey_CamArm(0);
-                            TaskVision.PtGrey_CamTrig(0);
-                            TaskVision.PtGrey_CamImage(0, ref Image);
-                            TaskVision.PtGrey_CamLive(0);
-                        }
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                        {
-                            TaskVision.GrabN(0, ref Image);
-                        }
                         if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
                         {
                             //TaskVision.flirCamera2[0].Snap();
@@ -9405,7 +9279,7 @@ namespace NDispWin
                             Image = TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Clone();
                             TaskVision.flirCamera2[0].GrabCont();
                         }
-                        if (GDefine.CameraType[0] is GDefine.ECameraType.MVCGenTL)
+                        if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
                         {
                             TaskVision.genTLCamera[0].GrabOneImage();
                             Image = TaskVision.genTLCamera[0].mImage.Clone();
@@ -9449,21 +9323,6 @@ namespace NDispWin
                             return false;
                         }
                     }
-                default:
-                    throw new Exception("IDReader Type not supported.");
-            }
-        }
-        public static void IDReader_ShowCtrlDlg(bool SetupMode, bool SetLive)
-        {
-            if (GDefine.IDReader_Type == GDefine.EIDReader.DataMan)
-            {
-                CReader.frm_DataMan frm_DataMan = new CReader.frm_DataMan();
-                frm_DataMan.DM = DataMan;
-                frm_DataMan.SetupMode = SetupMode;
-                frm_DataMan.SetLive = SetLive;
-                frm_DataMan.TopMost = true;
-                frm_DataMan.Show();
-            }
         }
 
         public static bool TaskIdlePurge(int Mask)

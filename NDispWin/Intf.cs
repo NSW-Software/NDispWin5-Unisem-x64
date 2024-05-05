@@ -111,8 +111,8 @@ namespace NDispWin
             FileVer file_MEDAQLib = new FileVer(Application.StartupPath + "\\" + "MEDAQLib.dll", 3, 3, 0, 21002);
             OK = !file_MEDAQLib.Validate(true);
 
-            FileVer file_CLaser = new FileVer(Application.StartupPath + "\\" + "CLaser.dll", 1, 0, 1, 3);
-            OK = !file_CLaser.Validate(true);
+            //FileVer file_CLaser = new FileVer(Application.StartupPath + "\\" + "CLaser.dll", 1, 0, 1, 3);
+            //OK = !file_CLaser.Validate(true);
 
             FileVer file_Nspira_HPC_Series = new FileVer(Application.StartupPath + "\\" + "Nspira_HPC_Series.dll", 1, 0, 2, 0);
             OK = !file_Nspira_HPC_Series.Validate(true);
@@ -123,11 +123,11 @@ namespace NDispWin
             FileVer file_AppLanguage = new FileVer(Application.StartupPath + "\\" + "AppLanguage.dll", 1, 0, 0, 4);
             OK = !file_AppLanguage.Validate(true);
 
-            FileVer file_FlyCap2CameraControl = new FileVer(Application.StartupPath + "\\" + "FlyCap2CameraControl.dll", 2, 7, 3, 18);
-            OK = !file_FlyCap2CameraControl.Validate(true);
+            //FileVer file_FlyCap2CameraControl = new FileVer(Application.StartupPath + "\\" + "FlyCap2CameraControl.dll", 2, 7, 3, 18);
+            //OK = !file_FlyCap2CameraControl.Validate(true);
 
-            FileVer file_FlyCapture2Managed = new FileVer(Application.StartupPath + "\\" + "FlyCapture2Managed.dll", 2, 7, 3, 18);
-            OK = !file_FlyCapture2Managed.Validate(true);
+            //FileVer file_FlyCapture2Managed = new FileVer(Application.StartupPath + "\\" + "FlyCapture2Managed.dll", 2, 7, 3, 18);
+            //OK = !file_FlyCapture2Managed.Validate(true);
 
             //            FileVer file_NCamera = new FileVer(Application.StartupPath + "\\" + "NCamera.dll", 1, 0, 2, 1);
             //          OK = !file_NCamera.Validate(true);
@@ -272,7 +272,7 @@ namespace NDispWin
 
             #region TeachNeedle
             AppLanguage.Func2.WriteLangFile(new frm_TeachNeedle_LaserCrosshair());
-            AppLanguage.Func2.WriteLangFile(new frm_TeachNeedle_StepByStep());
+            //AppLanguage.Func2.WriteLangFile(new frm_TeachNeedle_StepByStep());
             #endregion
 
             //ErrCode ErrCode = new ErrCode();
@@ -361,11 +361,11 @@ namespace NDispWin
             }
             catch { };
 
-            try
-            {
-                TaskDisp.IDReader_Open();
-            }
-            catch { };
+            //try
+            //{
+            //    TaskDisp.IDReader_Open();
+            //}
+            //catch { };
 
             try
             {
@@ -447,12 +447,6 @@ namespace NDispWin
             try
             {
                 TaskWeight.WeightClose();
-            }
-            catch { };
-
-            try
-            {
-                TaskDisp.IDReader_Close();
             }
             catch { };
 
@@ -718,7 +712,7 @@ namespace NDispWin
                     return frm.ShowDialog();
                 }
                 else
-                if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 {
                     frm_DispProg2 frm = new frm_DispProg2();
                     return frm.ShowDialog();

@@ -8,6 +8,7 @@ namespace NDispWin
 {
     public class TaskLaser
     {
+        //public static CLaser.MEDAQ Sensor = new CLaser.MEDAQ();
         public static CLaser.MEDAQ Sensor = new CLaser.MEDAQ();
         public static TFCL3 CL3 = new TFCL3();
 

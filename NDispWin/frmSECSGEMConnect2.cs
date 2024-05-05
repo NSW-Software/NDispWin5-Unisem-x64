@@ -45,10 +45,11 @@ namespace NDispWin
             cbEnableRMS.Checked = sgc2.EnableRMS;
             tbxTimeOut.Text = sgc2.TimeOut.ToString();
 
-            cbEnableDnloadMap.Checked = sgc2.EnableDnloadStripMapE142;
-            cbxStripMapDnloadFlip.SelectedIndex = (int)sgc2.StripMapDnloadFlip;
-            cbEnableUploadMap.Checked = sgc2.EnableUploadStripMapE142;
-            cbxStripMapUploadFlip.SelectedIndex = (int)sgc2.StripMapUploadFlip;
+            gbxStripMap.Text = "StripMap " + (DispProg.StripMapFollowRecipe ? "(Follow Recipe)" : "(System)"); 
+            cbEnableDnloadMap.Checked = GDefine.EnableDnloadStripMapE142;
+            cbxStripMapDnloadFlip.SelectedIndex = (int)GDefine.StripMapDnloadFlip;
+            cbEnableUploadMap.Checked = GDefine.EnableUploadStripMapE142;
+            cbxStripMapUploadFlip.SelectedIndex = (int)GDefine.StripMapUploadFlip;
         }
         private void frmSECSGEMConnect2_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -230,7 +231,6 @@ namespace NDispWin
             Log.OnSet("EnableAlarm", sgc2.EnableAlarm, !sgc2.EnableAlarm);
             sgc2.EnableAlarm = cbEnableAlarm.Checked;
         }
-
         private void cbEnableEvent_Click(object sender, EventArgs e)
         {
             Log.OnSet("EnableEvent", sgc2.EnableEvent, !sgc2.EnableEvent);
@@ -256,11 +256,6 @@ namespace NDispWin
             sgc2.TimeOut = i;
         }
 
-        private void tpManual_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnPPSelect_Click(object sender, EventArgs e)
         {
             sgc2.PPSelect(rtbxPPSelectFilename.Text);
@@ -269,20 +264,6 @@ namespace NDispWin
         private void cbFUseFile_Click(object sender, EventArgs e)
         {
             sgc2.useMapFile = cbFUseFile.Checked;
-        }
-
-        private void tpStripMap_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbxStripMapDnloadFlip_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            sgc2.StripMapDnloadFlip = (SECSGEMConnect2.EStripMapFlip)cbxStripMapDnloadFlip.SelectedIndex;
-        }
-        private void cbxStripMapFlip_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            sgc2.StripMapUploadFlip = (SECSGEMConnect2.EStripMapFlip)cbxStripMapUploadFlip.SelectedIndex;
         }
 
         private void btnGenerateALIDList_Click(object sender, EventArgs e)
@@ -345,14 +326,21 @@ namespace NDispWin
 
         private void cbEnableUploadMap_Click(object sender, EventArgs e)
         {
-            sgc2.EnableUploadStripMapE142 = (sender as CheckBox).Checked;
-            Log.OnSet("EnableUploadStripMapE142", sgc2.EnableUploadStripMapE142);
+            GDefine.EnableUploadStripMapE142 = (sender as CheckBox).Checked;
+            Log.OnSet("EnableUploadStripMapE142", GDefine.EnableUploadStripMapE142);
         }
-
         private void cbEnableDnloadMap_Click(object sender, EventArgs e)
         {
-            sgc2.EnableDnloadStripMapE142 = (sender as CheckBox).Checked;
-            Log.OnSet("EnableDnloadStripMapE142", sgc2.EnableDnloadStripMapE142);
+            GDefine.EnableDnloadStripMapE142 = (sender as CheckBox).Checked;
+            Log.OnSet("EnableDnloadStripMapE142", GDefine.EnableDnloadStripMapE142);
+        }
+        private void cbxStripMapDnloadFlip_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefine.StripMapDnloadFlip = cbxStripMapDnloadFlip.SelectedIndex;
+        }
+        private void cbxStripMapFlip_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefine.StripMapUploadFlip = cbxStripMapUploadFlip.SelectedIndex;
         }
     }
     public class TClient

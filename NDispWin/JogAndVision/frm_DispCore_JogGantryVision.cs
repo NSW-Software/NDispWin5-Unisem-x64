@@ -70,7 +70,7 @@ namespace NDispWin
                 //}
             }
             else
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 this.WindowState = FormWindowState.Maximized;
                 this.BringToFront();
@@ -128,7 +128,7 @@ namespace NDispWin
                 //frmJog.Show();
             }
 
-            if (ShowVision && (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVCGenTL))
+            if (ShowVision && (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVSGenTL))
             {
                 if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                 {
@@ -161,7 +161,7 @@ namespace NDispWin
                     PageVision.BringToFront();
                 }
             }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
                 TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
@@ -176,7 +176,7 @@ namespace NDispWin
                 TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
             }
 
-            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] != GDefine.ECameraType.Spinnaker2 && GDefine.CameraType[0] != GDefine.ECameraType.MVSGenTL)
             {
                 PageJog.ForceGantryMode = (int)ForceGantryMode;
                 PageJog.FormBorderStyle = FormBorderStyle.None;
@@ -237,7 +237,7 @@ namespace NDispWin
         }
         private void frm_DispCore_JogGantryVision_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL) TaskVision.frmMVCGenTLCamera.Close();
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVision.frmMVCGenTLCamera.Close();
 
             PageVision.Close();
             PageJog.Close();

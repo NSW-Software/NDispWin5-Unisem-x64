@@ -50,7 +50,6 @@ namespace NDispWin
             }
         }
 
-        CReader.frm_DataMan frm = new CReader.frm_DataMan();
         private void frmDispProg_ReadID_Load(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
@@ -65,21 +64,6 @@ namespace NDispWin
             if (CmdLine.IPara[4] == 0) CmdLine.IPara[4] = 150;
 
             UpdateDisplay();
-
-            if (GDefine.IDReader_Type == GDefine.EIDReader.DataMan)
-            {
-                CReader.frm_DataMan frm = new CReader.frm_DataMan();
-                frm.DM = TaskDisp.DataMan;
-                frm.SetLive = true;
-                frm.TopLevel = false;
-                frm.TopMost = true;
-                frm.Parent = this;
-                frm.FormBorderStyle = FormBorderStyle.None;
-                frm.Location = new Point(gbox_Pos1.Left, gbox_Pos1.Top + gbox_Pos1.Height + 6);
-                frm.BringToFront();
-                frm.Show();
-                panel1.Location = new Point(frm.Left, frm.Bottom + 6);
-            }
 
             try
             {

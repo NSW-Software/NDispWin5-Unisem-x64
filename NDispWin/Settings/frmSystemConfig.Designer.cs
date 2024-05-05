@@ -74,14 +74,6 @@
             this.cbxTempSensorComport = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cbxTempSensorType = new System.Windows.Forms.ComboBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.pnl_IDReaderSetting = new System.Windows.Forms.Panel();
-            this.label28 = new System.Windows.Forms.Label();
-            this.combox_IDReaderAddr = new System.Windows.Forms.ComboBox();
-            this.btn_IDReader_Connect = new System.Windows.Forms.Button();
-            this.btn_IDReader_CtrlDlg = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
-            this.combox_IDReader_Type = new System.Windows.Forms.ComboBox();
             this.tpage_DispControls = new System.Windows.Forms.TabPage();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.btnDispHeaterDlg = new System.Windows.Forms.Button();
@@ -129,6 +121,7 @@
             this.combox_WeightStType = new System.Windows.Forms.ComboBox();
             this.tpage_HeightSensor = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label52 = new System.Windows.Forms.Label();
             this.tbox_HSensorIPAddress = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.btn_HeightSensorControlDlg = new System.Windows.Forms.Button();
@@ -201,15 +194,12 @@
             this.lbl_Device1Info = new System.Windows.Forms.Label();
             this.lbl_Device0Info = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label52 = new System.Windows.Forms.Label();
             this.tpage_Others.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_LogLevel)).BeginInit();
             this.groupBox17.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.pnl_IDReaderSetting.SuspendLayout();
             this.tpage_DispControls.SuspendLayout();
             this.groupBox21.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -246,7 +236,6 @@
             this.tpage_Others.Controls.Add(this.groupBox22);
             this.tpage_Others.Controls.Add(this.groupBox17);
             this.tpage_Others.Controls.Add(this.groupBox12);
-            this.tpage_Others.Controls.Add(this.groupBox11);
             this.tpage_Others.Location = new System.Drawing.Point(4, 34);
             this.tpage_Others.Name = "tpage_Others";
             this.tpage_Others.Padding = new System.Windows.Forms.Padding(3);
@@ -740,95 +729,6 @@
             this.cbxTempSensorType.Size = new System.Drawing.Size(121, 26);
             this.cbxTempSensorType.TabIndex = 15;
             this.cbxTempSensorType.SelectionChangeCommitted += new System.EventHandler(this.cbxTempSensorType_SelectionChangeCommitted);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.AccessibleDescription = "ID Reader";
-            this.groupBox11.AutoSize = true;
-            this.groupBox11.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox11.Controls.Add(this.pnl_IDReaderSetting);
-            this.groupBox11.Controls.Add(this.label30);
-            this.groupBox11.Controls.Add(this.combox_IDReader_Type);
-            this.groupBox11.Location = new System.Drawing.Point(6, 6);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(242, 128);
-            this.groupBox11.TabIndex = 156;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "ID Reader";
-            // 
-            // pnl_IDReaderSetting
-            // 
-            this.pnl_IDReaderSetting.AutoSize = true;
-            this.pnl_IDReaderSetting.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnl_IDReaderSetting.Controls.Add(this.label28);
-            this.pnl_IDReaderSetting.Controls.Add(this.combox_IDReaderAddr);
-            this.pnl_IDReaderSetting.Controls.Add(this.btn_IDReader_Connect);
-            this.pnl_IDReaderSetting.Controls.Add(this.btn_IDReader_CtrlDlg);
-            this.pnl_IDReaderSetting.Location = new System.Drawing.Point(9, 49);
-            this.pnl_IDReaderSetting.Name = "pnl_IDReaderSetting";
-            this.pnl_IDReaderSetting.Size = new System.Drawing.Size(227, 54);
-            this.pnl_IDReaderSetting.TabIndex = 158;
-            // 
-            // label28
-            // 
-            this.label28.AccessibleDescription = "Comport";
-            this.label28.Location = new System.Drawing.Point(-3, 0);
-            this.label28.Margin = new System.Windows.Forms.Padding(3);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(100, 22);
-            this.label28.TabIndex = 16;
-            this.label28.Text = "Comport";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // combox_IDReaderAddr
-            // 
-            this.combox_IDReaderAddr.FormattingEnabled = true;
-            this.combox_IDReaderAddr.Location = new System.Drawing.Point(103, 0);
-            this.combox_IDReaderAddr.Name = "combox_IDReaderAddr";
-            this.combox_IDReaderAddr.Size = new System.Drawing.Size(121, 26);
-            this.combox_IDReaderAddr.TabIndex = 15;
-            this.combox_IDReaderAddr.SelectionChangeCommitted += new System.EventHandler(this.combox_IDReaderAddr_SelectionChangeCommitted);
-            // 
-            // btn_IDReader_Connect
-            // 
-            this.btn_IDReader_Connect.Location = new System.Drawing.Point(149, 28);
-            this.btn_IDReader_Connect.Name = "btn_IDReader_Connect";
-            this.btn_IDReader_Connect.Size = new System.Drawing.Size(75, 23);
-            this.btn_IDReader_Connect.TabIndex = 22;
-            this.btn_IDReader_Connect.Text = "Connect";
-            this.btn_IDReader_Connect.UseVisualStyleBackColor = true;
-            this.btn_IDReader_Connect.Click += new System.EventHandler(this.btn_IDReader_Connect_Click);
-            // 
-            // btn_IDReader_CtrlDlg
-            // 
-            this.btn_IDReader_CtrlDlg.AccessibleDescription = "Control Dlg";
-            this.btn_IDReader_CtrlDlg.Location = new System.Drawing.Point(-3, 28);
-            this.btn_IDReader_CtrlDlg.Name = "btn_IDReader_CtrlDlg";
-            this.btn_IDReader_CtrlDlg.Size = new System.Drawing.Size(75, 23);
-            this.btn_IDReader_CtrlDlg.TabIndex = 158;
-            this.btn_IDReader_CtrlDlg.Text = "Control Dlg";
-            this.btn_IDReader_CtrlDlg.UseVisualStyleBackColor = true;
-            this.btn_IDReader_CtrlDlg.Click += new System.EventHandler(this.btn_IDReader_CtrlDlg_Click);
-            // 
-            // label30
-            // 
-            this.label30.AccessibleDescription = "Type";
-            this.label30.Location = new System.Drawing.Point(6, 21);
-            this.label30.Margin = new System.Windows.Forms.Padding(3);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(100, 22);
-            this.label30.TabIndex = 160;
-            this.label30.Text = "Type";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // combox_IDReader_Type
-            // 
-            this.combox_IDReader_Type.FormattingEnabled = true;
-            this.combox_IDReader_Type.Location = new System.Drawing.Point(112, 21);
-            this.combox_IDReader_Type.Name = "combox_IDReader_Type";
-            this.combox_IDReader_Type.Size = new System.Drawing.Size(121, 26);
-            this.combox_IDReader_Type.TabIndex = 159;
-            this.combox_IDReader_Type.SelectionChangeCommitted += new System.EventHandler(this.combox_IDReader_Type_SelectionChangeCommitted);
             // 
             // tpage_DispControls
             // 
@@ -1370,6 +1270,17 @@
             this.groupBox4.TabIndex = 18;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Height Sensor";
+            // 
+            // label52
+            // 
+            this.label52.AccessibleDescription = "";
+            this.label52.Location = new System.Drawing.Point(6, 134);
+            this.label52.Margin = new System.Windows.Forms.Padding(3);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(227, 22);
+            this.label52.TabIndex = 160;
+            this.label52.Text = "IDL Baudrate 115200";
+            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbox_HSensorIPAddress
             // 
@@ -2192,17 +2103,6 @@
             this.tabControl1.Size = new System.Drawing.Size(596, 519);
             this.tabControl1.TabIndex = 158;
             // 
-            // label52
-            // 
-            this.label52.AccessibleDescription = "";
-            this.label52.Location = new System.Drawing.Point(6, 134);
-            this.label52.Margin = new System.Windows.Forms.Padding(3);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(227, 22);
-            this.label52.TabIndex = 160;
-            this.label52.Text = "IDL Baudrate 115200";
-            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmSystemConfig
             // 
             this.AccessibleDescription = "";
@@ -2229,9 +2129,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_LogLevel)).EndInit();
             this.groupBox17.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.pnl_IDReaderSetting.ResumeLayout(false);
             this.tpage_DispControls.ResumeLayout(false);
             this.tpage_DispControls.PerformLayout();
             this.groupBox21.ResumeLayout(false);
@@ -2314,14 +2211,6 @@
         private System.Windows.Forms.ComboBox cbxTempSensorComport;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cbxTempSensorType;
-        private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.Panel pnl_IDReaderSetting;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox combox_IDReaderAddr;
-        private System.Windows.Forms.Button btn_IDReader_Connect;
-        private System.Windows.Forms.Button btn_IDReader_CtrlDlg;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.ComboBox combox_IDReader_Type;
         private System.Windows.Forms.TabPage tpage_DispControls;
         private System.Windows.Forms.GroupBox groupBox21;
         private System.Windows.Forms.Button btnDispHeaterDlg;

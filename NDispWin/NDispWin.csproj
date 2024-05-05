@@ -30,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -86,36 +86,17 @@
     <Reference Include="Automation.BDaq4">
       <HintPath>..\dll x64\Automation.BDaq4.dll</HintPath>
     </Reference>
-    <Reference Include="CLaser">
-      <HintPath>..\dll x64\CLaser.dll</HintPath>
-    </Reference>
-    <Reference Include="Cognex.DataMan.SDK.PC, Version=5.6.3.126, Culture=neutral, PublicKeyToken=9f98866f2a3a2e78, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dll x64\Cognex.DataMan.SDK.PC.dll</HintPath>
-    </Reference>
-    <Reference Include="CReader">
-      <HintPath>..\dll x64\CReader.dll</HintPath>
-    </Reference>
     <Reference Include="Emgu.CV.UI">
       <HintPath>..\dll x64\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.World.Netstandard">
       <HintPath>..\dll x64\Emgu.CV.World.Netstandard.dll</HintPath>
     </Reference>
-    <Reference Include="FlyCap2CameraControld_v110">
-      <HintPath>..\dll x64\FlyCap2CameraControld_v110.dll</HintPath>
-    </Reference>
-    <Reference Include="FlyCapture2Managed">
-      <HintPath>..\dll x64\FlyCapture2Managed.dll</HintPath>
-    </Reference>
     <Reference Include="HPC15">
       <HintPath>..\dll x64\HPC15.dll</HintPath>
     </Reference>
     <Reference Include="LEDStudio.Net">
       <HintPath>..\dll x64\LEDStudio.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="LHS_ILD_Series">
-      <HintPath>..\dll x64\LHS_ILD_Series.dll</HintPath>
     </Reference>
     <Reference Include="MEDAQLib.NET">
       <HintPath>..\dll x64\MEDAQLib.NET.dll</HintPath>
@@ -126,9 +107,6 @@
     <Reference Include="MvCameraControl.Net">
       <HintPath>..\dll x64\MvCameraControl.Net.dll</HintPath>
     </Reference>
-    <Reference Include="NDispLicense">
-      <HintPath>..\dll x64\NDispLicense.dll</HintPath>
-    </Reference>
     <Reference Include="Nspira_HPC_Series">
       <HintPath>..\dll x64\Nspira_HPC_Series.dll</HintPath>
     </Reference>
@@ -138,7 +116,8 @@
     <Reference Include="NUtils">
       <HintPath>..\dll x64\NUtils.dll</HintPath>
     </Reference>
-    <Reference Include="NVision">
+    <Reference Include="NVision, Version=2.2.34.27070, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dll x64\NVision.dll</HintPath>
     </Reference>
     <Reference Include="Open_eVision_NetApi_2_5">
@@ -172,9 +151,6 @@
     </Reference>
     <Reference Include="ZKANet64">
       <HintPath>..\dll x64\ZKANet64.dll</HintPath>
-    </Reference>
-    <Reference Include="zxing">
-      <HintPath>..\dll x64\zxing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +199,12 @@
     <Compile Include="frmDispProg_NeedleInsp.Designer.cs">
       <DependentUpon>frmDispProg_NeedleInsp.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmJogControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJogControl.designer.cs">
+      <DependentUpon>frmJogControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMeasTemp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +223,7 @@
     <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.designer.cs">
       <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
     </Compile>
+    <Compile Include="MEDAQ.cs" />
     <Compile Include="Settings\frmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -894,12 +877,6 @@
     <Compile Include="TeachNeedle\frm_TeachNeedle_LaserCrosshair.Designer.cs">
       <DependentUpon>frm_TeachNeedle_LaserCrosshair.cs</DependentUpon>
     </Compile>
-    <Compile Include="TeachNeedle\frm_TeachNeedle_StepByStep.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TeachNeedle\frm_TeachNeedle_StepByStep.Designer.cs">
-      <DependentUpon>frm_TeachNeedle_StepByStep.cs</DependentUpon>
-    </Compile>
     <Compile Include="frm_DispCore_DispInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1123,6 +1100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDispProg_NeedleInsp.resx">
       <DependentUpon>frmDispProg_NeedleInsp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJogControl.resx">
+      <DependentUpon>frmJogControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMeasTemp.resx">
       <DependentUpon>frmMeasTemp.cs</DependentUpon>
@@ -1594,10 +1574,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TeachNeedle\frm_TeachNeedle_LaserCrosshair.resx">
       <DependentUpon>frm_TeachNeedle_LaserCrosshair.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TeachNeedle\frm_TeachNeedle_StepByStep.resx">
-      <DependentUpon>frm_TeachNeedle_StepByStep.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_DispTool_VolumeAdjust.resx">

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btn_Close = new System.Windows.Forms.Button();
             this.pbox_Image = new System.Windows.Forms.PictureBox();
             this.pnl_Top = new System.Windows.Forms.Panel();
@@ -36,8 +35,6 @@
             this.btn_Confirm = new System.Windows.Forms.Button();
             this.btn_Set = new System.Windows.Forms.Button();
             this.btn_JogPos = new System.Windows.Forms.Button();
-            this.uctrl_JogGantry1 = new NDispWin.uctrl_JogGantry();
-            this.tmr_Debug = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Image)).BeginInit();
             this.pnl_Top.SuspendLayout();
             this.SuspendLayout();
@@ -123,22 +120,6 @@
             this.btn_JogPos.UseVisualStyleBackColor = true;
             this.btn_JogPos.Click += new System.EventHandler(this.btn_JogPos_Click);
             // 
-            // uctrl_JogGantry1
-            // 
-            this.uctrl_JogGantry1.AutoSize = true;
-            this.uctrl_JogGantry1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.uctrl_JogGantry1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uctrl_JogGantry1.ForeColor = System.Drawing.Color.Navy;
-            this.uctrl_JogGantry1.Location = new System.Drawing.Point(268, 97);
-            this.uctrl_JogGantry1.Name = "uctrl_JogGantry1";
-            this.uctrl_JogGantry1.Size = new System.Drawing.Size(503, 223);
-            this.uctrl_JogGantry1.TabIndex = 5;
-            // 
-            // tmr_Debug
-            // 
-            this.tmr_Debug.Interval = 3000;
-            this.tmr_Debug.Tick += new System.EventHandler(this.tmr_Debug_Tick);
-            // 
             // frm_DispProg_View
             // 
             this.AccessibleDescription = "OK";
@@ -146,7 +127,6 @@
             this.ClientSize = new System.Drawing.Size(844, 700);
             this.ControlBox = false;
             this.Controls.Add(this.pnl_Top);
-            this.Controls.Add(this.uctrl_JogGantry1);
             this.Controls.Add(this.pbox_Image);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ForeColor = System.Drawing.Color.Navy;
@@ -175,7 +155,6 @@
         private System.Windows.Forms.Button btn_JogPos;
         private System.Windows.Forms.Button btn_Set;
         private System.Windows.Forms.Button btn_Confirm;
-        private System.Windows.Forms.Timer tmr_Debug;
         private System.Windows.Forms.Button btn_CamOfst;
     }
 }

@@ -545,6 +545,7 @@ namespace NDispWin
         #region 
         public const int CAMERA_COMM_EX_ERR = CAMERA_ERR + 0;
         public const int CAMERA_INIT_ERR = CAMERA_ERR + 1;
+        public const int CAMERA_DRIVER_NOT_SUPPORT = CAMERA_ERR + 2;
         public const int CAMERA1_OPEN_ERR = CAMERA_ERR + 10;
         public const int CAMERA2_OPEN_ERR = CAMERA_ERR + 11;
         public const int CAMERA3_OPEN_ERR = CAMERA_ERR + 12;
@@ -955,7 +956,8 @@ namespace NDispWin
 
             MsgList.Add(ErrCode.CAMERA_COMM_EX_ERR, "Camera Comm Exception Error.", "Check ExMessage and feedback to NSW Automation.");
             MsgList.Add(ErrCode.CAMERA_INIT_ERR, "Camera Init Error.", "Check Vision Drivers.");
-            MsgList.Add(ErrCode.CAMERA1_OPEN_ERR, "Camera1 Open Error.", "1. Check Camera connection.@2. Check Camera Drivers.");
+            MsgList.Add(ErrCode.CAMERA_DRIVER_NOT_SUPPORT, "Camera Driver Support Error.", "Camera Driver is not Supported.");
+        MsgList.Add(ErrCode.CAMERA1_OPEN_ERR, "Camera1 Open Error.", "1. Check Camera connection.@2. Check Camera Drivers.");
             MsgList.Add(ErrCode.CAMERA2_OPEN_ERR, "Camera2 Open Error.", "1. Check Camera connection.@2. Check Camera Drivers.");
             MsgList.Add(ErrCode.CAMERA3_OPEN_ERR, "Camera3 Open Error.", "1. Check Camera connection.@2. Check Camera Drivers.");
             MsgList.Add(ErrCode.CAMERA_NOT_CONFIG_ERR, "Camera Not Configured.", "1. Check System Config.@2. Check Camera configuration.");

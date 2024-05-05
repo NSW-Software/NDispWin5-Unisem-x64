@@ -2,6 +2,20 @@
 
 TaskWeight ReadImme at Open
 
+Todo:
+remove frmVisionView
+
+
+Ver 6.0.2 - 20240505 - KN - Gitted
+- [Change] Removed NDispLicense
+- [Change] Removed LHS_ILD.dll, CReader.dll and Cognex.DataMan.SDK.dll references and dependencies
+- [Change] Removed FlyCapture2Managed.dll, FlyCap2CameraControl.dll references and dependencies
+- [Change] Added MEDAQ.cs and removed CLaser.dll
+Ver 6.0.1 - 20240505 - KN
+- [Feature] Added StripMapFollowRecipe
+Ver 6.0.0 - 20240501 - KN
+- [Migrate] Refactor to x64 from 5.3.0
+
 Ver 5.3.0 - 20240420 - KN - Gitted
 - [Feature] Added Keyence CL3 Support
 - [Enhance] Update frmDisptool to enable label to prevent autorun acccess

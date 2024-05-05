@@ -286,12 +286,12 @@ namespace NDispWin
         {
             if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
             {
-                bool Avail = false;
-                double Min = 0;
-                double Max = 0;
-                double Value = 0;
-                TaskVision.PGCamera[1].GetProperty(PtGrey.TCamera.EProperty.Gain, ref Avail, ref Min, ref Max, ref Value);
-                UC.AdjustExec(CmdName + ", Gain", ref CmdLine.DPara[6], Min, Max);
+                //bool Avail = false;
+                //double Min = 0;
+                //double Max = 0;
+                //double Value = 0;
+                //TaskVision.PGCamera[1].GetProperty(PtGrey.TCamera.EProperty.Gain, ref Avail, ref Min, ref Max, ref Value);
+                //UC.AdjustExec(CmdName + ", Gain", ref CmdLine.DPara[6], Min, Max);
             }
             if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
             {
@@ -300,7 +300,7 @@ namespace NDispWin
                 double Max = 24;
                 UC.AdjustExec(CmdName + ", Gain", ref CmdLine.DPara[6], Min, Max);
             }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVCGenTL)
+            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 double Min = 1;
                 double Max = 24;
@@ -412,7 +412,7 @@ namespace NDispWin
                     case GDefine.ECameraType.Spinnaker2:
                         TaskVision.flirCamera2[(int)TaskVision.SelectedCam].GrabCont();
                         break;
-                    case GDefine.ECameraType.MVCGenTL:
+                    case GDefine.ECameraType.MVSGenTL:
                         TaskVision.genTLCamera[(int)TaskVision.SelectedCam].StartGrab();
                         break;
                     default:

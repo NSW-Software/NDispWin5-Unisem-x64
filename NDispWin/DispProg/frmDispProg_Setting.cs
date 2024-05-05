@@ -134,6 +134,7 @@ namespace NDispWin
             lblVideoLogDuration.Text = $"{DispProg.Options_VideoLogDuration}";
             cbWaitVideoLogReady.Checked = DispProg.Options_WaitCameraReady;
             lblCheckBoardYield.Text = $"{DispProg.Options_CheckBoardYield*100:f2}";
+            cbStripMapFollowRecipe.Checked = DispProg.StripMapFollowRecipe;
 
             lbl_PurgeStageCount.Text = DispProg.PurgeStage.Count.ToString();
             lbl_PurgeStageInterval.Text = DispProg.PurgeStage.Interval.ToString();
@@ -610,6 +611,13 @@ namespace NDispWin
             double d = DispProg.Options_CheckBoardYield * 100;
             UC.AdjustExec("Check Board Yield (%)", ref d, 0, 100);
             DispProg.Options_CheckBoardYield = d /100;
+            UpdateDisplay();
+        }
+
+        private void cbStripMapFollowRecipe_Click(object sender, EventArgs e)
+        {
+            DispProg.StripMapFollowRecipe = !DispProg.StripMapFollowRecipe;
+            Log.OnSet("Strip Map Follow Recipe", !DispProg.StripMapFollowRecipe, DispProg.StripMapFollowRecipe);
             UpdateDisplay();
         }
     }
