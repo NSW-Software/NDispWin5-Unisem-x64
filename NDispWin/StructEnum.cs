@@ -175,14 +175,11 @@ namespace NDispWin
         public double A;
         public double B;
         public double C;
+        public List<TPos3> DataPoints;
         public bool OK;
         public THeightData()
         {
-            Ready = false;
-            A = 0;
-            B = 0;
-            C = 0;
-            OK = true;
+            Clear();
         }
         public void Clear()
         {
@@ -190,6 +187,7 @@ namespace NDispWin
             A = 0;
             B = 0;
             C = 0;
+            DataPoints = new List<TPos3>();
             OK = true;
         }
         public void Copy(THeightData SourceData)
@@ -199,6 +197,7 @@ namespace NDispWin
             B = SourceData.B;
             C = SourceData.C;
             OK = SourceData.OK;
+            DataPoints = SourceData.DataPoints;
         }
     }
 

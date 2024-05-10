@@ -53,28 +53,24 @@ namespace NDispWin
 
             this.WindowState = FormWindowState.Maximized;
 
+            bool x64App = true;
             if (Environment.Is64BitOperatingSystem)
             {
                 Event.APP_INFO.Set("OS", "64bit");
                 SetDllDirectory(@"C:\Program Files (x86)\Point Grey Research\FlyCapture2\bin");
                 SetDllDirectory(@"C:\Program Files (x86)\Point Grey Research\Spinnaker\bin\vs2015");
+
+                if (x64App)
+                    SetDllDirectory(@"C:\Program Files (x86)\Euresys\Open eVision 2.5\Bin64");
+                else
+                    SetDllDirectory(@"C:\Program Files (x86)\Euresys\Open eVision 2.5\Bin32");
             }
             else
             {
                 Event.APP_INFO.Set("OS", "32bit");
                 SetDllDirectory(@"C:\Program Files\Point Grey Research\FlyCapture2\bin");
                 SetDllDirectory(@"C:\Program Files\Point Grey Research\Spinnaker\bin\vs2015");
-            }
 
-            //SetDllDirectory(@"C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\x86");
-            //SetDllDirectory(@"C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\x86");
-
-            if (Environment.Is64BitOperatingSystem)
-            {
-                SetDllDirectory(@"C:\Program Files (x86)\Euresys\Open eVision 2.5\Bin32");
-            }
-            else
-            {
                 SetDllDirectory(@"C:\Program Files\Euresys\Open eVision 2.5\Bin32");
             }
 

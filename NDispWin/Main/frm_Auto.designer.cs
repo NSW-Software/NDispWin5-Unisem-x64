@@ -45,6 +45,7 @@
             this.btn_Back = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tpage_RunInfo = new System.Windows.Forms.TabPage();
+            this.rtbPumpSettings = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btn_SysInfoReset = new System.Windows.Forms.Button();
@@ -68,28 +69,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rtbOptions = new System.Windows.Forms.RichTextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.lbl_DB_DispTotal = new System.Windows.Forms.Label();
-            this.lbl_OffsetUnit = new System.Windows.Forms.Label();
-            this.lbl_BackSuckUnit = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.lbl_DispUnit = new System.Windows.Forms.Label();
-            this.lbl_DA_DispTotal = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.lbl_DB_DispBase = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.lbl_DB_BackSuckVol = new System.Windows.Forms.Label();
-            this.lbl_DB_DispAdj = new System.Windows.Forms.Label();
-            this.lbl_DA_DispOfst = new System.Windows.Forms.Label();
-            this.lbl_DA_DispBase = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.lbl_DA_DispAdj = new System.Windows.Forms.Label();
-            this.lbl_DA_BackSuckVol = new System.Windows.Forms.Label();
-            this.lbl_DB_DispOfst = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblRunInfoMaterialDispCount = new System.Windows.Forms.Label();
             this.lblRunInfoMaterialExpiry = new System.Windows.Forms.Label();
@@ -101,7 +80,6 @@
             this.lbl_Flowrate = new System.Windows.Forms.Label();
             this.lbl_Weight = new System.Windows.Forms.Label();
             this.lbl_HeadShotCount = new System.Windows.Forms.Label();
-            this.lbl_FrameCount = new System.Windows.Forms.Label();
             this.lbl_Elapsed = new System.Windows.Forms.Label();
             this.lbl_Recipe = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -417,6 +395,18 @@
             this.tpage_RunInfo.TabIndex = 0;
             this.tpage_RunInfo.Text = "Run Info";
             // 
+            // rtbPumpSettings
+            // 
+            this.rtbPumpSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.rtbPumpSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbPumpSettings.Cursor = System.Windows.Forms.Cursors.Default;
+            this.rtbPumpSettings.ForeColor = System.Drawing.Color.Navy;
+            this.rtbPumpSettings.Location = new System.Drawing.Point(6, 25);
+            this.rtbPumpSettings.Name = "rtbPumpSettings";
+            this.rtbPumpSettings.Size = new System.Drawing.Size(244, 151);
+            this.rtbPumpSettings.TabIndex = 332;
+            this.rtbPumpSettings.Text = "";
+            // 
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
@@ -697,318 +687,25 @@
             // groupBox2
             // 
             this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.rtbPumpSettings);
             this.groupBox2.Controls.Add(this.rtbOptions);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.lbl_DB_DispTotal);
-            this.groupBox2.Controls.Add(this.lbl_OffsetUnit);
-            this.groupBox2.Controls.Add(this.lbl_BackSuckUnit);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Controls.Add(this.lbl_DispUnit);
-            this.groupBox2.Controls.Add(this.lbl_DA_DispTotal);
-            this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Controls.Add(this.lbl_DB_DispBase);
-            this.groupBox2.Controls.Add(this.label22);
-            this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.lbl_DB_BackSuckVol);
-            this.groupBox2.Controls.Add(this.lbl_DB_DispAdj);
-            this.groupBox2.Controls.Add(this.lbl_DA_DispOfst);
-            this.groupBox2.Controls.Add(this.lbl_DA_DispBase);
-            this.groupBox2.Controls.Add(this.label25);
-            this.groupBox2.Controls.Add(this.label26);
-            this.groupBox2.Controls.Add(this.label27);
-            this.groupBox2.Controls.Add(this.lbl_DA_DispAdj);
-            this.groupBox2.Controls.Add(this.lbl_DA_BackSuckVol);
-            this.groupBox2.Controls.Add(this.lbl_DB_DispOfst);
-            this.groupBox2.Controls.Add(this.label28);
             this.groupBox2.Location = new System.Drawing.Point(577, 286);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(259, 304);
             this.groupBox2.TabIndex = 329;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pump";
             // 
             // rtbOptions
             // 
             this.rtbOptions.BackColor = System.Drawing.SystemColors.Control;
+            this.rtbOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbOptions.Cursor = System.Windows.Forms.Cursors.Default;
+            this.rtbOptions.ForeColor = System.Drawing.Color.Navy;
             this.rtbOptions.Location = new System.Drawing.Point(6, 186);
             this.rtbOptions.Name = "rtbOptions";
             this.rtbOptions.Size = new System.Drawing.Size(244, 92);
             this.rtbOptions.TabIndex = 81;
             this.rtbOptions.Text = "";
-            // 
-            // label17
-            // 
-            this.label17.AccessibleDescription = "Base";
-            this.label17.BackColor = System.Drawing.SystemColors.Control;
-            this.label17.Location = new System.Drawing.Point(4, 48);
-            this.label17.Margin = new System.Windows.Forms.Padding(1);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(49, 23);
-            this.label17.TabIndex = 60;
-            this.label17.Text = "Base";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_DB_DispTotal
-            // 
-            this.lbl_DB_DispTotal.AccessibleDescription = "";
-            this.lbl_DB_DispTotal.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DB_DispTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DB_DispTotal.Location = new System.Drawing.Point(180, 148);
-            this.lbl_DB_DispTotal.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DB_DispTotal.Name = "lbl_DB_DispTotal";
-            this.lbl_DB_DispTotal.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DB_DispTotal.TabIndex = 78;
-            this.lbl_DB_DispTotal.Text = "000.001";
-            this.lbl_DB_DispTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_OffsetUnit
-            // 
-            this.lbl_OffsetUnit.AccessibleDescription = "";
-            this.lbl_OffsetUnit.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_OffsetUnit.Location = new System.Drawing.Point(66, 98);
-            this.lbl_OffsetUnit.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_OffsetUnit.Name = "lbl_OffsetUnit";
-            this.lbl_OffsetUnit.Size = new System.Drawing.Size(40, 23);
-            this.lbl_OffsetUnit.TabIndex = 71;
-            this.lbl_OffsetUnit.Text = "(ul)";
-            this.lbl_OffsetUnit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_BackSuckUnit
-            // 
-            this.lbl_BackSuckUnit.AccessibleDescription = "";
-            this.lbl_BackSuckUnit.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_BackSuckUnit.Location = new System.Drawing.Point(66, 123);
-            this.lbl_BackSuckUnit.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_BackSuckUnit.Name = "lbl_BackSuckUnit";
-            this.lbl_BackSuckUnit.Size = new System.Drawing.Size(40, 23);
-            this.lbl_BackSuckUnit.TabIndex = 72;
-            this.lbl_BackSuckUnit.Text = "(ul)";
-            this.lbl_BackSuckUnit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label20
-            // 
-            this.label20.AccessibleDescription = "Head B";
-            this.label20.BackColor = System.Drawing.SystemColors.Control;
-            this.label20.Location = new System.Drawing.Point(180, 23);
-            this.label20.Margin = new System.Windows.Forms.Padding(1);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(70, 23);
-            this.label20.TabIndex = 66;
-            this.label20.Text = "Head B";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DispUnit
-            // 
-            this.lbl_DispUnit.AccessibleDescription = "";
-            this.lbl_DispUnit.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DispUnit.Location = new System.Drawing.Point(66, 48);
-            this.lbl_DispUnit.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DispUnit.Name = "lbl_DispUnit";
-            this.lbl_DispUnit.Size = new System.Drawing.Size(40, 23);
-            this.lbl_DispUnit.TabIndex = 70;
-            this.lbl_DispUnit.Text = "(ul)";
-            this.lbl_DispUnit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_DA_DispTotal
-            // 
-            this.lbl_DA_DispTotal.AccessibleDescription = "";
-            this.lbl_DA_DispTotal.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DA_DispTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DA_DispTotal.Location = new System.Drawing.Point(108, 148);
-            this.lbl_DA_DispTotal.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DA_DispTotal.Name = "lbl_DA_DispTotal";
-            this.lbl_DA_DispTotal.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DA_DispTotal.TabIndex = 77;
-            this.lbl_DA_DispTotal.Text = "000.001";
-            this.lbl_DA_DispTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label21
-            // 
-            this.label21.AccessibleDescription = "";
-            this.label21.BackColor = System.Drawing.SystemColors.Control;
-            this.label21.Location = new System.Drawing.Point(66, 73);
-            this.label21.Margin = new System.Windows.Forms.Padding(1);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(40, 23);
-            this.label21.TabIndex = 76;
-            this.label21.Text = "(ul)";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbl_DB_DispBase
-            // 
-            this.lbl_DB_DispBase.AccessibleDescription = "";
-            this.lbl_DB_DispBase.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DB_DispBase.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DB_DispBase.Location = new System.Drawing.Point(180, 48);
-            this.lbl_DB_DispBase.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DB_DispBase.Name = "lbl_DB_DispBase";
-            this.lbl_DB_DispBase.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DB_DispBase.TabIndex = 61;
-            this.lbl_DB_DispBase.Text = "000.001";
-            this.lbl_DB_DispBase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label22
-            // 
-            this.label22.AccessibleDescription = "";
-            this.label22.BackColor = System.Drawing.SystemColors.Control;
-            this.label22.Location = new System.Drawing.Point(66, 148);
-            this.label22.Margin = new System.Windows.Forms.Padding(1);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(40, 23);
-            this.label22.TabIndex = 79;
-            this.label22.Text = "(ul)";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label24
-            // 
-            this.label24.AccessibleDescription = "Head A";
-            this.label24.BackColor = System.Drawing.SystemColors.Control;
-            this.label24.Location = new System.Drawing.Point(108, 23);
-            this.label24.Margin = new System.Windows.Forms.Padding(1);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(70, 23);
-            this.label24.TabIndex = 65;
-            this.label24.Text = "Head A";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DB_BackSuckVol
-            // 
-            this.lbl_DB_BackSuckVol.AccessibleDescription = "";
-            this.lbl_DB_BackSuckVol.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DB_BackSuckVol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DB_BackSuckVol.Location = new System.Drawing.Point(180, 123);
-            this.lbl_DB_BackSuckVol.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DB_BackSuckVol.Name = "lbl_DB_BackSuckVol";
-            this.lbl_DB_BackSuckVol.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DB_BackSuckVol.TabIndex = 64;
-            this.lbl_DB_BackSuckVol.Text = "000.001";
-            this.lbl_DB_BackSuckVol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DB_DispAdj
-            // 
-            this.lbl_DB_DispAdj.AccessibleDescription = "";
-            this.lbl_DB_DispAdj.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DB_DispAdj.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DB_DispAdj.Location = new System.Drawing.Point(180, 73);
-            this.lbl_DB_DispAdj.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DB_DispAdj.Name = "lbl_DB_DispAdj";
-            this.lbl_DB_DispAdj.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DB_DispAdj.TabIndex = 75;
-            this.lbl_DB_DispAdj.Text = "000.001";
-            this.lbl_DB_DispAdj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DA_DispOfst
-            // 
-            this.lbl_DA_DispOfst.AccessibleDescription = "";
-            this.lbl_DA_DispOfst.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DA_DispOfst.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DA_DispOfst.Location = new System.Drawing.Point(108, 98);
-            this.lbl_DA_DispOfst.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DA_DispOfst.Name = "lbl_DA_DispOfst";
-            this.lbl_DA_DispOfst.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DA_DispOfst.TabIndex = 67;
-            this.lbl_DA_DispOfst.Text = "000.001";
-            this.lbl_DA_DispOfst.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DA_DispBase
-            // 
-            this.lbl_DA_DispBase.AccessibleDescription = "";
-            this.lbl_DA_DispBase.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DA_DispBase.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DA_DispBase.Location = new System.Drawing.Point(108, 48);
-            this.lbl_DA_DispBase.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DA_DispBase.Name = "lbl_DA_DispBase";
-            this.lbl_DA_DispBase.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DA_DispBase.TabIndex = 59;
-            this.lbl_DA_DispBase.Text = "000.001";
-            this.lbl_DA_DispBase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label25
-            // 
-            this.label25.AccessibleDescription = "BackSuck Volume (ul)";
-            this.label25.BackColor = System.Drawing.SystemColors.Control;
-            this.label25.Location = new System.Drawing.Point(4, 123);
-            this.label25.Margin = new System.Windows.Forms.Padding(1, 3, 1, 1);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(65, 23);
-            this.label25.TabIndex = 63;
-            this.label25.Text = "BSuck";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label26
-            // 
-            this.label26.AccessibleDescription = "Adjust";
-            this.label26.BackColor = System.Drawing.SystemColors.Control;
-            this.label26.Location = new System.Drawing.Point(4, 73);
-            this.label26.Margin = new System.Windows.Forms.Padding(1);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(65, 23);
-            this.label26.TabIndex = 74;
-            this.label26.Text = "Adjust";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label27
-            // 
-            this.label27.AccessibleDescription = "Offset";
-            this.label27.BackColor = System.Drawing.SystemColors.Control;
-            this.label27.Location = new System.Drawing.Point(4, 98);
-            this.label27.Margin = new System.Windows.Forms.Padding(1);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(65, 23);
-            this.label27.TabIndex = 68;
-            this.label27.Text = "Offset";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_DA_DispAdj
-            // 
-            this.lbl_DA_DispAdj.AccessibleDescription = "";
-            this.lbl_DA_DispAdj.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DA_DispAdj.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DA_DispAdj.Location = new System.Drawing.Point(108, 73);
-            this.lbl_DA_DispAdj.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DA_DispAdj.Name = "lbl_DA_DispAdj";
-            this.lbl_DA_DispAdj.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DA_DispAdj.TabIndex = 73;
-            this.lbl_DA_DispAdj.Text = "000.001";
-            this.lbl_DA_DispAdj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DA_BackSuckVol
-            // 
-            this.lbl_DA_BackSuckVol.AccessibleDescription = "";
-            this.lbl_DA_BackSuckVol.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DA_BackSuckVol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DA_BackSuckVol.Location = new System.Drawing.Point(108, 123);
-            this.lbl_DA_BackSuckVol.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DA_BackSuckVol.Name = "lbl_DA_BackSuckVol";
-            this.lbl_DA_BackSuckVol.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DA_BackSuckVol.TabIndex = 62;
-            this.lbl_DA_BackSuckVol.Text = "000.001";
-            this.lbl_DA_BackSuckVol.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_DB_DispOfst
-            // 
-            this.lbl_DB_DispOfst.AccessibleDescription = "";
-            this.lbl_DB_DispOfst.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_DB_DispOfst.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DB_DispOfst.Location = new System.Drawing.Point(180, 98);
-            this.lbl_DB_DispOfst.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_DB_DispOfst.Name = "lbl_DB_DispOfst";
-            this.lbl_DB_DispOfst.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DB_DispOfst.TabIndex = 69;
-            this.lbl_DB_DispOfst.Text = "000.001";
-            this.lbl_DB_DispOfst.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label28
-            // 
-            this.label28.AccessibleDescription = "Disp Total";
-            this.label28.BackColor = System.Drawing.SystemColors.Control;
-            this.label28.Location = new System.Drawing.Point(4, 148);
-            this.label28.Margin = new System.Windows.Forms.Padding(1);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(65, 23);
-            this.label28.TabIndex = 60;
-            this.label28.Text = "Disp Total";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox1
             // 
@@ -1023,7 +720,6 @@
             this.groupBox1.Controls.Add(this.lbl_Flowrate);
             this.groupBox1.Controls.Add(this.lbl_Weight);
             this.groupBox1.Controls.Add(this.lbl_HeadShotCount);
-            this.groupBox1.Controls.Add(this.lbl_FrameCount);
             this.groupBox1.Controls.Add(this.lbl_Elapsed);
             this.groupBox1.Location = new System.Drawing.Point(256, 286);
             this.groupBox1.Name = "groupBox1";
@@ -1148,23 +844,10 @@
             this.lbl_HeadShotCount.Location = new System.Drawing.Point(6, 60);
             this.lbl_HeadShotCount.Margin = new System.Windows.Forms.Padding(3);
             this.lbl_HeadShotCount.Name = "lbl_HeadShotCount";
-            this.lbl_HeadShotCount.Size = new System.Drawing.Size(120, 23);
+            this.lbl_HeadShotCount.Size = new System.Drawing.Size(247, 23);
             this.lbl_HeadShotCount.TabIndex = 69;
-            this.lbl_HeadShotCount.Text = "1000000";
-            this.lbl_HeadShotCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_FrameCount
-            // 
-            this.lbl_FrameCount.AccessibleDescription = "";
-            this.lbl_FrameCount.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_FrameCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_FrameCount.Location = new System.Drawing.Point(132, 60);
-            this.lbl_FrameCount.Margin = new System.Windows.Forms.Padding(3);
-            this.lbl_FrameCount.Name = "lbl_FrameCount";
-            this.lbl_FrameCount.Size = new System.Drawing.Size(120, 23);
-            this.lbl_FrameCount.TabIndex = 71;
-            this.lbl_FrameCount.Text = "40";
-            this.lbl_FrameCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_HeadShotCount.Text = "lbl_HeadShotCount";
+            this.lbl_HeadShotCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbl_Elapsed
             // 
@@ -1176,8 +859,8 @@
             this.lbl_Elapsed.Name = "lbl_Elapsed";
             this.lbl_Elapsed.Size = new System.Drawing.Size(246, 23);
             this.lbl_Elapsed.TabIndex = 74;
-            this.lbl_Elapsed.Text = "40";
-            this.lbl_Elapsed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Elapsed.Text = "lbl_Elapsed";
+            this.lbl_Elapsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbl_Recipe
             // 
@@ -1607,31 +1290,8 @@
         private System.Windows.Forms.Label lbl_Flowrate;
         private System.Windows.Forms.Label lbl_Weight;
         private System.Windows.Forms.Label lbl_HeadShotCount;
-        private System.Windows.Forms.Label lbl_FrameCount;
         private System.Windows.Forms.Label lbl_Elapsed;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label lbl_DB_DispTotal;
-        private System.Windows.Forms.Label lbl_OffsetUnit;
-        private System.Windows.Forms.Label lbl_BackSuckUnit;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label lbl_DispUnit;
-        private System.Windows.Forms.Label lbl_DA_DispTotal;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label lbl_DB_DispBase;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label lbl_DB_BackSuckVol;
-        private System.Windows.Forms.Label lbl_DB_DispAdj;
-        private System.Windows.Forms.Label lbl_DA_DispOfst;
-        private System.Windows.Forms.Label lbl_DA_DispBase;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label lbl_DA_DispAdj;
-        private System.Windows.Forms.Label lbl_DA_BackSuckVol;
-        private System.Windows.Forms.Label lbl_DB_DispOfst;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabPage tpageImage;
@@ -1645,5 +1305,6 @@
         private System.Windows.Forms.Label lblRunInfoMaterialDispCount;
         private System.Windows.Forms.Label lblRunInfoMaterialExpiry;
         private System.Windows.Forms.RichTextBox rtbOptions;
+        private System.Windows.Forms.RichTextBox rtbPumpSettings;
     }
 }

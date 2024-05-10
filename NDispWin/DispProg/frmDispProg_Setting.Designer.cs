@@ -33,6 +33,13 @@
             this.tmr_Display = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tpAdvance = new System.Windows.Forms.TabPage();
+            this.gbxStripMap = new System.Windows.Forms.GroupBox();
+            this.cbEnableDnloadMap = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.cbxStripMapUploadFlip = new System.Windows.Forms.ComboBox();
+            this.cbEnableUploadMap = new System.Windows.Forms.CheckBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.cbxStripMapDnloadFlip = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
             this.lblCheckBoardYield = new System.Windows.Forms.Label();
@@ -160,8 +167,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_StationCount = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.cbStripMapFollowRecipe = new System.Windows.Forms.CheckBox();
             this.tpAdvance.SuspendLayout();
+            this.gbxStripMap.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.gboxTempCtrl.SuspendLayout();
@@ -199,6 +206,7 @@
             // 
             // tpAdvance
             // 
+            this.tpAdvance.Controls.Add(this.gbxStripMap);
             this.tpAdvance.Controls.Add(this.groupBox7);
             this.tpAdvance.Controls.Add(this.groupBox8);
             this.tpAdvance.Controls.Add(this.gboxTempCtrl);
@@ -211,11 +219,87 @@
             this.tpAdvance.Text = "Advance";
             this.tpAdvance.UseVisualStyleBackColor = true;
             // 
+            // gbxStripMap
+            // 
+            this.gbxStripMap.AutoSize = true;
+            this.gbxStripMap.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbxStripMap.Controls.Add(this.cbEnableDnloadMap);
+            this.gbxStripMap.Controls.Add(this.label30);
+            this.gbxStripMap.Controls.Add(this.cbxStripMapUploadFlip);
+            this.gbxStripMap.Controls.Add(this.cbEnableUploadMap);
+            this.gbxStripMap.Controls.Add(this.label32);
+            this.gbxStripMap.Controls.Add(this.cbxStripMapDnloadFlip);
+            this.gbxStripMap.Location = new System.Drawing.Point(314, 274);
+            this.gbxStripMap.Name = "gbxStripMap";
+            this.gbxStripMap.Size = new System.Drawing.Size(303, 175);
+            this.gbxStripMap.TabIndex = 66;
+            this.gbxStripMap.TabStop = false;
+            this.gbxStripMap.Text = "StripMap";
+            // 
+            // cbEnableDnloadMap
+            // 
+            this.cbEnableDnloadMap.AutoSize = true;
+            this.cbEnableDnloadMap.Location = new System.Drawing.Point(6, 25);
+            this.cbEnableDnloadMap.Name = "cbEnableDnloadMap";
+            this.cbEnableDnloadMap.Size = new System.Drawing.Size(172, 22);
+            this.cbEnableDnloadMap.TabIndex = 63;
+            this.cbEnableDnloadMap.Text = "Dnload StripMap E142";
+            this.cbEnableDnloadMap.UseVisualStyleBackColor = true;
+            this.cbEnableDnloadMap.Click += new System.EventHandler(this.cbEnableDnloadMap_Click);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(25, 127);
+            this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(89, 18);
+            this.label30.TabIndex = 58;
+            this.label30.Text = "StripMap Flip";
+            // 
+            // cbxStripMapUploadFlip
+            // 
+            this.cbxStripMapUploadFlip.FormattingEnabled = true;
+            this.cbxStripMapUploadFlip.Location = new System.Drawing.Point(164, 124);
+            this.cbxStripMapUploadFlip.Name = "cbxStripMapUploadFlip";
+            this.cbxStripMapUploadFlip.Size = new System.Drawing.Size(133, 26);
+            this.cbxStripMapUploadFlip.TabIndex = 59;
+            this.cbxStripMapUploadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapUploadFlip_SelectionChangeCommitted);
+            // 
+            // cbEnableUploadMap
+            // 
+            this.cbEnableUploadMap.AutoSize = true;
+            this.cbEnableUploadMap.Location = new System.Drawing.Point(6, 102);
+            this.cbEnableUploadMap.Name = "cbEnableUploadMap";
+            this.cbEnableUploadMap.Size = new System.Drawing.Size(172, 22);
+            this.cbEnableUploadMap.TabIndex = 62;
+            this.cbEnableUploadMap.Text = "Upload StripMap E142";
+            this.cbEnableUploadMap.UseVisualStyleBackColor = true;
+            this.cbEnableUploadMap.Click += new System.EventHandler(this.cbEnableUploadMap_Click);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(25, 53);
+            this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(89, 18);
+            this.label32.TabIndex = 60;
+            this.label32.Text = "StripMap Flip";
+            // 
+            // cbxStripMapDnloadFlip
+            // 
+            this.cbxStripMapDnloadFlip.FormattingEnabled = true;
+            this.cbxStripMapDnloadFlip.Location = new System.Drawing.Point(164, 50);
+            this.cbxStripMapDnloadFlip.Name = "cbxStripMapDnloadFlip";
+            this.cbxStripMapDnloadFlip.Size = new System.Drawing.Size(133, 26);
+            this.cbxStripMapDnloadFlip.TabIndex = 61;
+            this.cbxStripMapDnloadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapDnloadFlip_SelectionChangeCommitted);
+            // 
             // groupBox7
             // 
             this.groupBox7.AutoSize = true;
             this.groupBox7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox7.Controls.Add(this.cbStripMapFollowRecipe);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.lblCheckBoardYield);
             this.groupBox7.Controls.Add(this.cbWaitVideoLogReady);
@@ -227,7 +311,7 @@
             this.groupBox7.Controls.Add(this.lbl_DispCtrl_ForceTimeMode);
             this.groupBox7.Location = new System.Drawing.Point(314, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(302, 261);
+            this.groupBox7.Size = new System.Drawing.Size(302, 228);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Options";
@@ -1777,17 +1861,6 @@
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 138;
             // 
-            // cbStripMapFollowRecipe
-            // 
-            this.cbStripMapFollowRecipe.AutoSize = true;
-            this.cbStripMapFollowRecipe.Location = new System.Drawing.Point(6, 214);
-            this.cbStripMapFollowRecipe.Name = "cbStripMapFollowRecipe";
-            this.cbStripMapFollowRecipe.Size = new System.Drawing.Size(176, 22);
-            this.cbStripMapFollowRecipe.TabIndex = 153;
-            this.cbStripMapFollowRecipe.Text = "StripMap Follow Recipe";
-            this.cbStripMapFollowRecipe.UseVisualStyleBackColor = true;
-            this.cbStripMapFollowRecipe.Click += new System.EventHandler(this.cbStripMapFollowRecipe_Click);
-            // 
             // frm_DispCore_DispProg_Setting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1809,6 +1882,8 @@
             this.MouseHover += new System.EventHandler(this.frm_DispCore_DispProg_Setting_MouseHover);
             this.tpAdvance.ResumeLayout(false);
             this.tpAdvance.PerformLayout();
+            this.gbxStripMap.ResumeLayout(false);
+            this.gbxStripMap.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -1966,6 +2041,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_StationCount;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.CheckBox cbStripMapFollowRecipe;
+        private System.Windows.Forms.GroupBox gbxStripMap;
+        private System.Windows.Forms.CheckBox cbEnableDnloadMap;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.ComboBox cbxStripMapUploadFlip;
+        private System.Windows.Forms.CheckBox cbEnableUploadMap;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ComboBox cbxStripMapDnloadFlip;
     }
 }

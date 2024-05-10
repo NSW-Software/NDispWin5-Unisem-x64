@@ -879,7 +879,7 @@ namespace NDispWin
         public static bool MaterialLowForbidContinue = false;
 
         public static double Option_ExtendLastCLine = 0;
-
+        public static double Option_CLineSpeedRatio = 1;
 
         public enum ETeachNeedleMethod
         {
@@ -1434,6 +1434,7 @@ namespace NDispWin
             Option_EnableDualMaterial = IniFile.ReadBool("Option", "EnableDualMaterial", false);
             MaterialLowForbidContinue = IniFile.ReadBool("Option", "MaterialLowForbidContinue", false);
             Option_ExtendLastCLine = IniFile.ReadDouble("Option", "ExtendLastCLine", 0);
+            Option_CLineSpeedRatio = IniFile.ReadDouble("Option", "CLineSpeedRatio", 1);
 
             Material.EnableUnitCounter = IniFile.ReadBool("Material", "EnableUnitCounter", false);
             Material.Unit.Limit[0] = IniFile.ReadInteger("Material", "UnitLimit0", 0);
@@ -1749,6 +1750,7 @@ namespace NDispWin
             IniFile.WriteBool("Option", "EnableDualMaterial", Option_EnableDualMaterial);
             IniFile.WriteBool("Option", "MaterialExpiryForbidContinue", MaterialExpiryForbidContinue);
             IniFile.WriteDouble("Option", "ExtendLastCLine", Option_ExtendLastCLine);
+            IniFile.WriteDouble("Option", "CLineSpeedRatio", Option_CLineSpeedRatio);
 
             IniFile.WriteBool("Material", "EnableUnitCounter", Material.EnableUnitCounter);
             IniFile.WriteInteger("Material", "UnitLimit0", Material.Unit.Limit[0]);

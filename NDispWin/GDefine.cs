@@ -1602,56 +1602,56 @@ namespace NDispWin
         {
             get
             {
-                return DispProg.StripMapFollowRecipe ? DispProg.EnableDnloadStripMapE142 : sgc2.EnableDnloadStripMapE142;
+                return DispProg.EnableDnloadStripMapE142;// : sgc2.EnableDnloadStripMapE142;
             }
             set
             {
-                if (DispProg.StripMapFollowRecipe)
+                //if (DispProg.StripMapFollowRecipe)
                     DispProg.EnableDnloadStripMapE142 = value;
-                else
-                    sgc2.EnableDnloadStripMapE142 = value;
+                //else
+                //    sgc2.EnableDnloadStripMapE142 = value;
             }
         }
         public static int StripMapDnloadFlip
         {
             get
             {
-                return DispProg.StripMapFollowRecipe ? DispProg.StripMapDnloadFlip : (int)sgc2.StripMapDnloadFlip;
+                return DispProg.StripMapDnloadFlip;//: (int)sgc2.StripMapDnloadFlip;
             }
             set
             {
-                if (DispProg.StripMapFollowRecipe)
+                //if (DispProg.StripMapFollowRecipe)
                     DispProg.StripMapDnloadFlip = value;
-                else
-                    sgc2.StripMapDnloadFlip = (SECSGEMConnect2.EStripMapFlip)value;
+                //else
+                //    sgc2.StripMapDnloadFlip = (SECSGEMConnect2.EStripMapFlip)value;
             }
         }
         public static bool EnableUploadStripMapE142
         {
             get
             {
-                return DispProg.StripMapFollowRecipe ? DispProg.EnableUploadStripMapE142 : sgc2.EnableUploadStripMapE142;
+                return DispProg.EnableUploadStripMapE142;// : sgc2.EnableUploadStripMapE142;
             }
             set
             {
-                if (DispProg.StripMapFollowRecipe)
+                //if (DispProg.StripMapFollowRecipe)
                     DispProg.EnableUploadStripMapE142 = value;
-                else
-                    sgc2.EnableUploadStripMapE142 = value;
+                //else
+                //    sgc2.EnableUploadStripMapE142 = value;
             }
         }
         public static int StripMapUploadFlip
         {
             get
             {
-                return DispProg.StripMapFollowRecipe ? DispProg.StripMapUploadFlip : (int)sgc2.StripMapUploadFlip;
+                return DispProg.StripMapUploadFlip;// : (int)sgc2.StripMapUploadFlip;
             }
             set
             {
-                if (DispProg.StripMapFollowRecipe)
+                //if (DispProg.StripMapFollowRecipe)
                     DispProg.StripMapUploadFlip = value;
-                else
-                    sgc2.StripMapUploadFlip = (SECSGEMConnect2.EStripMapFlip)value;
+                //else
+                 //   sgc2.StripMapUploadFlip = (SECSGEMConnect2.EStripMapFlip)value;
             }
         }
 

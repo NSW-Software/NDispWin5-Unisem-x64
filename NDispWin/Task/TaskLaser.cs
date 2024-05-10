@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Threading;
 
 namespace NDispWin
 {
@@ -99,7 +100,18 @@ namespace NDispWin
                             Sensor.Open(CLaser.MEDAQ.ESensorType.IFD2422, ComPort);
                         break;
                     case GDefine.EHeightSensorType.CL3000:
-                        CL3.Open(GDefine.HSensorIPAddress);
+                        bool openCL3Retried = false;
+                    _retryCL3:
+                        try
+                        {
+                            CL3.Open(GDefine.HSensorIPAddress);
+                        }
+                        catch
+                        {
+                            if (openCL3Retried) throw;
+                            Thread.Sleep(500);
+                            goto _retryCL3;
+                        }
                         break;
                 }
             }

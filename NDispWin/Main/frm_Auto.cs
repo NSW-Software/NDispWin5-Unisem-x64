@@ -413,9 +413,7 @@ namespace NDispWin
             #region Progam
             lbl_Weight.Text = $"Disp_Weight : {DispProg.Disp_Weight[0]:F4}";
             lbl_Flowrate.Text = $"Flowrate : {TaskWeight.CurrentCal[1]:F4}";
-            lbl_HeadShotCount.Text = $"Disp Count : {Stats.DispCount[0]}";
-
-            lbl_FrameCount.Text = $"Frame Count : {Stats.BoardCount}";
+            lbl_HeadShotCount.Text = $"Disp Count : {Stats.DispCount[0]} ({Stats.BoardCount} frames)";
             int t = GDefine.GetTickCount() - Stats.StartTime;
             lbl_Elapsed.Text = $"Elaspsed Time : {((double)t / 60000):f1} M";
 
@@ -445,26 +443,36 @@ namespace NDispWin
             #region Pump Info
             double DispA_BaseVol_ul = DispProg.PP_HeadA_DispBaseVol;
             double DispB_BaseVol_ul = DispProg.PP_HeadB_DispBaseVol;
-            lbl_DA_DispBase.Text = DispA_BaseVol_ul.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-            lbl_DB_DispBase.Text = DispB_BaseVol_ul.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-
             double DispA_DispAdj_ul = DispProg.PP_HeadA_DispVol_Adj;
             double DispB_DispAdj_ul = DispProg.PP_HeadB_DispVol_Adj;
-            lbl_DA_DispAdj.Text = DispA_DispAdj_ul.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-            lbl_DB_DispAdj.Text = DispB_DispAdj_ul.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-
             double DispA_VolOfst = DispProg.rt_Head1VolumeOfst;
             double DispB_VolOfst = DispProg.rt_Head2VolumeOfst;
-            lbl_DA_DispOfst.Text = DispA_VolOfst.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-            lbl_DB_DispOfst.Text = DispB_VolOfst.ToString(TaskDisp.VolumeDisplayDecimalPoint);
+            double dispTotalA = (DispProg.PP_HeadA_DispBaseVol + DispProg.PP_HeadA_DispVol_Adj + DispProg.rt_Head1VolumeOfst - DispProg.PP_HeadA_BackSuckVol);
+            double dispTotalB = (DispProg.PP_HeadB_DispBaseVol + DispProg.PP_HeadB_DispVol_Adj + DispProg.rt_Head2VolumeOfst - DispProg.PP_HeadB_BackSuckVol);
+            if (DispProg.Pump_Type == TaskDisp.EPumpType.PP)
+            {
+                rtbPumpSettings.Text = $"Pump Settings\r\r" +
+                    "\t\tHeadA\tHeadB\r" +
+                    $"Base (ul)\t{DispA_BaseVol_ul:f3}\t{DispB_BaseVol_ul:f3}\r" +
+                    $"Adjust (ul)\t{DispA_DispAdj_ul:f3}\t{DispB_DispAdj_ul:f3}\r" +
+                    $"Offset (ul)\t{DispA_VolOfst:f3}\t{DispB_VolOfst:f3}\r" +
+                    $"BSuck (ul)\t{DispProg.PP_HeadA_BackSuckVol:f3}\t{DispProg.PP_HeadB_BackSuckVol:f3}\r" +
+                    $"Disp Total (ul)\t{dispTotalA:f3}\t{dispTotalA:f3}\r";
+            }
 
-            lbl_DA_BackSuckVol.Text = DispProg.PP_HeadA_BackSuckVol.ToString(TaskDisp.VolumeDisplayDecimalPoint);
-            lbl_DB_BackSuckVol.Text = DispProg.PP_HeadB_BackSuckVol.ToString(TaskDisp.VolumeDisplayDecimalPoint);
+            if (DispProg.Pump_Type == TaskDisp.EPumpType.SP)
+            {
+                TModelPara model = new TModelPara(DispProg.ModelList, 0);
 
-            lbl_DA_DispTotal.Text = (DispProg.PP_HeadA_DispBaseVol + DispProg.PP_HeadA_DispVol_Adj + DispProg.rt_Head1VolumeOfst - DispProg.PP_HeadA_BackSuckVol).ToString(TaskDisp.VolumeDisplayDecimalPoint);
-            lbl_DB_DispTotal.Text = (DispProg.PP_HeadB_DispBaseVol + DispProg.PP_HeadB_DispVol_Adj + DispProg.rt_Head2VolumeOfst - DispProg.PP_HeadB_BackSuckVol).ToString(TaskDisp.VolumeDisplayDecimalPoint);
+                rtbPumpSettings.Text = $"Pump Settings\r\r" +
+                    $"FPress   \t{DispProg.FPress[0]:f3}\r" +
+                    $"PPress   \t{DispProg.FPress[1]:f3}\r\r" +
+                    $"Model[0]\r" +
+                    $"DispGap  \t{model.DispGap:f3}\r" +
+                    $"LineSpeed\t{model.LineSpeed:f3}\r"
+                    ;
+            }
             #endregion
-
 
             if (TaskDisp.Material_ExpiryPreAlertTime > 0)
             {

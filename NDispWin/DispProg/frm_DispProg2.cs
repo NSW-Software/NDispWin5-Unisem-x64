@@ -440,12 +440,30 @@ namespace NDispWin
                     #endregion
                     case DispProg.ECmd.DO_HEIGHT:
                         #region
+                        //Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
+                        //Para = "[" + CmdLine.Line[i].ID.ToString() + "] ";
+
+                        //Para = Para + Enum.GetName(typeof(EAlignType), CmdLine.Line[i].IPara[2]) + " ";
+
+                        //if (CmdLine.Line[i].IPara[0] != 3) CmdLine.Line[i].IPara[0] = 1;
+
+                        //if (CmdLine.Line[i].IPara[7] > 0) Para = Para + "A ";
+
+                        //if (CmdLine.Line[i].IPara[0] == 1)
+                        //{
+                        //    Para = Para + "2D " + CmdLine.Line[i].IPara[1].ToString() + " Point(s) ";
+                        //}
+                        //if (CmdLine.Line[i].IPara[0] == 3)
+                        //{
+                        //    Para = Para + "3D " + "(" + CmdLine.Line[i].X[0].ToString("F3") + "," + CmdLine.Line[i].Y[0].ToString("F3") + ")" + " (" + CmdLine.Line[i].X[1].ToString("F3") + "," + CmdLine.Line[i].Y[1].ToString("F3") + ")" + " (" + CmdLine.Line[i].X[2].ToString("F3") + "," + CmdLine.Line[i].Y[2].ToString("F3") + ")";
+                        //}
                         Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
                         Para = "[" + CmdLine.Line[i].ID.ToString() + "] ";
 
                         Para = Para + Enum.GetName(typeof(EAlignType), CmdLine.Line[i].IPara[2]) + " ";
 
-                        if (CmdLine.Line[i].IPara[0] != 3) CmdLine.Line[i].IPara[0] = 1;
+                        //if (CmdLine.Line[i].IPara[0] != 3) CmdLine.Line[i].IPara[0] = 1;
+                        if (!(CmdLine.Line[i].IPara[0] == 3 || CmdLine.Line[i].IPara[0] == 4)) CmdLine.Line[i].IPara[0] = 1;
 
                         if (CmdLine.Line[i].IPara[7] > 0) Para = Para + "A ";
 
@@ -456,6 +474,10 @@ namespace NDispWin
                         if (CmdLine.Line[i].IPara[0] == 3)
                         {
                             Para = Para + "3D " + "(" + CmdLine.Line[i].X[0].ToString("F3") + "," + CmdLine.Line[i].Y[0].ToString("F3") + ")" + " (" + CmdLine.Line[i].X[1].ToString("F3") + "," + CmdLine.Line[i].Y[1].ToString("F3") + ")" + " (" + CmdLine.Line[i].X[2].ToString("F3") + "," + CmdLine.Line[i].Y[2].ToString("F3") + ")";
+                        }
+                        if (CmdLine.Line[i].IPara[0] == 4)
+                        {
+                            Para = Para + "Least Square Fit " + CmdLine.Line[i].IPara[1].ToString() + " Point(s) ";
                         }
                         break;
                     #endregion

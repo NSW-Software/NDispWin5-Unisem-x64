@@ -32,7 +32,6 @@
             this.pnl_Inst = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_Lighting = new System.Windows.Forms.Button();
             this.btn_Retry = new System.Windows.Forms.Button();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
@@ -74,7 +73,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btn_Lighting);
             this.panel1.Controls.Add(this.btn_Retry);
             this.panel1.Controls.Add(this.btn_OK);
             this.panel1.Controls.Add(this.btn_Cancel);
@@ -84,16 +82,6 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
             this.panel1.Size = new System.Drawing.Size(271, 40);
             this.panel1.TabIndex = 3;
-            // 
-            // btn_Lighting
-            // 
-            this.btn_Lighting.Location = new System.Drawing.Point(6, 3);
-            this.btn_Lighting.Name = "btn_Lighting";
-            this.btn_Lighting.Size = new System.Drawing.Size(60, 30);
-            this.btn_Lighting.TabIndex = 3;
-            this.btn_Lighting.Text = "Lighting";
-            this.btn_Lighting.UseVisualStyleBackColor = true;
-            this.btn_Lighting.Click += new System.EventHandler(this.btn_Lighting_Click);
             // 
             // btn_Retry
             // 
@@ -133,14 +121,14 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 40);
             this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(570, 6);
+            this.splitContainer1.Size = new System.Drawing.Size(570, 106);
             this.splitContainer1.SplitterDistance = 349;
             this.splitContainer1.TabIndex = 3;
             // 
             // frm_DispCore_JogGantryVision
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(570, 46);
+            this.ClientSize = new System.Drawing.Size(570, 146);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.pnl_Inst);
@@ -176,7 +164,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_Retry;
-        private System.Windows.Forms.Button btn_Lighting;
         private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

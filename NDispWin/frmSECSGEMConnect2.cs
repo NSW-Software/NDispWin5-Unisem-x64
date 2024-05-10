@@ -45,7 +45,7 @@ namespace NDispWin
             cbEnableRMS.Checked = sgc2.EnableRMS;
             tbxTimeOut.Text = sgc2.TimeOut.ToString();
 
-            gbxStripMap.Text = "StripMap " + (DispProg.StripMapFollowRecipe ? "(Follow Recipe)" : "(System)"); 
+            gbxStripMap.Text = "StripMap (Follow Recipe)";
             cbEnableDnloadMap.Checked = GDefine.EnableDnloadStripMapE142;
             cbxStripMapDnloadFlip.SelectedIndex = (int)GDefine.StripMapDnloadFlip;
             cbEnableUploadMap.Checked = GDefine.EnableUploadStripMapE142;

@@ -16,6 +16,9 @@ namespace NDispWin
         {
             InitializeComponent();
             GControl.LogForm(this);
+
+            cbxStripMapDnloadFlip.DataSource = Enum.GetValues(typeof(SECSGEMConnect2.EStripMapFlip));
+            cbxStripMapUploadFlip.DataSource = Enum.GetValues(typeof(SECSGEMConnect2.EStripMapFlip));
         }
 
         private string CmdName
@@ -33,6 +36,11 @@ namespace NDispWin
 
             Text = CmdName + " [" + GDefine.ProgRecipeName + "]";
             UpdateDisplay();
+
+            cbEnableDnloadMap.Checked = GDefine.EnableDnloadStripMapE142;
+            cbxStripMapDnloadFlip.SelectedIndex = (int)GDefine.StripMapDnloadFlip;
+            cbEnableUploadMap.Checked = GDefine.EnableUploadStripMapE142;
+            cbxStripMapUploadFlip.SelectedIndex = (int)GDefine.StripMapUploadFlip;
         }
 
         int SelectedStation = 0;
@@ -134,7 +142,6 @@ namespace NDispWin
             lblVideoLogDuration.Text = $"{DispProg.Options_VideoLogDuration}";
             cbWaitVideoLogReady.Checked = DispProg.Options_WaitCameraReady;
             lblCheckBoardYield.Text = $"{DispProg.Options_CheckBoardYield*100:f2}";
-            cbStripMapFollowRecipe.Checked = DispProg.StripMapFollowRecipe;
 
             lbl_PurgeStageCount.Text = DispProg.PurgeStage.Count.ToString();
             lbl_PurgeStageInterval.Text = DispProg.PurgeStage.Interval.ToString();
@@ -610,15 +617,30 @@ namespace NDispWin
         {
             double d = DispProg.Options_CheckBoardYield * 100;
             UC.AdjustExec("Check Board Yield (%)", ref d, 0, 100);
-            DispProg.Options_CheckBoardYield = d /100;
+            DispProg.Options_CheckBoardYield = d / 100;
             UpdateDisplay();
         }
 
-        private void cbStripMapFollowRecipe_Click(object sender, EventArgs e)
+        private void cbEnableDnloadMap_Click(object sender, EventArgs e)
         {
-            DispProg.StripMapFollowRecipe = !DispProg.StripMapFollowRecipe;
-            Log.OnSet("Strip Map Follow Recipe", !DispProg.StripMapFollowRecipe, DispProg.StripMapFollowRecipe);
-            UpdateDisplay();
+            GDefine.EnableDnloadStripMapE142 = (sender as CheckBox).Checked;
+            Log.OnSet("EnableDnloadStripMapE142", GDefine.EnableDnloadStripMapE142);
+        }
+
+        private void cbxStripMapDnloadFlip_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefine.StripMapDnloadFlip = cbxStripMapDnloadFlip.SelectedIndex;
+        }
+
+        private void cbEnableUploadMap_Click(object sender, EventArgs e)
+        {
+            GDefine.EnableUploadStripMapE142 = (sender as CheckBox).Checked;
+            Log.OnSet("EnableUploadStripMapE142", GDefine.EnableUploadStripMapE142);
+        }
+
+        private void cbxStripMapUploadFlip_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefine.StripMapUploadFlip = cbxStripMapUploadFlip.SelectedIndex;
         }
     }
 }

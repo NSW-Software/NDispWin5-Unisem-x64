@@ -142,10 +142,10 @@ namespace NDispWin
 
                 if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
                 {
-                    this.TopMost = false;
-                    frm.frmCamera.ShowCamReticles = true;
-                    frm.frmCamera.ShowReticles = false;
-                    frm.frmCamera.SelectCamera(0);
+                    //this.TopMost = false;
+                    //frm.frmCamera.ShowCamReticles = true;
+                    //frm.frmCamera.ShowReticles = false;
+                    //frm.frmCamera.SelectCamera(0);
                 }
                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 {

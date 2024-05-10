@@ -2748,10 +2748,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, 50), new SizeF(25, 25), Color.Green, "TL");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera(0);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera(0);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -2804,10 +2804,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera(0);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera(0);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -2857,10 +2857,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera(0);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera(0);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -2911,10 +2911,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera(0);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera(0);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -2983,10 +2983,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera((int)CamID);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera((int)CamID);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -3041,10 +3041,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera((int)CamID);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera((int)CamID);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -3120,10 +3120,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera((int)CamID);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera((int)CamID);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -3177,10 +3177,10 @@ namespace NDispWin
                                     TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
-                                    frm.frmCamera.ShowCamReticles = false;
-                                    frm.frmCamera.ShowReticles = true;
-                                    frm.frmCamera.Reticles = reticles;
-                                    frm.frmCamera.SelectCamera((int)CamID);
+                                    //frm.frmCamera.ShowCamReticles = false;
+                                    //frm.frmCamera.ShowReticles = true;
+                                    //frm.frmCamera.Reticles = reticles;
+                                    //frm.frmCamera.SelectCamera((int)CamID);
                                 }
                                 else
                                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
@@ -3801,7 +3801,7 @@ namespace NDispWin
                 {
                     genTLCamera[CamNo].GrabOneImage();
                     Image = genTLCamera[CamNo].mImage.Clone();
-                    if (TaskVision.frmMVCGenTLCamera.Visible) genTLCamera[CamNo].StartGrab();
+                    //if (TaskVision.frmMVCGenTLCamera.Visible) genTLCamera[CamNo].StartGrab();
                 }
                 else
                     TaskVision.GrabN(CamNo, ref Image);

@@ -33,6 +33,7 @@ namespace NDispWin
 
             pnl_Image.Dock = DockStyle.Fill;
             imgBoxEmgu.Dock = DockStyle.Fill;
+            imgBoxEmgu.BringToFront();
         }
 
         private void UpdateControls()
@@ -119,14 +120,17 @@ namespace NDispWin
         private void tsbtn_Cam1_Click(object sender, EventArgs e)
         {
             SelectCamera(0);
+            imgBoxEmgu.BringToFront();
         }
         private void tsbtn_Cam2_Click(object sender, EventArgs e)
         {
             SelectCamera(1);
+            imgBoxEmgu.BringToFront();
         }
         private void tsbtn_Cam3_Click(object sender, EventArgs e)
         {
             SelectCamera(2);
+            imgBoxEmgu.BringToFront();
         }
 
         private void tsbtn_Capture_Click(object sender, EventArgs e)

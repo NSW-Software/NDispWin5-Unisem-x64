@@ -81,6 +81,7 @@ namespace NDispWin
             lblIntPulseOnDelay.Text = $"{DispProg.SP.IntPulseOnDelay[0]:f3}";
             lblIntPulseOffDelay.Text = $"{DispProg.SP.IntPulseOffDelay[0]:f3}";
             lblExtendLastCLine.Text = $"{TaskDisp.Option_ExtendLastCLine:f3}";
+            lblCLineSpeedRatio.Text = $"{TaskDisp.Option_CLineSpeedRatio:f3}";
             #endregion
 
             lblCustomerPreference.Text = TaskDisp.Preference.ToString();
@@ -542,6 +543,12 @@ namespace NDispWin
         private void lblExtendLastCLine_Click(object sender, EventArgs e)
         {
             if (UC.AdjustExec("Option ExtendLastCLine", ref TaskDisp.Option_ExtendLastCLine, -10, 10))
+                UpdateDisplay();
+        }
+
+        private void lblCLineSpeedRatio_Click(object sender, EventArgs e)
+        {
+            if (UC.AdjustExec("Option CLineSpeedRatio", ref TaskDisp.Option_CLineSpeedRatio, 0.7, 1.3))
                 UpdateDisplay();
         }
     }

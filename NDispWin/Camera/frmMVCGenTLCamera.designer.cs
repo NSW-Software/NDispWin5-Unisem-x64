@@ -93,9 +93,9 @@
             this.pnl_Image.AutoScroll = true;
             this.pnl_Image.Controls.Add(this.imgBoxEmgu);
             this.pnl_Image.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_Image.Location = new System.Drawing.Point(0, 25);
+            this.pnl_Image.Location = new System.Drawing.Point(0, 27);
             this.pnl_Image.Name = "pnl_Image";
-            this.pnl_Image.Size = new System.Drawing.Size(644, 356);
+            this.pnl_Image.Size = new System.Drawing.Size(846, 499);
             this.pnl_Image.TabIndex = 3;
             this.pnl_Image.Resize += new System.EventHandler(this.pnl_Image_Resize);
             // 
@@ -119,7 +119,7 @@
             this.tsddb_Tools});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(644, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(846, 27);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -162,7 +162,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbtn_Grab
             // 
@@ -170,7 +170,7 @@
             this.tsbtn_Grab.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Grab.Image")));
             this.tsbtn_Grab.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Grab.Name = "tsbtn_Grab";
-            this.tsbtn_Grab.Size = new System.Drawing.Size(32, 22);
+            this.tsbtn_Grab.Size = new System.Drawing.Size(39, 24);
             this.tsbtn_Grab.Text = "&Live";
             this.tsbtn_Grab.Click += new System.EventHandler(this.tsbtn_Grab_Click);
             // 
@@ -180,7 +180,7 @@
             this.tsbtn_Stop.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Stop.Image")));
             this.tsbtn_Stop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Stop.Name = "tsbtn_Stop";
-            this.tsbtn_Stop.Size = new System.Drawing.Size(35, 22);
+            this.tsbtn_Stop.Size = new System.Drawing.Size(44, 24);
             this.tsbtn_Stop.Text = "&Stop";
             this.tsbtn_Stop.Click += new System.EventHandler(this.tsbtn_Stop_Click);
             // 
@@ -190,7 +190,7 @@
             this.tsbtn_Capture.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Capture.Image")));
             this.tsbtn_Capture.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Capture.Name = "tsbtn_Capture";
-            this.tsbtn_Capture.Size = new System.Drawing.Size(53, 22);
+            this.tsbtn_Capture.Size = new System.Drawing.Size(65, 24);
             this.tsbtn_Capture.Text = "&Capture";
             this.tsbtn_Capture.Click += new System.EventHandler(this.tsbtn_Capture_Click);
             // 
@@ -248,20 +248,20 @@
             this.tsddb_Image.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Image.Image")));
             this.tsddb_Image.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Image.Name = "tsddb_Image";
-            this.tsddb_Image.Size = new System.Drawing.Size(53, 22);
+            this.tsddb_Image.Size = new System.Drawing.Size(65, 24);
             this.tsddb_Image.Text = "Image";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -279,34 +279,34 @@
             this.tsddb_Tools.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Tools.Image")));
             this.tsddb_Tools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Tools.Name = "tsddb_Tools";
-            this.tsddb_Tools.Size = new System.Drawing.Size(48, 22);
+            this.tsddb_Tools.Size = new System.Drawing.Size(58, 24);
             this.tsddb_Tools.Text = "Tools";
             // 
             // tsmi_SetupReticle
             // 
             this.tsmi_SetupReticle.Name = "tsmi_SetupReticle";
-            this.tsmi_SetupReticle.Size = new System.Drawing.Size(171, 22);
+            this.tsmi_SetupReticle.Size = new System.Drawing.Size(213, 26);
             this.tsmi_SetupReticle.Text = "Setup Reticle";
             this.tsmi_SetupReticle.Click += new System.EventHandler(this.setupReticleToolStripMenuItem_Click);
             // 
             // tsmi_ShowStatusBar
             // 
             this.tsmi_ShowStatusBar.Name = "tsmi_ShowStatusBar";
-            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(171, 22);
+            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(213, 26);
             this.tsmi_ShowStatusBar.Text = "Status Bar";
             this.tsmi_ShowStatusBar.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
             // 
             // showCamReticlesToolStripMenuItem
             // 
             this.showCamReticlesToolStripMenuItem.Name = "showCamReticlesToolStripMenuItem";
-            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.showCamReticlesToolStripMenuItem.Text = "Show CamReticles";
             this.showCamReticlesToolStripMenuItem.Click += new System.EventHandler(this.showCamReticlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
             // 
             // triggerModeToolStripMenuItem
             // 
@@ -314,20 +314,20 @@
             this.tsmiTriggerModeOff,
             this.tsmiTriggerModeOn});
             this.triggerModeToolStripMenuItem.Name = "triggerModeToolStripMenuItem";
-            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.triggerModeToolStripMenuItem.Text = "Trigger Mode";
             // 
             // tsmiTriggerModeOff
             // 
             this.tsmiTriggerModeOff.Name = "tsmiTriggerModeOff";
-            this.tsmiTriggerModeOff.Size = new System.Drawing.Size(91, 22);
+            this.tsmiTriggerModeOff.Size = new System.Drawing.Size(113, 26);
             this.tsmiTriggerModeOff.Text = "Off";
             this.tsmiTriggerModeOff.Click += new System.EventHandler(this.tsmiTriggerModeOff_Click);
             // 
             // tsmiTriggerModeOn
             // 
             this.tsmiTriggerModeOn.Name = "tsmiTriggerModeOn";
-            this.tsmiTriggerModeOn.Size = new System.Drawing.Size(91, 22);
+            this.tsmiTriggerModeOn.Size = new System.Drawing.Size(113, 26);
             this.tsmiTriggerModeOn.Text = "On";
             this.tsmiTriggerModeOn.Click += new System.EventHandler(this.tsmiTriggerModeOn_Click);
             // 
@@ -337,27 +337,27 @@
             this.tsmiTriggerSourceSoftware,
             this.tsmiTriggerSourceHardware});
             this.tsmiTriggerSource.Name = "tsmiTriggerSource";
-            this.tsmiTriggerSource.Size = new System.Drawing.Size(171, 22);
+            this.tsmiTriggerSource.Size = new System.Drawing.Size(213, 26);
             this.tsmiTriggerSource.Text = "Trigger Source";
             // 
             // tsmiTriggerSourceSoftware
             // 
             this.tsmiTriggerSourceSoftware.Name = "tsmiTriggerSourceSoftware";
-            this.tsmiTriggerSourceSoftware.Size = new System.Drawing.Size(125, 22);
+            this.tsmiTriggerSourceSoftware.Size = new System.Drawing.Size(157, 26);
             this.tsmiTriggerSourceSoftware.Text = "Software";
             this.tsmiTriggerSourceSoftware.Click += new System.EventHandler(this.tsmiTriggerSourceSoftware_Click);
             // 
             // tsmiTriggerSourceHardware
             // 
             this.tsmiTriggerSourceHardware.Name = "tsmiTriggerSourceHardware";
-            this.tsmiTriggerSourceHardware.Size = new System.Drawing.Size(125, 22);
+            this.tsmiTriggerSourceHardware.Size = new System.Drawing.Size(157, 26);
             this.tsmiTriggerSourceHardware.Text = "Hardware";
             this.tsmiTriggerSourceHardware.Click += new System.EventHandler(this.tsmiTriggerSourceHardware_Click);
             // 
             // tsmiTrigger
             // 
             this.tsmiTrigger.Name = "tsmiTrigger";
-            this.tsmiTrigger.Size = new System.Drawing.Size(171, 22);
+            this.tsmiTrigger.Size = new System.Drawing.Size(213, 26);
             this.tsmiTrigger.Text = "Trigger";
             this.tsmiTrigger.Click += new System.EventHandler(this.tsmiTrigger_Click);
             // 
@@ -381,37 +381,37 @@
             // tssl_Pos
             // 
             this.tssl_Pos.Name = "tssl_Pos";
-            this.tssl_Pos.Size = new System.Drawing.Size(22, 17);
+            this.tssl_Pos.Size = new System.Drawing.Size(28, 16);
             this.tssl_Pos.Text = "0,0";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(13, 16);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // tssl_FPS
             // 
             this.tssl_FPS.Name = "tssl_FPS";
-            this.tssl_FPS.Size = new System.Drawing.Size(26, 17);
+            this.tssl_FPS.Size = new System.Drawing.Size(32, 16);
             this.tssl_FPS.Text = "FPS";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(13, 16);
             this.toolStripStatusLabel2.Text = "|";
             // 
             // tssl_Status
             // 
             this.tssl_Status.Name = "tssl_Status";
-            this.tssl_Status.Size = new System.Drawing.Size(39, 17);
+            this.tssl_Status.Size = new System.Drawing.Size(49, 16);
             this.tssl_Status.Text = "Status";
             // 
             // frmMVCGenTLCamera
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(644, 381);
+            this.ClientSize = new System.Drawing.Size(846, 526);
             this.Controls.Add(this.pnl_Image);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ss_Bottom);

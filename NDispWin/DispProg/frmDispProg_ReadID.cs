@@ -103,6 +103,7 @@ namespace NDispWin
         {
             try
             {
+                TaskVision.Read2DLightRGB = TaskVision.CurrentLightRGBA;
                 TaskVision.LightingOn(TaskVision.Read2DLightRGB);
                 if (!TaskDisp.TaskMoveGZFocus(CmdLine.IPara[21])) return;
 

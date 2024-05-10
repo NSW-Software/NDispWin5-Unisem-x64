@@ -269,6 +269,7 @@
     </Compile>
     <Compile Include="TEThermoCT.cs" />
     <Compile Include="TFCL3.cs" />
+    <Compile Include="TFMatrix.cs" />
     <Compile Include="TFMisc.cs" />
     <Compile Include="TFSecsgem.cs" />
     <Compile Include="Vermes\frmVermesMDS3200.cs">

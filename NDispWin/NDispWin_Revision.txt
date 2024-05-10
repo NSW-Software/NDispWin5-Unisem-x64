@@ -5,6 +5,23 @@ TaskWeight ReadImme at Open
 Todo:
 remove frmVisionView
 
+
+Ver 6.0.8 - 20240510 - KN
+- [BugFix] Fix 3DPlane number of points to 3
+- [Feature] Refactor Upload and Dnload Flip to Recipe
+- [Feature] Update DispProg camera to freeze for DoVision
+- [Feature] Added TFMatrix
+- [Enhance] RetryOpenCL3000
+- [Enhance] frmAuto improve display
+Ver 6.0.6 - 20240509 - KN
+- [Feature] Added frmMVCGenTLCamera VisImage to display last Vision Image.
+- [Feature] Added CLineSpeedRatio to define speed compensation for Cline.
+- [HseKeep] Removed sign conversion when value is negative. Display negative average as actual.
+- [Change] DoHeight Z height = 0, prompt to stop or OK to accept.
+- [Improve] frmDispProg_ReadID update current lighting values.
+Ver 6.0.5 - 20240507 - KN
+- [Change] Update frm_DispCore_JogGantryVision from std version
+- [Change] Added frmMain set path for x64 app.  
 Ver 6.0.4 - 20240505 - KN - Gitted
 - [Change] Refactor frmVisionFailMsg2 to solve camera switching problem.
 - [Feature] Enable Cancel after program stop.
