@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
+using System.Drawing;
 
 namespace NDispWin
 {
@@ -218,6 +219,8 @@ namespace NDispWin
         public static EHomeSequence HomeSequence = EHomeSequence.ZXY;
 
         public static double ZHeightForSlowSpeed = -100;
+        public static PointD[] DispenseWindow = new PointD[] { new PointD(0, 0), new PointD(0, 0) };
+        public static double DispenseWindowZ = 0; //Nozzle Z Position
 
         #region device config
         private static void SaveDeviceConfig(ref CControl2.TInput Input, string FileName)
@@ -1002,6 +1005,13 @@ namespace NDispWin
             HomeSequence = (EHomeSequence)IniFile.ReadInteger("Options", "HomeSequence", (int)EHomeSequence.ZXY);
             ZHeightForSlowSpeed = IniFile.ReadDouble("Options", "ZHeightForSlowSpeed", -100);
 
+            for (int i = 0; i < 2; i++)
+            {
+                DispenseWindow[i].X = IniFile.ReadDouble("Options", $"DispenseWindow{i}X", 0);
+                DispenseWindow[i].Y = IniFile.ReadDouble("Options", $"DispenseWindow{i}Y", 0);
+            }
+            DispenseWindowZ = IniFile.ReadFloat("Options", "DispenseWindowZ", 0);
+
             GXAxis.Para.ReadInifile(Filename, GXAxis.Name);
             GYAxis.Para.ReadInifile(Filename, GYAxis.Name);
             GZAxis.Para.ReadInifile(Filename, GZAxis.Name);
@@ -1010,10 +1020,12 @@ namespace NDispWin
             GZ2Axis.Para.ReadInifile(Filename, GZ2Axis.Name);
             SZAxis.Para.ReadInifile(Filename, SZAxis.Name);
 
-            if (SZAxis.Para.FastV == 1) {
+            if (SZAxis.Para.FastV == 1)
+            {
                 SZAxis.Device = Device_0;
                 SZAxis.Para.Unit.Resolution = 0.0005;
-                SZAxis.Para.FastV = 2; }
+                SZAxis.Para.FastV = 2;
+            }
 
             if (!File.Exists(Filename))
             {
@@ -1053,6 +1065,13 @@ namespace NDispWin
 
             IniFile.WriteInteger("Options", "HomeSequence", (int)TaskGantry.HomeSequence);
             IniFile.WriteDouble("Options", "ZHeightForSlowSpeed", ZHeightForSlowSpeed);
+
+            for (int i = 0; i < 2; i++)
+            {
+                IniFile.WriteDouble("Options", $"DispenseWindow{i}X", DispenseWindow[i].X);
+                IniFile.WriteDouble("Options", $"DispenseWindow{i}Y", DispenseWindow[i].Y);
+            }
+            IniFile.WriteFloat("Options", "DispenseWindowZ", DispenseWindowZ);
 
             if (!File.Exists(Filename))
             {
@@ -1425,7 +1444,7 @@ namespace NDispWin
                 case "RY": return GetInput(ref _SensRYHome);
             }
         }
-    
+
         #region SensSLmt
         internal static bool SLmtP(CControl2.TAxis Axis)
         {
@@ -1439,7 +1458,7 @@ namespace NDispWin
             //{
             //    SLmt.Mask = 0x0200;
             //}
-            
+
             return GetInput(ref SLmt);
         }
         internal static bool SLmtN(CControl2.TAxis Axis)
@@ -2376,7 +2395,6 @@ namespace NDispWin
         }
         internal static bool MoveLineAbs(CControl2.TAxis Axis1, CControl2.TAxis Axis2, double Pos1, double Pos2)
         {
-            string EMsg = "MovePtp";
             DispProg.Idle.Reset();
 
             if (GDefine.SysOffline) { return true; }
@@ -2394,9 +2412,33 @@ namespace NDispWin
             {
                 GDefine.Status = EStatus.ErrorInit;
 
-                EMsg = EMsg + (char)13 + Ex.Message.ToString();
                 Msg MsgBox = new Msg();
-                MsgBox.Show(ErrCode.GANTRY_MOVE_LINE_ABS2_ERR, Ex.Message);
+                MsgBox.Show(ErrCode.GANTRY_MOVE_LINE_REL2_ERR, Ex.Message);
+                return false;
+            }
+            return true;
+        }
+        internal static bool MoveLineRel(CControl2.TAxis Axis1, CControl2.TAxis Axis2, double Pos1, double Pos2)
+        {
+            DispProg.Idle.Reset();
+
+            if (GDefine.SysOffline) { return true; }
+
+            if (MotorAlarmPrompt(Axis1)) return false;
+            if (MotorAlarmPrompt(Axis2)) return false;
+            if (AxisErrorPrompt(Axis1)) return false;
+            if (AxisErrorPrompt(Axis2)) return false;
+
+            try
+            {
+                CommonControl.MoveLineRel2(Axis1, Axis2, Pos1, Pos2);
+            }
+            catch (Exception Ex)
+            {
+                GDefine.Status = EStatus.ErrorInit;
+
+                Msg MsgBox = new Msg();
+                MsgBox.Show(ErrCode.GANTRY_MOVE_LINE_REL2_ERR, Ex.Message);
                 return false;
             }
             return true;
@@ -2922,6 +2964,42 @@ namespace NDispWin
             return true;
         }
 
+        public static bool MoveRelGXY(double X, double Y, bool Wait)
+        {
+            if (GDefine.SysOffline) return true;
+
+            try
+            {
+                CommonControl.DecelOn(GXAxis);
+                CommonControl.DecelOn(GYAxis);
+            }
+            catch { }
+
+            if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
+            {
+                if (TaskDisp.Head2_DefDistX >= 0)
+                {
+                    double XV2 = X + (GX2Pos() - TaskDisp.Head2_DefPos.X);
+                    if (XV2 > TaskGantry.GXAxis.Para.SwLimit.PosP)
+                    {
+                        Msg MsgBox = new Msg();
+                        MsgBox.Show(ErrCode.GX2Y2_COLLISION_POSSIBLE);
+                        return false;
+                    }
+                }
+            }
+
+            if (!MoveLineRel(GXAxis, GYAxis, X, Y)) return false;
+            if (Wait)
+                if (!WaitGXY()) return false;
+
+            if (MotorAlarmPrompt(GXAxis)) return false;
+            if (MotorAlarmPrompt(GYAxis)) return false;
+            if (AxisErrorPrompt(GXAxis)) return false;
+            if (AxisErrorPrompt(GYAxis)) return false;
+
+            return true;
+        }
         //public static bool MoveRelGXY(double X, double Y, bool Wait)
         //{
         //    if (GDefine.SysOffline) return true;
@@ -3598,7 +3676,7 @@ namespace NDispWin
 
         public static bool DispBReady()
         {
-            return TaskGantry.GetInput(ref _DispBRdy);           
+            return TaskGantry.GetInput(ref _DispBRdy);
         }
         public static bool DispBTrigSet(TOutputState State)
         {
@@ -3634,7 +3712,7 @@ namespace NDispWin
         {
             get
             {
-                return TaskGantry.GetInput(ref _DispError); 
+                return TaskGantry.GetInput(ref _DispError);
             }
         }
 
@@ -3765,7 +3843,7 @@ namespace NDispWin
             get
             {
                 return _SvFVac1.Status;
-            }        
+            }
         }
         public static bool DispPortA1
         {
@@ -4244,7 +4322,7 @@ namespace NDispWin
 
                     double a = 0.5 * Accel;
                     double b = StartSpeed;
-                    double c = -Dist/2;
+                    double c = -Dist / 2;
                     double b2 = StartSpeed * StartSpeed;
                     double d = b2 - (4 * a * c);
                     double e = Math.Sqrt(d);
@@ -4254,6 +4332,42 @@ namespace NDispWin
                     return StartSpeed + Accel * t;
                 }
             }
+        }
+
+        internal static bool CheckInDispenseArea(PointD posXY, bool needle = false)
+        {
+            if (TaskGantry.DispenseWindow[0].X != 0 && TaskGantry.DispenseWindow[0].Y != 0 && TaskGantry.DispenseWindow[1].X != 0 && TaskGantry.DispenseWindow[1].Y != 0)
+            {
+                PointD[] dispenseWindow = new PointD[2] { new PointD(TaskGantry.DispenseWindow[0].X, TaskGantry.DispenseWindow[0].Y), new PointD(TaskGantry.DispenseWindow[1].X, TaskGantry.DispenseWindow[1].Y) };
+                if (needle)
+                {
+                    dispenseWindow[0].X += TaskDisp.Head_Ofst[0].X;
+                    dispenseWindow[0].Y += TaskDisp.Head_Ofst[0].Y;
+                    dispenseWindow[1].X += TaskDisp.Head_Ofst[0].X;
+                    dispenseWindow[1].Y += TaskDisp.Head_Ofst[0].Y;
+                }
+
+                if (!(posXY.X > dispenseWindow[0].X &&
+                    posXY.Y < dispenseWindow[0].Y &&
+                    posXY.X < dispenseWindow[1].X &&
+                    posXY.Y > dispenseWindow[1].Y))
+                {
+                    Msg MsgBox = new Msg();
+                    EMsgRes res = MsgBox.Show("Warning, XY is out of dispense window. Continue?", EMcState.Warning, EMsgBtn.smbYes | EMsgBtn.smbNo, false);
+                    switch (res)
+                    {
+                        case EMsgRes.smrYes:
+                            return true;
+                        case EMsgRes.smrNo: return false;
+                    }
+                }
+            }
+            return true;
+        }
+        internal static bool CheckInDispenseArea(bool needle = false)
+        {
+            PointD posXY = new PointD(TaskGantry.GXPos(), TaskGantry.GYPos());
+            return CheckInDispenseArea(posXY, needle);
         }
     }
 }

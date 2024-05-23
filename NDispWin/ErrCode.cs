@@ -368,6 +368,7 @@ namespace NDispWin
         const int MOVE_INTERPOLATION_ERR = 2450;
         #region
         public const int GANTRY_MOVE_LINE_ABS2_ERR = MOVE_INTERPOLATION_ERR + 0;
+        public const int GANTRY_MOVE_LINE_REL2_ERR = MOVE_INTERPOLATION_ERR + 1;
         public const int GANTRY_MOVE_ARC_CENTER_END_ABS_ERR = MOVE_INTERPOLATION_ERR + 5;
         #endregion
 

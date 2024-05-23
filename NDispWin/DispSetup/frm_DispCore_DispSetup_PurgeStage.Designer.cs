@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lbl_TestPurgeCount = new System.Windows.Forms.Label();
             this.btn_Jog = new System.Windows.Forms.Button();
@@ -76,11 +77,17 @@
             this.lbl_StartX = new System.Windows.Forms.Label();
             this.btn_SetXY1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.cbxPType = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.lblPSizeY = new System.Windows.Forms.Label();
+            this.lblPSizeX = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbox_Pos.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -93,11 +100,25 @@
             this.panel2.Controls.Add(this.btn_Execute);
             this.panel2.Controls.Add(this.btn_Close);
             this.panel2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(6, 388);
+            this.panel2.Location = new System.Drawing.Point(6, 468);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(5);
             this.panel2.Size = new System.Drawing.Size(480, 61);
             this.panel2.TabIndex = 137;
+            // 
+            // label11
+            // 
+            this.label11.AccessibleDescription = "";
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(7, 30);
+            this.label11.Margin = new System.Windows.Forms.Padding(2);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 17);
+            this.label11.TabIndex = 134;
+            this.label11.Text = "(Not saved)";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label16
             // 
@@ -219,10 +240,10 @@
             this.groupBox1.Controls.Add(this.lbl_PromptCleanCycles);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(6, 293);
+            this.groupBox1.Location = new System.Drawing.Point(6, 373);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.groupBox1.Size = new System.Drawing.Size(480, 89);
+            this.groupBox1.Size = new System.Drawing.Size(480, 93);
             this.groupBox1.TabIndex = 134;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
@@ -332,10 +353,10 @@
             this.gbox_Pos.Controls.Add(this.btn_SetXY1);
             this.gbox_Pos.Controls.Add(this.label5);
             this.gbox_Pos.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbox_Pos.Location = new System.Drawing.Point(6, 49);
+            this.gbox_Pos.Location = new System.Drawing.Point(6, 129);
             this.gbox_Pos.Name = "gbox_Pos";
             this.gbox_Pos.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.gbox_Pos.Size = new System.Drawing.Size(480, 238);
+            this.gbox_Pos.Size = new System.Drawing.Size(480, 242);
             this.gbox_Pos.TabIndex = 133;
             this.gbox_Pos.TabStop = false;
             this.gbox_Pos.Text = "Position";
@@ -677,27 +698,85 @@
             this.label5.Text = "(mm)";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label11
+            // cbxPType
             // 
-            this.label11.AccessibleDescription = "";
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(7, 30);
-            this.label11.Margin = new System.Windows.Forms.Padding(2);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(64, 13);
-            this.label11.TabIndex = 134;
-            this.label11.Text = "(Not saved)";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label11.Click += new System.EventHandler(this.label11_Click);
+            this.cbxPType.FormattingEnabled = true;
+            this.cbxPType.Location = new System.Drawing.Point(82, 23);
+            this.cbxPType.Name = "cbxPType";
+            this.cbxPType.Size = new System.Drawing.Size(121, 26);
+            this.cbxPType.TabIndex = 138;
+            this.cbxPType.SelectionChangeCommitted += new System.EventHandler(this.cbxPType_SelectionChangeCommitted);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox3.Controls.Add(this.lblPSizeY);
+            this.groupBox3.Controls.Add(this.lblPSizeX);
+            this.groupBox3.Controls.Add(this.label22);
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.cbxPType);
+            this.groupBox3.Location = new System.Drawing.Point(6, 49);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(478, 74);
+            this.groupBox3.TabIndex = 139;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Pattern";
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(5, 24);
+            this.label19.Margin = new System.Windows.Forms.Padding(2);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(72, 23);
+            this.label19.TabIndex = 152;
+            this.label19.Text = "Type";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblPSizeY
+            // 
+            this.lblPSizeY.BackColor = System.Drawing.SystemColors.Window;
+            this.lblPSizeY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblPSizeY.Location = new System.Drawing.Point(398, 23);
+            this.lblPSizeY.Margin = new System.Windows.Forms.Padding(2);
+            this.lblPSizeY.Name = "lblPSizeY";
+            this.lblPSizeY.Size = new System.Drawing.Size(75, 23);
+            this.lblPSizeY.TabIndex = 157;
+            this.lblPSizeY.Text = "-999.999";
+            this.lblPSizeY.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPSizeY.Click += new System.EventHandler(this.lblPSizeY_Click);
+            // 
+            // lblPSizeX
+            // 
+            this.lblPSizeX.BackColor = System.Drawing.SystemColors.Window;
+            this.lblPSizeX.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblPSizeX.Location = new System.Drawing.Point(319, 23);
+            this.lblPSizeX.Margin = new System.Windows.Forms.Padding(2);
+            this.lblPSizeX.Name = "lblPSizeX";
+            this.lblPSizeX.Size = new System.Drawing.Size(75, 23);
+            this.lblPSizeX.TabIndex = 156;
+            this.lblPSizeX.Text = "-999.999";
+            this.lblPSizeX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPSizeX.Click += new System.EventHandler(this.lblPSizeX_Click);
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(240, 23);
+            this.label22.Margin = new System.Windows.Forms.Padding(2);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(75, 23);
+            this.label22.TabIndex = 155;
+            this.label22.Text = "Size, mm";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frm_DispProg_PurgeStage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(498, 471);
+            this.ClientSize = new System.Drawing.Size(498, 559);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
@@ -715,6 +794,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.gbox_Pos.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -771,5 +851,11 @@
         private System.Windows.Forms.Label lbl_TestPurgeCount;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbxPType;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lblPSizeY;
+        private System.Windows.Forms.Label lblPSizeX;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label19;
     }
 }

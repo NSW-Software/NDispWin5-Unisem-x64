@@ -6,7 +6,26 @@ Todo:
 remove frmVisionView
 
 
-Ver 6.0.8 - 20240510 - KN
+Ver 6.0.12 - 20240522 - KN - Gitted
+- [Feature] Added PurgeStage Line
+- [Bugfix] Corrected Z_Ave=0 not dispense
+- [Bugfix] Fix CheckInDispenseArea
+Ver 6.0.11 - 20240521 - KN
+- [BugFix] Fix TaskMHS.RunKick to check Pre and Pro before move evel.
+- [Feature] Added CHeckInDispenseArea to frmDot, MoveLine and MultiDot
+- [Enhance] Lighting off for TaskMHS.Run and Manual_LoadPro, prevent inteference wiht ProPsnt sensor.
+- [Enhance] Selection of frmMap by intersecting rectangle to improve user experience.
+- [Enhance] Change to moveable frmMsgBox to allow move for background check.
+Ver 6.0.10 - 20240520 - KN
+- [Feature] Added DispenseWindow Settings.
+- [Feature] JogControl to check for safe operation.
+- [Enhance] Update frmDisptool to UpdateFormControl
+- [BigFix] frmDispProg2 tstbn_Resume call DispProg.TR_Cancel, instead of Cancel_Click, prevent cancel message
+- [Remove] ExecuteDoHeigh, Remove Z[0]=0 checking, removed redundant Z.Average value manipulation
+- [BigFix] Corrected Option_ShrinkLast2CLine=0 to execute default
+Ver 6.0.9 - 20240517 - KN
+- [Feature] Added Option_ShrinkLast2CLine to shink last 2nd Line length.
+Ver 6.0.8 - 20240510 - KN - Gitted
 - [BugFix] Fix 3DPlane number of points to 3
 - [Feature] Refactor Upload and Dnload Flip to Recipe
 - [Feature] Update DispProg camera to freeze for DoVision

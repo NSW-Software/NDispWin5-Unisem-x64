@@ -484,6 +484,11 @@ namespace NDispWin
                                 Min = -1;
                                 Max = 50;
                             }
+                            if (ParaName.Contains("DispGap"))
+                            {
+                                Min = TModelList.WarnLLimit[(int)DispProg.ModelList.BasicPara[i_IndexNo]];
+                                Max = TModelList.WarnULimit[(int)DispProg.ModelList.BasicPara[i_IndexNo]];
+                            }
                             if (ParaName.Contains("Dist"))
                             {
                                 Min = -50;

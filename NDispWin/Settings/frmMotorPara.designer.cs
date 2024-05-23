@@ -97,12 +97,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblConfigFile = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.lblSafeZ = new System.Windows.Forms.Label();
+            this.lblBRY = new System.Windows.Forms.Label();
+            this.lblBRX = new System.Windows.Forms.Label();
+            this.lblTLY = new System.Windows.Forms.Label();
+            this.lblTLX = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_GX2Axis
@@ -1052,6 +1062,7 @@
             // 
             this.groupBox2.AccessibleDescription = "Options";
             this.groupBox2.AutoSize = true;
+            this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox2.Controls.Add(this.lblConfigFile);
             this.groupBox2.Controls.Add(this.label33);
             this.groupBox2.Controls.Add(this.label2);
@@ -1061,7 +1072,7 @@
             this.groupBox2.Location = new System.Drawing.Point(7, 432);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.groupBox2.Size = new System.Drawing.Size(707, 107);
+            this.groupBox2.Size = new System.Drawing.Size(707, 103);
             this.groupBox2.TabIndex = 139;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
@@ -1078,13 +1089,137 @@
             this.lblConfigFile.Text = "Config File";
             this.lblConfigFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.ForeColor = System.Drawing.Color.Navy;
+            this.label34.Location = new System.Drawing.Point(5, 20);
+            this.label34.Margin = new System.Windows.Forms.Padding(2);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(66, 21);
+            this.label34.TabIndex = 148;
+            this.label34.Text = "TL (XY)";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label41);
+            this.groupBox3.Controls.Add(this.label40);
+            this.groupBox3.Controls.Add(this.lblSafeZ);
+            this.groupBox3.Controls.Add(this.lblBRY);
+            this.groupBox3.Controls.Add(this.lblBRX);
+            this.groupBox3.Controls.Add(this.lblTLY);
+            this.groupBox3.Controls.Add(this.lblTLX);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Location = new System.Drawing.Point(719, 7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(248, 528);
+            this.groupBox3.TabIndex = 153;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "DispenseArea (Camera)";
+            // 
+            // label41
+            // 
+            this.label41.BackColor = System.Drawing.Color.Transparent;
+            this.label41.ForeColor = System.Drawing.Color.Navy;
+            this.label41.Location = new System.Drawing.Point(5, 78);
+            this.label41.Margin = new System.Windows.Forms.Padding(2);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(66, 21);
+            this.label41.TabIndex = 159;
+            this.label41.Text = "Safe Z (Z)";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label40
+            // 
+            this.label40.BackColor = System.Drawing.Color.Transparent;
+            this.label40.ForeColor = System.Drawing.Color.Navy;
+            this.label40.Location = new System.Drawing.Point(5, 49);
+            this.label40.Margin = new System.Windows.Forms.Padding(2);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(66, 21);
+            this.label40.TabIndex = 158;
+            this.label40.Text = "BR (XY)";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblSafeZ
+            // 
+            this.lblSafeZ.BackColor = System.Drawing.Color.White;
+            this.lblSafeZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSafeZ.ForeColor = System.Drawing.Color.Navy;
+            this.lblSafeZ.Location = new System.Drawing.Point(84, 76);
+            this.lblSafeZ.Margin = new System.Windows.Forms.Padding(2);
+            this.lblSafeZ.Name = "lblSafeZ";
+            this.lblSafeZ.Size = new System.Drawing.Size(76, 25);
+            this.lblSafeZ.TabIndex = 157;
+            this.lblSafeZ.Text = "999.999";
+            this.lblSafeZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSafeZ.Click += new System.EventHandler(this.lblSafeZ_Click);
+            // 
+            // lblBRY
+            // 
+            this.lblBRY.BackColor = System.Drawing.Color.White;
+            this.lblBRY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblBRY.ForeColor = System.Drawing.Color.Navy;
+            this.lblBRY.Location = new System.Drawing.Point(164, 47);
+            this.lblBRY.Margin = new System.Windows.Forms.Padding(2);
+            this.lblBRY.Name = "lblBRY";
+            this.lblBRY.Size = new System.Drawing.Size(76, 25);
+            this.lblBRY.TabIndex = 156;
+            this.lblBRY.Text = "999.999";
+            this.lblBRY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblBRY.Click += new System.EventHandler(this.lblBRY_Click);
+            // 
+            // lblBRX
+            // 
+            this.lblBRX.BackColor = System.Drawing.Color.White;
+            this.lblBRX.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblBRX.ForeColor = System.Drawing.Color.Navy;
+            this.lblBRX.Location = new System.Drawing.Point(84, 47);
+            this.lblBRX.Margin = new System.Windows.Forms.Padding(2);
+            this.lblBRX.Name = "lblBRX";
+            this.lblBRX.Size = new System.Drawing.Size(76, 25);
+            this.lblBRX.TabIndex = 155;
+            this.lblBRX.Text = "999.999";
+            this.lblBRX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblBRX.Click += new System.EventHandler(this.lblBRX_Click);
+            // 
+            // lblTLY
+            // 
+            this.lblTLY.BackColor = System.Drawing.Color.White;
+            this.lblTLY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTLY.ForeColor = System.Drawing.Color.Navy;
+            this.lblTLY.Location = new System.Drawing.Point(164, 18);
+            this.lblTLY.Margin = new System.Windows.Forms.Padding(2);
+            this.lblTLY.Name = "lblTLY";
+            this.lblTLY.Size = new System.Drawing.Size(76, 25);
+            this.lblTLY.TabIndex = 154;
+            this.lblTLY.Text = "999.999";
+            this.lblTLY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTLY.Click += new System.EventHandler(this.lblTLY_Click);
+            // 
+            // lblTLX
+            // 
+            this.lblTLX.BackColor = System.Drawing.Color.White;
+            this.lblTLX.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTLX.ForeColor = System.Drawing.Color.Navy;
+            this.lblTLX.Location = new System.Drawing.Point(84, 18);
+            this.lblTLX.Margin = new System.Windows.Forms.Padding(2);
+            this.lblTLX.Name = "lblTLX";
+            this.lblTLX.Size = new System.Drawing.Size(76, 25);
+            this.lblTLX.TabIndex = 153;
+            this.lblTLX.Text = "999.999";
+            this.lblTLX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTLX.Click += new System.EventHandler(this.lblTLX_Click);
+            // 
             // frmMotorPara
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(721, 550);
+            this.ClientSize = new System.Drawing.Size(985, 546);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox7);
@@ -1108,6 +1243,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1184,5 +1320,14 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label lbl_ZHeightForSlowSpeed;
         private System.Windows.Forms.Label lblConfigFile;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label lblSafeZ;
+        private System.Windows.Forms.Label lblBRY;
+        private System.Windows.Forms.Label lblBRX;
+        private System.Windows.Forms.Label lblTLY;
+        private System.Windows.Forms.Label lblTLX;
     }
 }

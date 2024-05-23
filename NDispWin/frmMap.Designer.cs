@@ -63,7 +63,6 @@
             this.pbox_Map.TabIndex = 0;
             this.pbox_Map.TabStop = false;
             this.pbox_Map.SizeChanged += new System.EventHandler(this.pbox_Map_SizeChanged);
-            this.pbox_Map.Click += new System.EventHandler(this.pbox_Map_Click);
             this.pbox_Map.Paint += new System.Windows.Forms.PaintEventHandler(this.pbox_Map_Paint);
             this.pbox_Map.DoubleClick += new System.EventHandler(this.pbox_Map_DoubleClick);
             this.pbox_Map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbox_Map_MouseClick);
@@ -88,7 +87,6 @@
             this.pbox_Image.Size = new System.Drawing.Size(282, 277);
             this.pbox_Image.TabIndex = 7;
             this.pbox_Image.TabStop = false;
-            this.pbox_Image.Click += new System.EventHandler(this.pbox_Image_Click);
             // 
             // lbl_ReadID
             // 

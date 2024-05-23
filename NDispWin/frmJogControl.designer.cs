@@ -115,6 +115,7 @@
             this.lblZPos = new System.Windows.Forms.Label();
             this.lblYPos = new System.Windows.Forms.Label();
             this.lblXPos = new System.Windows.Forms.Label();
+            this.lblWarning = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpXY.SuspendLayout();
             this.tpXY2.SuspendLayout();
@@ -364,7 +365,7 @@
             // 
             this.tbox_Keyboard.Location = new System.Drawing.Point(385, 167);
             this.tbox_Keyboard.Name = "tbox_Keyboard";
-            this.tbox_Keyboard.Size = new System.Drawing.Size(55, 26);
+            this.tbox_Keyboard.Size = new System.Drawing.Size(55, 22);
             this.tbox_Keyboard.TabIndex = 72;
             this.tbox_Keyboard.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.tbox_Keyboard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
@@ -853,7 +854,7 @@
             this.tbar_A.Margin = new System.Windows.Forms.Padding(0);
             this.tbar_A.Maximum = 100;
             this.tbar_A.Name = "tbar_A";
-            this.tbar_A.Size = new System.Drawing.Size(185, 56);
+            this.tbar_A.Size = new System.Drawing.Size(185, 45);
             this.tbar_A.TabIndex = 25;
             this.tbar_A.TickFrequency = 10;
             this.tbar_A.Scroll += new System.EventHandler(this.tbar_A_Scroll);
@@ -890,7 +891,7 @@
             this.tbar_B.Margin = new System.Windows.Forms.Padding(0);
             this.tbar_B.Maximum = 100;
             this.tbar_B.Name = "tbar_B";
-            this.tbar_B.Size = new System.Drawing.Size(185, 56);
+            this.tbar_B.Size = new System.Drawing.Size(185, 45);
             this.tbar_B.TabIndex = 22;
             this.tbar_B.TickFrequency = 10;
             this.tbar_B.Scroll += new System.EventHandler(this.tbar_B_Scroll);
@@ -927,7 +928,7 @@
             this.tbar_G.Margin = new System.Windows.Forms.Padding(0);
             this.tbar_G.Maximum = 100;
             this.tbar_G.Name = "tbar_G";
-            this.tbar_G.Size = new System.Drawing.Size(185, 56);
+            this.tbar_G.Size = new System.Drawing.Size(185, 45);
             this.tbar_G.TabIndex = 19;
             this.tbar_G.TickFrequency = 10;
             this.tbar_G.Scroll += new System.EventHandler(this.tbar_G_Scroll);
@@ -964,7 +965,7 @@
             this.tbar_R.Margin = new System.Windows.Forms.Padding(0);
             this.tbar_R.Maximum = 100;
             this.tbar_R.Name = "tbar_R";
-            this.tbar_R.Size = new System.Drawing.Size(185, 56);
+            this.tbar_R.Size = new System.Drawing.Size(185, 45);
             this.tbar_R.TabIndex = 16;
             this.tbar_R.TickFrequency = 10;
             this.tbar_R.Scroll += new System.EventHandler(this.tbar_R_Scroll);
@@ -1194,6 +1195,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lblWarning);
             this.panel2.Controls.Add(this.lbl_Keyboard);
             this.panel2.Controls.Add(this.tbox_Keyboard);
             this.panel2.Controls.Add(this.btnLedOff);
@@ -1304,6 +1306,16 @@
             this.lblXPos.TabIndex = 73;
             this.lblXPos.Text = "999.000";
             this.lblXPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblWarning
+            // 
+            this.lblWarning.AutoSize = true;
+            this.lblWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblWarning.Location = new System.Drawing.Point(317, 10);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(11, 14);
+            this.lblWarning.TabIndex = 87;
+            this.lblWarning.Text = "-";
             // 
             // frmJogControl
             // 
@@ -1422,5 +1434,6 @@
         private System.Windows.Forms.Label lbl_Focus1;
         private System.Windows.Forms.Label lbl_Focus2;
         private System.Windows.Forms.Label lbl_Focus3;
+        private System.Windows.Forms.Label lblWarning;
     }
 }

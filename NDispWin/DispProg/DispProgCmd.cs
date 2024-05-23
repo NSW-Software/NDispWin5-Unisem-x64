@@ -734,15 +734,7 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    string str = $"MeasTemp\t";
-                    //str += $"MeasID\t{Line.ID}\t";
-                    //str += $"UnitNo={DispProg.RunTime.UIndex}\t";
-                    str += $"C,R={DispProg.RunTime.Head_CR[0].X},{DispProg.RunTime.Head_CR[0].Y}\t";
-                    for (int i = 0; i < temp.Count; i++)
-                    {
-                        str += $"X,Y,T={pos[i].X:f3},{pos[i].Y:f3},{temp[i]:f1}\t";
-                    }
-                    GLog.WriteProcessLog(str);
+                    DispProg.UnisemProcessLog(Line, 0, 0, 0, false, false, false);
                 }
             }
             catch (Exception Ex)

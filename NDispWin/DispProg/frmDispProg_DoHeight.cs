@@ -36,6 +36,7 @@ namespace NDispWin
         {
             lbl_HeightID.Text = CmdLine.ID.ToString();
             lbl_AlignType.Text = CmdLine.IPara[2].ToString() + " - " + Enum.GetName(typeof(EAlignType), CmdLine.IPara[2]);
+            gbxCluster.Visible = (CmdLine.IPara[2] == 1);
 
             btn_HeightType.BackColor = CmdLine.IPara[0] == 1 ? Color.Lime : this.BackColor;
             btn_PlaneType.BackColor = CmdLine.IPara[0] == 3 ? Color.Lime : this.BackColor;
@@ -55,7 +56,7 @@ namespace NDispWin
             lbl_X2Y2.Text = CmdLine.X[1].ToString("F3") + ", " + CmdLine.Y[1].ToString("F3");
             lbl_X3Y3.Text = CmdLine.X[2].ToString("F3") + ", " + CmdLine.Y[2].ToString("F3");
 
-            lbl_RefHeight.Text = TaskDisp.Laser_CalValue == 0 ? CmdLine.DPara[5].ToString("f3") :(TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + CmdLine.DPara[5]).ToString("f3");
+            lbl_RefHeight.Text = TaskDisp.Laser_CalValue == 0 ? CmdLine.DPara[5].ToString("f3") : (TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + CmdLine.DPara[5]).ToString("f3");
             lbl_ErrorTol.Text = CmdLine.DPara[6].ToString("f3");
             lbl_SkipTol.Text = CmdLine.DPara[7].ToString("f3");
 
@@ -106,6 +107,9 @@ namespace NDispWin
             }
         }
 
+        Point clstrCR = new Point(0, 0);
+        PointD clstrColPitch = new PointD(0, 0);
+        PointD clstrRowPitch = new PointD(0, 0);
         private void frmDispProg_DoHeight_Load(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
@@ -128,6 +132,33 @@ namespace NDispWin
             }
             catch { };
 
+            {//Check for Cluster information
+                clstrCR = new Point(0, 0);
+                clstrColPitch = new PointD(0, 0);
+                clstrRowPitch = new PointD(0, 0);
+
+                for (int i = 0; i < DispProg.Script[0].CmdList.Count; i++)
+                {
+                    DispProg.TLine cmdLine = new DispProg.TLine(DispProg.Script[0].CmdList.Line[i]);
+
+                    if (cmdLine.Cmd == DispProg.ECmd.LAYOUT)
+                    {
+                        clstrCR = new Point(cmdLine.Index[6], cmdLine.Index[8]);
+                        clstrColPitch = new PointD(cmdLine.DPara[6], cmdLine.DPara[7]);
+                        clstrRowPitch = new PointD(cmdLine.DPara[8], cmdLine.DPara[9]);
+
+                        cbxClstrC.Items.Clear();
+                        for (int c = 0; c < clstrCR.X; c++) { cbxClstrC.Items.Add($"C {c + 1}"); };
+                        cbxClstrC.SelectedIndex = 0;
+
+                        cbxClstrR.Items.Clear();
+                        for (int r = 0; r < clstrCR.Y; r++) { cbxClstrR.Items.Add($"R {r + 1}"); };
+                        cbxClstrR.SelectedIndex = 0;
+
+                        break;
+                    }
+                }
+            }
 
             UpdateDisplay();
         }
@@ -281,20 +312,20 @@ namespace NDispWin
             {
                 i_PointNo = i - 1;
 
-                if (i != i_PointNo)
-                {
-                    if (MessageBox.Show($"Goto Point {i_PointNo + 1}", "Action", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                //if (i != i_PointNo)
+                //{
+                //    if (MessageBox.Show($"Goto Point {i_PointNo + 1}", "Action", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //    {
+                //        if (!TaskDisp.TaskMoveGZZ2Up()) return;
 
-                        double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
-                        double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
+                //        double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
+                //        double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
 
-                        if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
-                        if (!TaskGantry.SetMotionParamGXY()) return;
-                        if (!TaskGantry.MoveAbsGXY(X, Y)) return;
-                    }
-                }
+                //        if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
+                //        if (!TaskGantry.SetMotionParamGXY()) return;
+                //        if (!TaskGantry.MoveAbsGXY(X, Y)) return;
+                //    }
+                //}
             }
             UpdateDisplay();
         }
@@ -326,6 +357,19 @@ namespace NDispWin
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
         }
+        private void btnGotoPos_Click(object sender, EventArgs e)
+        {
+            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+
+            double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
+            double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
+
+            if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
+            if (!TaskGantry.SetMotionParamGXY()) return;
+            if (!TaskGantry.MoveAbsGXY(X, Y)) return;
+
+            UpdateDisplay();
+        }
 
         private void btn_SetPt_Click(object sender, EventArgs e)
         {
@@ -340,26 +384,26 @@ namespace NDispWin
 
             UpdateDisplay();
         }
-        private void btn_SetSecX1Y1_Click(object sender, EventArgs e)
-        {
-            double X = TaskGantry.GXPos();
-            double Y = TaskGantry.GYPos();
+        //private void btn_SetSecX1Y1_Click(object sender, EventArgs e)
+        //{
+        //    double X = TaskGantry.GXPos();
+        //    double Y = TaskGantry.GYPos();
 
-            CmdLine.X[MAX_POINTS] = X - (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X);
-            CmdLine.Y[MAX_POINTS] = Y - (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y);
+        //    CmdLine.X[MAX_POINTS] = X - (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X);
+        //    CmdLine.Y[MAX_POINTS] = Y - (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y);
 
-            UpdateDisplay();
-        }
-        private void btn_GotoSecXY_Click(object sender, EventArgs e)
-        {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+        //    UpdateDisplay();
+        //}
+        //private void btn_GotoSecXY_Click(object sender, EventArgs e)
+        //{
+        //    if (!TaskDisp.TaskMoveGZZ2Up()) return;
 
-            double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[MAX_POINTS];
-            double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[MAX_POINTS];
+        //    double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[MAX_POINTS];
+        //    double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[MAX_POINTS];
 
-            if (!TaskGantry.SetMotionParamGXY()) return;
-            if (!TaskGantry.MoveAbsGXY(X, Y)) return;
-        }
+        //    if (!TaskGantry.SetMotionParamGXY()) return;
+        //    if (!TaskGantry.MoveAbsGXY(X, Y)) return;
+        //}
 
         private void btnTest_Click(object sender, EventArgs e)
         {
@@ -375,129 +419,6 @@ namespace NDispWin
                         {
                             try
                             {
-                                //    #region
-                                //    double d_RefHeight = TaskDisp.Laser_CalValue == 0 ? CmdLine.DPara[5] : TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + CmdLine.DPara[5];
-                                //    double d_RefHeightTol = CmdLine.DPara[6];
-
-                                //    List<double> Z = new List<double>();
-
-                                //    int t = GDefine.GetTickCount();
-
-                                //    if (!TaskDisp.TaskMoveGZZ2Up()) return;
-
-                                //    int i_PointIndex = 0;//index starts from 0
-                                //    int i_PointCount = 1;
-
-                                //    if (CmdLine.IPara[0] == 3)//Plane Align
-                                //        i_PointCount = 3;
-                                //    else//Height Align
-                                //        i_PointCount = CmdLine.IPara[1];
-
-                                //    while (i_PointIndex < i_PointCount)
-                                //    {
-                                //        TPos2 GXY = new TPos2();
-                                //        GXY.X = DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i_PointIndex];// +(SecIDRelX * i_IDIndex);
-                                //        GXY.Y = DispProg.Origin(ERunStationNo.Station1).Y + CmdLine.Y[i_PointIndex];// +(SecIDRelY * i_IDIndex);
-                                //        GXY.X = GXY.X + TaskDisp.Laser_Ofst.X;
-                                //        GXY.Y = GXY.Y + TaskDisp.Laser_Ofst.Y;
-
-                                //        if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
-                                //        if (!TaskGantry.SetMotionParamGXY()) return;
-                                //        if (!TaskGantry.MoveAbsGXY(GXY.X, GXY.Y)) return;
-
-                                //        int t1 = GDefine.GetTickCount() + CmdLine.IPara[4];
-                                //        while (GDefine.GetTickCount() <= t1) { Thread.Sleep(1); }
-
-                                //        //get value
-                                //        double v = 0;
-                                //        double i = 0;
-
-                                //        bool b_OK = TaskLaser.GetHeight(ref i);
-                                //        if (!b_OK) goto _GetHeightFail;
-
-                                //        v = i;
-                                //        Z.Add(v - TaskDisp.Laser_RefPosZ);
-
-                                //        i_PointIndex++;
-
-                                //        //Thread.Sleep(0);
-                                //    }
-
-                                //    t = GDefine.GetTickCount() - t;
-
-                                //    string str = "";
-                                //    bool OK = true;
-                                //    if (d_RefHeightTol > 0)
-                                //    {
-                                //        foreach (double d in Z)
-                                //        {
-                                //            if ((d <= d_RefHeight - d_RefHeightTol) || (d >= d_RefHeight + d_RefHeightTol))
-                                //            {
-                                //                str = str + "Result: NG ";
-                                //                str = str + "(Out of Ref Height Tolerance)";
-                                //                OK = false;
-                                //                break;
-                                //            }
-                                //        }
-                                //    }
-
-                                //    double Diff = Z.Max() - Z.Min();
-                                //    if (Diff > CmdLine.DPara[0])
-                                //    {
-                                //        str = str + "Result: NG ";
-                                //        str = str + "(Min Max Tolerance Fail)";
-                                //        OK = false;
-                                //    }
-
-                                //    if (OK) str = str + "Result: OK";
-
-                                //    if (OK) lbox_Info.BackColor = Color.Lime;
-                                //    if (!OK) lbox_Info.BackColor = Color.Red;
-                                //    lbox_Info.Items.Add(str);
-
-                                //    if (CmdLine.IPara[0] == 3)//Plane Align
-                                //    {
-                                //        #region Plane Align
-                                //        str = "Data:" + (char)9;
-                                //        for (int i = 0; i < 3; i++)
-                                //        {
-                                //            str = str + "Point" + i.ToString() + (char)9;
-                                //        }
-                                //        str = str + "Ave" + (char)9 + "Diff" + (char)9 + "Time" + (char)9;
-                                //        lbox_Info.Items.Add(str);
-
-                                //        str = "Data:" + (char)9;
-                                //        for (int i = 0; i < 3; i++)
-                                //        {
-                                //            str = str + Z[i].ToString("F3") + (char)9;
-                                //        }
-                                //        str = str + Z.Average().ToString("f3") + (char)9 + Diff.ToString("f3") + (char)9 + t.ToString();
-                                //        lbox_Info.Items.Add(str);
-                                //        #endregion
-                                //    }
-                                //    else//Height Align
-                                //    {
-                                //        #region
-                                //        str = "Data:" + (char)9;
-                                //        str = str + "Points" + (char)9 + "Min" + (char)9 + "Max" + (char)9 + "Ave" + (char)9 + "Diff" + (char)9;
-                                //        str = str + "Time";
-                                //        lbox_Info.Items.Add(str);
-
-                                //        str = "Data:" + (char)9;
-                                //        str = str + Z.Count.ToString() + (char)9 + Z.Min().ToString("F3") + (char)9 + Z.Max().ToString("F3") + (char)9 + Z.Average().ToString("F3") + (char)9 + Diff.ToString("F3") + (char)9;
-                                //        str = str + t.ToString();
-                                //        lbox_Info.Items.Add(str);
-                                //        #endregion
-                                //    }
-
-                                //    lbox_Info.SelectedIndex = lbox_Info.Items.Count - 1;
-
-                                //    return;
-
-                                //_GetHeightFail:
-                                //    lbox_Info.Items.Add("Get Height Fail");
-                                //    #endregion
-
                                 int pts = CmdLine.IPara[0] == 3/*Plane Align*/? 3 : CmdLine.IPara[1];
 
                                 List<double> X = new List<double>();
@@ -505,8 +426,11 @@ namespace NDispWin
                                 List<double> Z = new List<double>();
                                 for (int i = 0; i < pts; i++)
                                 {
-                                    X.Add(DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i]);// + TaskDisp.Laser_Ofst.X);
-                                    Y.Add(DispProg.Origin(ERunStationNo.Station1).Y + CmdLine.Y[i]);// + TaskDisp.Laser_Ofst.Y);
+                                    PointD clstrOfst = new PointD(0, 0);
+                                    clstrOfst.X = (selectClstr.X * clstrColPitch.X) + (selectClstr.X * clstrRowPitch.X);
+                                    clstrOfst.Y = (selectClstr.Y * clstrColPitch.Y) + (selectClstr.Y * clstrRowPitch.Y);
+                                    X.Add(DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i] + clstrOfst.X);
+                                    Y.Add(DispProg.Origin(ERunStationNo.Station1).Y + CmdLine.Y[i] + clstrOfst.Y);
                                     Z.Add(0);
                                 }
 
@@ -585,207 +509,6 @@ namespace NDispWin
                                     DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT ||
                                     //DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_ARRAY ||
                                     DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_MULTI ||
-                                    DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOTLINE_MULTI ||
-                                    DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_P ||
-                                    DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.MOVE
-                                    //DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.FILL_PAT ||
-                                    //DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.SPIRAL_FILL ||
-                                    //DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.GROUP_DISP
-                                    );
-                                if (!bNextCmdIsValid) throw new Exception("Invalid command after HEIGHT_SET");
-
-                                int t = GDefine.GetTickCount();
-
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return;
-
-                                double dx = DispProg.Origin(ERunStationNo.Station1).X + DispProg.Script[ProgNo].CmdList.Line[nextLine].X[0];
-                                double dy = DispProg.Origin(ERunStationNo.Station1).Y + DispProg.Script[ProgNo].CmdList.Line[nextLine].Y[0];
-
-                                DispProg.EHeightSetReturn ret = DispProg.HeightSet(CmdLine, HeightData, new PointD(dx, dy));
-
-                                t = GDefine.GetTickCount() - t;
-
-                                lbox_Info.BackColor = HeightData.OK ? this.BackColor : Color.Red;
-                                string str = $"Height Value {HeightData.C:f5}, Result " + (HeightData.OK ? "OK" : "NG") + $",Time {t}ms";
-                                lbox_Info.Items.Add(str);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message.ToString());
-                            }
-                            finally
-                            {
-                                TaskVision.CameraRun = true;
-                            }
-
-                            break;
-                        }
-                }
-            }
-            finally
-            {
-                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVision.genTLCamera[0].StartGrab();
-            }
-        }
-        private void btn_Test_Click(object sender, EventArgs e)
-        {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVision.genTLCamera[0].StopGrab();
-
-            lbox_Info.Items.Clear();
-
-            try
-            {
-                switch (CmdLine.Cmd)
-                {
-                    case DispProg.ECmd.DO_HEIGHT:
-                        {
-                            try
-                            {
-                                #region
-                                double d_RefHeight = TaskDisp.Laser_CalValue == 0 ? CmdLine.DPara[5] : TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + CmdLine.DPara[5];
-                                double d_RefHeightTol = CmdLine.DPara[6];
-
-                                List<double> Z = new List<double>();
-
-                                int t = GDefine.GetTickCount();
-
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return;
-
-                                int i_PointIndex = 0;//index starts from 0
-                                int i_PointCount = 1;
-
-                                if (CmdLine.IPara[0] == 3)//Plane Align
-                                    i_PointCount = 3;
-                                else//Height Align
-                                    i_PointCount = CmdLine.IPara[1];
-
-                                while (i_PointIndex < i_PointCount)
-                                {
-                                    TPos2 GXY = new TPos2();
-                                    GXY.X = DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i_PointIndex];// +(SecIDRelX * i_IDIndex);
-                                    GXY.Y = DispProg.Origin(ERunStationNo.Station1).Y + CmdLine.Y[i_PointIndex];// +(SecIDRelY * i_IDIndex);
-                                    GXY.X = GXY.X + TaskDisp.Laser_Ofst.X;
-                                    GXY.Y = GXY.Y + TaskDisp.Laser_Ofst.Y;
-
-                                    if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
-                                    if (!TaskGantry.SetMotionParamGXY()) return;
-                                    if (!TaskGantry.MoveAbsGXY(GXY.X, GXY.Y)) return;
-
-                                    int t1 = GDefine.GetTickCount() + CmdLine.IPara[4];
-                                    while (GDefine.GetTickCount() <= t1) { Thread.Sleep(1); }
-
-                                    //get value
-                                    double v = 0;
-                                    double i = 0;
-
-                                    bool b_OK = TaskLaser.GetHeight(ref i);
-                                    if (!b_OK) goto _GetHeightFail;
-
-                                    v = i;
-                                    Z.Add(v - TaskDisp.Laser_RefPosZ);
-
-                                    i_PointIndex++;
-
-                                    //Thread.Sleep(0);
-                                }
-
-                                t = GDefine.GetTickCount() - t;
-
-                                string str = "";
-                                bool OK = true;
-                                if (d_RefHeightTol > 0)
-                                {
-                                    foreach (double d in Z)
-                                    {
-                                        if ((d <= d_RefHeight - d_RefHeightTol) || (d >= d_RefHeight + d_RefHeightTol))
-                                        {
-                                            str = str + "Result: NG ";
-                                            str = str + "(Out of Ref Height Tolerance)";
-                                            OK = false;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                double Diff = Z.Max() - Z.Min();
-                                if (Diff > CmdLine.DPara[0])
-                                {
-                                    str = str + "Result: NG ";
-                                    str = str + "(Min Max Tolerance Fail)";
-                                    OK = false;
-                                }
-
-                                if (OK) str = str + "Result: OK";
-
-                                if (OK) lbox_Info.BackColor = Color.Lime;
-                                if (!OK) lbox_Info.BackColor = Color.Red;
-                                lbox_Info.Items.Add(str);
-
-                                if (CmdLine.IPara[0] == 3)//Plane Align
-                                {
-                                    #region Plane Align
-                                    str = "Data:" + (char)9;
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        str = str + "Point" + i.ToString() + (char)9;
-                                    }
-                                    str = str + "Ave" + (char)9 + "Diff" + (char)9 + "Time" + (char)9;
-                                    lbox_Info.Items.Add(str);
-
-                                    str = "Data:" + (char)9;
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        str = str + Z[i].ToString("F3") + (char)9;
-                                    }
-                                    str = str + Z.Average().ToString("f3") + (char)9 + Diff.ToString("f3") + (char)9 + t.ToString();
-                                    lbox_Info.Items.Add(str);
-                                    #endregion
-                                }
-                                else//Height Align
-                                {
-                                    #region
-                                    str = "Data:" + (char)9;
-                                    str = str + "Points" + (char)9 + "Min" + (char)9 + "Max" + (char)9 + "Ave" + (char)9 + "Diff" + (char)9;
-                                    str = str + "Time";
-                                    lbox_Info.Items.Add(str);
-
-                                    str = "Data:" + (char)9;
-                                    str = str + Z.Count.ToString() + (char)9 + Z.Min().ToString("F3") + (char)9 + Z.Max().ToString("F3") + (char)9 + Z.Average().ToString("F3") + (char)9 + Diff.ToString("F3") + (char)9;
-                                    str = str + t.ToString();
-                                    lbox_Info.Items.Add(str);
-                                    #endregion
-                                }
-
-                                lbox_Info.SelectedIndex = lbox_Info.Items.Count - 1;
-
-                                return;
-
-                            _GetHeightFail:
-                                lbox_Info.Items.Add("Get Height Fail");
-                                #endregion
-                            }
-                            catch (Exception ex)
-                            {
-                                TaskVision.CameraRun = true;
-                                MessageBox.Show(ex.Message.ToString());
-                            }
-
-                            TaskVision.CameraRun = true;
-                            break;
-                        }
-                    case DispProg.ECmd.HEIGHT_SET:
-                        {
-                            try
-                            {
-                                THeightData HeightData = new THeightData();
-                                HeightData.OK = false;
-
-                                int nextLine = LineNo + 1;
-                                bool bNextCmdIsValid =
-                                    (
-                                    DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT
-                                    //DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_ARRAY ||
-                                    || DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_MULTI ||
                                     DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOTLINE_MULTI ||
                                     DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.DOT_P ||
                                     DispProg.Script[ProgNo].CmdList.Line[nextLine].Cmd == DispProg.ECmd.MOVE
@@ -943,6 +666,22 @@ namespace NDispWin
             frm.ShowDialog();
             //TCTwrLight.SetStatus(TwrLight.Idle);//
             IO.SetState(EMcState.Last);
+        }
+
+        Point selectClstr = new Point(0, 0);
+        private void cbxClstrC_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            selectClstr.X = (sender as ComboBox).SelectedIndex;
+        }
+
+        private void cbxClstrR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectClstr.Y = (sender as ComboBox).SelectedIndex;
+        }
+
+        private void gbox_PlanePositions_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

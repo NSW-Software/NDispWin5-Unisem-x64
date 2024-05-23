@@ -211,6 +211,9 @@ namespace NDispWin
         {
             Enabled = false;
 
+            TaskGantry.BPress1 = false;
+            TaskGantry.DispPortC1 = false;
+
             try
             {
                 TaskDisp.SP.SP_Shot((double)DispProg.SP.DispTime[0]);
@@ -220,6 +223,7 @@ namespace NDispWin
                 MessageBox.Show("Ex error - " + Ex.Message.ToString());
             }
 
+            UpdateDisplay();
             Enabled = true;
         }
 

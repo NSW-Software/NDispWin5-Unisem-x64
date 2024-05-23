@@ -28,7 +28,7 @@ namespace NDispWin
         public frm_MsgBox()
         {
             InitializeComponent();
-            FormBorderStyle = FormBorderStyle.None;
+            //FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             TopMost = true;

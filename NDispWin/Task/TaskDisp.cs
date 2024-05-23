@@ -22,6 +22,10 @@ namespace NDispWin
     {
         public int ModelNo = 0;
 
+        public enum EPattern { Dot, Line };
+        public EPattern Pattern = EPattern.Dot;
+        public PointD PatternSize = new PointD(0, 0);
+
         public TPos3 StartXY = new TPos3();
         public TPos3 EndXY
         {
@@ -111,6 +115,11 @@ namespace NDispWin
 
             NUtils.IniFile Inifile = new NUtils.IniFile(Filename);
             Inifile.WriteInteger("Model", "ModelNo", ModelNo);
+
+            Inifile.WriteInteger("Pattern", "Type", (int)Pattern);
+            Inifile.WriteDouble("Pattern", "X", PatternSize.X);
+            Inifile.WriteDouble("Pattern", "Y", PatternSize.Y);
+
             Inifile.WriteDouble("Start", "X", StartXY.X);
             Inifile.WriteDouble("Start", "Y", StartXY.Y);
             Inifile.WriteDouble("Pitch", "X", PitchXY.X);
@@ -126,6 +135,16 @@ namespace NDispWin
 
             NUtils.IniFile Inifile = new NUtils.IniFile(Filename);
             ModelNo = Inifile.ReadInteger("Model", "ModelNo", 0);
+
+            Pattern = EPattern.Dot;
+            try
+            {
+                Pattern = (EPattern)Inifile.ReadInteger("Pattern", "Type", 0);
+            }
+            catch { };
+            PatternSize.X = Inifile.ReadDouble("Pattern", "X", 0);
+            PatternSize.Y = Inifile.ReadDouble("Pattern", "Y", 0);
+
             StartXY.X = Inifile.ReadDouble("Start", "X", 0);
             StartXY.Y = Inifile.ReadDouble("Start", "Y", 0);
             PitchXY.X = Inifile.ReadDouble("Pitch", "X", 1);
@@ -171,9 +190,11 @@ namespace NDispWin
                 return false;
             }
 
+
             if (!TaskDisp.TaskMoveGZZ2Up()) return false;
             if (!TaskGantry.SetMotionParamGXY()) return false;
 
+            TModelPara Model = new TModelPara(DispProg.ModelList, ModelNo);
             for (int i = 0; i < PurgeCount; i++)
             {
                 double X = StartXY.X + (PitchXY.X * NextCR.X);
@@ -181,14 +202,12 @@ namespace NDispWin
 
                 if (!TaskGantry.MoveAbsGXY(X, Y)) return false;
 
-                TModelPara Model = new TModelPara(DispProg.ModelList, ModelNo);
 
                 if (Model.DispGap <= 0)
                 {
                     DialogResult dr = MessageBox.Show("Model Disp Gap less equal of less than 0(zero).", "Error", MessageBoxButtons.OK);
                     return false;
                 }
-
 
                 switch (DispProg.Pump_Type)
                 {
@@ -232,6 +251,13 @@ namespace NDispWin
                             }
                         }
                         break;
+                    case TaskDisp.EPumpType.SP:
+                        if (Model.FPressA != DispProg.pressVal[0] || Model.FPressB != DispProg.pressVal[1])
+                        {
+                            FPressCtrl.Thread.Set_PressUnit(new double[2] { Model.FPressA, Model.FPressB });
+                            DispProg.pressVal = new double[] { Model.FPressA, Model.FPressB };
+                        }
+                        break;
                 }
 
                 #region move z to DispGap
@@ -259,10 +285,37 @@ namespace NDispWin
                                 while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
                             }
 
-                            if (Model.DispTime > 0)
-                                TaskDisp.SP.SP_Shot(Model.DispTime);//StartDelay);
+                            if (Pattern == EPattern.Dot)
+                            {
+                                if (Model.DispTime > 0)
+                                    TaskDisp.SP.SP_Shot(Model.DispTime);//StartDelay);
+                                else
+                                    TaskDisp.SP.SP_Shot((double)DispProg.SP.DispTime[0]);
+                            }
                             else
-                                TaskDisp.SP.SP_Shot((double)DispProg.SP.DispTime[0]);
+                            {
+                                TaskGantry.BPress1 = true;
+                                TaskGantry.DispPortC1 = true;
+                                TaskGantry.BVac1 = false;
+
+                                if (Model.StartDelay > 0)
+                                {
+                                    int t = GDefine.GetTickCount() + (int)Model.StartDelay;
+                                    while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                                }
+                                if (!TaskGantry.SetMotionParamEx(TaskGantry.GXAxis, Model.LineStartV, Model.LineSpeed, Model.LineAccel)) return false;
+                                if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
+                                if (!TaskGantry.WaitGXY()) return false;
+                                if (Model.EndDelay > 0)
+                                {
+                                    int t = GDefine.GetTickCount() + (int)Model.EndDelay;
+                                    while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                                }
+
+                                TaskGantry.BVac1 = true;
+                                TaskGantry.BPress1 = false;
+                                TaskGantry.DispPortC1 = false;
+                            }
 
                             if (Model.PostWait > 0)
                             {
@@ -878,6 +931,7 @@ namespace NDispWin
         public static bool Option_EnableDualMaterial = false;
         public static bool MaterialLowForbidContinue = false;
 
+        public static double Option_ShrinkLast2CLine = 0;
         public static double Option_ExtendLastCLine = 0;
         public static double Option_CLineSpeedRatio = 1;
 
@@ -1433,6 +1487,7 @@ namespace NDispWin
             Option_EnableMaterialLow = IniFile.ReadBool("Option", "EnableMaterialLow", false);
             Option_EnableDualMaterial = IniFile.ReadBool("Option", "EnableDualMaterial", false);
             MaterialLowForbidContinue = IniFile.ReadBool("Option", "MaterialLowForbidContinue", false);
+            Option_ShrinkLast2CLine = IniFile.ReadDouble("Option", "ShrinkLast2CLine", 0);
             Option_ExtendLastCLine = IniFile.ReadDouble("Option", "ExtendLastCLine", 0);
             Option_CLineSpeedRatio = IniFile.ReadDouble("Option", "CLineSpeedRatio", 1);
 
@@ -1749,6 +1804,7 @@ namespace NDispWin
             IniFile.WriteBool("Option", "EnableMaterialLow", Option_EnableMaterialLow);
             IniFile.WriteBool("Option", "EnableDualMaterial", Option_EnableDualMaterial);
             IniFile.WriteBool("Option", "MaterialExpiryForbidContinue", MaterialExpiryForbidContinue);
+            IniFile.WriteDouble("Option", "ShrinkLast2CLine", Option_ShrinkLast2CLine);
             IniFile.WriteDouble("Option", "ExtendLastCLine", Option_ExtendLastCLine);
             IniFile.WriteDouble("Option", "CLineSpeedRatio", Option_CLineSpeedRatio);
 

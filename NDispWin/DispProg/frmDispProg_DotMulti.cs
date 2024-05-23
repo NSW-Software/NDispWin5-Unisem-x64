@@ -204,6 +204,8 @@ namespace NDispWin
         }
         private void btn_SetXY_Click(object sender, EventArgs e)
         {
+            if (!TaskGantry.CheckInDispenseArea()) return;
+
             double X = TaskGantry.GXPos();
             double Y = TaskGantry.GYPos();
             DispProg.RealTimeOffset(DispProg.ERealTimeOp.Minus, ref X, ref Y);
@@ -374,6 +376,10 @@ namespace NDispWin
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
+            double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[0];
+            double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
+            if (!TaskGantry.CheckInDispenseArea(new PointD(X, Y))) return;
+
             DispProg.Script[ProgNo].CmdList.Line[LineNo].Copy(CmdLine);
             Log.OnAction("OK", CmdName); 
             Close();

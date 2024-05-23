@@ -104,6 +104,8 @@
             this.lblUseRecipeFile = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tpCalibration = new System.Windows.Forms.TabPage();
+            this.lblCLineSpeedRatio = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.lblExtendLastCLine = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -128,8 +130,8 @@
             this.btnAccessConfig = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnJog = new System.Windows.Forms.Button();
-            this.lblCLineSpeedRatio = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lblShrinkLast2CLine = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.tpOptions.SuspendLayout();
             this.tpPreference.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1045,6 +1047,8 @@
             // 
             // tpCalibration
             // 
+            this.tpCalibration.Controls.Add(this.lblShrinkLast2CLine);
+            this.tpCalibration.Controls.Add(this.label27);
             this.tpCalibration.Controls.Add(this.lblCLineSpeedRatio);
             this.tpCalibration.Controls.Add(this.label26);
             this.tpCalibration.Controls.Add(this.lblExtendLastCLine);
@@ -1071,11 +1075,34 @@
             this.tpCalibration.TabIndex = 4;
             this.tpCalibration.Text = "Calibration";
             // 
+            // lblCLineSpeedRatio
+            // 
+            this.lblCLineSpeedRatio.BackColor = System.Drawing.Color.White;
+            this.lblCLineSpeedRatio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCLineSpeedRatio.Location = new System.Drawing.Point(205, 315);
+            this.lblCLineSpeedRatio.Margin = new System.Windows.Forms.Padding(2);
+            this.lblCLineSpeedRatio.Name = "lblCLineSpeedRatio";
+            this.lblCLineSpeedRatio.Size = new System.Drawing.Size(70, 23);
+            this.lblCLineSpeedRatio.TabIndex = 193;
+            this.lblCLineSpeedRatio.Text = "-999.999";
+            this.lblCLineSpeedRatio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCLineSpeedRatio.Click += new System.EventHandler(this.lblCLineSpeedRatio_Click);
+            // 
+            // label26
+            // 
+            this.label26.Location = new System.Drawing.Point(5, 315);
+            this.label26.Margin = new System.Windows.Forms.Padding(2);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(225, 23);
+            this.label26.TabIndex = 192;
+            this.label26.Text = "CLine Speed Ratio";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblExtendLastCLine
             // 
             this.lblExtendLastCLine.BackColor = System.Drawing.Color.White;
             this.lblExtendLastCLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblExtendLastCLine.Location = new System.Drawing.Point(205, 248);
+            this.lblExtendLastCLine.Location = new System.Drawing.Point(205, 288);
             this.lblExtendLastCLine.Margin = new System.Windows.Forms.Padding(2);
             this.lblExtendLastCLine.Name = "lblExtendLastCLine";
             this.lblExtendLastCLine.Size = new System.Drawing.Size(70, 23);
@@ -1086,7 +1113,7 @@
             // 
             // label22
             // 
-            this.label22.Location = new System.Drawing.Point(5, 248);
+            this.label22.Location = new System.Drawing.Point(5, 288);
             this.label22.Margin = new System.Windows.Forms.Padding(2);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(225, 23);
@@ -1338,28 +1365,28 @@
             this.btnJog.UseVisualStyleBackColor = true;
             this.btnJog.Click += new System.EventHandler(this.btnJog_Click);
             // 
-            // lblCLineSpeedRatio
+            // lblShrinkLast2CLine
             // 
-            this.lblCLineSpeedRatio.BackColor = System.Drawing.Color.White;
-            this.lblCLineSpeedRatio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCLineSpeedRatio.Location = new System.Drawing.Point(205, 291);
-            this.lblCLineSpeedRatio.Margin = new System.Windows.Forms.Padding(2);
-            this.lblCLineSpeedRatio.Name = "lblCLineSpeedRatio";
-            this.lblCLineSpeedRatio.Size = new System.Drawing.Size(70, 23);
-            this.lblCLineSpeedRatio.TabIndex = 193;
-            this.lblCLineSpeedRatio.Text = "-999.999";
-            this.lblCLineSpeedRatio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCLineSpeedRatio.Click += new System.EventHandler(this.lblCLineSpeedRatio_Click);
+            this.lblShrinkLast2CLine.BackColor = System.Drawing.Color.White;
+            this.lblShrinkLast2CLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblShrinkLast2CLine.Location = new System.Drawing.Point(205, 261);
+            this.lblShrinkLast2CLine.Margin = new System.Windows.Forms.Padding(2);
+            this.lblShrinkLast2CLine.Name = "lblShrinkLast2CLine";
+            this.lblShrinkLast2CLine.Size = new System.Drawing.Size(70, 23);
+            this.lblShrinkLast2CLine.TabIndex = 195;
+            this.lblShrinkLast2CLine.Text = "-999.999";
+            this.lblShrinkLast2CLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblShrinkLast2CLine.Click += new System.EventHandler(this.lblShrinkLast2CLine_Click);
             // 
-            // label26
+            // label27
             // 
-            this.label26.Location = new System.Drawing.Point(5, 291);
-            this.label26.Margin = new System.Windows.Forms.Padding(2);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(225, 23);
-            this.label26.TabIndex = 192;
-            this.label26.Text = "CLine Speed Ratio";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label27.Location = new System.Drawing.Point(5, 261);
+            this.label27.Margin = new System.Windows.Forms.Padding(2);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(225, 23);
+            this.label27.TabIndex = 194;
+            this.label27.Text = "Shrink Last2 CLine (mm)";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmOptions
             // 
@@ -1517,5 +1544,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label lblCLineSpeedRatio;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblShrinkLast2CLine;
+        private System.Windows.Forms.Label label27;
     }
 }

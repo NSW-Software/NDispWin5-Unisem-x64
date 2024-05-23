@@ -164,6 +164,8 @@ namespace NDispWin
         }
         private void btn_SetXY_Click(object sender, EventArgs e)
         {
+            if (!TaskGantry.CheckInDispenseArea()) return;
+
             NSW.Net.Point2D Old = new NSW.Net.Point2D(CmdLine.X[0], CmdLine.Y[0]);
             
             double X = TaskGantry.GXPos();
@@ -232,6 +234,10 @@ namespace NDispWin
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
+            double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[0];
+            double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
+            if (!TaskGantry.CheckInDispenseArea(new PointD(X, Y))) return;
+
             DispProg.Script[ProgNo].CmdList.Line[LineNo].Copy(CmdLine);
             //frm_DispProg2.Done = true;
             Log.OnAction("OK", CmdName);
@@ -271,6 +277,8 @@ namespace NDispWin
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
+            if (!TaskGantry.CheckInDispenseArea()) return;
+
             if (DispProg.LastLine > -1)
             {
                 Msg MsgBox = new Msg();

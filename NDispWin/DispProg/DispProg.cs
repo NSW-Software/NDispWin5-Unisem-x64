@@ -7954,6 +7954,10 @@ namespace NDispWin
                                     if (!Read_ID(ActiveLine, dx, dy)) goto _Pause;
                                     IO.SetState(EMcState.Run);
 
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, 0, 0, 0, false, false, false, rt_Read_IDs[0,0]);
+                                    }
                                 _End:
                                     break;
                                 }
@@ -8987,7 +8991,7 @@ namespace NDispWin
                                         //    TaskVision.PtGrey_CamLive(0);
                                     }
 
-                                    if (!DoMove(HeadNo, rt_SyncHead2, b_Head2UnitIsValid, RunMode, dx, dy, dz, dx2, dy2)) goto _Error;
+                                    if (!DoMove(ActiveLine, HeadNo, rt_SyncHead2, b_Head2UnitIsValid, RunMode, dx, dy, dz, dx2, dy2)) goto _Error;
 
                                     Pt_Prev_End.X = dx;
                                     Pt_Prev_End.Y = dy;
@@ -9013,6 +9017,18 @@ namespace NDispWin
                                             CmdList.Line[Line - 1].Cmd == ECmd.CIRC ||
                                             CmdList.Line[Line - 1].Cmd == ECmd.DWELL
                                             );
+                                    }
+
+                                    bool Last2 = false;
+                                    if (Line < CmdList.Count - 2)
+                                    {
+                                        Last2 = (CmdList.Line[Line + 1].Cmd == ECmd.LINE) && CmdList.Line[Line + 2].Cmd != ECmd.LINE;
+                                            
+                                            //||
+                                            //CmdList.Line[Line + 2].Cmd == ECmd.ARC ||
+                                            //CmdList.Line[Line + 2].Cmd == ECmd.CIRC ||
+                                            //CmdList.Line[Line + 2].Cmd == ECmd.DWELL
+                                            //);
                                     }
 
                                     bool Last = true;
@@ -9105,7 +9121,7 @@ namespace NDispWin
 
                                     if (b_Continuous)
                                     {
-                                        if (!DoCLine(ActiveLine, Line, HeadNo, RunMode, dx, dy, dz, dx2, dy2, First, Last)) goto _Error;
+                                        if (!DoCLine(ActiveLine, Line, HeadNo, RunMode, dx, dy, dz, dx2, dy2, First, Last, Last2)) goto _Error;
                                     }
                                     else
                                     {
@@ -9444,6 +9460,12 @@ namespace NDispWin
                                         if (!TaskDisp.TaskPurgeNeedle(b_Head1, b_Head2, RunMode == ERunMode.Normal, true, Time, Delay, Count, PostVacTime)) goto _Error;
                                     }
                                     TaskDisp.FPressOn(new bool[2] { true, TaskDisp.Head_Operation == TaskDisp.EHeadOperation.Sync });
+
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                    }
+
                                     break;
                                 }
                             #endregion
@@ -9506,6 +9528,12 @@ namespace NDispWin
                                         if (!TaskDisp.TaskCleanNeedle(b_Head1, b_Head2, RunMode == ERunMode.Normal, true, Time, Delay, Count, PostVacTime)) goto _Error;
                                     }
                                     TaskDisp.FPressOn(new bool[2] { true, TaskDisp.Head_Operation == TaskDisp.EHeadOperation.Sync });
+
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                    }
+
                                     break;
                                 }
                             #endregion
@@ -9783,7 +9811,6 @@ namespace NDispWin
                                         else
                                     if (rt_Head1MapBin >= EMapBin.BinNG) break;
 
-
                                     switch (CmdList.Line[Line].Cmd)
                                     {
                                         case ECmd.PP_CLEANFILL:
@@ -9822,6 +9849,12 @@ namespace NDispWin
                                                 break;
                                             }
                                     }
+
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                    }
+
                                     break;
                                 }
                             #endregion
@@ -10674,17 +10707,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        string str = $"TempLog\t";
-                                        str += $"ID={ActiveLine.ID}\t";
-                                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                                        if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                                        {
-                                            str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                                        }
-                                        str += $"{rx}\t";
-
-                                        GLog.WriteProcessLog(str);
+                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
                                     }
 
                                     break;
@@ -12258,19 +12281,7 @@ namespace NDispWin
 
                     if (DispProg.Options_EnableProcessLog)
                     {
-                        string str = $"Dot\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                        if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                        {
-                            str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                            str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                            double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                            str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                        }
-
-                        GLog.WriteProcessLog(str);
+                        UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                     }
 
                     #region Down Wait
@@ -12503,7 +12514,7 @@ namespace NDispWin
                 return false;
             }
 
-            private bool DoMove(EHeadNo HeadNo, bool SyncHead2, bool Head2Valid, ERunMode RunMode, double X1, double Y1, double Z1, double X2, double Y2)
+            private bool DoMove(TLine Line, EHeadNo HeadNo, bool SyncHead2, bool Head2Valid, ERunMode RunMode, double X1, double Y1, double Z1, double X2, double Y2)
             {
                 string EMsg = "DoMove";
 
@@ -12828,19 +12839,7 @@ namespace NDispWin
 
                     if (DispProg.Options_EnableProcessLog)
                     {
-                        string str = $"Move\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                        if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                        {
-                            str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                            str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                            double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                            str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                        }
-
-                        GLog.WriteProcessLog(str);
+                        UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                     }
                     if (videoStart)
                     {
@@ -13245,22 +13244,6 @@ namespace NDispWin
                         }
                     }
                     #endregion
-
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        string str = $"Line\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                        if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                        {
-                            str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                            str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                            double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                            str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                        }
-                        GLog.WriteProcessLog(str);
-                    }
 
                     #region Wait Complete
                     if (!TaskGantry.SetMotionParamGZZ2()) return false;
@@ -13794,21 +13777,6 @@ namespace NDispWin
                     else
                     {
                         if (!TaskGantry.MoveConstArcCenterEndAbsGXY(d_cX, d_cY, d_X1P3, d_Y1P3, Dir_CW, false)) goto _Stop;//return false;
-                    }
-
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        string str = $"Arc\t";
-                        //str += $"Head\t{Line.ID}\t";
-                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        if (Circ)
-                            str += $"X,Y,Z={CurX:f3},{CurY:f3},{Z1 + Model.DispGap:f3}\t";
-                        else
-                            str += $"X,Y,Z={d_X1P3:f3},{d_Y1P3:f3},{Z1 + Model.DispGap:f3}\t";
-
-                        GLog.WriteProcessLog(str);
                     }
 
                     #region wait complete
@@ -16723,7 +16691,7 @@ namespace NDispWin
             //    return true;
             //}
 
-            public bool DoCLine(TLine Line, int LineNo, EHeadNo HeadNo, ERunMode RunMode, double dx, double dy, double dz, double dx2, double dy2, bool First, bool Last)
+            public bool DoCLine(TLine Line, int LineNo, EHeadNo HeadNo, ERunMode RunMode, double dx, double dy, double dz, double dx2, double dy2, bool First, bool Last, bool Last2)
             {
                 #region Select Head
                 bool b_Head1Run = ((HeadNo == EHeadNo.Head1) || (HeadNo == EHeadNo.Head12));
@@ -16997,7 +16965,23 @@ namespace NDispWin
                             }
                             else
                             {//no compensation
-                                PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
+                                double shrinkLen = TaskDisp.Option_ShrinkLast2CLine;
+                                if (Last2 && shrinkLen > 0)//6.0.9 Option_Shrink2ndLastCLine
+                                {
+                                    //Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
+                                    //double shrinkLen = TaskDisp.Option_ShrinkLast2CLine;
+                                    //if (shrinkLen > 0)
+                                    //{
+                                        double lineLength = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
+                                        if (lineLength > shrinkLen)
+                                        {
+                                            Point2D relShrinkPos = new Point2D((dx - Pt_Prev_End.X) * (shrinkLen / lineLength), (dy - Pt_Prev_End.Y) * (shrinkLen / lineLength));
+                                            PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx - relShrinkPos.X, dy - relShrinkPos.Y, dz, 0, 0);
+                                        }
+                                    //}
+                                }
+                                else
+                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
                             }
                             break;
                         #endregion
@@ -17006,7 +16990,7 @@ namespace NDispWin
                             break;
                     }
 
-                    if (Last)//5.2.97
+                    if (Last)//5.2.97 Option_ExtendLastCLine
                     {
                         Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
                         double extLen = TaskDisp.Option_ExtendLastCLine;
@@ -17360,18 +17344,6 @@ namespace NDispWin
 
                     FirstPath = false;
                     LineStart = false;
-
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        string str = $"CLine\t";
-                        //str += $"Head\t{Line.ID}\t";
-                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        str += $"X,Y={GXY.X:f3},{GXY.Y:f3}\t";
-
-                        GLog.WriteProcessLog(str);
-                    }
                 }
                 catch { throw; }
                 return true;
@@ -17457,21 +17429,6 @@ namespace NDispWin
 
                     FirstPath = false;
                     LineStart = false;
-
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        string str = $"CLine\t";
-                        //str += $"Head\t{Line.ID}\t";
-                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        if (Circ)
-                            str += $"X,Y={GXY_S.X:f3},{GXY_S.Y:f3}\t";
-                        else
-                            str += $"X,Y={GXY_E.X:f3},{GXY_E.Y:f3}\t";
-
-                        GLog.WriteProcessLog(str);
-                    }
                 }
                 catch { throw; }
                 return true;
@@ -17539,21 +17496,6 @@ namespace NDispWin
 
                     FirstPath = false;
                     LineStart = false;
-
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        string str = $"CLine\t";
-                        //str += $"Head\t{Line.ID}\t";
-                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                        str += $"DispGap={Model.DispGap:f3}\t";
-                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                        if (Circ)
-                            str += $"X,Y={GXY_S.X:f3},{GXY_S.Y:f3}\t";
-                        else
-                            str += $"X,Y={GXY_E.X:f3},{GXY_E.Y:f3}\t";
-
-                        GLog.WriteProcessLog(str);
-                    }
                 }
                 catch { throw; }
                 return true;
@@ -18906,19 +18848,7 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    string str = $"DotP\t";
-                    str += $"DispGap={Model.DispGap:f3}\t";
-                    str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                    str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                    if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                    {
-                        str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                        str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                        double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                        str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                    }
-
-                    GLog.WriteProcessLog(str);
+                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                 }
 
                 double[] RelDummyPos = new double[4] { 0, 0, 0, 0 };
@@ -19453,61 +19383,7 @@ namespace NDispWin
 
                         if (DispProg.Options_EnableProcessLog)
                         {
-                            string str = $"DotMulti\t";
-                            //str += $"Head={Line.ID}\t";
-                            //str += $"UnitNo={RunTime.UIndex}\t";
-                            str += $"DispGap={Model.DispGap:f3}\t";
-                            str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                            str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                            switch (RunMode)
-                            {
-                                case ERunMode.Normal:
-                                    #region
-                                    if (Disp)
-                                    {
-                                        switch (Pump_Type)
-                                        {
-                                            case TaskDisp.EPumpType.PP:
-                                            case TaskDisp.EPumpType.PP2D:
-                                            case TaskDisp.EPumpType.PPD:
-                                                if (Model.DispVol > 0)
-                                                    str += $"DispVol,BSuckt={Model.DispVol:f3},{PP_HeadA_BackSuckVol:f3},{PP_HeadA_DispVol_Adj:f3},{rt_Head1VolumeOfst:f3},{rt_Head1VolumeOfst:f3}\t";
-                                                else
-                                                    str += $"Base,BSuck,Adj,Ofst={PP_HeadA_DispBaseVol:f3},{PP_HeadA_BackSuckVol:f3},{PP_HeadA_DispVol_Adj:f3},{rt_Head1VolumeOfst:f3},{rt_Head1VolumeOfst:f3}\t";
-                                                break;
-                                            case TaskDisp.EPumpType.Vermes:
-                                                {
-                                                    double RI = TaskDisp.Vermes3200[0].Param.RI;
-                                                    double NL = TaskDisp.Vermes3200[0].Param.NL;
-                                                    double OT = TaskDisp.Vermes3200[0].Param.OT;
-                                                    double FA = TaskDisp.Vermes3200[0].Param.FA;
-                                                    double DL = TaskDisp.Vermes3200[0].Param.DL;
-                                                    double NP = TaskDisp.Vermes3200[0].Param.NP;
-                                                    str += $"Vermes RI,NL,OT,FA,DL,NP={RI:f3},{NL:f3},{OT:f3},{FA:f3},{DL:f3},{NP:f3}\t";
-                                                    str += $"FPress={FPress[0]:f3}\t";
-                                                }
-                                                break;
-                                            case TaskDisp.EPumpType.Vermes1560:
-                                                {
-                                                    double OT = TaskDisp.Vermes1560[0].OT[0];
-                                                    double CT = TaskDisp.Vermes1560[0].CT[0];
-                                                    double NP = TaskDisp.Vermes1560[0].NP[0];
-                                                    str += $"Vermes OT,CT,NP={OT:f3},{CT:f3},{NP:f3}\t";
-                                                    str += $"FPress={FPress[0]:f3}\t";
-                                                    str += $"FPress={FPress[0]:f3}\t";
-                                                }
-                                                break;
-                                        }
-                                    }
-                                    #endregion
-                                    break;
-                                case ERunMode.Camera:
-                                case ERunMode.Dry:
-                                    break;
-                            }
-
-
-                            GLog.WriteProcessLog(str);
+                            UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                         }
                     }
 
@@ -19987,21 +19863,7 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    string str = $"DotLineMulti\t";
-                    //str += $"Head={Line.ID}\t";
-                    //str += $"UnitNo={RunTime.UIndex}\t";
-                    str += $"DispGap={Model.DispGap:f3}\t";
-                    str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                    str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                    if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                    {
-                        str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                        str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                        double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                        str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                    }
-
-                    GLog.WriteProcessLog(str);
+                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                 }
 
                 int t_Log = GDefine.GetTickCount();
@@ -20494,21 +20356,7 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    string str = $"LineMulti\t";
-                    //str += $"Head\t{Line.ID}\t";
-                    //str += $"UnitNo={RunTime.UIndex}\t";
-                    str += $"DispGap={Model.DispGap:f3}\t";
-                    str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                    str += $"X,Y,Z={GXY.X:f3},{GXY.Y:f3},{Z1 + Model.DispGap:f3}\t";
-                    if (Head_Operation == TaskDisp.EHeadOperation.Sync)
-                    {
-                        str += $"C2,R2={RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y}\t";
-                        str += $"X2,Y2,Z2={GX2Y2.X:f3},{GX2Y2.Y:f3},{Z2 + Model.DispGap:f3}\t";
-                        double zdiff = TaskDisp.Head_ZSensor_RefPosZ[1] - TaskDisp.Head_ZSensor_RefPosZ[0];
-                        str += $"X2A,Y2A,Z2A={GXY.X + X2_Ofst:f3},{GXY.Y + Y2_Ofst:f3},{Z2 + zdiff + Model.DispGap:f3}\t";
-                    }
-
-                    GLog.WriteProcessLog(str);
+                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
                 }
 
                 int t_Log = GDefine.GetTickCount();
@@ -23947,14 +23795,9 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    string str = $"DoRef\t";
-                    str += $"ID\t{Line.ID}\t";
-                    //str += $"UnitNo={RunTime.UIndex}\t";
-                    str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                    str += $"X,Y={X:f3},{Y:f3}\t";
-                    str += $"OX,OY,S={ox * TaskVision.DistPerPixelX[Line.IPara[1]]:f3},{oy * TaskVision.DistPerPixelY[Line.IPara[1]]:f3},{s:f3}\t";
-
-                    GLog.WriteProcessLog(str);
+                    string str = "";
+                    str += $"OX,OY,S={ox * TaskVision.DistPerPixelX[Line.IPara[1]]:f3},{oy * TaskVision.DistPerPixelY[Line.IPara[1]]:f3},{s:f3},";
+                    UnisemProcessLog(Line, X, Y, 0, true, true, false, str);
                 }
             }
             catch (Exception Ex)
@@ -24554,22 +24397,23 @@ namespace NDispWin
                 //return EExecuteDoHeight.Pause;
                 #endregion
                 #region
-                Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show("Z Average 0. ", EMcState.Error, EMsgBtn.smbOK_Stop, false);
-                if (MsgRes == EMsgRes.smrStop)
-                {
-                    return EExecuteDoHeight.Pause;
-                }
+                //Msg MsgBox = new Msg();
+                //EMsgRes MsgRes = MsgBox.Show("Z Average 0. ", EMcState.Error, EMsgBtn.smbOK_Stop, false);
+                //if (MsgRes == EMsgRes.smrStop)
+                //{
+                //    return EExecuteDoHeight.Pause;
+                //}
                 #endregion
             }
 
             #region Add Laser Log
             double Z_Ave = Math.Round(Z.Average(), 5);
-            if (Z_Ave == 0)
+            if (Z_Ave == 0)//DO NOT REMOVE, used as flag for height correction, KN
             {
                 Z_Ave = 0.00001;
                 if (Z.Average() < 0) Z_Ave = -Z_Ave;
             }
+
             string s_HeightData = "";
             s_HeightData = s_HeightData + "Ave" + (char)9 + Z_Ave.ToString("f5") + (char)9;
             s_HeightData = s_HeightData + "Range" + (char)9 + (Z.Max() - Z.Min()).ToString("f5") + (char)9;
@@ -24583,21 +24427,16 @@ namespace NDispWin
 
             if (DispProg.Options_EnableProcessLog)
             {
-                string str = $"{ActiveLine.Cmd}\t";
-                str += $"Cal\t";
-                str += $"OX,OY={TaskDisp.Laser_Ofst.X:f3},{TaskDisp.Laser_Ofst.X:f3}\t";
-                str += $"TouchPosZ,Z2={TaskDisp.Head_ZSensor_RefPosZ[0]:f3},{TaskDisp.Head_ZSensor_RefPosZ[1]:f3}\t";
-                str += $"H={TaskDisp.Laser_RefPosZ:f3}\t";
-                GLog.WriteProcessLog(str);
-
-                str = $"{ActiveLine.Cmd}\t";
-                str += $"MeasID={ActiveLine.ID}\t";
-                str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
+                string str = "";
                 for (int i = 0; i < Z.Count; i++)
                 {
                     str += $"X,Y,dH={X[i] + TaskDisp.Head_Ofst[0].X:f3},{Y[i] + TaskDisp.Head_Ofst[0].Y:f3},{Z[i]:f3}\t";
                 }
-                GLog.WriteProcessLog(str);
+                str += $"Cal ";
+                str += $"OX,OY={TaskDisp.Laser_Ofst.X:f3},{TaskDisp.Laser_Ofst.X:f3},";
+                str += $"TouchPosZ,Z2={TaskDisp.Head_ZSensor_RefPosZ[0]:f3},{TaskDisp.Head_ZSensor_RefPosZ[1]:f3},";
+                str += $"H={TaskDisp.Laser_RefPosZ:f3},";
+                UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false, str);
             }
 
             double d_RefHeight = TaskDisp.Laser_CalValue == 0 ? ActiveLine.DPara[5] : TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + ActiveLine.DPara[5];
@@ -24986,6 +24825,80 @@ namespace NDispWin
                     $"{folder}{fName}_C{RunTime.Head_CR[1].X}_R{RunTime.Head_CR[1].Y}";
 
                 return TFVideoLogger.TaskWritePort(cmd);
+            }
+        }
+
+        internal static void UnisemProcessLog(TLine Line, double posX, double posY, double posZ, bool logCR = true, bool logPos = true, bool logPump = true, string extInfo = "")
+        {
+            if (DispProg.Options_EnableProcessLog)
+            {
+                TModelPara Model = new TModelPara(ModelList, Line.IPara[0]);
+
+                string str = $"{Line.Cmd.ToString()},";
+                str += $"ID={Line.ID},";
+                str += $"RunMode={RunMode.ToString()},";
+                str += $"UnitNo={RunTime.UIndex},";
+                if (logCR) str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y},";
+                if (logPos) str += $"X,Y,Z={posX:f3},{posY:f3},{posZ:f3},";
+                if (logPump)
+                {
+                    str += $"Pump={Pump_Type.ToString()},";
+                    str += $"DispGap={Model.DispGap:f3},";
+
+                    switch (RunMode)
+                    {
+                        case ERunMode.Normal:
+                            #region
+                            switch (Pump_Type)
+                            {
+                                case TaskDisp.EPumpType.PP:
+                                case TaskDisp.EPumpType.PP2D:
+                                case TaskDisp.EPumpType.PPD:
+                                    if (Model.DispVol > 0)
+                                        str += $"DispVol,BSuck={Model.DispVol:f3},{PP_HeadA_BackSuckVol:f3},{PP_HeadA_DispVol_Adj:f3},{rt_Head1VolumeOfst:f3},{rt_Head1VolumeOfst:f3},";
+                                    else
+                                        str += $"Base,BSuck,Adj,Ofst={PP_HeadA_DispBaseVol:f3},{PP_HeadA_BackSuckVol:f3},{PP_HeadA_DispVol_Adj:f3},{rt_Head1VolumeOfst:f3},{rt_Head1VolumeOfst:f3},";
+                                    break;
+                                case TaskDisp.EPumpType.Vermes:
+                                    {
+                                        double RI = TaskDisp.Vermes3200[0].Param.RI;
+                                        double NL = TaskDisp.Vermes3200[0].Param.NL;
+                                        double OT = TaskDisp.Vermes3200[0].Param.OT;
+                                        double FA = TaskDisp.Vermes3200[0].Param.FA;
+                                        double DL = TaskDisp.Vermes3200[0].Param.DL;
+                                        double NP = TaskDisp.Vermes3200[0].Param.NP;
+                                        str += $"Vermes RI,NL,OT,FA,DL,NP={RI:f3},{NL:f3},{OT:f3},{FA:f3},{DL:f3},{NP:f3},";
+                                        str += $"FPress={FPress[0]:f3},";
+                                    }
+                                    break;
+                                case TaskDisp.EPumpType.Vermes1560:
+                                    {
+                                        double OT = TaskDisp.Vermes1560[0].OT[0];
+                                        double CT = TaskDisp.Vermes1560[0].CT[0];
+                                        double NP = TaskDisp.Vermes1560[0].NP[0];
+                                        str += $"Vermes OT,CT,NP={OT:f3},{CT:f3},{NP:f3}\t";
+                                        str += $"FPress={FPress[0]:f3}\t";
+                                        str += $"FPress={FPress[0]:f3}\t";
+                                    }
+                                    break;
+                                case TaskDisp.EPumpType.SP:
+                                    str += $"FPress,PPress={DispProg.FPress[0]:f3},{DispProg.FPress[1]:f3},LineSpeed={Model.LineSpeed},";
+                                    break;
+                            }
+
+                            #endregion
+                            break;
+                        case ERunMode.Camera:
+                        case ERunMode.Dry:
+                            break;
+                    }
+                }
+
+                if (extInfo.Length > 0)
+                {
+                    str += extInfo + ",";
+                }
+                GLog.WriteProcessLog(str);
             }
         }
     }

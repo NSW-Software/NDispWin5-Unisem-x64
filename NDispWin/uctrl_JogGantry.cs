@@ -108,6 +108,8 @@ namespace NDispWin
             btn_Z2M.Enabled = !b_LockZ;
             #endregion
 
+            lblWarning.Text = bUnsafeJog ? "Unsafe Operation" : "";
+
             btnXY1Step1.BackColor = stepMode == EStepMode.Step1 ? Color.Lime : this.BackColor;
             btnXY1Step2.BackColor = stepMode == EStepMode.Step2 ? Color.Lime : this.BackColor;
             btnXY1Step3.BackColor = stepMode == EStepMode.Step3 ? Color.Lime : this.BackColor;
@@ -244,9 +246,39 @@ namespace NDispWin
             MotionBusy = false;
         }
 
+        bool bUnsafeJog = false;
         public void MouseDownEvent(object sender, CControl2.TAxis Axis1, bool Axis1Dir, CControl2.TAxis Axis2, bool Axis2Dir)
         {
             bool b_ValidAxis2 = !(Axis1.Device.ID == Axis2.Device.ID && Axis1.Mask == Axis2.Mask);
+
+            if (Axis1.Name == TaskGantry.GXAxis.Name || Axis1.Name == TaskGantry.GYAxis.Name)
+            {
+                if (!bUnsafeJog && TaskGantry.DispenseWindow[0].X != 0 && TaskGantry.DispenseWindow[0].Y != 0 && TaskGantry.DispenseWindow[1].X != 0 && TaskGantry.DispenseWindow[1].Y != 0)
+                {
+                    double posX = TaskGantry.GXPos();
+                    double posY = TaskGantry.GYPos();
+                    double posZ = TaskGantry.GZPos();
+
+                    if (posZ <= TaskGantry.DispenseWindowZ &&
+                        posX >= TaskGantry.DispenseWindow[0].X + TaskDisp.Head_Ofst[0].X &&
+                        posY <= TaskGantry.DispenseWindow[0].Y + TaskDisp.Head_Ofst[0].Y &&
+                        posX <= TaskGantry.DispenseWindow[1].X + TaskDisp.Head_Ofst[0].X &&
+                        posY >= TaskGantry.DispenseWindow[1].Y + TaskDisp.Head_Ofst[0].Y)
+                    {
+                        Msg MsgBox = new Msg();
+                        EMsgRes res = MsgBox.Show("Warning, XY is within dispense window and Z height is not safe. Continue?", EMcState.Warning, EMsgBtn.smbYes | EMsgBtn.smbNo, false);
+                        switch (res)
+                        {
+                            case EMsgRes.smrYes:
+                                bUnsafeJog = true;
+                                UpdateDisplay();
+                                return;
+                            case EMsgRes.smrNo: return;
+                        }
+                        return;
+                    }
+                }
+            }
 
             CommonControl.ClearAxisError(Axis1);
             if (b_ValidAxis2) CommonControl.ClearAxisError(Axis2);

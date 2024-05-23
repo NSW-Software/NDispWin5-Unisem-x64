@@ -16,6 +16,9 @@ namespace NDispWin
         public frm_DispProg_PurgeStage()
         {
             InitializeComponent();
+            cbxPType.DataSource = Enum.GetValues(typeof(FuncPurgeStage.EPattern));
+            cbxPType.SelectedIndex = (int)TaskDisp.PurgeStage.Pattern;
+
             GControl.LogForm(this);
         }
 
@@ -30,6 +33,9 @@ namespace NDispWin
         private void UpdateDisplay()
         {
             lbl_ModelNo.Text = TaskDisp.PurgeStage.ModelNo.ToString();
+
+            lblPSizeX.Text = TaskDisp.PurgeStage.PatternSize.X.ToString("f3");
+            lblPSizeY.Text = TaskDisp.PurgeStage.PatternSize.Y.ToString("f3");
 
             lbl_StartX.Text = TaskDisp.PurgeStage.StartXY.X.ToString("f3");
             lbl_StartY.Text = TaskDisp.PurgeStage.StartXY.Y.ToString("f3");
@@ -227,6 +233,28 @@ namespace NDispWin
         private void label11_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbxPType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            TaskDisp.PurgeStage.Pattern = (FuncPurgeStage.EPattern)(sender as ComboBox).SelectedIndex;
+            UpdateDisplay();
+        }
+
+        private void lblPSizeX_Click(object sender, EventArgs e)
+        {
+            double d = TaskDisp.PurgeStage.PatternSize.X;
+            UC.AdjustExec(ParamPrefix + ", Pattern Size X", ref d, 0, 20);
+            TaskDisp.PurgeStage.PatternSize.X = d;
+            UpdateDisplay();
+        }
+
+        private void lblPSizeY_Click(object sender, EventArgs e)
+        {
+            double d = TaskDisp.PurgeStage.PatternSize.Y;
+            UC.AdjustExec(ParamPrefix + ", Pattern Size Y", ref d, 0, 20);
+            TaskDisp.PurgeStage.PatternSize.Y = d;
+            UpdateDisplay();
         }
     }
 }

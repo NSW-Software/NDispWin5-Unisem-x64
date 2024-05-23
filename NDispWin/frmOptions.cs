@@ -80,6 +80,7 @@ namespace NDispWin
             lblDefLaserValue.Text = TaskDisp.Laser_CalValue.ToString("f3");
             lblIntPulseOnDelay.Text = $"{DispProg.SP.IntPulseOnDelay[0]:f3}";
             lblIntPulseOffDelay.Text = $"{DispProg.SP.IntPulseOffDelay[0]:f3}";
+            lblShrinkLast2CLine.Text = $"{TaskDisp.Option_ShrinkLast2CLine:f3}";
             lblExtendLastCLine.Text = $"{TaskDisp.Option_ExtendLastCLine:f3}";
             lblCLineSpeedRatio.Text = $"{TaskDisp.Option_CLineSpeedRatio:f3}";
             #endregion
@@ -540,9 +541,14 @@ namespace NDispWin
             UpdateDisplay();
         }
 
+        private void lblShrinkLast2CLine_Click(object sender, EventArgs e)
+        {
+            if (UC.AdjustExec("Option ShrinkLast2CLine", ref TaskDisp.Option_ShrinkLast2CLine, 0, 10))
+                UpdateDisplay();
+        }
         private void lblExtendLastCLine_Click(object sender, EventArgs e)
         {
-            if (UC.AdjustExec("Option ExtendLastCLine", ref TaskDisp.Option_ExtendLastCLine, -10, 10))
+            if (UC.AdjustExec("Option ExtendLastCLine", ref TaskDisp.Option_ExtendLastCLine, 0, 10))
                 UpdateDisplay();
         }
 

@@ -31,7 +31,6 @@
             this.lbox_Info = new System.Windows.Forms.ListBox();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.btn_Test = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpage_Judgement = new System.Windows.Forms.TabPage();
             this.btnHelp = new System.Windows.Forms.Button();
@@ -62,6 +61,8 @@
             this.lbl_SkipCount = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.gbox_HeightPositions = new System.Windows.Forms.GroupBox();
+            this.btnGotoPos = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.btn_Next = new System.Windows.Forms.Button();
             this.lbl_PointNo = new System.Windows.Forms.Label();
             this.btn_Prev = new System.Windows.Forms.Button();
@@ -94,6 +95,9 @@
             this.lbl_HeightID = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
             this.btnEditMsg = new System.Windows.Forms.Button();
+            this.cbxClstrR = new System.Windows.Forms.ComboBox();
+            this.cbxClstrC = new System.Windows.Forms.ComboBox();
+            this.gbxCluster = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tpage_Judgement.SuspendLayout();
             this.tpage_Settings.SuspendLayout();
@@ -102,6 +106,7 @@
             this.gbox_PlanePositions.SuspendLayout();
             this.gbxType.SuspendLayout();
             this.pnlType.SuspendLayout();
+            this.gbxCluster.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbox_Info
@@ -110,7 +115,7 @@
             this.lbox_Info.ForeColor = System.Drawing.Color.Navy;
             this.lbox_Info.FormattingEnabled = true;
             this.lbox_Info.ItemHeight = 18;
-            this.lbox_Info.Location = new System.Drawing.Point(8, 492);
+            this.lbox_Info.Location = new System.Drawing.Point(9, 519);
             this.lbox_Info.Name = "lbox_Info";
             this.lbox_Info.Size = new System.Drawing.Size(442, 58);
             this.lbox_Info.TabIndex = 41;
@@ -118,7 +123,7 @@
             // btn_OK
             // 
             this.btn_OK.AccessibleDescription = "OK";
-            this.btn_OK.Location = new System.Drawing.Point(297, 555);
+            this.btn_OK.Location = new System.Drawing.Point(298, 582);
             this.btn_OK.Margin = new System.Windows.Forms.Padding(2);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(75, 36);
@@ -130,7 +135,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.AccessibleDescription = "Cancel";
-            this.btn_Cancel.Location = new System.Drawing.Point(376, 555);
+            this.btn_Cancel.Location = new System.Drawing.Point(377, 582);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 36);
@@ -139,26 +144,13 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
-            // btn_Test
-            // 
-            this.btn_Test.AccessibleDescription = "Test";
-            this.btn_Test.Location = new System.Drawing.Point(88, 555);
-            this.btn_Test.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Test.Name = "btn_Test";
-            this.btn_Test.Size = new System.Drawing.Size(75, 36);
-            this.btn_Test.TabIndex = 39;
-            this.btn_Test.Text = "Test";
-            this.btn_Test.UseVisualStyleBackColor = true;
-            this.btn_Test.Visible = false;
-            this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tpage_Judgement);
             this.tabControl1.Controls.Add(this.tpage_Settings);
             this.tabControl1.Controls.Add(this.tpage_Options);
             this.tabControl1.ItemSize = new System.Drawing.Size(74, 25);
-            this.tabControl1.Location = new System.Drawing.Point(6, 358);
+            this.tabControl1.Location = new System.Drawing.Point(7, 385);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(0, 0);
             this.tabControl1.SelectedIndex = 0;
@@ -526,6 +518,8 @@
             this.gbox_HeightPositions.AccessibleDescription = "Height Positions";
             this.gbox_HeightPositions.AutoSize = true;
             this.gbox_HeightPositions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbox_HeightPositions.Controls.Add(this.btnGotoPos);
+            this.gbox_HeightPositions.Controls.Add(this.label11);
             this.gbox_HeightPositions.Controls.Add(this.btn_Next);
             this.gbox_HeightPositions.Controls.Add(this.lbl_PointNo);
             this.gbox_HeightPositions.Controls.Add(this.btn_Prev);
@@ -538,18 +532,41 @@
             this.gbox_HeightPositions.Margin = new System.Windows.Forms.Padding(2);
             this.gbox_HeightPositions.Name = "gbox_HeightPositions";
             this.gbox_HeightPositions.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.gbox_HeightPositions.Size = new System.Drawing.Size(441, 103);
+            this.gbox_HeightPositions.Size = new System.Drawing.Size(443, 130);
             this.gbox_HeightPositions.TabIndex = 51;
             this.gbox_HeightPositions.TabStop = false;
             this.gbox_HeightPositions.Text = "Height Positions";
             // 
+            // btnGotoPos
+            // 
+            this.btnGotoPos.AccessibleDescription = "Goto";
+            this.btnGotoPos.Location = new System.Drawing.Point(361, 45);
+            this.btnGotoPos.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGotoPos.Name = "btnGotoPos";
+            this.btnGotoPos.Size = new System.Drawing.Size(75, 30);
+            this.btnGotoPos.TabIndex = 30;
+            this.btnGotoPos.Text = "Goto";
+            this.btnGotoPos.UseVisualStyleBackColor = true;
+            this.btnGotoPos.Click += new System.EventHandler(this.btnGotoPos_Click);
+            // 
+            // label11
+            // 
+            this.label11.AccessibleDescription = "Position (mm)";
+            this.label11.Location = new System.Drawing.Point(7, 83);
+            this.label11.Margin = new System.Windows.Forms.Padding(2);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 23);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Position (mm)";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btn_Next
             // 
             this.btn_Next.AccessibleDescription = "Next";
-            this.btn_Next.Location = new System.Drawing.Point(384, 52);
+            this.btn_Next.Location = new System.Drawing.Point(282, 45);
             this.btn_Next.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Next.Name = "btn_Next";
-            this.btn_Next.Size = new System.Drawing.Size(50, 30);
+            this.btn_Next.Size = new System.Drawing.Size(75, 30);
             this.btn_Next.TabIndex = 3;
             this.btn_Next.Text = "Next";
             this.btn_Next.UseVisualStyleBackColor = true;
@@ -560,11 +577,11 @@
             this.lbl_PointNo.AccessibleDescription = "lbl_PointNo";
             this.lbl_PointNo.BackColor = System.Drawing.Color.White;
             this.lbl_PointNo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_PointNo.Location = new System.Drawing.Point(81, 56);
+            this.lbl_PointNo.Location = new System.Drawing.Point(128, 49);
             this.lbl_PointNo.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_PointNo.Name = "lbl_PointNo";
             this.lbl_PointNo.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbl_PointNo.Size = new System.Drawing.Size(50, 23);
+            this.lbl_PointNo.Size = new System.Drawing.Size(71, 23);
             this.lbl_PointNo.TabIndex = 5;
             this.lbl_PointNo.Text = "100";
             this.lbl_PointNo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -573,10 +590,10 @@
             // btn_Prev
             // 
             this.btn_Prev.AccessibleDescription = "Prev";
-            this.btn_Prev.Location = new System.Drawing.Point(330, 52);
+            this.btn_Prev.Location = new System.Drawing.Point(203, 45);
             this.btn_Prev.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Prev.Name = "btn_Prev";
-            this.btn_Prev.Size = new System.Drawing.Size(50, 30);
+            this.btn_Prev.Size = new System.Drawing.Size(75, 30);
             this.btn_Prev.TabIndex = 3;
             this.btn_Prev.Text = "Prev";
             this.btn_Prev.UseVisualStyleBackColor = true;
@@ -599,7 +616,7 @@
             // label9
             // 
             this.label9.AccessibleDescription = "Point No";
-            this.label9.Location = new System.Drawing.Point(7, 56);
+            this.label9.Location = new System.Drawing.Point(7, 49);
             this.label9.Margin = new System.Windows.Forms.Padding(2);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 23);
@@ -621,7 +638,7 @@
             // lbl_PointXY
             // 
             this.lbl_PointXY.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_PointXY.Location = new System.Drawing.Point(135, 56);
+            this.lbl_PointXY.Location = new System.Drawing.Point(127, 83);
             this.lbl_PointXY.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_PointXY.Name = "lbl_PointXY";
             this.lbl_PointXY.Size = new System.Drawing.Size(139, 23);
@@ -632,10 +649,10 @@
             // btn_SetPt
             // 
             this.btn_SetPt.AccessibleDescription = "Set";
-            this.btn_SetPt.Location = new System.Drawing.Point(276, 52);
+            this.btn_SetPt.Location = new System.Drawing.Point(282, 79);
             this.btn_SetPt.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SetPt.Name = "btn_SetPt";
-            this.btn_SetPt.Size = new System.Drawing.Size(50, 30);
+            this.btn_SetPt.Size = new System.Drawing.Size(75, 30);
             this.btn_SetPt.TabIndex = 3;
             this.btn_SetPt.Text = "Set";
             this.btn_SetPt.UseVisualStyleBackColor = true;
@@ -666,6 +683,7 @@
             this.gbox_PlanePositions.TabIndex = 49;
             this.gbox_PlanePositions.TabStop = false;
             this.gbox_PlanePositions.Text = "Plane Positions";
+            this.gbox_PlanePositions.Enter += new System.EventHandler(this.gbox_PlanePositions_Enter);
             // 
             // label7
             // 
@@ -919,7 +937,7 @@
             // btnTest
             // 
             this.btnTest.AccessibleDescription = "";
-            this.btnTest.Location = new System.Drawing.Point(7, 555);
+            this.btnTest.Location = new System.Drawing.Point(7, 582);
             this.btnTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 36);
@@ -931,7 +949,7 @@
             // btnEditMsg
             // 
             this.btnEditMsg.AccessibleDescription = "";
-            this.btnEditMsg.Location = new System.Drawing.Point(218, 555);
+            this.btnEditMsg.Location = new System.Drawing.Point(219, 582);
             this.btnEditMsg.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditMsg.Name = "btnEditMsg";
             this.btnEditMsg.Size = new System.Drawing.Size(75, 36);
@@ -941,19 +959,53 @@
             this.btnEditMsg.Visible = false;
             this.btnEditMsg.Click += new System.EventHandler(this.btnEditMsg_Click);
             // 
+            // cbxClstrR
+            // 
+            this.cbxClstrR.FormattingEnabled = true;
+            this.cbxClstrR.Location = new System.Drawing.Point(66, 25);
+            this.cbxClstrR.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.cbxClstrR.Name = "cbxClstrR";
+            this.cbxClstrR.Size = new System.Drawing.Size(55, 26);
+            this.cbxClstrR.TabIndex = 59;
+            this.cbxClstrR.SelectedIndexChanged += new System.EventHandler(this.cbxClstrR_SelectedIndexChanged);
+            // 
+            // cbxClstrC
+            // 
+            this.cbxClstrC.FormattingEnabled = true;
+            this.cbxClstrC.Location = new System.Drawing.Point(6, 25);
+            this.cbxClstrC.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.cbxClstrC.Name = "cbxClstrC";
+            this.cbxClstrC.Size = new System.Drawing.Size(54, 26);
+            this.cbxClstrC.TabIndex = 58;
+            this.cbxClstrC.SelectionChangeCommitted += new System.EventHandler(this.cbxClstrC_SelectionChangeCommitted);
+            // 
+            // gbxCluster
+            // 
+            this.gbxCluster.AutoSize = true;
+            this.gbxCluster.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.gbxCluster.Controls.Add(this.cbxClstrC);
+            this.gbxCluster.Controls.Add(this.cbxClstrR);
+            this.gbxCluster.Location = new System.Drawing.Point(87, 583);
+            this.gbxCluster.Name = "gbxCluster";
+            this.gbxCluster.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.gbxCluster.Size = new System.Drawing.Size(127, 70);
+            this.gbxCluster.TabIndex = 61;
+            this.gbxCluster.TabStop = false;
+            this.gbxCluster.Text = "Test Cluster";
+            // 
             // frm_DispCore_DispProg_DoHeight
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(462, 602);
+            this.ClientSize = new System.Drawing.Size(454, 669);
             this.ControlBox = false;
+            this.Controls.Add(this.gbxCluster);
             this.Controls.Add(this.btnEditMsg);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lbox_Info);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Test);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.pnlType);
             this.Controls.Add(this.gbox_HeightPositions);
@@ -977,6 +1029,7 @@
             this.gbox_PlanePositions.ResumeLayout(false);
             this.gbxType.ResumeLayout(false);
             this.pnlType.ResumeLayout(false);
+            this.gbxCluster.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -987,7 +1040,6 @@
         private System.Windows.Forms.ListBox lbox_Info;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
-        private System.Windows.Forms.Button btn_Test;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpage_Judgement;
         private System.Windows.Forms.Button btnHelp;
@@ -1050,5 +1102,10 @@
         private System.Windows.Forms.Button btnLeastSquare;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnEditMsg;
+        private System.Windows.Forms.Button btnGotoPos;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbxClstrR;
+        private System.Windows.Forms.ComboBox cbxClstrC;
+        private System.Windows.Forms.GroupBox gbxCluster;
     }
 }

@@ -98,6 +98,11 @@ namespace NDispWin
 
             lbl_HomeSeq.Text = Enum.GetName(typeof(TaskGantry.EHomeSequence), TaskGantry.HomeSequence).ToString();
             lbl_ZHeightForSlowSpeed.Text = TaskGantry.ZHeightForSlowSpeed.ToString("f3");
+            lblTLX.Text = $"{TaskGantry.DispenseWindow[0].X:f3}";
+            lblTLY.Text = $"{TaskGantry.DispenseWindow[0].Y:f3}";
+            lblBRX.Text = $"{TaskGantry.DispenseWindow[1].X:f3}";
+            lblBRY.Text = $"{TaskGantry.DispenseWindow[1].Y:f3}";
+            lblSafeZ.Text = $"{TaskGantry.DispenseWindowZ:f3}";
 
             lblConfigFile.Text = "Config File: " + (TaskGantry.UseConfigFile ? GDefine.ConfigFile : "none");
         }
@@ -373,6 +378,40 @@ namespace NDispWin
         private void lbl_ZHeightForSlowXY_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Motor Para, Z Height For Slow Speed", ref TaskGantry.ZHeightForSlowSpeed, -200, 10);
+            UpdateDisplay();
+        }
+
+        private void lblTLX_Click(object sender, EventArgs e)
+        {
+            double d = (double)TaskGantry.DispenseWindow[0].X;
+            UC.AdjustExec("Motor Para, Dispense Window TLX", ref d, -999, 999);
+            TaskGantry.DispenseWindow[0].X = d;
+            UpdateDisplay();
+        }
+        private void lblTLY_Click(object sender, EventArgs e)
+        {
+            double d = (double)TaskGantry.DispenseWindow[0].Y;
+            UC.AdjustExec("Motor Para, Dispense Window TLY", ref d, -999, 999);
+            TaskGantry.DispenseWindow[0].Y = d;
+            UpdateDisplay();
+        }
+        private void lblBRX_Click(object sender, EventArgs e)
+        {
+            double d = (double)TaskGantry.DispenseWindow[1].X;
+            UC.AdjustExec("Motor Para, Dispense Window BRX", ref d, -999, 999);
+            TaskGantry.DispenseWindow[1].X = d;
+            UpdateDisplay();
+        }
+        private void lblBRY_Click(object sender, EventArgs e)
+        {
+            double d = (double)TaskGantry.DispenseWindow[1].Y;
+            UC.AdjustExec("Motor Para, Dispense Window BRY", ref d, -999, 999);
+            TaskGantry.DispenseWindow[1].Y = d;
+            UpdateDisplay();
+        }
+        private void lblSafeZ_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Motor Para, Dispense Window SafeZ", ref TaskGantry.DispenseWindowZ, -200, 10);
             UpdateDisplay();
         }
     }

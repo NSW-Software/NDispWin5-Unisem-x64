@@ -89,16 +89,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbar_R = new System.Windows.Forms.TrackBar();
             this.tpFocus = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnLedOff = new System.Windows.Forms.Button();
-            this.btnLedB = new System.Windows.Forms.Button();
-            this.btnLed = new System.Windows.Forms.Button();
-            this.btnLaserMeas = new System.Windows.Forms.Button();
-            this.btnMeas = new System.Windows.Forms.Button();
-            this.lblZPos = new System.Windows.Forms.Label();
-            this.lblYPos = new System.Windows.Forms.Label();
-            this.lblXPos = new System.Windows.Forms.Label();
-            this.btn_AutoFocus2 = new System.Windows.Forms.Button();
             this.btn_SetAF4 = new System.Windows.Forms.Button();
             this.btn_GotoAF4 = new System.Windows.Forms.Button();
             this.btn_SetAF3 = new System.Windows.Forms.Button();
@@ -115,6 +105,17 @@
             this.lbl_Focus1 = new System.Windows.Forms.Label();
             this.lbl_Focus2 = new System.Windows.Forms.Label();
             this.lbl_Focus3 = new System.Windows.Forms.Label();
+            this.btn_AutoFocus2 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnLedOff = new System.Windows.Forms.Button();
+            this.btnLedB = new System.Windows.Forms.Button();
+            this.btnLed = new System.Windows.Forms.Button();
+            this.btnLaserMeas = new System.Windows.Forms.Button();
+            this.btnMeas = new System.Windows.Forms.Button();
+            this.lblZPos = new System.Windows.Forms.Label();
+            this.lblYPos = new System.Windows.Forms.Label();
+            this.lblXPos = new System.Windows.Forms.Label();
+            this.lblWarning = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpXY.SuspendLayout();
             this.tpXY2.SuspendLayout();
@@ -996,131 +997,6 @@
             this.tpFocus.Text = "Focus";
             this.tpFocus.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lbl_Keyboard);
-            this.panel2.Controls.Add(this.tbox_Keyboard);
-            this.panel2.Controls.Add(this.btnLedOff);
-            this.panel2.Controls.Add(this.btn_TraceSet);
-            this.panel2.Controls.Add(this.btnLedB);
-            this.panel2.Controls.Add(this.btn_Trace);
-            this.panel2.Controls.Add(this.btnLed);
-            this.panel2.Controls.Add(this.btnLaserMeas);
-            this.panel2.Controls.Add(this.btnMeas);
-            this.panel2.Controls.Add(this.lblZPos);
-            this.panel2.Controls.Add(this.lblYPos);
-            this.panel2.Controls.Add(this.lblXPos);
-            this.panel2.Controls.Add(this.tabControl1);
-            this.panel2.Controls.Add(this.btn_Laser);
-            this.panel2.Controls.Add(this.lblLaser);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(500, 220);
-            this.panel2.TabIndex = 73;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // btnLedOff
-            // 
-            this.btnLedOff.Location = new System.Drawing.Point(443, 1);
-            this.btnLedOff.Margin = new System.Windows.Forms.Padding(1);
-            this.btnLedOff.Name = "btnLedOff";
-            this.btnLedOff.Size = new System.Drawing.Size(56, 32);
-            this.btnLedOff.TabIndex = 86;
-            this.btnLedOff.Text = "Led Off";
-            this.btnLedOff.UseVisualStyleBackColor = true;
-            this.btnLedOff.Click += new System.EventHandler(this.btnLEDOff_Click);
-            // 
-            // btnLedB
-            // 
-            this.btnLedB.Location = new System.Drawing.Point(443, 69);
-            this.btnLedB.Margin = new System.Windows.Forms.Padding(1);
-            this.btnLedB.Name = "btnLedB";
-            this.btnLedB.Size = new System.Drawing.Size(56, 32);
-            this.btnLedB.TabIndex = 85;
-            this.btnLedB.Text = "Led B";
-            this.btnLedB.UseVisualStyleBackColor = true;
-            this.btnLedB.Click += new System.EventHandler(this.btnLedDef2_Click);
-            // 
-            // btnLed
-            // 
-            this.btnLed.Location = new System.Drawing.Point(443, 35);
-            this.btnLed.Margin = new System.Windows.Forms.Padding(1);
-            this.btnLed.Name = "btnLed";
-            this.btnLed.Size = new System.Drawing.Size(56, 32);
-            this.btnLed.TabIndex = 83;
-            this.btnLed.Text = "Led A";
-            this.btnLed.UseVisualStyleBackColor = true;
-            this.btnLed.Click += new System.EventHandler(this.btnLedOnOff_Click);
-            // 
-            // btnLaserMeas
-            // 
-            this.btnLaserMeas.AccessibleDescription = "";
-            this.btnLaserMeas.Location = new System.Drawing.Point(315, 191);
-            this.btnLaserMeas.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.btnLaserMeas.Name = "btnLaserMeas";
-            this.btnLaserMeas.Size = new System.Drawing.Size(60, 25);
-            this.btnLaserMeas.TabIndex = 77;
-            this.btnLaserMeas.Text = "Meas";
-            this.btnLaserMeas.UseVisualStyleBackColor = true;
-            this.btnLaserMeas.Click += new System.EventHandler(this.btnLaserMeas_Click);
-            // 
-            // btnMeas
-            // 
-            this.btnMeas.AccessibleDescription = "";
-            this.btnMeas.Location = new System.Drawing.Point(315, 114);
-            this.btnMeas.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.btnMeas.Name = "btnMeas";
-            this.btnMeas.Size = new System.Drawing.Size(60, 25);
-            this.btnMeas.TabIndex = 76;
-            this.btnMeas.Text = "Meas";
-            this.btnMeas.UseVisualStyleBackColor = true;
-            this.btnMeas.Click += new System.EventHandler(this.btnMeas_Click);
-            // 
-            // lblZPos
-            // 
-            this.lblZPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblZPos.Location = new System.Drawing.Point(315, 88);
-            this.lblZPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.lblZPos.Name = "lblZPos";
-            this.lblZPos.Size = new System.Drawing.Size(60, 25);
-            this.lblZPos.TabIndex = 75;
-            this.lblZPos.Text = "-999.000";
-            this.lblZPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblYPos
-            // 
-            this.lblYPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblYPos.Location = new System.Drawing.Point(315, 61);
-            this.lblYPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.lblYPos.Name = "lblYPos";
-            this.lblYPos.Size = new System.Drawing.Size(60, 25);
-            this.lblYPos.TabIndex = 74;
-            this.lblYPos.Text = "999.000";
-            this.lblYPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblXPos
-            // 
-            this.lblXPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblXPos.Location = new System.Drawing.Point(315, 34);
-            this.lblXPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.lblXPos.Name = "lblXPos";
-            this.lblXPos.Size = new System.Drawing.Size(60, 25);
-            this.lblXPos.TabIndex = 73;
-            this.lblXPos.Text = "999.000";
-            this.lblXPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btn_AutoFocus2
-            // 
-            this.btn_AutoFocus2.AccessibleDescription = "Auto Focus";
-            this.btn_AutoFocus2.Location = new System.Drawing.Point(219, 5);
-            this.btn_AutoFocus2.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_AutoFocus2.Name = "btn_AutoFocus2";
-            this.btn_AutoFocus2.Size = new System.Drawing.Size(79, 32);
-            this.btn_AutoFocus2.TabIndex = 174;
-            this.btn_AutoFocus2.Text = "Auto Focus";
-            this.btn_AutoFocus2.UseVisualStyleBackColor = true;
-            this.btn_AutoFocus2.Click += new System.EventHandler(this.btn_AutoFocus_Click);
-            // 
             // btn_SetAF4
             // 
             this.btn_SetAF4.AccessibleDescription = "Set";
@@ -1305,6 +1181,142 @@
             this.lbl_Focus3.Text = "-999.999";
             this.lbl_Focus3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btn_AutoFocus2
+            // 
+            this.btn_AutoFocus2.AccessibleDescription = "Auto Focus";
+            this.btn_AutoFocus2.Location = new System.Drawing.Point(219, 5);
+            this.btn_AutoFocus2.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_AutoFocus2.Name = "btn_AutoFocus2";
+            this.btn_AutoFocus2.Size = new System.Drawing.Size(79, 32);
+            this.btn_AutoFocus2.TabIndex = 174;
+            this.btn_AutoFocus2.Text = "Auto Focus";
+            this.btn_AutoFocus2.UseVisualStyleBackColor = true;
+            this.btn_AutoFocus2.Click += new System.EventHandler(this.btn_AutoFocus_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblWarning);
+            this.panel2.Controls.Add(this.lbl_Keyboard);
+            this.panel2.Controls.Add(this.tbox_Keyboard);
+            this.panel2.Controls.Add(this.btnLedOff);
+            this.panel2.Controls.Add(this.btn_TraceSet);
+            this.panel2.Controls.Add(this.btnLedB);
+            this.panel2.Controls.Add(this.btn_Trace);
+            this.panel2.Controls.Add(this.btnLed);
+            this.panel2.Controls.Add(this.btnLaserMeas);
+            this.panel2.Controls.Add(this.btnMeas);
+            this.panel2.Controls.Add(this.lblZPos);
+            this.panel2.Controls.Add(this.lblYPos);
+            this.panel2.Controls.Add(this.lblXPos);
+            this.panel2.Controls.Add(this.tabControl1);
+            this.panel2.Controls.Add(this.btn_Laser);
+            this.panel2.Controls.Add(this.lblLaser);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(500, 220);
+            this.panel2.TabIndex = 73;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // btnLedOff
+            // 
+            this.btnLedOff.Location = new System.Drawing.Point(443, 1);
+            this.btnLedOff.Margin = new System.Windows.Forms.Padding(1);
+            this.btnLedOff.Name = "btnLedOff";
+            this.btnLedOff.Size = new System.Drawing.Size(56, 32);
+            this.btnLedOff.TabIndex = 86;
+            this.btnLedOff.Text = "Led Off";
+            this.btnLedOff.UseVisualStyleBackColor = true;
+            this.btnLedOff.Click += new System.EventHandler(this.btnLEDOff_Click);
+            // 
+            // btnLedB
+            // 
+            this.btnLedB.Location = new System.Drawing.Point(443, 69);
+            this.btnLedB.Margin = new System.Windows.Forms.Padding(1);
+            this.btnLedB.Name = "btnLedB";
+            this.btnLedB.Size = new System.Drawing.Size(56, 32);
+            this.btnLedB.TabIndex = 85;
+            this.btnLedB.Text = "Led B";
+            this.btnLedB.UseVisualStyleBackColor = true;
+            this.btnLedB.Click += new System.EventHandler(this.btnLedDef2_Click);
+            // 
+            // btnLed
+            // 
+            this.btnLed.Location = new System.Drawing.Point(443, 35);
+            this.btnLed.Margin = new System.Windows.Forms.Padding(1);
+            this.btnLed.Name = "btnLed";
+            this.btnLed.Size = new System.Drawing.Size(56, 32);
+            this.btnLed.TabIndex = 83;
+            this.btnLed.Text = "Led A";
+            this.btnLed.UseVisualStyleBackColor = true;
+            this.btnLed.Click += new System.EventHandler(this.btnLedOnOff_Click);
+            // 
+            // btnLaserMeas
+            // 
+            this.btnLaserMeas.AccessibleDescription = "";
+            this.btnLaserMeas.Location = new System.Drawing.Point(315, 191);
+            this.btnLaserMeas.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.btnLaserMeas.Name = "btnLaserMeas";
+            this.btnLaserMeas.Size = new System.Drawing.Size(60, 25);
+            this.btnLaserMeas.TabIndex = 77;
+            this.btnLaserMeas.Text = "Meas";
+            this.btnLaserMeas.UseVisualStyleBackColor = true;
+            this.btnLaserMeas.Click += new System.EventHandler(this.btnLaserMeas_Click);
+            // 
+            // btnMeas
+            // 
+            this.btnMeas.AccessibleDescription = "";
+            this.btnMeas.Location = new System.Drawing.Point(315, 114);
+            this.btnMeas.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.btnMeas.Name = "btnMeas";
+            this.btnMeas.Size = new System.Drawing.Size(60, 25);
+            this.btnMeas.TabIndex = 76;
+            this.btnMeas.Text = "Meas";
+            this.btnMeas.UseVisualStyleBackColor = true;
+            this.btnMeas.Click += new System.EventHandler(this.btnMeas_Click);
+            // 
+            // lblZPos
+            // 
+            this.lblZPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblZPos.Location = new System.Drawing.Point(315, 88);
+            this.lblZPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lblZPos.Name = "lblZPos";
+            this.lblZPos.Size = new System.Drawing.Size(60, 25);
+            this.lblZPos.TabIndex = 75;
+            this.lblZPos.Text = "-999.000";
+            this.lblZPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblYPos
+            // 
+            this.lblYPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblYPos.Location = new System.Drawing.Point(315, 61);
+            this.lblYPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lblYPos.Name = "lblYPos";
+            this.lblYPos.Size = new System.Drawing.Size(60, 25);
+            this.lblYPos.TabIndex = 74;
+            this.lblYPos.Text = "999.000";
+            this.lblYPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblXPos
+            // 
+            this.lblXPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblXPos.Location = new System.Drawing.Point(315, 34);
+            this.lblXPos.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lblXPos.Name = "lblXPos";
+            this.lblXPos.Size = new System.Drawing.Size(60, 25);
+            this.lblXPos.TabIndex = 73;
+            this.lblXPos.Text = "999.000";
+            this.lblXPos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblWarning
+            // 
+            this.lblWarning.AutoSize = true;
+            this.lblWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblWarning.Location = new System.Drawing.Point(317, 10);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(11, 14);
+            this.lblWarning.TabIndex = 88;
+            this.lblWarning.Text = "-";
+            // 
             // uctrl_JogGantry
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1419,5 +1431,6 @@
         private System.Windows.Forms.Label lbl_Focus1;
         private System.Windows.Forms.Label lbl_Focus2;
         private System.Windows.Forms.Label lbl_Focus3;
+        private System.Windows.Forms.Label lblWarning;
     }
 }

@@ -66,6 +66,8 @@
             this.tssl_FPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssl_Status = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsbtnCamReticle = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).BeginInit();
             this.pnl_Image.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -115,6 +117,8 @@
             this.tsbtn_ZoomFit,
             this.tsbtn_ZoomIn,
             this.toolStripSeparator3,
+            this.tsbtnCamReticle,
+            this.toolStripSeparator5,
             this.tsddb_Image,
             this.tsddb_Tools});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -254,14 +258,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -285,28 +289,28 @@
             // tsmi_SetupReticle
             // 
             this.tsmi_SetupReticle.Name = "tsmi_SetupReticle";
-            this.tsmi_SetupReticle.Size = new System.Drawing.Size(213, 26);
+            this.tsmi_SetupReticle.Size = new System.Drawing.Size(224, 26);
             this.tsmi_SetupReticle.Text = "Setup Reticle";
             this.tsmi_SetupReticle.Click += new System.EventHandler(this.setupReticleToolStripMenuItem_Click);
             // 
             // tsmi_ShowStatusBar
             // 
             this.tsmi_ShowStatusBar.Name = "tsmi_ShowStatusBar";
-            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(213, 26);
+            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(224, 26);
             this.tsmi_ShowStatusBar.Text = "Status Bar";
             this.tsmi_ShowStatusBar.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
             // 
             // showCamReticlesToolStripMenuItem
             // 
             this.showCamReticlesToolStripMenuItem.Name = "showCamReticlesToolStripMenuItem";
-            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.showCamReticlesToolStripMenuItem.Text = "Show CamReticles";
             this.showCamReticlesToolStripMenuItem.Click += new System.EventHandler(this.showCamReticlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
             // 
             // triggerModeToolStripMenuItem
             // 
@@ -314,7 +318,7 @@
             this.tsmiTriggerModeOff,
             this.tsmiTriggerModeOn});
             this.triggerModeToolStripMenuItem.Name = "triggerModeToolStripMenuItem";
-            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.triggerModeToolStripMenuItem.Text = "Trigger Mode";
             // 
             // tsmiTriggerModeOff
@@ -337,7 +341,7 @@
             this.tsmiTriggerSourceSoftware,
             this.tsmiTriggerSourceHardware});
             this.tsmiTriggerSource.Name = "tsmiTriggerSource";
-            this.tsmiTriggerSource.Size = new System.Drawing.Size(213, 26);
+            this.tsmiTriggerSource.Size = new System.Drawing.Size(224, 26);
             this.tsmiTriggerSource.Text = "Trigger Source";
             // 
             // tsmiTriggerSourceSoftware
@@ -357,7 +361,7 @@
             // tsmiTrigger
             // 
             this.tsmiTrigger.Name = "tsmiTrigger";
-            this.tsmiTrigger.Size = new System.Drawing.Size(213, 26);
+            this.tsmiTrigger.Size = new System.Drawing.Size(224, 26);
             this.tsmiTrigger.Text = "Trigger";
             this.tsmiTrigger.Click += new System.EventHandler(this.tsmiTrigger_Click);
             // 
@@ -407,6 +411,21 @@
             this.tssl_Status.Name = "tssl_Status";
             this.tssl_Status.Size = new System.Drawing.Size(49, 16);
             this.tssl_Status.Text = "Status";
+            // 
+            // tsbtnCamReticle
+            // 
+            this.tsbtnCamReticle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnCamReticle.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnCamReticle.Image")));
+            this.tsbtnCamReticle.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnCamReticle.Name = "tsbtnCamReticle";
+            this.tsbtnCamReticle.Size = new System.Drawing.Size(92, 24);
+            this.tsbtnCamReticle.Text = "Cam Reticle";
+            this.tsbtnCamReticle.Click += new System.EventHandler(this.tsbtnCamReticle_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
             // frmMVCGenTLCamera
             // 
@@ -468,5 +487,7 @@
         private System.Windows.Forms.ToolStripMenuItem triggerModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOff;
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOn;
+        private System.Windows.Forms.ToolStripButton tsbtnCamReticle;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

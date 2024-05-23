@@ -277,7 +277,7 @@ namespace NDispWin
 
         private void frmDispTools_Load(object sender, EventArgs e)
         {
-            //GControl.UpdateFormControl(this);
+            GControl.UpdateFormControl(this);
 
             Text = "Dispense Tools";
 

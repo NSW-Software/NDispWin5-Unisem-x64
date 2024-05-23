@@ -5156,6 +5156,8 @@ namespace NDispWin
         }
         internal static bool Manual_LoadPro()
         {
+            //TaskVision.LightingOff();
+
             if (!TaskConv.CheckReady()) return false;
 
             if (TaskConv.Out.SensPsnt) return true;
@@ -5605,6 +5607,17 @@ namespace NDispWin
 
                     if (Pro.Status == EProcessStatus.Empty)
                     {
+                        if (TaskConv.Pro.SensPsnt)
+                        {
+                            if (GDefine.Status == EStatus.Ready)
+                            {
+                                TaskDisp.TaskMoveGZUp();
+                                TaskGantry.SetMotionParamGXY();
+                                if (TaskGantry.GXPos() < -50)
+                                    TaskGantry.MovePtpRel(TaskGantry.GYAxis, 50);
+                            }
+                        }
+
                         #region
                         if ((TaskConv.Pre.rt_StType == EPreStType.Disp ||
                              TaskConv.Pre.rt_StType == EPreStType.Disp1 ||
@@ -8373,10 +8386,6 @@ namespace NDispWin
                             goto _End;
                         }
 
-                        #region push product
-                        ReadyToSend = false;
-                        TransferBusy = true;
-
                         if (Setup.PusherRunConv)
                         {
                             if (Station == TaskConv.EStation.Pro)
@@ -8401,8 +8410,12 @@ namespace NDispWin
                                 }
                                 TaskConv.Pre.SvStopperUp = true;
                             }
-                            TaskConv.Conv.Fwd_Fast(); 
+                            TaskConv.Conv.Fwd_Fast();
                         }
+
+                        #region push product
+                        ReadyToSend = false;
+                        TransferBusy = true;
 
                         switch (PusherExt())
                         {

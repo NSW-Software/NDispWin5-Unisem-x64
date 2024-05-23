@@ -56,7 +56,7 @@ namespace NDispWin
             bool x64App = true;
             if (Environment.Is64BitOperatingSystem)
             {
-                Event.APP_INFO.Set("OS", "64bit");
+                Event.APP_INFO.Set("OS,App", $"64bit,{IntPtr.Size * 8}");
                 SetDllDirectory(@"C:\Program Files (x86)\Point Grey Research\FlyCapture2\bin");
                 SetDllDirectory(@"C:\Program Files (x86)\Point Grey Research\Spinnaker\bin\vs2015");
 
@@ -67,7 +67,7 @@ namespace NDispWin
             }
             else
             {
-                Event.APP_INFO.Set("OS", "32bit");
+                Event.APP_INFO.Set("OS,App", $"32bit,{IntPtr.Size * 8}");
                 SetDllDirectory(@"C:\Program Files\Point Grey Research\FlyCapture2\bin");
                 SetDllDirectory(@"C:\Program Files\Point Grey Research\Spinnaker\bin\vs2015");
 

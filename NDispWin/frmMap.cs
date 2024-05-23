@@ -461,10 +461,18 @@ namespace NDispWin
                 int XBR = (int)(X + USize / 2);
                 int YBR = (int)(Y + USize / 2);
 
-                if ((XTL >= SelectRect.X && XTL <= SelectRect.X + SelectRect.Width && YTL >= SelectRect.Y && YTL <= SelectRect.Y + SelectRect.Height) ||
-                    (XTR >= SelectRect.X && XTR <= SelectRect.X + SelectRect.Width && YTR >= SelectRect.Y && YTR <= SelectRect.Y + SelectRect.Height) ||
-                    (XBL >= SelectRect.X && XBL <= SelectRect.X + SelectRect.Width && YBL >= SelectRect.Y && YBL <= SelectRect.Y + SelectRect.Height) ||
-                    (XBR >= SelectRect.X && XBR <= SelectRect.X + SelectRect.Width && YBR >= SelectRect.Y && YBR <= SelectRect.Y + SelectRect.Height))
+                Point unitTL = new Point((int)(X - USize / 2), (int)(Y - USize / 2));
+                Point unitBR = new Point((int)(X + USize / 2), (int)(Y + USize / 2));
+                
+                Rectangle unit = new Rectangle((int)(X - USize / 2), (int)(Y - USize / 2), (int)USize, (int)USize);
+
+                //Comparing Left and Right border for intersection, the Top and Bottom. 
+                if ((Math.Max(unit.X, SelectRect.X) < Math.Min(unit.X + USize, SelectRect.X + SelectRect.Width)
+                    && Math.Max(unit.Y, SelectRect.Y) < Math.Min(unit.Y + USize, SelectRect.Y + SelectRect.Height)))
+                //if ((XTL >= SelectRect.X && XTL <= SelectRect.X + SelectRect.Width && YTL >= SelectRect.Y && YTL <= SelectRect.Y + SelectRect.Height) ||
+                //    (XTR >= SelectRect.X && XTR <= SelectRect.X + SelectRect.Width && YTR >= SelectRect.Y && YTR <= SelectRect.Y + SelectRect.Height) ||
+                //    (XBL >= SelectRect.X && XBL <= SelectRect.X + SelectRect.Width && YBL >= SelectRect.Y && YBL <= SelectRect.Y + SelectRect.Height) ||
+                //    (XBR >= SelectRect.X && XBR <= SelectRect.X + SelectRect.Width && YBR >= SelectRect.Y && YBR <= SelectRect.Y + SelectRect.Height))
                 {
                     if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.PreMapNG) continue;
 
@@ -681,7 +689,6 @@ namespace NDispWin
                 return;
             }
         }
-
         private void lbl_Clear_Click(object sender, EventArgs e)
         {
             SelectedIndex.Clear();
@@ -701,35 +708,19 @@ namespace NDispWin
             Display = EDisplay.MapCurr;
             UpdateDisplay();
         }
+        private void lbl_LayoutNo_Click(object sender, EventArgs e)
+        {
+            if (LayoutNo < DispProg.rt_LayoutCount - 1)
+                LayoutNo++;
+            else
+                LayoutNo = 0;
+            UpdateDisplay();
+        }
 
         private void lbl_Close_Click(object sender, EventArgs e)
         {
             b_MoveTo = false;
             this.Visible = false;
-        }
-
-        private void lbl_LayoutNo_Click(object sender, EventArgs e)
-        {
-            if (LayoutNo < DispProg.rt_LayoutCount - 1)
-                LayoutNo++;
-            else                
-                LayoutNo = 0;
-            UpdateDisplay();
-        }
-
-        private void pbox_Image_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbox_Map_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_ReadID_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void lblEditMap_Click(object sender, EventArgs e)

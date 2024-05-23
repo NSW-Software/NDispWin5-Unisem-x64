@@ -1352,8 +1352,10 @@ namespace NDispWin
         {
             if (frm_Vision != null) frm_Vision.TopMost = false;
             if (frm_Jog != null) frm_Jog.TopMost = false;
-          
-            frm_ProgressReport frm = new frm_ProgressReport();
+
+            if (!TaskGantry.CheckInDispenseArea()) return;
+
+           frm_ProgressReport frm = new frm_ProgressReport();
             frm.Message = "Set Origin?";
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -2912,9 +2914,10 @@ namespace NDispWin
                 MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
             }
 
-            if (TaskConv.Pro.Status == TaskConv.EProcessStatus.InProcess &&
-              TaskConv.Pro.UseVac &&
-              !TaskConv.Pro.SensVac)
+            if ((TaskConv.Pro.Status == TaskConv.EProcessStatus.InProcess
+                || TaskConv.Pro.Status == TaskConv.EProcessStatus.WaitDisp)
+                && TaskConv.Pro.UseVac 
+                && !TaskConv.Pro.SensVac)
             {
                 GDefine.Status = EStatus.Stop;
                 Msg MsgBox = new Msg();
@@ -2977,7 +2980,8 @@ namespace NDispWin
 
             if (DispProg.LastLine > 0)
             {
-                tsbtn_Cancel_Click(sender, e);
+                //tsbtn_Cancel_Click(sender, e);
+                DispProg.TR_Cancel();
             }
             DispProg.ResumeMap();
 
@@ -3502,6 +3506,11 @@ namespace NDispWin
         private void tmr15s_Tick(object sender, EventArgs e)
         {
             Task.Run(() => { Task_InputMap.OsramEMos.PurgeETVFiles(); });
+        }
+
+        private void tslbl_Status_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -556,5 +556,13 @@ namespace NDispWin
         {
             TaskVision.genTLCamera[m_iSelectedCam].SoftwareTrigger();
         }
+
+        private void tsbtnCamReticle_Click(object sender, EventArgs e)
+        {
+            ShowCamReticles = !ShowCamReticles;
+            imgBoxEmgu.Refresh();
+
+            UpdateControls();
+        }
     }
 }
