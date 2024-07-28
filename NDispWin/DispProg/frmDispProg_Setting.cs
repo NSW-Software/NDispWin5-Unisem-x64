@@ -637,7 +637,7 @@ namespace NDispWin
             GDefine.EnableUploadStripMapE142 = (sender as CheckBox).Checked;
             Log.OnSet("EnableUploadStripMapE142", GDefine.EnableUploadStripMapE142);
         }
-
+            
         private void cbxStripMapUploadFlip_SelectionChangeCommitted(object sender, EventArgs e)
         {
             GDefine.StripMapUploadFlip = cbxStripMapUploadFlip.SelectedIndex;

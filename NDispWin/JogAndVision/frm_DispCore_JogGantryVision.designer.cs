@@ -121,14 +121,14 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 40);
             this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(570, 106);
+            this.splitContainer1.Size = new System.Drawing.Size(570, 425);
             this.splitContainer1.SplitterDistance = 349;
             this.splitContainer1.TabIndex = 3;
             // 
             // frm_DispCore_JogGantryVision
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(570, 146);
+            this.ClientSize = new System.Drawing.Size(570, 465);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.pnl_Inst);

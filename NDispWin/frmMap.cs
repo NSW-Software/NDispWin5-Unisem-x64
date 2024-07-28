@@ -476,10 +476,18 @@ namespace NDispWin
                 {
                     if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.PreMapNG) continue;
 
-                    if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.Bypass)
-                        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.None;
+                    //if (DispProg.LastLine > 0)
+                    //{
+                    //    if (DispProg.Map.CurrMap[LayoutNo].Bin[i] < EMapBin.BinNG)
+                    //        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    //}
                     else
-                        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    {
+                        if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.Bypass)
+                            DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.None;
+                        else
+                            DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    }
                 }
 
                 if (DispProg.Pump_Type == TaskDisp.EPumpType.PP2D)
@@ -573,10 +581,18 @@ namespace NDispWin
                 {
                     if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.PreMapNG) continue;
 
-                    if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.Bypass)
-                        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.None;
-                    else
-                        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    //if (DispProg.LastLine > 0)
+                    //{
+                    //    if (DispProg.Map.CurrMap[LayoutNo].Bin[i] < EMapBin.BinNG)
+                    //        DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    //}
+                    //else
+                    {
+                        if (DispProg.Map.CurrMap[LayoutNo].Bin[i] == EMapBin.Bypass)
+                            DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.None;
+                        else
+                            DispProg.Map.CurrMap[LayoutNo].Bin[i] = EMapBin.Bypass;
+                    }
 
                     if (DispProg.Pump_Type == TaskDisp.EPumpType.PP2D)
                     {

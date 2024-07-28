@@ -1020,12 +1020,12 @@ namespace NDispWin
             GZ2Axis.Para.ReadInifile(Filename, GZ2Axis.Name);
             SZAxis.Para.ReadInifile(Filename, SZAxis.Name);
 
-            if (SZAxis.Para.FastV == 1)
-            {
-                SZAxis.Device = Device_0;
-                SZAxis.Para.Unit.Resolution = 0.0005;
-                SZAxis.Para.FastV = 2;
-            }
+            //if (SZAxis.Para.FastV == 1)
+            //{
+              //  SZAxis.Device = Device_0;
+               // SZAxis.Para.Unit.Resolution = 0.0005;
+                //SZAxis.Para.FastV = 2;
+            //}//
 
             if (!File.Exists(Filename))
             {
@@ -1164,6 +1164,7 @@ namespace NDispWin
             if (!UpdateAxis(GXAxis)) return false;
             if (!UpdateAxis(GYAxis)) return false;
             if (!UpdateAxis(GZAxis)) return false;
+            if (!UpdateAxis(SZAxis)) return false;
 
             switch (GDefine.GantryConfig)
             {
@@ -2102,6 +2103,7 @@ namespace NDispWin
                 if (!UpdateAxis(GXAxis)) goto _Error;
                 if (!UpdateAxis(GYAxis)) goto _Error;
                 if (!UpdateAxis(GZAxis)) goto _Error;
+                if (!UpdateAxis(SZAxis)) goto _Error;
 
                 if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
                 {
@@ -4242,14 +4244,14 @@ namespace NDispWin
                 if (GDefine.ZSensorType == GDefine.EZSensorType.Encoder)
                 {
                     double Pos = 0;
-                    if (TaskGantry.SZAxis.Mask == TaskGantry.GX2Axis.Mask)
-                    {
-                        Pos = TaskGantry.EncoderPos(TaskGantry.GX2Axis);
-                        Pos = Pos / TaskGantry.GX2Axis.Para.Unit.Resolution;
-                        double Ecd_Reso = GDefine.ZSensor_DistPerPulse;// 0.0005mm
-                        Pos = Pos * Ecd_Reso;
-                    }
-                    else
+                    //if (TaskGantry.SZAxis.Mask == TaskGantry.GX2Axis.Mask)
+                    //{
+                    //    Pos = TaskGantry.EncoderPos(TaskGantry.GX2Axis);
+                    //    Pos = Pos / TaskGantry.GX2Axis.Para.Unit.Resolution;
+                    //    double Ecd_Reso = GDefine.ZSensor_DistPerPulse;// 0.0005mm
+                    //    Pos = Pos * Ecd_Reso;
+                    //}
+                    //else
                     {
                         Pos = TaskGantry.EncoderPos(TaskGantry.SZAxis);
                     }

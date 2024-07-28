@@ -63,7 +63,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.lbl_DriveV = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.combox_Resolution = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
@@ -88,6 +87,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblScanResolution = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Image)).BeginInit();
@@ -509,16 +509,6 @@
             this.label18.Text = "Drive";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // combox_Resolution
-            // 
-            this.combox_Resolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.combox_Resolution.FormattingEnabled = true;
-            this.combox_Resolution.Location = new System.Drawing.Point(153, 22);
-            this.combox_Resolution.Name = "combox_Resolution";
-            this.combox_Resolution.Size = new System.Drawing.Size(70, 22);
-            this.combox_Resolution.TabIndex = 149;
-            this.combox_Resolution.SelectionChangeCommitted += new System.EventHandler(this.combox_Resolution_SelectionChangeCommitted);
-            // 
             // label43
             // 
             this.label43.AccessibleDescription = "";
@@ -583,7 +573,7 @@
             this.combox_Path.FormattingEnabled = true;
             this.combox_Path.Location = new System.Drawing.Point(79, 21);
             this.combox_Path.Name = "combox_Path";
-            this.combox_Path.Size = new System.Drawing.Size(144, 22);
+            this.combox_Path.Size = new System.Drawing.Size(144, 26);
             this.combox_Path.TabIndex = 148;
             this.combox_Path.SelectionChangeCommitted += new System.EventHandler(this.combox_Path_SelectionChangeCommitted);
             // 
@@ -639,7 +629,7 @@
             this.combox_ScanMode.FormattingEnabled = true;
             this.combox_ScanMode.Location = new System.Drawing.Point(153, 6);
             this.combox_ScanMode.Name = "combox_ScanMode";
-            this.combox_ScanMode.Size = new System.Drawing.Size(70, 22);
+            this.combox_ScanMode.Size = new System.Drawing.Size(70, 26);
             this.combox_ScanMode.TabIndex = 135;
             this.combox_ScanMode.SelectionChangeCommitted += new System.EventHandler(this.combox_ScanMode_SelectionChangeCommitted);
             // 
@@ -660,7 +650,7 @@
             this.lbl_Status.AutoSize = true;
             this.lbl_Status.Location = new System.Drawing.Point(82, 14);
             this.lbl_Status.Name = "lbl_Status";
-            this.lbl_Status.Size = new System.Drawing.Size(11, 14);
+            this.lbl_Status.Size = new System.Drawing.Size(13, 18);
             this.lbl_Status.TabIndex = 112;
             this.lbl_Status.Text = "-";
             // 
@@ -694,10 +684,10 @@
             this.tabPage1.Controls.Add(this.btn_GotoStartPos);
             this.tabPage1.Controls.Add(this.btn_SetEndPos);
             this.tabPage1.Controls.Add(this.lbl_StartXY);
-            this.tabPage1.Location = new System.Drawing.Point(4, 23);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(573, 177);
+            this.tabPage1.Size = new System.Drawing.Size(573, 173);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -712,10 +702,10 @@
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.label31);
             this.tabPage2.Controls.Add(this.combox_ScanMode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(573, 177);
+            this.tabPage2.Size = new System.Drawing.Size(573, 173);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Scan";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -768,7 +758,7 @@
             this.groupBox3.Location = new System.Drawing.Point(6, 59);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox3.Size = new System.Drawing.Size(228, 115);
+            this.groupBox3.Size = new System.Drawing.Size(228, 123);
             this.groupBox3.TabIndex = 152;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Camera";
@@ -779,7 +769,7 @@
             this.cbxRotate.FormattingEnabled = true;
             this.cbxRotate.Location = new System.Drawing.Point(152, 75);
             this.cbxRotate.Name = "cbxRotate";
-            this.cbxRotate.Size = new System.Drawing.Size(70, 22);
+            this.cbxRotate.Size = new System.Drawing.Size(70, 26);
             this.cbxRotate.TabIndex = 150;
             this.cbxRotate.SelectionChangeCommitted += new System.EventHandler(this.cbxRotate_SelectionChangeCommitted);
             // 
@@ -801,7 +791,7 @@
             this.groupBox2.Controls.Add(this.combox_Path);
             this.groupBox2.Location = new System.Drawing.Point(240, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(229, 64);
+            this.groupBox2.Size = new System.Drawing.Size(229, 72);
             this.groupBox2.TabIndex = 151;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Area Scan";
@@ -809,19 +799,33 @@
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.lblScanResolution);
             this.groupBox1.Controls.Add(this.label32);
             this.groupBox1.Controls.Add(this.label43);
-            this.groupBox1.Controls.Add(this.combox_Resolution);
             this.groupBox1.Controls.Add(this.label42);
             this.groupBox1.Controls.Add(this.lbl_ScanSpeed);
             this.groupBox1.Controls.Add(this.label40);
             this.groupBox1.Location = new System.Drawing.Point(240, 76);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox1.Size = new System.Drawing.Size(229, 87);
+            this.groupBox1.Size = new System.Drawing.Size(229, 91);
             this.groupBox1.TabIndex = 150;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Line Scan";
+            // 
+            // lblScanResolution
+            // 
+            this.lblScanResolution.AccessibleDescription = "";
+            this.lblScanResolution.BackColor = System.Drawing.Color.White;
+            this.lblScanResolution.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblScanResolution.Location = new System.Drawing.Point(153, 20);
+            this.lblScanResolution.Margin = new System.Windows.Forms.Padding(2);
+            this.lblScanResolution.Name = "lblScanResolution";
+            this.lblScanResolution.Size = new System.Drawing.Size(70, 23);
+            this.lblScanResolution.TabIndex = 156;
+            this.lblScanResolution.Text = "50";
+            this.lblScanResolution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblScanResolution.Click += new System.EventHandler(this.lblScanResolution_Click);
             // 
             // label31
             // 
@@ -848,10 +852,10 @@
             this.tabPage3.Controls.Add(this.lbl_Accel);
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.lbl_StartV);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(573, 178);
+            this.tabPage3.Size = new System.Drawing.Size(573, 175);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Motion";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -931,7 +935,6 @@
         private System.Windows.Forms.Button btn_SetEndPos;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox combox_Resolution;
         private System.Windows.Forms.Label lbl_Gain;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Panel panel1;
@@ -952,5 +955,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lblScanResolution;
     }
 }

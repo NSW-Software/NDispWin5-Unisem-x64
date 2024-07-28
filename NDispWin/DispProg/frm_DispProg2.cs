@@ -18,7 +18,7 @@ namespace NDispWin
 {
     internal partial class frm_DispProg2 : Form
     {
-        frm_DispCore_JogGantry2 frm_Jog = null;
+        frmJogGantry frm_Jog = null;
         frmVisionView frm_Vision = null;
 
         frm_DispCore_DispProg_Setting frm_Setting = new frm_DispCore_DispProg_Setting();
@@ -57,6 +57,10 @@ namespace NDispWin
 
         private void UpdateDisplay()
         {
+            label1.Visible = NUtils.UserAcc.Active.GroupID >= (int)ELevel.Admin;
+            label1.Text = $"Weighted/Normal X,Y,Z: {DispProg.ErrorMap.OfstX:f3},{DispProg.ErrorMap.OfstY:f3},{DispProg.ErrorMap.OfstZ:f3} " +
+                          $"/ {DispProg.ErrorMap.OfstX_:f3},{DispProg.ErrorMap.OfstY_:f3},{DispProg.ErrorMap.OfstZ_:f3}";
+
             tslbl_ProgName.Text = GDefine.ProgRecipeName;
             tslbl_ProgName.ToolTipText = "Program: " +  GDefine.ProgRecipeName;
 
@@ -79,12 +83,14 @@ namespace NDispWin
 
             switch (GDefine.Status)
             {
-                case EStatus.Busy: tslbl_Status.ForeColor = Color.Yellow; break;
+                case EStatus.Busy: tslbl_Status.ForeColor = Color.MediumPurple; break;
                 case EStatus.Disable: tslbl_Status.ForeColor = SystemColors.Control; break;
                 case EStatus.ErrorInit: tslbl_Status.ForeColor = Color.Red; break;
                 case EStatus.Ready: tslbl_Status.ForeColor = Color.Green; break;
                 case EStatus.Stop: tslbl_Status.ForeColor = Color.Orange; break;
                 case EStatus.Unknown: tslbl_Status.ForeColor = Color.Olive; break;
+                case EStatus.EndStop: tslbl_Status.ForeColor = Color.Orange; break;
+                case EStatus.IdlePurge: tslbl_Status.ForeColor = Color.Green; break;
             }
             tslbl_Status.Text = GDefine.Status.ToString();
 
@@ -108,6 +114,7 @@ namespace NDispWin
             tsbtn_Snail.Enabled = (DispProg.RunMode == ERunMode.Dry || DispProg.RunMode == ERunMode.Camera);
 
             //tsbtn_Cancel.Enabled = (DispProg.LastLine > 0);
+            if (DispProg.LastLine < 0) tsbtn_Cancel.Enabled = false;
 
             tsddbtn_ForceSingle.Visible = TaskDisp.Option_EnableRunSingleHead && GDefine.HeadConfig == GDefine.EHeadConfig.Dual;
             if (!TaskDisp.ForceSingle) tsddbtn_ForceSingle.Image = tsmi_Dual.Image; else tsddbtn_ForceSingle.Image = tsmi_ForceSingle.Image;
@@ -952,11 +959,11 @@ namespace NDispWin
         }
         private void ShowJog()
         {
-            if (frm_Jog == null) frm_Jog = new frm_DispCore_JogGantry2();
+            if (frm_Jog == null) frm_Jog = new frmJogGantry();
             if (frm_Jog.IsDisposed)
             {
                 frm_Jog.Close();
-                frm_Jog = new frm_DispCore_JogGantry2();
+                frm_Jog = new frmJogGantry();
             }
 
             frm_Jog.FormBorderStyle = FormBorderStyle.None;
@@ -996,7 +1003,7 @@ namespace NDispWin
                 frmCamera.Grab();
                 TaskVision.frmCamera = frmCamera;
 
-                frm_Jog = new frm_DispCore_JogGantry2();
+                frm_Jog = new frmJogGantry();
                 frm_Jog.FormBorderStyle = FormBorderStyle.None;
                 frm_Jog.TopLevel = false;
                 frm_Jog.Parent = splitContainer2.Panel2;
@@ -1031,7 +1038,7 @@ namespace NDispWin
                     }
                 //}));
 
-                frm_Jog = new frm_DispCore_JogGantry2();
+                frm_Jog = new frmJogGantry();
                 frm_Jog.FormBorderStyle = FormBorderStyle.None;
                 frm_Jog.TopLevel = false;
                 frm_Jog.Parent = splitContainer2.Panel2;
@@ -1138,7 +1145,7 @@ namespace NDispWin
             TaskDisp.TaskMoveGZZ2Up();
 
             DispProg.SetupMode = false;
-            DispProg.SaveDoVisionImages = false;
+            //DispProg.SaveDoVisionImages = false;
 
             if (frm_Vision != null) frm_Vision.Close();
             if (frm_Jog != null)
@@ -1518,6 +1525,7 @@ namespace NDispWin
         }
         private void Save()
         {
+            while (GDefine.ProgRecipeName.EndsWith(" ")) GDefine.ProgRecipeName = GDefine.ProgRecipeName.Remove(GDefine.ProgRecipeName.Length - 1);
             string fileName = GDefine.ProgPath + "\\" + GDefine.ProgRecipeName + "." + GDefine.ProgExt;
             if (TaskDisp.EnableRecipeFile) fileName = GDefine.RecipeDir.FullName + GDefine.ProgRecipeName + GDefine.RecipeExt;
             DispProg.Save(fileName);
@@ -3509,6 +3517,11 @@ namespace NDispWin
         }
 
         private void tslbl_Status_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
         {
 
         }

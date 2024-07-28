@@ -292,11 +292,11 @@ namespace NDispWin
                                 else
                                     TaskDisp.SP.SP_Shot((double)DispProg.SP.DispTime[0]);
                             }
-                            else
+                            else//Line
                             {
+                                TaskGantry.BVac1 = false;
                                 TaskGantry.BPress1 = true;
                                 TaskGantry.DispPortC1 = true;
-                                TaskGantry.BVac1 = false;
 
                                 if (Model.StartDelay > 0)
                                 {
@@ -305,16 +305,20 @@ namespace NDispWin
                                 }
                                 if (!TaskGantry.SetMotionParamEx(TaskGantry.GXAxis, Model.LineStartV, Model.LineSpeed, Model.LineAccel)) return false;
                                 if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
-                                if (!TaskGantry.WaitGXY()) return false;
+
                                 if (Model.EndDelay > 0)
                                 {
                                     int t = GDefine.GetTickCount() + (int)Model.EndDelay;
                                     while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
                                 }
 
+                                TaskGantry.DispPortC1 = false;
                                 TaskGantry.BVac1 = true;
                                 TaskGantry.BPress1 = false;
-                                TaskGantry.DispPortC1 = false;
+
+                                if (!TaskGantry.WaitGXY()) return false;
+                                if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
+                                if (!TaskGantry.WaitGXY()) return false;
                             }
 
                             if (Model.PostWait > 0)

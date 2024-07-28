@@ -9,7 +9,6 @@ namespace NDispWin
 {
     public class TaskLaser
     {
-        //public static CLaser.MEDAQ Sensor = new CLaser.MEDAQ();
         public static CLaser.MEDAQ Sensor = new CLaser.MEDAQ();
         public static TFCL3 CL3 = new TFCL3();
 
@@ -49,6 +48,7 @@ namespace NDispWin
                     case GDefine.EHeightSensorType.IDL1X20:
                     case GDefine.EHeightSensorType.IDL1750:
                     case GDefine.EHeightSensorType.IFD2422:
+                    case GDefine.EHeightSensorType.ILD1900:
                         return Sensor.IsConnected;
                     case GDefine.EHeightSensorType.CL3000:
                         return CL3.IsConnected;
@@ -98,6 +98,12 @@ namespace NDispWin
                             Sensor.Open(CLaser.MEDAQ.ESensorType.IFD2422, GDefine.HSensorIPAddress);
                         else
                             Sensor.Open(CLaser.MEDAQ.ESensorType.IFD2422, ComPort);
+                        break;
+                    case GDefine.EHeightSensorType.ILD1900:
+                        if (ComPort.Contains("COM0"))
+                            Sensor.Open(CLaser.MEDAQ.ESensorType.ILD1900, GDefine.HSensorIPAddress);
+                        else
+                            Sensor.Open(CLaser.MEDAQ.ESensorType.ILD1900, ComPort);
                         break;
                     case GDefine.EHeightSensorType.CL3000:
                         bool openCL3Retried = false;
@@ -156,6 +162,7 @@ namespace NDispWin
                     case GDefine.EHeightSensorType.IDL1302:
                     case GDefine.EHeightSensorType.IDL1700:
                     case GDefine.EHeightSensorType.IFD2451:
+                    case GDefine.EHeightSensorType.ILD1900:
                         {
                             int retried = 0;
                             _Retry:
@@ -215,6 +222,7 @@ namespace NDispWin
                     case GDefine.EHeightSensorType.IDL1750:
                     case GDefine.EHeightSensorType.IFD2421:
                     case GDefine.EHeightSensorType.IFD2422:
+                    case GDefine.EHeightSensorType.ILD1900:
                         Sensor.DataAvail(ref DataAvail);
                         break;
                 }
@@ -234,6 +242,7 @@ namespace NDispWin
                     case GDefine.EHeightSensorType.IDL1750:
                     case GDefine.EHeightSensorType.IFD2421:
                     case GDefine.EHeightSensorType.IFD2422:
+                    case GDefine.EHeightSensorType.ILD1900:
                         {
                             int[] RawData = new int[Data.Length];
                             double[] ScaleData = new double[Data.Length];

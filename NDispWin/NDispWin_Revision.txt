@@ -3,9 +3,51 @@
 TaskWeight ReadImme at Open
 
 Todo:
-remove frmVisionView
+Remove frmVisionView and TaskVision.CameraRun = true;
+Tidy frm_DispProg_View
+Refac TaskVision
+Refac frm_DispCore_JogGantryVision
 
 
+Solder End Point Bigger
+Solder Start Line Thin
+Diff Height Result 
+Software Hang frequent
+Dispense Head Z Path
+
+
+Ver 6.0.18.3- 20240728 - Release to LYL/WK for UnisemCD - Gitted
+- [Improve] Added TFPress_RS232.Open DiscardInBuffer to clear any in buffers that cause return incorrect value 
+- [Enhance] MVC_GenTL.cs use EmguBox, reduce bmp image conversion loading, optimize memory usage
+- [Improve] Added TaskElev.Right.SafeCheck_ElevMove check SensLFPsnt, prevent elev move if frame is present in between
+- [Feature] Mag Empty and no frame to process notification, alert op
+Ver 6.0.17 - 20240705 - Release to WK for UnisemCD
+- [Feature] Added TErrorMap
+- [Enhance] UpdateZHeight to include BiasKernel.
+- [Enhance] ExecuteDoHeight Stop will retain old data, to be able to continue.
+- [Bugfix] Corrected DO_HEIGHT for EAlignType.ClstrRow and ClstrCol.
+x [Enhance] MVC_GenTL.cs change PictureBox to EmguBox, reduce bmp image conversion loading.
+[Feature] Added support for ILD1900 
+Ver 6.0.15.2 - 20240621 - KN
+- [Request] Unload Out, allow Stop, magazine assume frame unloaded
+- Abort program if Vision or Height data not ready
+Ver 6.0.14 - 20240621 - KN
+- [Enhance] Saving removes spaces in filename.
+x [Request] frmMap can update to Bypass when program active.
+/ [Enhance] DO_HEIHGHT replace very small Z Value if 0, prevent height skip
+x [Enhance] MVC_GenTL change from PictureBox to EmguImageBox, less processing for image conversion.
+- [Request] DO_VISION, DO_VISINSP save image according to recipe setting, create id folder or time
+[Bugfix] UpdateSZAxis at open board
+- [Bugfix] frm_DispProg_View localize camera windows, prevent camera lost handle
+- [Request] Cancel Button disable according to run status
+Ver 6.0.13 - 20240620 - KN
+x- [Enhance] Unload Out, Prompt Push Frame at Output to Magazine, prevent out magzine up.
+[Bugfix] Remove ratio for SZAxis dependecy on GX2, only single head is used.
+- [Bugfix] Added ProcessLog for DO_HEIGHT to monitor actual Z
+[Enhance] Disable SetCameraLive at DispProg Stop, prevent memory fluctuation during idle
+- [Feature] DO_VIS_INSP implement save image, requested by YL
+- [Enhance] frmProgram update status color, better color contrast
+- [Feature] ModelList limit follow DispGap Limit Setting, request by YL
 Ver 6.0.12 - 20240522 - KN - Gitted
 - [Feature] Added PurgeStage Line
 - [Bugfix] Corrected Z_Ave=0 not dispense

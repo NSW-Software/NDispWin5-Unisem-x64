@@ -11,7 +11,7 @@ namespace NDispWin
 {
     internal partial class frm_TeachNeedle_LaserCrosshair : Form
     {
-        public frm_DispCore_JogGantry2 PageJog = new frm_DispCore_JogGantry2();
+        public frmJogGantry PageJog = new frmJogGantry();
         public frmVisionView PageVision = new frmVisionView();
 
         public frm_TeachNeedle_LaserCrosshair()

@@ -31,7 +31,6 @@
             this.pnl_Main = new System.Windows.Forms.Panel();
             this.lbl_CalMode = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btn_ShowJog = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_Gain = new System.Windows.Forms.Label();
@@ -46,7 +45,6 @@
             this.pnl_Main.AutoSize = true;
             this.pnl_Main.Controls.Add(this.lbl_CalMode);
             this.pnl_Main.Controls.Add(this.label4);
-            this.pnl_Main.Controls.Add(this.btn_ShowJog);
             this.pnl_Main.Controls.Add(this.btn_Close);
             this.pnl_Main.Controls.Add(this.label3);
             this.pnl_Main.Controls.Add(this.lbl_Gain);
@@ -57,7 +55,6 @@
             this.pnl_Main.Name = "pnl_Main";
             this.pnl_Main.Size = new System.Drawing.Size(239, 141);
             this.pnl_Main.TabIndex = 0;
-            this.pnl_Main.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_Main_Paint);
             // 
             // lbl_CalMode
             // 
@@ -83,19 +80,6 @@
             this.label4.TabIndex = 161;
             this.label4.Text = "Cal Mode";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btn_ShowJog
-            // 
-            this.btn_ShowJog.AccessibleDescription = "Jog";
-            this.btn_ShowJog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ShowJog.Location = new System.Drawing.Point(2, -79);
-            this.btn_ShowJog.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_ShowJog.Name = "btn_ShowJog";
-            this.btn_ShowJog.Size = new System.Drawing.Size(87, 39);
-            this.btn_ShowJog.TabIndex = 160;
-            this.btn_ShowJog.Text = "Jog";
-            this.btn_ShowJog.UseVisualStyleBackColor = true;
-            this.btn_ShowJog.Click += new System.EventHandler(this.btn_ShowJog_Click);
             // 
             // btn_Close
             // 
@@ -173,7 +157,7 @@
             // 
             // frmCameraSetting
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(279, 181);
             this.Controls.Add(this.pnl_Main);
@@ -181,7 +165,9 @@
             this.ForeColor = System.Drawing.Color.Navy;
             this.Name = "frmCameraSetting";
             this.Text = "Camera Setting";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCameraSetting_FormClosing);
             this.Load += new System.EventHandler(this.frm_DispCore_CameraSetting_Load);
+            this.Shown += new System.EventHandler(this.frmCameraSetting_Shown);
             this.pnl_Main.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -197,7 +183,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Gain;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btn_ShowJog;
         private System.Windows.Forms.Label lbl_CalMode;
         private System.Windows.Forms.Label label4;
     }

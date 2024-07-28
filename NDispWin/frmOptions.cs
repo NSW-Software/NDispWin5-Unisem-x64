@@ -295,7 +295,7 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        frm_DispCore_JogGantry2 frm_Jog2 = new frm_DispCore_JogGantry2();
+        frmJogGantry frm_Jog2 = new frmJogGantry();
         private void btnJog_Click(object sender, EventArgs e)
         {
             frm_Jog2.TopMost = true;
@@ -556,6 +556,35 @@ namespace NDispWin
         {
             if (UC.AdjustExec("Option CLineSpeedRatio", ref TaskDisp.Option_CLineSpeedRatio, 0.7, 1.3))
                 UpdateDisplay();
+        }
+
+        private void btnEditErrorMap_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(DispProg.ErrorMapFile))
+                System.Diagnostics.Process.Start(DispProg.ErrorMapFile);
+        }
+
+        private void btnClearErrorMap_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(DispProg.ErrorMapFile))
+            {
+                DialogResult dr = MessageBox.Show("Clear Error Map?", "", MessageBoxButtons.OKCancel);
+                DispProg.ErrorMap.Clear();
+            }
+        }
+
+        private void btnCreateErrorMap_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(DispProg.ErrorMapFile))
+            {
+                DialogResult dr = MessageBox.Show("Error Map exist. Create will be delete existing file. Continue to create?", "", MessageBoxButtons.OKCancel);
+                if (dr != DialogResult.OK) return;
+            }
+
+            DispProg.ErrorMap.Clear();
+            DispProg.ErrorMap.Save(DispProg.ErrorMapFile);
+
+            MessageBox.Show("Error Map Created.");
         }
     }
 }

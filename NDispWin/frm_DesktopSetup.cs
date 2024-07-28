@@ -52,11 +52,10 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        frm_DispCore_JogGantry2 frm_Jog = new frm_DispCore_JogGantry2();
+        frmJogGantry frm_Jog = new frmJogGantry();
         private void btn_Jog_Click(object sender, EventArgs e)
         {
-            //NDispWin.frm.JogGantry.Show();
-            frm_Jog = new frm_DispCore_JogGantry2();
+            frm_Jog = new frmJogGantry();
             frm_Jog.TopMost = true;
             frm_Jog.Show();
         }

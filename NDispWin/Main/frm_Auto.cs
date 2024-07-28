@@ -840,6 +840,22 @@ namespace NDispWin
                         MsgBox.Show(ErrCode.CONV_VACUUM_LOW);
                     }
 
+                    if (TaskConv.LeftMode == TaskConv.ELeftMode.ElevatorZ)
+                    {
+                        if (TaskElev.Left.WaitMagChange)
+                        {
+                            if (TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty &&
+                                TaskConv.Pro.Status == TaskConv.EProcessStatus.Empty &&
+                                TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty)
+                            {
+                                GDefine.Status = EStatus.Stop;
+                                Define_Run.TR_StopRun();
+                                Msg MsgBox = new Msg();
+                                MsgBox.Show(ErrCode.IN_MAGAZINE_EMPTY_WORK_COMPLETE);
+                            }
+                        }
+                    }
+
                     try
                     {
                         if (DispProg.fPoolVermes)

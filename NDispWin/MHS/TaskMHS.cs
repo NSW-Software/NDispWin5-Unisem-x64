@@ -3456,7 +3456,6 @@ namespace NDispWin
             {
             #region
             _RetryLoad:
-
                 if (TaskConv.Pro.SensPsnt)
                 {
                     Msg MsgBox = new Msg();
@@ -4540,17 +4539,22 @@ namespace NDispWin
                         if (RightMode == ERightMode.Smema || RightMode == ERightMode.Smema_SmemaLeft) Out.Smema_DO_BdReady = false;
 
                         Msg MsgBox = new Msg();
-                        EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_UNLOAD_TIMEOUT, EMcState.Error, EMsgBtn.smbRetry_Stop_Cancel, true);
+                        EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_UNLOAD_TIMEOUT, EMcState.Error, EMsgBtn.smbRetry_Stop, true);
                         switch (MsgRes)
                         {
                             case EMsgRes.smrRetry:
                                 goto _Retry;
-                            case EMsgRes.smrStop:
-                            default:
-                                goto _Stop;
                             case EMsgRes.smrCancel:
-                                Out.Status = EProcessStatus.Empty;
-                                goto _Stop;
+                                default:
+                                goto _Error;
+                                //while (Out.SensPsnt)
+                                //{
+                                //    EMsgRes MsgRes2 = MsgBox.Show("Push Frame at Out Pos into Magazine.");
+                                //}
+                                //goto _Stop;
+                            //case EMsgRes.smrCancel:
+                            //    //Out.Status = EProcessStatus.Empty;
+                            //    goto _Error;
                         }
                     }
                 }
@@ -4574,6 +4578,7 @@ namespace NDispWin
                 return false;
             _Error:
                 Conv.Stop();
+                Status = EConvStatus.ErrorInit;
                 return false;
             }
             catch (Exception Ex)
@@ -4709,7 +4714,7 @@ namespace NDispWin
                         {
                             if (!TaskElev.Right.RunLevelAsyncIsBusy)
                             {
-                                if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) return false;
+                                if (TaskConv.Out.SensPsnt || !TaskElev.Right.SafeCheck_ElevMove()) return false;
                                 TaskElev.Right.RunLevelAsync();
                             }
                         }
@@ -4717,7 +4722,7 @@ namespace NDispWin
                         {
                             if (!TaskElev.Right.bgw_RunLevel.IsBusy)
                             {
-                                if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) return false;
+                                if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck_ElevMove()) return false;
                                 TaskElev.Right.bgw_RunLevel.RunWorkerAsync();
                             }
                         }
@@ -5355,9 +5360,11 @@ namespace NDispWin
                             TaskElev.Right.TransferBusy = true;
                             TaskConv.Status = TaskConv.EConvStatus.Busy;
 
-                            TaskConv.Unload_Out();
+                            bool ok = TaskConv.Unload_Out();
 
                             TaskElev.Right.TransferBusy = false;
+
+                            if (!ok) goto _End;
                             TaskConv.Out.Status = TaskConv.EProcessStatus.Empty;
                             TaskConv.Status = TaskConv.EConvStatus.Ready;
                         }
@@ -5366,7 +5373,11 @@ namespace NDispWin
                         #region Right Elev Move Next Level
                         if (TaskElev.Right.Status != TaskElev.EElevStatus.Ready) goto _End;
 
-                        if (TaskElev.Right.useTask) { TaskElev.Right.RunLevelAsync(); }
+                        if (TaskElev.Right.useTask) 
+                        {
+                            if (TaskConv.Out.SensPsnt || !TaskElev.Right.SafeCheck_ElevMove()) goto _End;
+                            TaskElev.Right.RunLevelAsync(); 
+                        }
                         else
                         {
                             if (!TaskElev.Right.bgw_RunLevel.IsBusy) TaskElev.Right.bgw_RunLevel.RunWorkerAsync();
@@ -5437,7 +5448,7 @@ namespace NDispWin
                             {
                                 if (!TaskElev.Right.RunLevelAsyncIsBusy)
                                 {
-                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) goto _Stop;
+                                    if (TaskConv.Out.SensPsnt || !TaskElev.Right.SafeCheck_ElevMove()) goto _Stop;
                                     TaskElev.Right.RunLevelAsync();
                                 }
                             }
@@ -5445,7 +5456,7 @@ namespace NDispWin
                             {
                                 if (!TaskElev.Right.bgw_RunLevel.IsBusy)
                                 {
-                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) goto _Stop;
+                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck_ElevMove()) goto _Stop;
                                     TaskElev.Right.bgw_RunLevel.RunWorkerAsync();
                                 }
                             }
@@ -5488,7 +5499,8 @@ namespace NDispWin
 
                 if (Out.Status == EProcessStatus.Psnt)
                 {
-                    if (!Run_SendOut()) goto _Stop;
+                    if (!Run_SendOut()) goto _Error;
+
                     if (UnloadStop)
                     {
                         UnloadStop = false;
@@ -5782,6 +5794,14 @@ namespace NDispWin
                 Conv.Stop();
                 Status = EConvStatus.Stop;
                 return;
+            _Error:
+                In.Smema_DO_McReady = false;
+                In.Smema2_DO_BdReady = false;
+                Out.Smema_DO_BdReady = false;
+                Out.Smema2_DO_McReady = false;
+                Conv.Stop();
+                Status = EConvStatus.ErrorInit;
+                return;
             }
             catch (Exception Ex)
             {
@@ -5809,7 +5829,7 @@ namespace NDispWin
                             {
                                 if (!TaskElev.Right.RunLevelAsyncIsBusy)
                                 {
-                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) goto _Stop;
+                                    if (TaskConv.Out.SensPsnt || !TaskElev.Right.SafeCheck_ElevMove()) goto _Stop;
                                     TaskElev.Right.RunLevelAsync();
                                 }
                             }
@@ -5817,7 +5837,7 @@ namespace NDispWin
                             {
                                 if (!TaskElev.Right.bgw_RunLevel.IsBusy)
                                 {
-                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck()) goto _Stop;
+                                    if (TaskConv.Out.SensPsnt && !TaskElev.Right.SafeCheck_ElevMove()) goto _Stop;
                                     TaskElev.Right.bgw_RunLevel.RunWorkerAsync();
                                 }
                             }
@@ -5829,7 +5849,7 @@ namespace NDispWin
                 //SendOut
                 if (TaskConv.Out.SensPsnt)
                 {
-                    if (!Run_SendOut()) goto _Stop;
+                    if (!Run_SendOut()) goto _Error;
                     return;
                 }
 
@@ -6154,6 +6174,14 @@ namespace NDispWin
                 Out.Smema2_DO_McReady = false;
                 Conv.Stop();
                 Status = EConvStatus.Stop;
+                return;
+            _Error:
+                In.Smema_DO_McReady = false;
+                In.Smema2_DO_BdReady = false;
+                Out.Smema_DO_BdReady = false;
+                Out.Smema2_DO_McReady = false;
+                Conv.Stop();
+                Status = EConvStatus.ErrorInit;
                 return;
             }
             catch (Exception Ex)
@@ -8580,7 +8608,7 @@ namespace NDispWin
                     Setup.PsntMagz = 0;
 
                     if (!DoorIsClosed(true)) goto _Error;
-                    if (!SafeCheck()) { goto _Error; }
+                    if (!SafeCheck_ElevMove()) { goto _Error; }
 
                     #region RZ
                     if (ElevIO.RZAxis.MotorPara.Home.HomeDir == ZEC3002.Ctrl.THomeDir.P)
@@ -8932,11 +8960,26 @@ namespace NDispWin
                 }
                 return SensMagzPsnt;
             }
-            public static bool SafeCheck(bool bRetry = true)
+            public static bool SafeCheck_ElevMove(bool bRetry = true)
             {
                 try
                 {
                     if (!DoorIsClosed(true)) goto _Error;
+
+                    EMsgBtn msgBtn = bRetry ? EMsgBtn.smbRetry_Cancel : EMsgBtn.smbCancel;
+                _Retry:
+                    if (TaskConv.Out.SensLFPsnt)
+                    {
+                        string msg = "Product Present between Conveyor Out and Magazine.";
+                        Msg MsgBox = new Msg();
+                        EMsgRes Res = MsgBox.Show(ErrCode.CONV_OUT_CLEAR_SENSOR_PSNT, msg, EMcState.Error, msgBtn, false);
+                        switch (Res)
+                        {
+                            case EMsgRes.smrRetry:
+                                goto _Retry;
+                        }
+                        goto _Error;
+                    }
                 }
                 catch (Exception Ex)
                 {
@@ -9031,7 +9074,7 @@ namespace NDispWin
 
                 try
                 {
-                    if (!SafeCheck()) { goto _Error; }
+                    if (!SafeCheck_ElevMove()) { goto _Error; }
 
                     #region Process
                     double LevelPitch = Setups[(int)TElevator.Right].MagLevelPitch[MagNo];
@@ -9200,7 +9243,7 @@ namespace NDispWin
             }
             public static bool MoveToLoadMagPos()
             {
-                if (!SafeCheck()) { goto _Error; }
+                if (!SafeCheck_ElevMove()) { goto _Error; }
 
                 double Load_Pos = Setups[(int)TElevator.Right].MagLoadPos;
 

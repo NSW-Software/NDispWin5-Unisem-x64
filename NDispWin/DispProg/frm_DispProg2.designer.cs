@@ -38,6 +38,7 @@
             this.cmsCopyGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsPasteGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.pnl_Prog = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslbl_PumpType = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslbl_HeadOp = new System.Windows.Forms.ToolStripStatusLabel();
@@ -199,6 +200,7 @@
             // 
             // pnl_Prog
             // 
+            this.pnl_Prog.Controls.Add(this.label1);
             this.pnl_Prog.Controls.Add(this.lv_Program);
             this.pnl_Prog.Controls.Add(this.statusStrip1);
             this.pnl_Prog.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -206,6 +208,15 @@
             this.pnl_Prog.Name = "pnl_Prog";
             this.pnl_Prog.Size = new System.Drawing.Size(500, 585);
             this.pnl_Prog.TabIndex = 65;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(107, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 18);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "label1";
             // 
             // statusStrip1
             // 
@@ -1186,6 +1197,7 @@
         private System.Windows.Forms.Timer tmr15s;
         private System.Windows.Forms.ToolStripButton tsbtn_OffsetAll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.Label label1;
     }
 }
 

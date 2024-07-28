@@ -338,6 +338,7 @@ namespace NDispWin
 
         public const int INPUT_IS_STOPPED = OP_ERR + 150;
         public const int DISP12MODE_WAIT_PRE_TIMEOUT = OP_ERR + 151;
+        public const int IN_MAGAZINE_EMPTY_WORK_COMPLETE = OP_ERR + 155;
 
         public const int RESET_PERF_INFO = OP_ERR + 200;
 
@@ -798,8 +799,9 @@ namespace NDispWin
             MsgList.Add(ErrCode.LEFT_ELEV_DOOR_OPEN, "Left Elevator Door Open.", "Check Elevator Door is closed.");
             MsgList.Add(ErrCode.RIGHT_ELEV_DOOR_OPEN, "Right Elevator Door Open.", "Check Elevator Door is closed.");
 
-            MsgList.Add(ErrCode.DISP12MODE_WAIT_PRE_TIMEOUT, "Wait Pre TimeOut. Continue Pro only?", "");
             MsgList.Add(ErrCode.INPUT_IS_STOPPED, "Input is Stopped.@1. OK - Enable Input and Start Run.@2. STOP - Stop Run.@3. CANCEL - Start Run.", "");
+            MsgList.Add(ErrCode.DISP12MODE_WAIT_PRE_TIMEOUT, "Wait Pre TimeOut. Continue Pro only?", "");
+            MsgList.Add(ErrCode.IN_MAGAZINE_EMPTY_WORK_COMPLETE, "Input Magazine is Empty. Work is complete.", "Load New Magazine.");
 
             MsgList.Add(ErrCode.RESET_PERF_INFO, "Reset Performance Information?", "");
             MsgList.Add(ErrCode.S320_LOAD_PRODUCT, "Load Product to Table", "");

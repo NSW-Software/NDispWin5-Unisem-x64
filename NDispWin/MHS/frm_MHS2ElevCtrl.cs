@@ -348,7 +348,7 @@ namespace NDispWin
             await Task.Run(() =>
             {
                 if (!TaskElev.Right.Ready) { goto _Error; }
-                if (!TaskElev.Right.SafeCheck()) { goto _Error; }
+                if (!TaskElev.Right.SafeCheck_ElevMove()) { goto _Error; }
                 TaskElev.Right.MoveUpLevel();
                 _Error:;
             });
@@ -364,7 +364,7 @@ namespace NDispWin
             await Task.Run(() =>
             {
                 if (!TaskElev.Right.Ready) { goto _Error; }
-                if (!TaskElev.Right.SafeCheck()) { goto _Error; }
+                if (!TaskElev.Right.SafeCheck_ElevMove()) { goto _Error; }
                 TaskElev.Right.MoveDnLevel();
                 _Error:;
             });

@@ -189,7 +189,7 @@
             // btn_Close
             // 
             this.btn_Close.AccessibleDescription = "Close";
-            this.btn_Close.Location = new System.Drawing.Point(560, 537);
+            this.btn_Close.Location = new System.Drawing.Point(560, 568);
             this.btn_Close.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(70, 36);
@@ -214,7 +214,7 @@
             this.tpAdvance.Location = new System.Drawing.Point(4, 34);
             this.tpAdvance.Name = "tpAdvance";
             this.tpAdvance.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAdvance.Size = new System.Drawing.Size(621, 489);
+            this.tpAdvance.Size = new System.Drawing.Size(621, 520);
             this.tpAdvance.TabIndex = 2;
             this.tpAdvance.Text = "Advance";
             this.tpAdvance.UseVisualStyleBackColor = true;
@@ -871,7 +871,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(621, 489);
+            this.tabPage2.Size = new System.Drawing.Size(621, 520);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Head Setup";
             // 
@@ -1371,7 +1371,7 @@
             this.tpStation.Location = new System.Drawing.Point(4, 34);
             this.tpStation.Name = "tpStation";
             this.tpStation.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStation.Size = new System.Drawing.Size(621, 489);
+            this.tpStation.Size = new System.Drawing.Size(621, 520);
             this.tpStation.TabIndex = 0;
             this.tpStation.Text = "Station";
             // 
@@ -1857,7 +1857,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(629, 527);
+            this.tabControl1.Size = new System.Drawing.Size(629, 558);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 138;
             // 
@@ -1866,7 +1866,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(642, 582);
+            this.ClientSize = new System.Drawing.Size(642, 613);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Close);

@@ -1700,6 +1700,8 @@ namespace NDispWin
 
         public static string MHSPath = AppPath + "\\MHS2";
         public static string MHSRecipePath = MHSPath + "\\Recipe";
+        public static DirectoryInfo MHSDir => Directory.CreateDirectory(RootDir.FullName + "MHS2\\");
+        public static DirectoryInfo MHSRecipeDir => Directory.CreateDirectory(MHSDir.FullName + "Recipe\\");
         public static string MHSRecipeName = "default";
         public static string MHSRecipeExt = ".hdlr";
 
@@ -1886,7 +1888,7 @@ namespace NDispWin
 
         public enum ECameraType { None, Basler, Emulator, PtGrey, Spinnaker, Spinnaker2, MVSGenTL };
         public enum ELCType { None, LCSerial, LCSerLegacy };
-        public enum EHeightSensorType { None, IDL1700, IDL1302, IFD2451, DONOTUSE, IDL1X20, IFD2421, IDL1750, IFD2422, CL3000};
+        public enum EHeightSensorType { None, IDL1700, IDL1302, IFD2451, DONOTUSE, IDL1X20, IFD2421, IDL1750, IFD2422, CL3000, ILD1900 };
         //public enum EWeightStType { None, JB1603, ALD214 };
         //public enum ECleanStType { None, Type1 };
         //public enum EPurgeStType { None, Type1 };

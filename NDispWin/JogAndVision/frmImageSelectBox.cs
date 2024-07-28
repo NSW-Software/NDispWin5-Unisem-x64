@@ -788,7 +788,7 @@ namespace NDispWin
                     c.Enabled = c.Name == "tsbtnJog" || c.Name == "tsbtnCancel";
                 }
 
-                frm_DispCore_JogGantry2 frm_Jog2 = new frm_DispCore_JogGantry2();
+                frmJogGantry frm_Jog2 = new frmJogGantry();
             frm_Jog2.TopMost = true;
             frm_Jog2.StartPosition = FormStartPosition.Manual;
             frm_Jog2.Location = new Point(640, 480);

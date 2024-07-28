@@ -231,7 +231,7 @@ namespace NDispWin
                     return EMapOrigin.Left;
             }
         }
-        public void UnitNoGetRC(int Index, ref int ColNo, ref int RowNo)
+        public void UnitNoGetRC(int Index, ref int ColNo, ref int RowNo)//return absolute RC start index 0
         {
             if (ULayoutType == EULayoutType.Random) throw new Exception("Unit Layout Random not supported");
 
@@ -262,7 +262,7 @@ namespace NDispWin
                     break;
             }
         }
-        public void UnitNoGetRC(int Index, ref int UColNo, ref int URowNo, ref int CColNo, ref int CRowNo)
+        public void UnitNoGetRC(int Index, ref int UColNo, ref int URowNo, ref int CColNo, ref int CRowNo)//return relative RC start index 0
         {
             if (ULayoutType == EULayoutType.Random) throw new Exception("Unit Layout Random not supported");
 

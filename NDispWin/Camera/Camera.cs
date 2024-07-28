@@ -887,7 +887,7 @@ namespace NDispWin
         {
             for (int i = 0; i < MAX_RETICLES; i++)
             {
-                this.Reticle[i] = reticles.Reticle[i];
+                this.Reticle[i] = new TReticle2(reticles.Reticle[i]);
             }
         }
 

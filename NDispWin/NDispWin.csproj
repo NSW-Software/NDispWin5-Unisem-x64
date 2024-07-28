@@ -73,6 +73,9 @@
   <PropertyGroup>
     <ApplicationIcon>NSWIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AccessConfig">
       <HintPath>..\dll x64\AccessConfig.dll</HintPath>
@@ -222,6 +225,12 @@
     </Compile>
     <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.designer.cs">
       <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmJogGantry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmJogGantry.Designer.cs">
+      <DependentUpon>frmJogGantry.cs</DependentUpon>
     </Compile>
     <Compile Include="MEDAQ.cs" />
     <Compile Include="Settings\frmSettings.cs">
@@ -793,12 +802,6 @@
     <Compile Include="Weight\frm_DispCore_WeightAdjust.Designer.cs">
       <DependentUpon>frm_DispCore_WeightAdjust.cs</DependentUpon>
     </Compile>
-    <Compile Include="JogAndVision\frm_DispCore_JogGantry2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="JogAndVision\frm_DispCore_JogGantry2.Designer.cs">
-      <DependentUpon>frm_DispCore_JogGantry2.cs</DependentUpon>
-    </Compile>
     <Compile Include="DispProg\frm_DispProg_WeightCal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1113,6 +1116,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.resx">
       <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmJogGantry.resx">
+      <DependentUpon>frmJogGantry.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings\frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
@@ -1521,10 +1528,6 @@
       <DependentUpon>frm_Setup_SP.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="JogAndVision\frm_DispCore_JogGantry2.resx">
-      <DependentUpon>frm_DispCore_JogGantry2.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frm_DispProg_WeightCal.resx">
       <DependentUpon>frm_DispProg_WeightCal.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1693,6 +1696,7 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

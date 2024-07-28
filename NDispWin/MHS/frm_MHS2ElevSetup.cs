@@ -266,7 +266,7 @@ namespace NDispWin
                 else
                 {
                     if (!TaskElev.Right.Ready) { goto _Error; }
-                    if (!TaskElev.Right.SafeCheck()) { goto _Error; }
+                    if (!TaskElev.Right.SafeCheck_ElevMove()) { goto _Error; }
                     //if (!TaskElev.Right.PusherReturn()) { goto _Error; }
                     Pos = TaskElev.Setups[1].MagLoadPos;
                     if (!TaskElev.SetMotionParam(ref ElevIO.RZAxis, ElevIO.RZAxis.MotorPara.StartV, ElevIO.RZAxis.MotorPara.FastV, ElevIO.RZAxis.MotorPara.Accel)) { goto _Error; }
@@ -401,7 +401,7 @@ namespace NDispWin
                 else
                 {
                     if (!TaskElev.Right.Ready) { goto _Error; }
-                    if (!TaskElev.Right.SafeCheck()) { goto _Error; }
+                    if (!TaskElev.Right.SafeCheck_ElevMove()) { goto _Error; }
                     //if (!TaskElev.Right.PusherReturn()) { goto _Error; }
                     Pos = TaskElev.Setups[1].Mag1stLevelPos[(int)SelectedMag];
                     if (!TaskElev.SetMotionParam(ref ElevIO.RZAxis, ElevIO.RZAxis.MotorPara.StartV, ElevIO.RZAxis.MotorPara.FastV, ElevIO.RZAxis.MotorPara.Accel)) { goto _Error; }
@@ -496,7 +496,7 @@ namespace NDispWin
                 else
                 {
                     if (!TaskElev.Right.Ready) { goto _Error; }
-                    if (!TaskElev.Right.SafeCheck()) { goto _Error; }
+                    if (!TaskElev.Right.SafeCheck_ElevMove()) { goto _Error; }
                     //if (!TaskElev.Right.PusherReturn()) { goto _Error; }
                     //Pos = TaskElev.Setup[1].Param[(int)TaskElev.TParam.LastLevel_1stMagzPos];
                     Pos = TaskElev.GetLastPos((int)SelectedElev, (int)SelectedMag);
@@ -729,7 +729,7 @@ namespace NDispWin
                 if (SelectedElev == TaskElev.TElevator.Right)
                 {
                     if (!CheckLimit(ElevIO.RZAxis.MotorPara, TaskElev.Right.Pos, false)) { return; }
-                    if (!TaskElev.Right.SafeCheck()) { return; }
+                    if (!TaskElev.Right.SafeCheck_ElevMove()) { return; }
                     JogAxisStart(ElevIO.RZAxis, true, ElevIO.RZAxis.MotorPara.Jog);
                 }
             }
@@ -780,7 +780,7 @@ namespace NDispWin
                 if (SelectedElev == TaskElev.TElevator.Right)
                 {
                     if (!CheckLimit(ElevIO.RZAxis.MotorPara, TaskElev.Right.Pos, false)) { return; }
-                    if (!TaskElev.Right.SafeCheck(false)) { return; }
+                    if (!TaskElev.Right.SafeCheck_ElevMove(false)) { return; }
                     if (!bMouseDn) return;
                     JogAxisStart(ElevIO.RZAxis, false, ElevIO.RZAxis.MotorPara.Jog);
                 }

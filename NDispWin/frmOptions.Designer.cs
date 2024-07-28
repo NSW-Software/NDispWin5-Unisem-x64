@@ -104,6 +104,8 @@
             this.lblUseRecipeFile = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tpCalibration = new System.Windows.Forms.TabPage();
+            this.lblShrinkLast2CLine = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.lblCLineSpeedRatio = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.lblExtendLastCLine = new System.Windows.Forms.Label();
@@ -130,8 +132,10 @@
             this.btnAccessConfig = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnJog = new System.Windows.Forms.Button();
-            this.lblShrinkLast2CLine = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
+            this.gboxErrorMap = new System.Windows.Forms.GroupBox();
+            this.btnEditErrorMap = new System.Windows.Forms.Button();
+            this.btnCreateErrorMap = new System.Windows.Forms.Button();
+            this.btnClearErrorMap = new System.Windows.Forms.Button();
             this.tpOptions.SuspendLayout();
             this.tpPreference.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -149,6 +153,7 @@
             this.tpRecipe.SuspendLayout();
             this.tpCalibration.SuspendLayout();
             this.tpAdvance.SuspendLayout();
+            this.gboxErrorMap.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpOptions
@@ -1047,6 +1052,7 @@
             // 
             // tpCalibration
             // 
+            this.tpCalibration.Controls.Add(this.gboxErrorMap);
             this.tpCalibration.Controls.Add(this.lblShrinkLast2CLine);
             this.tpCalibration.Controls.Add(this.label27);
             this.tpCalibration.Controls.Add(this.lblCLineSpeedRatio);
@@ -1074,6 +1080,29 @@
             this.tpCalibration.Size = new System.Drawing.Size(764, 511);
             this.tpCalibration.TabIndex = 4;
             this.tpCalibration.Text = "Calibration";
+            // 
+            // lblShrinkLast2CLine
+            // 
+            this.lblShrinkLast2CLine.BackColor = System.Drawing.Color.White;
+            this.lblShrinkLast2CLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblShrinkLast2CLine.Location = new System.Drawing.Point(205, 261);
+            this.lblShrinkLast2CLine.Margin = new System.Windows.Forms.Padding(2);
+            this.lblShrinkLast2CLine.Name = "lblShrinkLast2CLine";
+            this.lblShrinkLast2CLine.Size = new System.Drawing.Size(70, 23);
+            this.lblShrinkLast2CLine.TabIndex = 195;
+            this.lblShrinkLast2CLine.Text = "-999.999";
+            this.lblShrinkLast2CLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblShrinkLast2CLine.Click += new System.EventHandler(this.lblShrinkLast2CLine_Click);
+            // 
+            // label27
+            // 
+            this.label27.Location = new System.Drawing.Point(5, 261);
+            this.label27.Margin = new System.Windows.Forms.Padding(2);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(225, 23);
+            this.label27.TabIndex = 194;
+            this.label27.Text = "Shrink Last2 CLine (mm)";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblCLineSpeedRatio
             // 
@@ -1365,28 +1394,49 @@
             this.btnJog.UseVisualStyleBackColor = true;
             this.btnJog.Click += new System.EventHandler(this.btnJog_Click);
             // 
-            // lblShrinkLast2CLine
+            // gboxErrorMap
             // 
-            this.lblShrinkLast2CLine.BackColor = System.Drawing.Color.White;
-            this.lblShrinkLast2CLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblShrinkLast2CLine.Location = new System.Drawing.Point(205, 261);
-            this.lblShrinkLast2CLine.Margin = new System.Windows.Forms.Padding(2);
-            this.lblShrinkLast2CLine.Name = "lblShrinkLast2CLine";
-            this.lblShrinkLast2CLine.Size = new System.Drawing.Size(70, 23);
-            this.lblShrinkLast2CLine.TabIndex = 195;
-            this.lblShrinkLast2CLine.Text = "-999.999";
-            this.lblShrinkLast2CLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblShrinkLast2CLine.Click += new System.EventHandler(this.lblShrinkLast2CLine_Click);
+            this.gboxErrorMap.AutoSize = true;
+            this.gboxErrorMap.Controls.Add(this.btnEditErrorMap);
+            this.gboxErrorMap.Controls.Add(this.btnCreateErrorMap);
+            this.gboxErrorMap.Controls.Add(this.btnClearErrorMap);
+            this.gboxErrorMap.Location = new System.Drawing.Point(6, 363);
+            this.gboxErrorMap.Name = "gboxErrorMap";
+            this.gboxErrorMap.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.gboxErrorMap.Size = new System.Drawing.Size(343, 70);
+            this.gboxErrorMap.TabIndex = 196;
+            this.gboxErrorMap.TabStop = false;
+            this.gboxErrorMap.Text = "Error Map (...NDisp3Win\\Config\\ErrorMap.txt)";
             // 
-            // label27
+            // btnEditErrorMap
             // 
-            this.label27.Location = new System.Drawing.Point(5, 261);
-            this.label27.Margin = new System.Windows.Forms.Padding(2);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(225, 23);
-            this.label27.TabIndex = 194;
-            this.label27.Text = "Shrink Last2 CLine (mm)";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEditErrorMap.Location = new System.Drawing.Point(6, 25);
+            this.btnEditErrorMap.Name = "btnEditErrorMap";
+            this.btnEditErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnEditErrorMap.TabIndex = 152;
+            this.btnEditErrorMap.Text = "Edit";
+            this.btnEditErrorMap.UseVisualStyleBackColor = true;
+            this.btnEditErrorMap.Click += new System.EventHandler(this.btnEditErrorMap_Click);
+            // 
+            // btnCreateErrorMap
+            // 
+            this.btnCreateErrorMap.Location = new System.Drawing.Point(209, 25);
+            this.btnCreateErrorMap.Name = "btnCreateErrorMap";
+            this.btnCreateErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnCreateErrorMap.TabIndex = 151;
+            this.btnCreateErrorMap.Text = "Create";
+            this.btnCreateErrorMap.UseVisualStyleBackColor = true;
+            this.btnCreateErrorMap.Click += new System.EventHandler(this.btnCreateErrorMap_Click);
+            // 
+            // btnClearErrorMap
+            // 
+            this.btnClearErrorMap.Location = new System.Drawing.Point(143, 25);
+            this.btnClearErrorMap.Name = "btnClearErrorMap";
+            this.btnClearErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnClearErrorMap.TabIndex = 149;
+            this.btnClearErrorMap.Text = "Clear";
+            this.btnClearErrorMap.UseVisualStyleBackColor = true;
+            this.btnClearErrorMap.Click += new System.EventHandler(this.btnClearErrorMap_Click);
             // 
             // frmOptions
             // 
@@ -1434,8 +1484,10 @@
             this.groupBox6.ResumeLayout(false);
             this.tpRecipe.ResumeLayout(false);
             this.tpCalibration.ResumeLayout(false);
+            this.tpCalibration.PerformLayout();
             this.tpAdvance.ResumeLayout(false);
             this.tpAdvance.PerformLayout();
+            this.gboxErrorMap.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1546,5 +1598,9 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lblShrinkLast2CLine;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.GroupBox gboxErrorMap;
+        private System.Windows.Forms.Button btnEditErrorMap;
+        private System.Windows.Forms.Button btnCreateErrorMap;
+        private System.Windows.Forms.Button btnClearErrorMap;
     }
 }

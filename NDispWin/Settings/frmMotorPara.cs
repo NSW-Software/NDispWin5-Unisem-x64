@@ -370,7 +370,7 @@ namespace NDispWin
 
         private void btn_Jog2_Click(object sender, EventArgs e)
         {
-            frm_DispCore_JogGantry2 frm_Jog2 = new frm_DispCore_JogGantry2();
+            frmJogGantry frm_Jog2 = new frmJogGantry();
             frm_Jog2.TopMost = true;
             frm_Jog2.Show();
         }

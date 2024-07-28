@@ -12,7 +12,7 @@ namespace NDispWin
 {
     internal partial class frm_DispCore_DispSetup : Form
     {
-        frm_DispCore_JogGantry2 frm_Jog = new frm_DispCore_JogGantry2();
+        frmJogGantry frm_Jog = new frmJogGantry();
 
         bool b_HeadOfstCalibrated = false;
         bool b_ZSensorCalibrated = false;
@@ -101,7 +101,7 @@ namespace NDispWin
 
         private void btn_Jog_Click(object sender, EventArgs e)
         {
-            frm_Jog = new frm_DispCore_JogGantry2();
+            frm_Jog = new frmJogGantry();
             frm_Jog.TopMost = true;
             frm_Jog.Show();
         }

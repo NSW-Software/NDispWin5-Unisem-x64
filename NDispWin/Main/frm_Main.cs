@@ -178,7 +178,14 @@ namespace NDispWin
             }
 
 
-            GDefine.LoadDevice(GDefine.DeviceRecipe);
+            //GDefine.LoadDevice(GDefine.DeviceRecipe);
+            GDefine.Table.Load();
+            var recipeFullFilename = new DirectoryInfo(GDefine.RecipeDir.FullName).GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+            string recipeName = Path.GetFileNameWithoutExtension(recipeFullFilename.FullName);
+            DispProg.LoadProgName(recipeName);
+            var mhsFullFilename = new DirectoryInfo(GDefine.MHSRecipeDir.FullName).GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+            string mhsName = Path.GetFileNameWithoutExtension(mhsFullFilename.FullName);
+            TaskMHS.LoadRecipe(mhsName);
 
             UpdateDisplay();
 

@@ -144,6 +144,10 @@ namespace NDispWin
             {
                 Port.PortName = PortName;
                 Port.Open();
+
+                WriteLine("MON");
+                string Rx = "";
+                ReadLine(ref Rx);
             }
             catch// (Exception Ex)
             {
@@ -183,6 +187,7 @@ namespace NDispWin
             try
             {
                 Port.WriteTimeout = 1000;
+                Port.DiscardInBuffer();
                 Port.Write(data + (char)13 + (char)10);
             }
             catch { throw; }

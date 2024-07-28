@@ -382,9 +382,10 @@ namespace NDispWin
             DO_VISION = 221,
             /*
             ID              VisionID
-            IPara[0..9]     [nil,CamID,TYPE,nil,SettleTime,SkipCount,FailAction,InspPrior,..]
+            String          [SaveLocation]
+            IPara[0..9]     [nil,CamID,TYPE,SaveImage,SettleTime,SkipCount,FailAction,InspPrior,..]
             IPara[10..19]   [..]
-            IPara[20..29]   [nil,FocusNo,..]
+            IPara[20..29]   [nil,F]ocusNo,..]
             DPara[0..10]    [nil,XYTol,nil,nil,nil,nil,AcceptTol,..]
             DPara[10..11]   [StartV,DriveV,Accel,..]
             X[0]            [XPos]
@@ -757,6 +758,9 @@ namespace NDispWin
 
         public static string BiasKernelFile = "";
         public static TBiasKernel BiasKernel = new TBiasKernel();
+
+        public static string ErrorMapFile = GDefine.ConfigPath + "\\ErrorMap.txt";
+        public static TErrorMap ErrorMap = new TErrorMap();
 
         public static void Init()
         {
@@ -2785,6 +2789,8 @@ namespace NDispWin
             Log.AddToLog("DispCore TR_Run.");
             string EMsg = "DispCore TR_Run.";
 
+            ErrorMap.Load(DispProg.ErrorMapFile);
+
             if (GDefine.Status == EStatus.ErrorInit) return false;
             if (Script[0].IsBusy) return false;
 
@@ -2973,8 +2979,8 @@ namespace NDispWin
 
         public static NVision.frm_CameraView frm_CamView = new NVision.frm_CameraView();
         public static NVision.TVisTools[] VisionTools = new NVision.TVisTools[MAX_IDS];
-        internal static bool SaveDoVisionImages = false;
-        internal static string ImageLocation = @"c:\Image";
+        //internal static bool SaveDoVisionImages = false;
+        //internal static string ImageLocation = @"c:\Image";
         //trace mode
         public static bool RefreshProg = false;
         public static bool TraceMode = false;
@@ -6845,6 +6851,14 @@ namespace NDispWin
                                     EMsg = Msg + CmdList.Line[Line].Cmd.ToString();
                                     int RefID = CmdList.Line[Line].ID;
 
+                                    if ((Map.CurrMap[rt_LayoutID].Bin[RunTime.UIndex] < EMapBin.BinNG) && !rt_RefDatas[RefID].Data[RunTime.UIndex].Ready)
+                                    {
+                                        Msg MsgBox = new Msg();
+                                        EMsgRes MsgRes = MsgBox.Show($"Unit {RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y} Vision data is not ready. Abort Program.");
+                                        Running = false;
+                                        break;
+                                    }
+
                                     //rt_RefID = RefID;
                                     rt_Head1RefData = rt_RefDatas[RefID].Data[RunTime.UIndex];
                                     rt_Head2RefData = rt_RefDatas[RefID].Data[RunTime.UIndex];
@@ -7195,9 +7209,17 @@ namespace NDispWin
                                     string data = "";
                                     TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref Image);
 
-                                    if (SaveDoVisionImages)
+                                    if (ActiveLine.IPara[3] > 0)//(SaveDoVisionImages)
                                     {
-                                        string Dir = ImageLocation + @"\" + GDefine.ProgRecipeName;
+                                        //string Dir = ImageLocation + @"\" + GDefine.ProgRecipeName;
+                                        string folder = rt_Read_IDs[0, 0];
+                                        string prefix = "";
+                                        if (folder.Length == 0)
+                                        {
+                                            folder = DateTime.Now.ToString("yyyyMMdd");
+                                            prefix = DateTime.Now.ToString("HHmmss") + "_";
+                                        }
+                                        string Dir = ActiveLine.String + @"\" + folder;
                                         if (!Directory.Exists(Dir))
                                             try
                                             {
@@ -7207,7 +7229,8 @@ namespace NDispWin
                                             {
                                                 throw new Exception(EMsg + ", SaveImage");
                                             }
-                                        Image.Save(Dir + @"\" + "C" + ColNo.ToString() + "_R" + RowNo.ToString() + ".jpg");
+                                        //Image.Save(Dir + @"\" + "C" + ColNo.ToString() + "_R" + RowNo.ToString() + ".jpg");
+                                        TaskVision.Image.Save(Dir + @"\" + prefix + $"ID{ActiveLine.ID}_C{ColNo}_R{RowNo}" + ".jpg");
 
                                         string s_InfoFile = Dir + @"\" + "Info.txt";
                                         if (!File.Exists(s_InfoFile))
@@ -7254,8 +7277,6 @@ namespace NDispWin
                                             frmV.Message = msg;
                                             DialogResult dr = frmV.ShowDialog();
 
-                                            SetCameraLive();
-
                                             switch (dr)
                                             {
                                                 #region
@@ -7276,6 +7297,7 @@ namespace NDispWin
 
                                                     if (frm.ShowDialog() == DialogResult.OK)
                                                     {
+                                                        SetCameraLive();
                                                         v_ox = TaskGantry.GXPos() - dx;
                                                         v_oy = TaskGantry.GYPos() - dy;
                                                         Log.AddToLog("0" + (char)9 + v_ox.ToString("f3") + "," + v_oy.ToString("f3"));
@@ -7835,6 +7857,41 @@ namespace NDispWin
                                         string data = "";
                                         TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref TaskVision.Image);
 
+                                        if (ActiveLine.IPara[3] > 0)//(SaveDoVisionImages)
+                                        {
+                                            //string Dir = ImageLocation + @"\" + GDefine.ProgRecipeName;
+                                            string folder = rt_Read_IDs[0, 0];
+                                            string prefix = "";
+                                            if (folder.Length == 0)
+                                            {
+                                                folder = DateTime.Now.ToString("yyyyMMdd");
+                                                prefix = DateTime.Now.ToString("HHmmss") + "_";
+                                            }
+                                            string Dir = ActiveLine.String + @"\" + folder;
+                                            if (!Directory.Exists(Dir))
+                                                try
+                                                {
+                                                    Directory.CreateDirectory(Dir);
+                                                }
+                                                catch
+                                                {
+                                                    throw new Exception(EMsg + ", SaveImage");
+                                                }
+                                            //TaskVision.Image.Save(Dir + @"\" + "C" + ColNo.ToString() + "_R" + RowNo.ToString() + ".jpg");
+                                            TaskVision.Image.Save(Dir + @"\" + prefix + $"ID{ActiveLine.ID}_C{ColNo}_R{RowNo}" + ".jpg");
+
+                                            string s_InfoFile = Dir + @"\" + "Info.txt";
+                                            if (!File.Exists(s_InfoFile))
+                                            {
+                                                NUtils.IniFile IniFile = new NUtils.IniFile(s_InfoFile);
+
+                                                IniFile.WriteString("Program", "Name", GDefine.ProgRecipeName);
+                                                IniFile.WriteString("Info", "DateTime", DateTime.Now.ToString());
+                                                IniFile.WriteDouble("Vision", "DistPerPixelX_0", TaskVision.DistPerPixelX[0]);
+                                                IniFile.WriteDouble("Vision", "DistPerPixelY_0", TaskVision.DistPerPixelY[0]);
+                                            }
+                                        }
+
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
 
@@ -7966,7 +8023,6 @@ namespace NDispWin
                             case ECmd.DO_HEIGHT:
                                 #region
                                 {
-
                                     EMsg = Msg + Enum.GetName(typeof(ECmd), ECmd.DO_HEIGHT);
                                     int HeightID = ActiveLine.ID;
 
@@ -8024,7 +8080,6 @@ namespace NDispWin
                                         case EAlignType.Board:
                                         default:
                                             #region
-                                            //if (!(rt_UIndex == 0)) goto _End;
                                             d_Height_Rel_X = rt_LayoutRelPos[0].X;
                                             d_Height_Rel_Y = rt_LayoutRelPos[0].Y;
                                             break;
@@ -8048,13 +8103,13 @@ namespace NDispWin
                                         #endregion
                                         case EAlignType.ClstrCol:
                                             #region
-                                            //if (!(CRowNo == 0 && UColNo == 0 && URowNo == 0)) goto _End;
                                             for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                             {
-                                                int i_ColNo = 0; int i_RowNo = 0;// int i_UColNo = 0; int i_URowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);//, ref i_CColNo, ref i_CRowNo);
+                                                //int i_ColNo = 0; int i_RowNo = 0;
+                                                int iUColNo = 0; int iURowNo = 0; int iCColNo = 0; int iCRowNo = 0;
+                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref iUColNo, ref iURowNo, ref iCColNo, ref iCRowNo);
 
-                                                if (i_ColNo == ColNo && i_RowNo == 0)
+                                                if (iCColNo == ColNo && iURowNo == 0)
                                                 {
                                                     d_Height_Rel_X = rt_LayoutRelPos[i].X;
                                                     d_Height_Rel_Y = rt_LayoutRelPos[i].Y;
@@ -8068,10 +8123,10 @@ namespace NDispWin
                                             //if (!(CColNo == 0 && UColNo == 0 && URowNo == 0)) goto _End;
                                             for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                             {
-                                                int i_ColNo = 0; int i_RowNo = 0;// int i_UColNo = 0; int i_URowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);//, ref i_CColNo, ref i_CRowNo);
+                                                int iUColNo = 0; int iURowNo = 0; int iCColNo = 0; int iCRowNo = 0;
+                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref iUColNo, ref iURowNo, ref iCColNo, ref iCRowNo);
 
-                                                if (i_ColNo == 0 && i_RowNo == RowNo)
+                                                if (iUColNo == 0 && iCRowNo == RowNo)
                                                 {
                                                     d_Height_Rel_X = rt_LayoutRelPos[i].X;
                                                     d_Height_Rel_Y = rt_LayoutRelPos[i].Y;
@@ -8146,272 +8201,10 @@ namespace NDispWin
                                         Y.Add(NewPt.Y);
                                         Z.Add(0);
                                     }
-                                #endregion
-
-                                #region
-                                    /*
-                                _RetryHeight:
-                                    bool doOK = false;
-                                    if (!DoHeight(ActiveLine, Points, X, Y, Z, out doOK)) goto _Pause;
-                                    int OK = doOK ? 0 : 100;//0 - OK, 1 - FailRefHeightTol, 2-FailRefHeightSkipTol, 3 - FailRange  100 - DoHeight Fail
-
-                                    if (Z.Average() == 0)//exact Zero prompt error
-                                    {
-                                        #region
-                                        Msg MsgBox = new Msg();
-                                        EMsgRes MsgRes = MsgBox.Show("Z Average 0. ", EMcState.Error, EMsgBtn.smbOK_Stop, false);
-                                        if (MsgRes == EMsgRes.smrStop)
-                                        {
-                                            for (int L = Line; L >= 0; L--)
-                                            {
-                                                if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                {
-                                                    LastLine = L;
-                                                    break;
-                                                }
-                                            }
-                                            goto _Pause;
-                                        }
-                                        #endregion
-                                    }
-
-                                    #region Add Laser Log
-                                    double Z_Ave = Math.Round(Z.Average(), 5);
-                                    //if (Z_Ave == 0)
-                                    //{
-                                    //    Z_Ave = 0.00001;
-                                    //    if (Z.Average() < 0) Z_Ave = -Z_Ave;
-                                    //}
-                                    string s_HeightData = "";
-                                    s_HeightData = s_HeightData + "Ave" + (char)9 + Z_Ave.ToString("f5") + (char)9;
-                                    s_HeightData = s_HeightData + "Range" + (char)9 + (Z.Max() - Z.Min()).ToString("f5") + (char)9;
-                                    s_HeightData = s_HeightData + "Data" + (char)9;
-                                    foreach (double d in Z)
-                                    {
-                                        s_HeightData = s_HeightData + d.ToString("f5") + (char)9;
-                                    }
-                                    Log.Laser.WriteByMonthDay("UnitNo " + (char)9 + RunTime.UIndex.ToString() + (char)9 + s_HeightData);
-                                    #endregion
-
-                                    if (DispProg.Options_EnableProcessLog)
-                                    {
-                                        string str = $"Height\t";
-                                        str += $"MeasID={ActiveLine.ID}\t";
-                                        //str += $"UnitNo\t{RunTime.UIndex}\t";
-                                        str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y}\t";
-                                        for (int i = 0; i < Z.Count; i++)
-                                        {
-                                            str += $"X,Y,H={X[i]:f3},{Y[i]:f3},{Z[i]:f3}\t";
-                                        }
-                                        GLog.WriteProcessLog(str);
-                                    }
-
-                                    double d_RefHeight = TaskDisp.Laser_CalValue == 0 ? ActiveLine.DPara[5] : TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + ActiveLine.DPara[5];
-                                    double d_RefHeightErrorTol = ActiveLine.DPara[6];
-                                    double d_RefHeightSkipTol = ActiveLine.DPara[7];
-
-                                    //Prompt Error when exceed Error Tolerance
-                                    if (d_RefHeightErrorTol > 0)
-                                    {
-                                        foreach (double d in Z)
-                                        {
-                                            if ((d <= d_RefHeight - d_RefHeightErrorTol) || (d >= d_RefHeight + d_RefHeightErrorTol))
-                                            {
-                                                HeightData.OK = false;
-                                                Msg MsgBox = new Msg();
-                                                EMsgRes MsgRes = MsgBox.Show(ErrCode.LASER_OUT_OF_REF_HEIGHT_TOL, $"Ref Height = {d_RefHeight:f4} Current Height = {d:f4}", EMcState.Warning, EMsgBtn.smbRetry_Stop | EMsgBtn.smbSkip, false);
-
-                                                switch (MsgRes)
-                                                {
-                                                    case EMsgRes.smrRetry: goto _Retry;
-                                                    case EMsgRes.smrSkip://skip
-                                                        OK = 1;
-                                                        //goto _Continue;
-                                                        HeightData.OK = false;
-                                                        goto _SkipHeight;
-                                                    default://Stop
-                                                        i_DoHeightSkipCntr = 0;
-                                                        //clear all height data
-                                                        RunTime.UIndex = 0;
-                                                        for (int i = 0; i < MAX_IDS; i++)
-                                                            for (int j = 0; j < TLayout.MAX_UNITS; j++)
-                                                            {
-                                                                rt_HeightData[i, j] = new THeightData();
-                                                            }
-                                                        goto _Pause;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if (d_RefHeightSkipTol > 0)
-                                    {
-                                        foreach (double d in Z)
-                                        {
-                                            if ((d <= d_RefHeight - d_RefHeightSkipTol) || (d >= d_RefHeight + d_RefHeightSkipTol))
-                                            {
-                                                HeightData.OK = false;
-                                                OK = 2;
-                                                goto _Continue;
-                                            }
-                                        }
-                                    }
-                                _Continue:
-
-                                    double Diff = Z.Max() - Z.Min();
-                                    if (Diff > CmdList.Line[Line].DPara[0]) OK = 3;
-
-                                    if (OK == 0)
-                                        i_DoHeightSkipCntr = 0;
-                                    else
-                                        i_DoHeightSkipCntr++;
-
-                                    //Check Z Rel Tolerance
-                                    if (CmdList.Line[Line].DPara[1] > 0)
-                                    {
-                                        if (d_LastLaserHeight == 0)
-                                        { }
-                                        else
-                                        {
-                                            #region
-                                            if (Math.Abs(Z.Average() - d_LastLaserHeight) >= CmdList.Line[Line].DPara[1])
-                                            {
-                                                DefineSafety.DoorLock = false;
-
-                                                frm_DispCore_HeightFailMsg frm = new frm_DispCore_HeightFailMsg();
-                                                frm.Message.Clear();
-                                                frm.Message.Add("Unit Relative Height Tol Error.");
-                                                frm.Message.Add("Relative difference " + (Math.Abs(Z.Average() - d_LastLaserHeight)).ToString("f3") + " mm.");
-                                                frm.Buttons = frm_DispCore_HeightFailMsg.Retry | frm_DispCore_HeightFailMsg.Stop | frm_DispCore_HeightFailMsg.Skip;
-
-                                                DialogResult dr = frm.ShowDialog();
-                                                switch (dr)
-                                                {
-                                                    case DialogResult.Retry:
-                                                        DefineSafety.DoorLock = true;
-                                                        goto _RetryHeight;
-                                                    case DialogResult.Abort://Stop
-                                                        for (int L = Line; L >= 0; L--)
-                                                        {
-                                                            if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                            {
-                                                                LastLine = L;
-                                                                break;
-                                                            }
-                                                        }
-                                                        goto _Pause;
-                                                    case DialogResult.Ignore://Skip
-                                                        OK = 4;// false;
-                                                        i_DoHeightSkipCntr++;
-                                                        DefineSafety.DoorLock = true;
-                                                        HeightData.OK = false;
-                                                        goto _SkipHeight;
-                                                }
-
-                                            }
-                                            #endregion;
-                                        }
-                                        d_LastLaserHeight = Z.Average();
-                                    }
-
-                                    int SkipCount = ActiveLine.IPara[5];
-                                    EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
-                                    if (OK > 0 && i_DoHeightSkipCntr > SkipCount)
-                                    {
-                                        if (FailAction == EFailAction.AutoReject)
-                                        {
-                                            BdStatus = EBoardStatus.Reject;
-                                            goto _EndBoard;
-                                        }
-
-                                        #region
-                                        i_DoHeightSkipCntr = 0;
-
-                                        DefineSafety.DoorLock = false;
-                                        frm_DispCore_HeightFailMsg frm = new frm_DispCore_HeightFailMsg();
-                                        frm.FailAction = FailAction;
-                                        frm.Message.Clear();
-
-                                        switch (OK)
-                                        {
-                                            case 3:
-                                                frm.Message.Add("Laser Height Z Diff exceed spec.");
-                                                frm.Message.Add("Measured (mm)" + (char)9 + Diff.ToString("f3"));
-                                                frm.Message.Add("Spec (mm)" + (char)9 + CmdList.Line[Line].DPara[0].ToString("f3"));
-                                                break;
-                                            case 1:
-                                                frm.Message.Add("Laser Height exceed Ref Error Tol.");
-                                                break;
-                                            case 2:
-                                                frm.Message.Add("Laser Height exceed Ref Skip Tol.");
-                                                break;
-                                            default:
-                                                frm.Message.Add("Laser Height Error.");
-                                                break;
-                                        }
-                                        DialogResult dr = frm.ShowDialog();
-
-                                        switch (dr)
-                                        {
-                                            case DialogResult.Retry://Retry
-                                                DefineSafety.DoorLock = true;
-                                                goto _RetryHeight;
-                                            case DialogResult.Ignore://Skip
-                                                                     //OK = false;
-                                                DefineSafety.DoorLock = true;
-                                                break;
-                                            case DialogResult.Yes://Accept
-                                                OK = 0;
-                                                DefineSafety.DoorLock = true;
-                                                break;
-                                            case DialogResult.Cancel://Reject
-                                                BdStatus = EBoardStatus.Reject;
-                                                DefineSafety.DoorLock = true;
-                                                goto _EndBoard;
-                                            default://Stop
-                                                for (int L = Line; L >= 0; L--)
-                                                {
-                                                    if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                    {
-                                                        LastLine = L;
-                                                        break;
-                                                    }
-                                                }
-                                                goto _Pause;
-                                        }
-                                        #endregion
-                                    }
-
-                                    //_SkipHeight:
-                                    double A = 0;
-                                    double B = 0;
-                                    double C = 0;
-                                    if (CmdList.Line[Line].IPara[0] == 3)//Plane Type
-                                    {
-                                        #region generate plane eq and update height data
-                                        bool b_planeOK = GDefine.GenerateXYZPlaneEquation(X[0], Y[0], Z[0], X[1], Y[1], Z[1], X[2], Y[2], Z[2], out A, out B, out C);
-
-                                        HeightData.A = A;
-                                        HeightData.B = B;
-                                        HeightData.C = C;
-                                        HeightData.OK = OK == 0 && b_planeOK;
-                                        #endregion
-                                    }
-                                    else//Height Type
-                                    {
-                                        #region update height data
-                                        HeightData.A = 0;
-                                        HeightData.B = 0;
-                                        HeightData.C = Z.Average();
-                                        HeightData.OK = OK == 0;
-                                        #endregion
-                                    }
-
-                                _SkipHeight:
-                                    HeightData.Ready = true;
-                                    */
                                     #endregion
 
                                     EExecuteDoHeight executeDoHeight = ExecuteDoHeight(ActiveLine, X, Y, Z, ref i_DoHeightSkipCntr, ref d_LastLaserHeight, ref HeightData);
+                                    UnisemProcessLog(ActiveLine, 0, 0, 0, true, true, false, $"Cmd {TaskGantry.GZPos():f3}, Real {TaskGantry.GZRPos():f3}");
 
                                     switch (executeDoHeight)
                                     {
@@ -8662,6 +8455,14 @@ namespace NDispWin
                                     EMsg = Msg + " USE_HEIGHT";
 
                                     int HeightID = CmdList.Line[Line].ID;
+
+                                    if ((Map.CurrMap[rt_LayoutID].Bin[RunTime.UIndex] < EMapBin.BinNG) && !rt_HeightData[HeightID, RunTime.UIndex].Ready)
+                                    {
+                                        Msg MsgBox = new Msg();
+                                        EMsgRes MsgRes = MsgBox.Show($"Unit {RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y} Height data is not ready. Abort Program.");
+                                        Running = false;
+                                        break;
+                                    }
 
                                     rt_Head1HeightData = rt_HeightData[HeightID, RunTime.UIndex];
                                     rt_Head2HeightData = rt_Head1HeightData;
@@ -8943,6 +8744,10 @@ namespace NDispWin
                                     #endregion
                                     #endregion
 
+                                    ErrorMap.UpdateOffset(new PointD(dx, dy));
+                                    dx = dx + ErrorMap.OfstX;
+                                    dy = dy + ErrorMap.OfstY;
+
                                     dx = dx + BiasKernel.X[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
                                     if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
                                         dy = dy - BiasKernel.Y[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
@@ -9075,6 +8880,9 @@ namespace NDispWin
                                     }
                                     #endregion
 
+                                    dx = dx + ErrorMap.OfstX;
+                                    dy = dy + ErrorMap.OfstY;
+
                                     dx = dx + BiasKernel.X[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
                                     if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
                                         dy = dy - BiasKernel.Y[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
@@ -9176,11 +8984,17 @@ namespace NDispWin
                                     TranslatePos(dx3_2, dy3_2, rt_Head2RefData, ref dx3_2, ref dy3_2);
                                     #endregion
 
+                                    dx2 = dx2 + ErrorMap.OfstX;
+                                    dy2 = dy2 + ErrorMap.OfstY;
+
                                     dx2 = dx2 + BiasKernel.X[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
                                     if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
                                         dy2 = dy2 - BiasKernel.Y[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
                                     else
                                         dy2 = dy2 + BiasKernel.Y[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
+
+                                    dx3 = dx3 + ErrorMap.OfstX;
+                                    dy3 = dy3 + ErrorMap.OfstY;
 
                                     dx3 = dx3 + BiasKernel.X[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
                                     if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
@@ -10936,8 +10750,7 @@ namespace NDispWin
                     }
 
                 TaskVision.CameraRun = true;
-
-                SetCameraLive();
+                //SetCameraLive();
 
                 GDefine.WriteRegStat(GDefine.REG_KEY_STAT_UNIT_COUNT, Stats.TotalUnitCount);
 
@@ -17942,7 +17755,10 @@ namespace NDispWin
                 {
                     double fZ = 0;
                     TFMatrix.HeightLeastSquareFit(new TPos2(LX1, LY1), rt_Head1HeightData.DataPoints, ref fZ);
+
                     Z1 = TaskDisp.Head_ZSensor_RefPosZ[0] + fZ;
+                    Z1 = Z1 + ErrorMap.OfstZ;
+
                     Z2 = TaskDisp.Head_ZSensor_RefPosZ[1] + fZ;
                     Z2 = Z2 + TaskDisp.Head2_ZOffset;
                 }
@@ -17957,8 +17773,12 @@ namespace NDispWin
                 Z1 = TaskDisp.Head_ZSensor_RefPosZ[0] + rt_Head1HeightData.A * LX1 + rt_Head1HeightData.B * LY1 + rt_Head1HeightData.C;
                 Z2 = TaskDisp.Head_ZSensor_RefPosZ[1] + rt_Head1HeightData.A * LX1 + rt_Head1HeightData.B * LY1 + rt_Head1HeightData.C;
                 Z2 = Z2 + TaskDisp.Head2_ZOffset;
-            }
 
+                Z1 = Z1 + ErrorMap.OfstZ;
+                Z1 = Z1 + BiasKernel.Z[RunTime.Bias_Head_CR.X, RunTime.Bias_Head_CR.Y];
+            }
+            else
+                Z1 = Z1 + ErrorMap.OfstZ;
 
             if (SyncHead2)
             {
@@ -24362,58 +24182,21 @@ namespace NDispWin
         {
             TaskVision.LightingOff();
 
-        //    List<double> X = new List<double>();
-        //    List<double> Y = new List<double>();
-        //    List<double> Z = new List<double>();
-        //    #region assign and translate pts
         int Points = ActiveLine.IPara[1];
         if (ActiveLine.IPara[0] == 3) Points = 3;//Plane Type
-
-        //    for (int i = 0; i < Points; i++)
-        //    {
-        //        double dx = f_origin_x + d_Height_Rel_X + ActiveLine.X[i];
-        //        double dy = f_origin_y + d_Height_Rel_Y + ActiveLine.Y[i];
-
-        //        Point2D OriPt = new Point2D(dx, dy);
-        //        Point2D NewPt = OriPt.Translate(new Point2D(rt_Head1RefData.DatumX, rt_Head1RefData.DatumY), new Point2D(rt_Head1RefData.NewDatumX, rt_Head1RefData.NewDatumY));
-        //        NewPt = NewPt.Rotate(new Point2D(rt_Head1RefData.NewDatumX, rt_Head1RefData.NewDatumY), rt_Head1RefData.Angle);
-
-        //        X.Add(NewPt.X);
-        //        Y.Add(NewPt.Y);
-        //        Z.Add(0);
-        //    }
-        //#endregion
 
         _RetryHeight:
             bool doOK;// = false;
             if (!DoHeight(ActiveLine, Points, X, Y, Z, out doOK)) return EExecuteDoHeight.Pause;
             int OK = doOK ? 0 : 100;//0 - OK, 1 - FailRefHeightTol, 2-FailRefHeightSkipTol, 3 - FailRange  100 - DoHeight Fail
 
-            if (Z[0] == 0)//exact Zero prompt error
-            {
-                #region
-                //Msg MsgBox = new Msg();
-                //EMsgRes MsgRes = MsgBox.Show("Z Average 0. ", "", TEMessage.EType.Error, EMsgBtn.smbStop);
-                //return EExecuteDoHeight.Pause;
-                #endregion
-                #region
-                //Msg MsgBox = new Msg();
-                //EMsgRes MsgRes = MsgBox.Show("Z Average 0. ", EMcState.Error, EMsgBtn.smbOK_Stop, false);
-                //if (MsgRes == EMsgRes.smrStop)
-                //{
-                //    return EExecuteDoHeight.Pause;
-                //}
-                #endregion
-            }
-
             #region Add Laser Log
-            double Z_Ave = Math.Round(Z.Average(), 5);
-            if (Z_Ave == 0)//DO NOT REMOVE, used as flag for height correction, KN
+            for (int i = 0; i < Z.Count(); i++)
             {
-                Z_Ave = 0.00001;
-                if (Z.Average() < 0) Z_Ave = -Z_Ave;
+                if (Z[i] == 0) Z[i] = 0.00001;//DO NOT REMOVE, used as flag for height correction, KN
             }
-
+            double Z_Ave = Math.Round(Z.Average(), 5);
+           
             string s_HeightData = "";
             s_HeightData = s_HeightData + "Ave" + (char)9 + Z_Ave.ToString("f5") + (char)9;
             s_HeightData = s_HeightData + "Range" + (char)9 + (Z.Max() - Z.Min()).ToString("f5") + (char)9;
@@ -24452,12 +24235,12 @@ namespace NDispWin
                     {
                         HeightData.OK = false;
                         Msg MsgBox = new Msg();
-                        EMsgRes MsgRes = MsgBox.Show(ErrCode.LASER_OUT_OF_REF_HEIGHT_TOL, "Ref Height = " + d_RefHeight.ToString("f4") + "\rCurrent Height = " + d.ToString("f4"), EMcState.Error, EMsgBtn.smbRetry_Stop, false);
+                        EMsgRes MsgRes = MsgBox.Show(ErrCode.LASER_OUT_OF_REF_HEIGHT_TOL, "Ref Height = " + d_RefHeight.ToString("f4") + "\rCurrent Height = " + d.ToString("f4"), EMcState.Error, EMsgBtn.smbRetry_Stop | EMsgBtn.smbSkip, false);
 
                         switch (MsgRes)
                         {
                             case EMsgRes.smrRetry: return EExecuteDoHeight.Retry;
-                            case EMsgRes.smrCancel://skip
+                            case EMsgRes.smrSkip:
                                 OK = 1;
                                 //goto _Continue;
                                 HeightData.OK = false;
@@ -24465,12 +24248,12 @@ namespace NDispWin
                             default://Stop
                                 i_DoHeightSkipCntr = 0;
                                 //clear all height data
-                                RunTime.UIndex = 0;
-                                for (int i = 0; i < MAX_IDS; i++)
-                                    for (int j = 0; j < TLayout.MAX_UNITS; j++)
-                                    {
-                                        rt_HeightData[i, j] = new THeightData();
-                                    }
+                                //RunTime.UIndex = 0;
+                                //for (int i = 0; i < MAX_IDS; i++)
+                                //    for (int j = 0; j < TLayout.MAX_UNITS; j++)
+                                //    {
+                                //        rt_HeightData[i, j] = new THeightData();
+                                //    }
                                 return EExecuteDoHeight.Pause;
                         }
                     }
@@ -25141,7 +24924,7 @@ namespace NDispWin
                         int iR = 0;
                         int iC = 0;
                         double dValue = 0;
-
+                         
                         int.TryParse(s[0], out iR);
 
                         for (int c = 1; c <= this.C; c++)
@@ -25218,6 +25001,212 @@ namespace NDispWin
             {
                 MessageBox.Show("Bias Kernal Save Exception Error.");
             }
+        }
+    }
+
+    internal class TErrorMap
+    {//Dispense position error map base of the command XY
+        const int POINTS = 100;
+        public Point PITCH = new Point(5, -5);
+        //[X_pos, Y_pos], incremental of PITCH
+        public double[,] X = new double[POINTS, POINTS];
+        public double[,] Y = new double[POINTS, POINTS];
+        public double[,] Z = new double[POINTS, POINTS];
+
+        public double OfstX_ = 0;
+        public double OfstY_ = 0;
+        public double OfstZ_ = 0;
+        public double OfstX = 0;
+        public double OfstY = 0;
+        public double OfstZ = 0;
+
+        public TErrorMap()
+        {
+            Init();
+        }
+        public void Init()
+        {
+            OfstX_ = 0;
+            OfstY_ = 0;
+            OfstZ_ = 0;
+            OfstX = 0;
+            OfstY = 0;
+            OfstZ = 0;
+            for (int i = 0; i < POINTS; i++)
+                for (int j = 0; j < POINTS; j++)
+                {
+                    X[i, j] = 0;
+                    Y[i, j] = 0;
+                    Z[i, j] = 0;
+                }
+        }
+        public void Clear()
+        {
+            Init();
+            File.Move(DispProg.ErrorMapFile, Path.GetFileNameWithoutExtension(DispProg.ErrorMapFile) + DateTime.Now.ToString("yyyyMMddHHmmss") + "." + Path.GetExtension(DispProg.ErrorMapFile));
+        }
+        enum ELineType { Header, XMap, YMap, ZMap };
+        public bool Load(string Filename)
+        {
+            Init();
+
+            if (!File.Exists(Filename)) return false;
+
+            try
+            {
+                FileStream F = new FileStream(Filename, FileMode.Open, FileAccess.ReadWrite, FileShare.Write);
+                StreamReader R = new StreamReader(F);
+
+                string FileLine = R.ReadToEnd();
+                R.Close();
+
+                string[] Lines = FileLine.Split(new char[] { (char)10 }, StringSplitOptions.RemoveEmptyEntries);
+
+                ELineType LineType = ELineType.Header;
+
+                for (int Line = 0; Line < Lines.Count(); Line++)
+                {
+                    string[] s = Lines[Line].Split(new char[] { (char)9 }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (s[0].Contains("X Map"))
+                    {
+                        LineType = ELineType.XMap;
+                        Line++;//skip 1 header line
+                        continue;
+                    }
+
+                    if (s[0].Contains("Y Map"))
+                    {
+                        LineType = ELineType.YMap;
+                        Line++;//skip 1 header line
+                        continue;
+                    }
+
+                    if (s[0].Contains("Z Map"))
+                    {
+                        LineType = ELineType.ZMap;
+                        Line++;//skip 1 header line
+                        continue;
+                    }
+
+                    if (LineType == ELineType.XMap || LineType == ELineType.YMap || LineType == ELineType.ZMap)
+                    {
+                        int iR = 0;
+                        int iC = 0;
+                        double dValue = 0;
+
+                        int.TryParse(s[0], out iR);
+
+                        for (int c = 2; c <= POINTS; c++)
+                        {
+                            iC = c - 2;//Data starts on 2nd index
+
+                            double.TryParse(s[c], out dValue);
+
+                            if (LineType == ELineType.XMap) X[iC, iR] = dValue;
+                            if (LineType == ELineType.YMap) Y[iC, iR] = dValue;
+                            if (LineType == ELineType.ZMap) Z[iC, iR] = dValue;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error Map Load Exception Error.");
+            }
+
+            return true;
+        }
+        public void Save(string Filename)
+        {
+            try
+            {
+                FileStream F = new FileStream(Filename, FileMode.Create, FileAccess.Write, FileShare.Write);
+                StreamWriter W = new StreamWriter(F);
+
+                string S = "X Map" + (char)9 + "Index" + (char)9;
+                string S2 = "Index" + (char)9 + "Pos" + (char)9;
+                for (int c = 0; c < POINTS; c++)
+                {
+                    S = S + c.ToString() + (char)9;
+                    S2 = S2 + (c * PITCH.X).ToString() + (char)9;
+                }
+                W.WriteLine(S);
+                W.WriteLine(S2);
+
+                for (int r = 0; r < POINTS; r++)
+                {
+                    S = r.ToString() + (char)9 + (r*PITCH.Y).ToString() + (char)9;
+                    for (int c = 0; c < POINTS; c++)
+                        S = S + X[r, c] + (char)9;
+                    W.WriteLine(S);
+                }
+
+                S = "Y Map" + (char)9 + "Index" + (char)9;
+                S2 = "Index" + (char)9 + "Pos" + (char)9;
+                for (int c = 0; c < POINTS; c++)
+                {
+                    S = S + c.ToString() + (char)9;
+                    S2 = S2 + (c * PITCH.X).ToString() + (char)9;
+                }
+                W.WriteLine(S);
+                W.WriteLine(S2);
+
+                for (int r = 0; r < POINTS; r++)
+                {
+                    S = r.ToString() + (char)9 + (r * PITCH.Y).ToString() + (char)9;
+                    for (int c = 0; c < POINTS; c++)
+                        S = S + Y[r, c] + (char)9;
+                    W.WriteLine(S);
+                }
+
+                S = "Z Map" + (char)9 + "Index" + (char)9;
+                S2 = "Index" + (char)9 + "Pos" + (char)9;
+                for (int c = 0; c < POINTS; c++)
+                {
+                    S = S + c.ToString() + (char)9;
+                    S2 = S2 + (c * PITCH.X).ToString() + (char)9;
+                }
+                W.WriteLine(S);
+                W.WriteLine(S2);
+
+                for (int r = 0; r < POINTS; r++)
+                {
+                    S = r.ToString() + (char)9 + (r * PITCH.Y).ToString() + (char)9;
+                    for (int c = 0; c < POINTS; c++)
+                        S = S + Z[r, c] + (char)9;
+                    W.WriteLine(S);
+                }
+
+                W.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Error Map Save Exception Error.");
+            }
+        }
+
+        public void UpdateOffset(PointD xy)
+        {
+            Point idx = new Point((int)Math.Floor(xy.X / PITCH.X), (int)Math.Floor(xy.Y / PITCH.Y));
+            OfstX_ = X[idx.X, idx.Y];
+            OfstY_ = Y[idx.X, idx.Y];
+            OfstZ_ = Z[idx.X, idx.Y];
+
+            PointD remain = new PointD(xy.X % PITCH.X, xy.Y % PITCH.Y);
+            PointD factor = new PointD((double)remain.X/ PITCH.X, (double)remain.Y/ PITCH.Y);
+
+            double weightXx = factor.X * (X[idx.X + 1, idx.Y] - X[idx.X, idx.Y]);
+            double weightXy = factor.Y * (X[idx.X + 1, idx.Y + 1] - X[idx.X + 1, idx.Y]);
+            OfstX = X[idx.X, idx.Y] + ((double)(weightXx + weightXy) / 2);//Weighted
+
+            double weightYx = factor.X * (Y[idx.X + 1, idx.Y] - Y[idx.X, idx.Y]);
+            double weightYy = factor.Y * (Y[idx.X + 1, idx.Y + 1] - Y[idx.X + 1, idx.Y]);
+            OfstY = Y[idx.X, idx.Y] + ((double)(weightYx + weightYy) / 2);
+
+            double weightZx = factor.X * (Z[idx.X + 1, idx.Y] - Z[idx.X, idx.Y]);
+            double weightZy = factor.Y * (Z[idx.X + 1, idx.Y + 1] - Z[idx.X + 1, idx.Y]);
+            OfstZ = Z[idx.X, idx.Y] + ((double)(weightZx + weightZy) / 2);
         }
     }
 }

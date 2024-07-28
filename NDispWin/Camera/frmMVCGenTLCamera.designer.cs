@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMVCGenTLCamera));
             this.imgBoxEmgu = new Emgu.CV.UI.ImageBox();
             this.pnl_Image = new System.Windows.Forms.Panel();
+            this.imgBoxEmgu2 = new Emgu.CV.UI.ImageBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnCam1 = new System.Windows.Forms.ToolStripButton();
             this.tsbtnCam2 = new System.Windows.Forms.ToolStripButton();
@@ -66,10 +67,9 @@
             this.tssl_FPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssl_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsbtnCamReticle = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).BeginInit();
             this.pnl_Image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.ss_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +77,7 @@
             // imgBoxEmgu
             // 
             this.imgBoxEmgu.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
-            this.imgBoxEmgu.Location = new System.Drawing.Point(53, 39);
+            this.imgBoxEmgu.Location = new System.Drawing.Point(73, 35);
             this.imgBoxEmgu.Name = "imgBoxEmgu";
             this.imgBoxEmgu.Size = new System.Drawing.Size(344, 162);
             this.imgBoxEmgu.TabIndex = 2;
@@ -86,20 +86,31 @@
             this.imgBoxEmgu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseDown);
             this.imgBoxEmgu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseMove);
             this.imgBoxEmgu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseUp);
-            this.imgBoxEmgu.Move += new System.EventHandler(this.imgBoxEmgu_Move);
-            this.imgBoxEmgu.Validating += new System.ComponentModel.CancelEventHandler(this.imgBoxEmgu_Validating);
-            this.imgBoxEmgu.Validated += new System.EventHandler(this.imgBoxEmgu_Validated);
             // 
             // pnl_Image
             // 
             this.pnl_Image.AutoScroll = true;
+            this.pnl_Image.Controls.Add(this.imgBoxEmgu2);
             this.pnl_Image.Controls.Add(this.imgBoxEmgu);
             this.pnl_Image.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_Image.Location = new System.Drawing.Point(0, 27);
+            this.pnl_Image.Location = new System.Drawing.Point(0, 31);
             this.pnl_Image.Name = "pnl_Image";
-            this.pnl_Image.Size = new System.Drawing.Size(846, 499);
+            this.pnl_Image.Size = new System.Drawing.Size(644, 350);
             this.pnl_Image.TabIndex = 3;
             this.pnl_Image.Resize += new System.EventHandler(this.pnl_Image_Resize);
+            // 
+            // imgBoxEmgu2
+            // 
+            this.imgBoxEmgu2.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+            this.imgBoxEmgu2.Location = new System.Drawing.Point(150, 97);
+            this.imgBoxEmgu2.Name = "imgBoxEmgu2";
+            this.imgBoxEmgu2.Size = new System.Drawing.Size(344, 162);
+            this.imgBoxEmgu2.TabIndex = 3;
+            this.imgBoxEmgu2.TabStop = false;
+            this.imgBoxEmgu2.Paint += new System.Windows.Forms.PaintEventHandler(this.imgBoxEmgu_Paint);
+            this.imgBoxEmgu2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseDown);
+            this.imgBoxEmgu2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseMove);
+            this.imgBoxEmgu2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imgBoxEmgu_MouseUp);
             // 
             // toolStrip1
             // 
@@ -117,13 +128,11 @@
             this.tsbtn_ZoomFit,
             this.tsbtn_ZoomIn,
             this.toolStripSeparator3,
-            this.tsbtnCamReticle,
-            this.toolStripSeparator5,
             this.tsddb_Image,
             this.tsddb_Tools});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(846, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(644, 31);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -166,7 +175,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbtn_Grab
             // 
@@ -174,7 +183,7 @@
             this.tsbtn_Grab.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Grab.Image")));
             this.tsbtn_Grab.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Grab.Name = "tsbtn_Grab";
-            this.tsbtn_Grab.Size = new System.Drawing.Size(39, 24);
+            this.tsbtn_Grab.Size = new System.Drawing.Size(39, 28);
             this.tsbtn_Grab.Text = "&Live";
             this.tsbtn_Grab.Click += new System.EventHandler(this.tsbtn_Grab_Click);
             // 
@@ -184,7 +193,7 @@
             this.tsbtn_Stop.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Stop.Image")));
             this.tsbtn_Stop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Stop.Name = "tsbtn_Stop";
-            this.tsbtn_Stop.Size = new System.Drawing.Size(44, 24);
+            this.tsbtn_Stop.Size = new System.Drawing.Size(44, 28);
             this.tsbtn_Stop.Text = "&Stop";
             this.tsbtn_Stop.Click += new System.EventHandler(this.tsbtn_Stop_Click);
             // 
@@ -194,7 +203,7 @@
             this.tsbtn_Capture.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Capture.Image")));
             this.tsbtn_Capture.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Capture.Name = "tsbtn_Capture";
-            this.tsbtn_Capture.Size = new System.Drawing.Size(65, 24);
+            this.tsbtn_Capture.Size = new System.Drawing.Size(65, 28);
             this.tsbtn_Capture.Text = "&Capture";
             this.tsbtn_Capture.Click += new System.EventHandler(this.tsbtn_Capture_Click);
             // 
@@ -252,20 +261,20 @@
             this.tsddb_Image.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Image.Image")));
             this.tsddb_Image.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Image.Name = "tsddb_Image";
-            this.tsddb_Image.Size = new System.Drawing.Size(65, 24);
+            this.tsddb_Image.Size = new System.Drawing.Size(65, 28);
             this.tsddb_Image.Text = "Image";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -283,34 +292,34 @@
             this.tsddb_Tools.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Tools.Image")));
             this.tsddb_Tools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Tools.Name = "tsddb_Tools";
-            this.tsddb_Tools.Size = new System.Drawing.Size(58, 24);
+            this.tsddb_Tools.Size = new System.Drawing.Size(58, 28);
             this.tsddb_Tools.Text = "Tools";
             // 
             // tsmi_SetupReticle
             // 
             this.tsmi_SetupReticle.Name = "tsmi_SetupReticle";
-            this.tsmi_SetupReticle.Size = new System.Drawing.Size(224, 26);
+            this.tsmi_SetupReticle.Size = new System.Drawing.Size(213, 26);
             this.tsmi_SetupReticle.Text = "Setup Reticle";
             this.tsmi_SetupReticle.Click += new System.EventHandler(this.setupReticleToolStripMenuItem_Click);
             // 
             // tsmi_ShowStatusBar
             // 
             this.tsmi_ShowStatusBar.Name = "tsmi_ShowStatusBar";
-            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(224, 26);
+            this.tsmi_ShowStatusBar.Size = new System.Drawing.Size(213, 26);
             this.tsmi_ShowStatusBar.Text = "Status Bar";
             this.tsmi_ShowStatusBar.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
             // 
             // showCamReticlesToolStripMenuItem
             // 
             this.showCamReticlesToolStripMenuItem.Name = "showCamReticlesToolStripMenuItem";
-            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.showCamReticlesToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.showCamReticlesToolStripMenuItem.Text = "Show CamReticles";
             this.showCamReticlesToolStripMenuItem.Click += new System.EventHandler(this.showCamReticlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
             // 
             // triggerModeToolStripMenuItem
             // 
@@ -318,7 +327,7 @@
             this.tsmiTriggerModeOff,
             this.tsmiTriggerModeOn});
             this.triggerModeToolStripMenuItem.Name = "triggerModeToolStripMenuItem";
-            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.triggerModeToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.triggerModeToolStripMenuItem.Text = "Trigger Mode";
             // 
             // tsmiTriggerModeOff
@@ -341,7 +350,7 @@
             this.tsmiTriggerSourceSoftware,
             this.tsmiTriggerSourceHardware});
             this.tsmiTriggerSource.Name = "tsmiTriggerSource";
-            this.tsmiTriggerSource.Size = new System.Drawing.Size(224, 26);
+            this.tsmiTriggerSource.Size = new System.Drawing.Size(213, 26);
             this.tsmiTriggerSource.Text = "Trigger Source";
             // 
             // tsmiTriggerSourceSoftware
@@ -361,7 +370,7 @@
             // tsmiTrigger
             // 
             this.tsmiTrigger.Name = "tsmiTrigger";
-            this.tsmiTrigger.Size = new System.Drawing.Size(224, 26);
+            this.tsmiTrigger.Size = new System.Drawing.Size(213, 26);
             this.tsmiTrigger.Text = "Trigger";
             this.tsmiTrigger.Click += new System.EventHandler(this.tsmiTrigger_Click);
             // 
@@ -412,25 +421,10 @@
             this.tssl_Status.Size = new System.Drawing.Size(49, 16);
             this.tssl_Status.Text = "Status";
             // 
-            // tsbtnCamReticle
-            // 
-            this.tsbtnCamReticle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtnCamReticle.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnCamReticle.Image")));
-            this.tsbtnCamReticle.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnCamReticle.Name = "tsbtnCamReticle";
-            this.tsbtnCamReticle.Size = new System.Drawing.Size(92, 24);
-            this.tsbtnCamReticle.Text = "Cam Reticle";
-            this.tsbtnCamReticle.Click += new System.EventHandler(this.tsbtnCamReticle_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
-            // 
             // frmMVCGenTLCamera
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(846, 526);
+            this.ClientSize = new System.Drawing.Size(644, 381);
             this.Controls.Add(this.pnl_Image);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ss_Bottom);
@@ -439,8 +433,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCamera_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMVCGenTLCamera_FormClosed);
             this.Load += new System.EventHandler(this.frmCamera_Load);
+            this.Shown += new System.EventHandler(this.frmMVCGenTLCamera_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).EndInit();
             this.pnl_Image.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ss_Bottom.ResumeLayout(false);
@@ -487,7 +483,6 @@
         private System.Windows.Forms.ToolStripMenuItem triggerModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOff;
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOn;
-        private System.Windows.Forms.ToolStripButton tsbtnCamReticle;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private Emgu.CV.UI.ImageBox imgBoxEmgu2;
     }
 }

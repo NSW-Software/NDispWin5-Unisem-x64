@@ -55,8 +55,10 @@ namespace NDispWin
             //lbl_AlignType.Enabled = true;
             lbl_AlignType.Text = CmdLine.IPara[2].ToString() + " - " + Enum.GetName(typeof(EAlignType), CmdLine.IPara[2]);
 
-            lbl_SaveImages.Text = DispProg.SaveDoVisionImages.ToString();
-            lbl_SaveDirectory.Text = DispProg.ImageLocation;
+            //lbl_SaveImages.Text = DispProg.SaveDoVisionImages.ToString();
+            lbl_SaveImages.Text = (CmdLine.IPara[3] > 0).ToString();
+            //lbl_SaveDirectory.Text = DispProg.ImageLocation;
+            lbl_SaveDirectory.Text = CmdLine.String;
 
             lbl_X1Y1.Text = CmdLine.X[0].ToString("F3") + ", " + CmdLine.Y[0].ToString("F3");
 
@@ -509,7 +511,10 @@ namespace NDispWin
 
         private void lbl_SaveImages_Click(object sender, EventArgs e)
         {
-            UC.AdjustExec("DoVision, SaveImage", ref DispProg.SaveDoVisionImages);
+            //UC.AdjustExec("DoVision, SaveImage", ref DispProg.SaveDoVisionImages);
+            bool b = CmdLine.IPara[3] > 0;
+            UC.AdjustExec("DoVision, SaveImage", ref b);
+            CmdLine.IPara[3] = b ? 1 : 0;
             UpdateDisplay();
         }
 
@@ -524,7 +529,8 @@ namespace NDispWin
 
         private void lbl_SaveDirectory_Click(object sender, EventArgs e)
         {
-            UC.EntryExec("DoVision, ImageLocation", ref DispProg.ImageLocation, false);
+            //UC.EntryExec("DoVision, ImageLocation", ref DispProg.ImageLocation, false);
+            UC.EntryExec("DoVision, ImageLocation", ref CmdLine.String, false);
             UpdateDisplay();
         }
 

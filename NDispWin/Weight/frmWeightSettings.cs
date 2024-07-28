@@ -175,7 +175,7 @@ namespace NDispWin
         }
         private void btnJog_Click(object sender, EventArgs e)
         {
-            frm_DispCore_JogGantry2 frm_Jog = new frm_DispCore_JogGantry2();
+            frmJogGantry frm_Jog = new frmJogGantry();
             frm_Jog.TopMost = true;
             frm_Jog.Show();
         }

@@ -14,6 +14,7 @@ using System.Xml;
 //using SpinnakerNET;
 //using FlyCapture2Managed;
 using System.ComponentModel;
+using System.Reflection;
 
 /*todo
 - camera init error handling
@@ -2706,10 +2707,685 @@ namespace NDispWin
             catch { throw; }
         }
 
+        //public static bool CalVisionXY(ECamNo CamID)
+        //{
+        //    string EMsg = "CalVision";
+
+        //    SelectedCam = CamID;
+
+        //    try
+        //    {
+        //        if (!Application.ExecutablePath.Contains("Debug"))
+        //            if (!TaskDisp.TaskMoveGZFocus(0)) return false;
+
+        //        switch (CalMode[(int)CamID])
+        //        {
+        //            case ECalMode.Ave_XY:
+        //            case ECalMode.Only_X:
+        //            case ECalMode.Only_Y:
+        //                {
+        //                    #region
+        //                    double NewDistPerPixelX = 0;
+        //                    double NewDistPerPixelY = 0;
+        //                    if (TaskVision.CalMode[(int)CamID] == ECalMode.Ave_XY)
+        //                    {
+        //                        #region
+        //                        #region Step 1 - TL
+        //                        frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {   
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, 50), new SizeF(25, 25), Color.Green, "TL");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = new TReticles(reticles);
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+        //                        }
+        //                        //else
+        //                        //{
+        //                        //    frm.PageVision.SelectedCam = CamID;
+        //                        //    frm.ShowVision = true;
+        //                        //    DrawCalStep = ECalStepCHair.TL;
+        //                        //}
+        //                        frm.Inst = "Step 1/4: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
+        //                        DialogResult dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+
+        //                        double X1 = TaskGantry.GXPos();
+        //                        double Y1 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Step 2 - TR
+        //                        frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green, "TR");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        {
+        //                            frm.ShowVision = true;
+        //                            DrawCalStep = ECalStepCHair.TR;
+        //                        }
+        //                        frm.Inst = "Step 2/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+        //                        dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        double X2 = TaskGantry.GXPos();
+        //                        double Y2 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Step 3 - BR
+        //                        frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "BR");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        {
+        //                            frm.ShowVision = true;
+        //                            DrawCalStep = ECalStepCHair.BR;
+        //                        }
+        //                        frm.Inst = "Step 3/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+        //                        dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        double X3 = TaskGantry.GXPos();
+        //                        double Y3 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Step 4- BL
+        //                        frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "BL");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+        //                        }
+        //                        else
+        //                        {
+        //                            frm.ShowVision = true;
+        //                            DrawCalStep = ECalStepCHair.BL;
+        //                        }
+        //                        frm.Inst = "Step 4/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+        //                        frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        double X4 = TaskGantry.GXPos();
+        //                        double Y4 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Computation
+        //                        int CalPixelX = TaskVision.ImgWN[(int)CamID] - 100;
+        //                        int CalPixelY = TaskVision.ImgHN[(int)CamID] - 100;
+
+        //                        double X = (X2 - X1 + X3 - X4) / 2;
+        //                        double Y = (Y4 - Y1 + Y3 - Y2) / 2;
+
+        //                        NewDistPerPixelX = (double)(X / CalPixelX);
+        //                        NewDistPerPixelY = (double)(Y / CalPixelY);
+        //                        NewDistPerPixelX = Math.Abs(NewDistPerPixelX);
+        //                        NewDistPerPixelY = Math.Abs(NewDistPerPixelY);
+        //                        #endregion
+        //                        #endregion
+        //                    }
+        //                    if (TaskVision.CalMode[(int)CamID] == ECalMode.Only_X)
+        //                    {
+        //                        #region Step 1 - L
+        //                        frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(50, ImgHN[(int)CamID]/2), new SizeF(100, 100), Color.Green, "CL");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+
+        //                            //TaskVision.frmGenImageView.SelectIndex((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        //else
+        //                        //{
+        //                        //    frm.PageVision.SelectedCam = CamID;
+        //                        //    frm.ShowVision = true;
+        //                        //    DrawCalStep = ECalStepCHair.L;
+        //                        //}
+
+        //                        frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
+        //                        DialogResult dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+
+        //                        double X1 = TaskGantry.GXPos();
+        //                        double Y1 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Step 2 - R
+        //                        frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID]/2), new SizeF(100, 100), Color.Green, "CR");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+
+        //                            //TaskVision.frmGenImageView.SelectIndex((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        {
+        //                            frm.ShowVision = true;
+        //                            DrawCalStep = ECalStepCHair.R;
+        //                        }
+        //                        frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+        //                        dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        double X2 = TaskGantry.GXPos();
+        //                        double Y2 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Computation
+        //                        int CalPixelX = TaskVision.ImgWN[(int)CamID] - 100;
+        //                        int CalPixelY = TaskVision.ImgHN[(int)CamID] - 100;
+
+        //                        double X = Math.Abs(X2 - X1);
+        //                        double Y = Math.Abs(Y2 - Y1);
+
+        //                        double NewDistPerPixel = 0;
+        //                        if (Y > X)//camera rotate 90 deg
+        //                        {
+        //                            NewDistPerPixel = (double)(Y / CalPixelX);
+        //                        }
+        //                        else
+        //                        {
+        //                            NewDistPerPixel = (double)(X / CalPixelX);
+        //                        }
+
+        //                        NewDistPerPixelX = Math.Abs(NewDistPerPixel);
+        //                        NewDistPerPixelY = Math.Abs(NewDistPerPixel);
+        //                        #endregion
+        //                    }
+        //                    if (TaskVision.CalMode[(int)CamID] == ECalMode.Only_Y)
+        //                    {
+        //                        #region Step 1 - T
+        //                        frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green, "CT");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+
+        //                            //TaskVision.frmGenImageView.SelectIndex((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        //else
+        //                        //{
+        //                        //    frm.PageVision.SelectedCam = CamID;
+        //                        //    frm.ShowVision = true;
+        //                        //    DrawCalStep = ECalStepCHair.T;
+        //                        //}
+        //                        frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
+        //                        DialogResult dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+
+        //                        double X1 = TaskGantry.GXPos();
+        //                        double Y1 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Step 2 - B
+        //                        frm = new frm_DispCore_JogGantryVision();
+        //                        if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                            //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "CB");
+        //                            //TaskVision.frmGenImageView.Reticles.Add(Reticle);
+        //                            //TaskVision.frmGenImageView.EnableReticles = true;
+
+        //                            //TaskVision.frmGenImageView.SelectIndex((int)CamID);
+        //                        }
+        //                        else
+        //                                                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
+        //                            //frm.frmCamera.ShowCamReticles = false;
+        //                            //frm.frmCamera.ShowReticles = true;
+        //                            //frm.frmCamera.Reticles = reticles;
+        //                            //frm.frmCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //                        {
+        //                            TReticles reticles = new TReticles();
+        //                            reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
+        //                            reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowCamReticles = false;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.ShowReticles = true;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.Reticles = reticles;
+        //                            frm.TaskVisionfrmMVCGenTLCamera.SelectCamera((int)CamID);
+        //                        }
+        //                        else
+        //                        {
+        //                            frm.ShowVision = true;
+        //                            DrawCalStep = ECalStepCHair.B;
+        //                        }
+        //                        frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+        //                        dr = frm.ShowDialog();
+
+        //                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
+        //                        {
+        //                            //TaskVision.frmGenImageView.Reticles.Clear();
+        //                        }
+        //                        if (dr == DialogResult.Cancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        double X2 = TaskGantry.GXPos();
+        //                        double Y2 = TaskGantry.GYPos();
+        //                        #endregion
+
+        //                        #region Computation
+        //                        int CalPixelX = TaskVision.ImgWN[(int)CamID] - 100;
+        //                        int CalPixelY = TaskVision.ImgHN[(int)CamID] - 100;
+
+        //                        double X = Math.Abs(X2 - X1);
+        //                        double Y = Math.Abs(Y2 - Y1);
+
+        //                        double NewDistPerPixel = 0;
+        //                        if (X > Y)//camera rotate 90 deg
+        //                        {
+        //                            NewDistPerPixel = (double)(X / CalPixelY);
+        //                        }
+        //                        else
+        //                        {
+        //                            NewDistPerPixel = (double)(Y / CalPixelY);
+        //                        }
+
+        //                        NewDistPerPixelX = Math.Abs(NewDistPerPixel);
+        //                        NewDistPerPixelY = Math.Abs(NewDistPerPixel);
+        //                        #endregion
+        //                    }
+
+        //                    DrawCalStep = ECalStepCHair.None;
+
+        //                    Msg MsgBox = new Msg();
+        //                    EMsgRes MsgRes = MsgBox.Show("Cal Vision " + CalMode[(int)CamID].ToString() + " Completed. Cal Mode.@" +
+        //                             "Old DistPerPixel = " + DistPerPixelX[(int)CamID].ToString("F6") + "," + DistPerPixelX[(int)CamID].ToString("F6") + "@" +
+        //                             "New DistPerPixel = " + NewDistPerPixelX.ToString("F6") + "," + NewDistPerPixelY.ToString("F6") + "@" +
+        //                             "Update new values?", EMcState.Notice, EMsgBtn.smbOK_Cancel, false);
+
+        //                    switch (MsgRes)
+        //                    {
+        //                        case EMsgRes.smrOK:
+        //                            {
+        //                                DistPerPixelX[(int)CamID] = NewDistPerPixelX;
+        //                                DistPerPixelY[(int)CamID] = NewDistPerPixelY;
+        //                                break;
+        //                            }
+        //                    }
+
+        //                    break;
+        //                    #endregion
+        //                }
+        //            case ECalMode.Aperture:
+        //                {
+        //                    #region
+        //                    #region step 1
+        //                    TaskVision.LightingOn(TaskDisp.BCamera_CalNeedle_LightRGB);
+        //                _Retry:
+        //                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+        //                    //frm.PageVision.SelectedCam = CamID;
+        //                    TaskVision.FindCircle = 1;
+        //                    frm.Inst = "Step 1/4: Confirm Aperture Recognition.";
+        //                    frm.ShowVision = true;
+        //                    DialogResult dr = frm.ShowDialog();
+        //                    Application.DoEvents();
+        //                    TaskVision.FindCircle = 0;
+
+        //                    if (dr == DialogResult.Cancel)
+        //                    {
+        //                        return false;
+        //                    }
+
+        //                    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
+        //                    //if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.Basler)
+        //                    //{
+        //                    TaskVision.GrabN((int)ECamNo.Cam02, ref Image);
+        //                    //}
+        //                    if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.PtGrey)
+        //                    {
+        //                        //TaskVision.PtGrey_CamLive((int)ECamNo.Cam02);
+        //                    }
+        //                    if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.MVSGenTL)
+        //                        TaskVision.genTLCamera[(int)ECamNo.Cam02].StartGrab();
+
+        //                    PointF Center = new PointF(0, 0);
+        //                    float Radius = 0f;
+        //                    int i_Circles = TaskVision.FindAperture(Image, ref Center, ref Radius);
+
+        //                    if (i_Circles == 0) goto _Retry;
+
+        //                    int t = GDefine.GetTickCount() + 200;
+        //                    while (GDefine.GetTickCount() < t) Thread.Sleep(0);
+        //                    #endregion
+
+        //                _Retry2:
+        //                    #region step 2
+        //                    TaskVision.LightingOn(TaskDisp.BCamera_Cal_LightRGB);
+
+        //                    frm = new frm_DispCore_JogGantryVision();
+        //                    SelectedCam = (int)ECamNo.Cam00;
+        //                    frm.Inst = "Step 2/4: Jog Main Camera Crosshair (CX) to Aperture Edge 12 O'Clock";
+        //                    frm.ShowVision = true;
+        //                    DrawCalStep = ECalStepCHair.C;
+        //                    dr = frm.ShowDialog();
+        //                    Application.DoEvents();
+
+        //                    if (dr == DialogResult.Cancel)
+        //                    {
+        //                        return false;
+        //                    }
+
+        //                    double X1 = TaskGantry.GXPos();
+        //                    double Y1 = TaskGantry.GYPos();
+        //                    #endregion
+
+        //                    #region step 3
+        //                    frm = new frm_DispCore_JogGantryVision();
+        //                    frm.Inst = "Step 3/4: Jog Main Camera Crosshair (CX) to Aperture Edge 4 O'Clock";
+        //                    frm.ShowVision = true;
+        //                    DrawCalStep = ECalStepCHair.C;
+        //                    dr = frm.ShowDialog();
+        //                    Application.DoEvents();
+
+        //                    if (dr == DialogResult.Cancel)
+        //                    {
+        //                        return false;
+        //                    }
+        //                    double X2 = TaskGantry.GXPos();
+        //                    double Y2 = TaskGantry.GYPos();
+        //                    #endregion
+
+        //                    #region step 4
+        //                    frm = new frm_DispCore_JogGantryVision();
+        //                    frm.Inst = "Step 4/4: Jog Camera Crosshair (CX) to Aperture Edge 8 O'Clock";
+        //                    frm.ShowVision = true;
+        //                    DrawCalStep = ECalStepCHair.C;
+        //                    dr = frm.ShowDialog();
+        //                    Application.DoEvents();
+
+        //                    if (dr == DialogResult.Cancel)
+        //                    {
+        //                        return false;
+        //                    }
+        //                    double X3 = TaskGantry.GXPos();
+        //                    double Y3 = TaskGantry.GYPos();
+        //                    #endregion
+
+        //                    #region computation
+        //                    double CX = 0;
+        //                    double CY = 0;
+        //                    double R = 0;
+        //                    if (!GDefine.Arc3PGetInfo(X1, Y1, X2, Y2, X3, Y3, ref CX, ref CY, ref R))
+        //                    {
+        //                        Msg MsgBox = new Msg();
+        //                        if (MsgBox.Show("Computation Error", "Retry Point Selection", "", EMcState.Error, EMsgBtn.smbOK_Cancel, false) == EMsgRes.smrCancel)
+        //                        {
+        //                            return false;
+        //                        }
+        //                        goto _Retry2;
+        //                    }
+
+        //                    double CalPixelRad = Radius;
+        //                    double MeasureRad = R;
+
+        //                    double NewDistPerPixel = (double)(MeasureRad / CalPixelRad);
+        //                    #endregion
+
+        //                    DrawCalStep = ECalStepCHair.None;
+
+        //                    {
+        //                        Msg MsgBox = new Msg();
+        //                        EMsgRes MsgRes = MsgBox.Show("Cal Vision " + CalMode[(int)CamID].ToString() + " Completed.@" +
+        //                                     "Old DistPerPixel = " + DistPerPixelX[(int)CamID].ToString("F6") + "@" +
+        //                                 "New DistPerPixel = " + NewDistPerPixel.ToString("F6") + "@" +
+        //                                 "Update new values?", EMcState.Notice, EMsgBtn.smbOK_Cancel, false);
+
+        //                        switch (MsgRes)
+        //                        {
+        //                            case EMsgRes.smrOK:
+        //                                {
+        //                                    DistPerPixelX[(int)CamID] = NewDistPerPixel;
+        //                                    DistPerPixelY[(int)CamID] = NewDistPerPixel;
+        //                                    TaskDisp.Aperture_Dia = MeasureRad;
+        //                                    TaskDisp.Aperture_Dia_Setup = MeasureRad;
+        //                                    break;
+        //                                }
+        //                        }
+        //                    }
+        //                    break;
+        //                    #endregion
+        //                }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        EMsg = EMsg + (char)13 + Ex.Message.ToString();
+        //        Msg MsgBox = new Msg();
+        //        MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg);
+        //        return false;
+        //    };
+        //    return true;
+        //}
         public static bool CalVisionXY(ECamNo CamID)
         {
-            string EMsg = "CalVision";
-
             SelectedCam = CamID;
 
             try
@@ -2717,232 +3393,78 @@ namespace NDispWin
                 if (!Application.ExecutablePath.Contains("Debug"))
                     if (!TaskDisp.TaskMoveGZFocus(0)) return false;
 
+                TReticles reticles = new TReticles();
+
                 switch (CalMode[(int)CamID])
                 {
                     case ECalMode.Ave_XY:
                     case ECalMode.Only_X:
                     case ECalMode.Only_Y:
                         {
-                            #region
                             double NewDistPerPixelX = 0;
                             double NewDistPerPixelY = 0;
                             if (TaskVision.CalMode[(int)CamID] == ECalMode.Ave_XY)
                             {
                                 #region
                                 #region Step 1 - TL
-                                frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                                 {
-                                //    TaskVision.frmGenImageView.Reticles.Clear();
-                                //    NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
-                                //    TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                //    Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(50, 50), new SizeF(100, 100), Color.Green, "TL");
-                                //    TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                //    TaskVision.frmGenImageView.EnableReticles = true;
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 1/4: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
 
-                                //    TaskVision.frmGenImageView.SelectIndex((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, 50), new SizeF(25, 25), Color.Green, "TL");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera(0);
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera(0);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, 50), new SizeF(25, 25), Color.Green, "TL");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                }
-                                else
-                                {
-                                    frm.PageVision.SelectedCam = CamID;
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.TL;
-                                }
-                                frm.Inst = "Step 1/4: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
-                                DialogResult dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
-                                }
-
                                 double X1 = TaskGantry.GXPos();
                                 double Y1 = TaskGantry.GYPos();
                                 #endregion
 
                                 #region Step 2 - TR
-                                frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green, "TR");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera(0);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                }
-                                else
-                                {
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.TR;
-                                }
-                                frm.Inst = "Step 2/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
-                                dr = frm.ShowDialog();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 2/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
 
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
+                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
+                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera(0);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
                                 double X2 = TaskGantry.GXPos();
                                 double Y2 = TaskGantry.GYPos();
                                 #endregion
 
                                 #region Step 3 - BR
-                                frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "BR");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 3/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera(0);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                }
-                                else
-                                {
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.BR;
-                                }
-                                frm.Inst = "Step 3/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
-                                dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera(0);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
                                 double X3 = TaskGantry.GXPos();
                                 double Y3 = TaskGantry.GYPos();
                                 #endregion
 
                                 #region Step 4- BL
-                                frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "BL");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 4/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
+
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera(0);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                }
-                                else
-                                {
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.BL;
-                                }
-                                frm.Inst = "Step 4/4: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
-                                frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera(0);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
                                 double X4 = TaskGantry.GXPos();
                                 double Y4 = TaskGantry.GYPos();
@@ -2965,114 +3487,31 @@ namespace NDispWin
                             if (TaskVision.CalMode[(int)CamID] == ECalMode.Only_X)
                             {
                                 #region Step 1 - L
-                                frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(50, ImgHN[(int)CamID]/2), new SizeF(100, 100), Color.Green, "CL");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
 
-                                    //TaskVision.frmGenImageView.SelectIndex((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera((int)CamID);
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera((int)CamID);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                {
-                                    frm.PageVision.SelectedCam = CamID;
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.L;
-                                }
-
-                                frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
-                                DialogResult dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
-                                }
-
                                 double X1 = TaskGantry.GXPos();
                                 double Y1 = TaskGantry.GYPos();
                                 #endregion
 
                                 #region Step 2 - R
-                                frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID]/2), new SizeF(100, 100), Color.Green, "CR");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-
-                                    //TaskVision.frmGenImageView.SelectIndex((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                {
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.R;
-                                }
-                                frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
-                                dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera((int)CamID);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
                                 double X2 = TaskGantry.GXPos();
                                 double Y2 = TaskGantry.GYPos();
@@ -3102,112 +3541,30 @@ namespace NDispWin
                             if (TaskVision.CalMode[(int)CamID] == ECalMode.Only_Y)
                             {
                                 #region Step 1 - T
-                                frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green, "CT");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-
-                                    //TaskVision.frmGenImageView.SelectIndex((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera((int)CamID);
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera((int)CamID);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                {
-                                    frm.PageVision.SelectedCam = CamID;
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.T;
-                                }
-                                frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
-                                DialogResult dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
-                                }
-
                                 double X1 = TaskGantry.GXPos();
                                 double Y1 = TaskGantry.GYPos();
                                 #endregion
 
                                 #region Step 2 - B
-                                frm = new frm_DispCore_JogGantryVision();
-                                if (GDefine.CameraType[(int)CamID] == GDefine.ECameraType.Spinnaker)
                                 {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                    //NImager.TReticle Reticle = new NImager.TReticle(NImager.TReticle.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //Reticle = new NImager.TReticle(NImager.TReticle.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green, "CB");
-                                    //TaskVision.frmGenImageView.Reticles.Add(Reticle);
-                                    //TaskVision.frmGenImageView.EnableReticles = true;
-
-                                    //TaskVision.frmGenImageView.SelectIndex((int)CamID);
-                                }
-                                else
-                                                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                {
-                                    TReticles reticles = new TReticles();
+                                    frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
+                                    frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
-                                    //frm.frmCamera.ShowCamReticles = false;
-                                    //frm.frmCamera.ShowReticles = true;
-                                    //frm.frmCamera.Reticles = reticles;
-                                    //frm.frmCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                {
-                                    TReticles reticles = new TReticles();
-                                    reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
-                                    reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
-                                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = false;
-                                    TaskVision.frmMVCGenTLCamera.ShowReticles = true;
-                                    TaskVision.frmMVCGenTLCamera.Reticles = reticles;
-                                    TaskVision.frmMVCGenTLCamera.SelectCamera((int)CamID);
-                                }
-                                else
-                                {
-                                    frm.ShowVision = true;
-                                    DrawCalStep = ECalStepCHair.B;
-                                }
-                                frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
-                                dr = frm.ShowDialog();
-
-                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                                {
-                                    //TaskVision.frmGenImageView.Reticles.Clear();
-                                }
-                                if (dr == DialogResult.Cancel)
-                                {
-                                    return false;
+                                    frm.Reticles = new TReticles(reticles);
+                                    frm.ShowReticles = true;
+                                    frm.SelectCamera((int)CamID);
+                                    if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
                                 double X2 = TaskGantry.GXPos();
                                 double Y2 = TaskGantry.GYPos();
@@ -3235,7 +3592,6 @@ namespace NDispWin
                                 #endregion
                             }
 
-                            DrawCalStep = ECalStepCHair.None;
 
                             Msg MsgBox = new Msg();
                             EMsgRes MsgRes = MsgBox.Show("Cal Vision " + CalMode[(int)CamID].ToString() + " Completed. Cal Mode.@" +
@@ -3254,154 +3610,17 @@ namespace NDispWin
                             }
 
                             break;
-                            #endregion
                         }
                     case ECalMode.Aperture:
                         {
-                            #region
-                            #region step 1
-                            TaskVision.LightingOn(TaskDisp.BCamera_CalNeedle_LightRGB);
-                        _Retry:
-                            frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                            frm.PageVision.SelectedCam = CamID;
-                            TaskVision.FindCircle = 1;
-                            frm.Inst = "Step 1/4: Confirm Aperture Recognition.";
-                            frm.ShowVision = true;
-                            DialogResult dr = frm.ShowDialog();
-                            Application.DoEvents();
-                            TaskVision.FindCircle = 0;
-
-                            if (dr == DialogResult.Cancel)
-                            {
-                                return false;
-                            }
-
-                            Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
-                            //if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.Basler)
-                            //{
-                            TaskVision.GrabN((int)ECamNo.Cam02, ref Image);
-                            //}
-                            if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.PtGrey)
-                            {
-                                //TaskVision.PtGrey_CamLive((int)ECamNo.Cam02);
-                            }
-                            if (GDefine.CameraType[(int)ECamNo.Cam02] == GDefine.ECameraType.MVSGenTL)
-                                TaskVision.genTLCamera[(int)ECamNo.Cam02].StartGrab();
-
-                            PointF Center = new PointF(0, 0);
-                            float Radius = 0f;
-                            int i_Circles = TaskVision.FindAperture(Image, ref Center, ref Radius);
-
-                            if (i_Circles == 0) goto _Retry;
-
-                            int t = GDefine.GetTickCount() + 200;
-                            while (GDefine.GetTickCount() < t) Thread.Sleep(0);
-                            #endregion
-
-                        _Retry2:
-                            #region step 2
-                            TaskVision.LightingOn(TaskDisp.BCamera_Cal_LightRGB);
-
-                            frm = new frm_DispCore_JogGantryVision();
-                            SelectedCam = (int)ECamNo.Cam00;
-                            frm.Inst = "Step 2/4: Jog Main Camera Crosshair (CX) to Aperture Edge 12 O'Clock";
-                            frm.ShowVision = true;
-                            DrawCalStep = ECalStepCHair.C;
-                            dr = frm.ShowDialog();
-                            Application.DoEvents();
-
-                            if (dr == DialogResult.Cancel)
-                            {
-                                return false;
-                            }
-
-                            double X1 = TaskGantry.GXPos();
-                            double Y1 = TaskGantry.GYPos();
-                            #endregion
-
-                            #region step 3
-                            frm = new frm_DispCore_JogGantryVision();
-                            frm.Inst = "Step 3/4: Jog Main Camera Crosshair (CX) to Aperture Edge 4 O'Clock";
-                            frm.ShowVision = true;
-                            DrawCalStep = ECalStepCHair.C;
-                            dr = frm.ShowDialog();
-                            Application.DoEvents();
-
-                            if (dr == DialogResult.Cancel)
-                            {
-                                return false;
-                            }
-                            double X2 = TaskGantry.GXPos();
-                            double Y2 = TaskGantry.GYPos();
-                            #endregion
-
-                            #region step 4
-                            frm = new frm_DispCore_JogGantryVision();
-                            frm.Inst = "Step 4/4: Jog Camera Crosshair (CX) to Aperture Edge 8 O'Clock";
-                            frm.ShowVision = true;
-                            DrawCalStep = ECalStepCHair.C;
-                            dr = frm.ShowDialog();
-                            Application.DoEvents();
-
-                            if (dr == DialogResult.Cancel)
-                            {
-                                return false;
-                            }
-                            double X3 = TaskGantry.GXPos();
-                            double Y3 = TaskGantry.GYPos();
-                            #endregion
-
-                            #region computation
-                            double CX = 0;
-                            double CY = 0;
-                            double R = 0;
-                            if (!GDefine.Arc3PGetInfo(X1, Y1, X2, Y2, X3, Y3, ref CX, ref CY, ref R))
-                            {
-                                Msg MsgBox = new Msg();
-                                if (MsgBox.Show("Computation Error", "Retry Point Selection", "", EMcState.Error, EMsgBtn.smbOK_Cancel, false) == EMsgRes.smrCancel)
-                                {
-                                    return false;
-                                }
-                                goto _Retry2;
-                            }
-
-                            double CalPixelRad = Radius;
-                            double MeasureRad = R;
-
-                            double NewDistPerPixel = (double)(MeasureRad / CalPixelRad);
-                            #endregion
-
-                            DrawCalStep = ECalStepCHair.None;
-
-                            {
-                                Msg MsgBox = new Msg();
-                                EMsgRes MsgRes = MsgBox.Show("Cal Vision " + CalMode[(int)CamID].ToString() + " Completed.@" +
-                                             "Old DistPerPixel = " + DistPerPixelX[(int)CamID].ToString("F6") + "@" +
-                                         "New DistPerPixel = " + NewDistPerPixel.ToString("F6") + "@" +
-                                         "Update new values?", EMcState.Notice, EMsgBtn.smbOK_Cancel, false);
-
-                                switch (MsgRes)
-                                {
-                                    case EMsgRes.smrOK:
-                                        {
-                                            DistPerPixelX[(int)CamID] = NewDistPerPixel;
-                                            DistPerPixelY[(int)CamID] = NewDistPerPixel;
-                                            TaskDisp.Aperture_Dia = MeasureRad;
-                                            TaskDisp.Aperture_Dia_Setup = MeasureRad;
-                                            break;
-                                        }
-                                }
-                            }
                             break;
-                            #endregion
                         }
                 }
             }
             catch (Exception Ex)
             {
-                EMsg = EMsg + (char)13 + Ex.Message.ToString();
                 Msg MsgBox = new Msg();
-                MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg);
+                MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, MethodBase.GetCurrentMethod().Name.ToString() + '\r' + Ex.Message.ToString());
                 return false;
             };
             return true;
