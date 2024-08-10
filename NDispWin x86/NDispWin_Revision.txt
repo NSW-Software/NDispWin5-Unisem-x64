@@ -1,0 +1,317 @@
+﻿NDispWin Unisem Version
+
+TaskWeight ReadImme at Open
+
+Todo:
+Remove frmVisionView and TaskVision.CameraRun = true;
+Tidy frm_DispProg_View
+Refac TaskVision
+Refac frm_DispCore_JogGantryVision
+
+
+Solder End Point Bigger
+Solder Start Line Thin
+Diff Height Result 
+Software Hang frequent
+Dispense Head Z Path
+
+
+
+- [Request] Removed ProcessCamera function and dependencies.
+- [Enhance] Added frmDispProg border with sw information.
+- [Feature] Added rtbAdmin to DispProg for display of advance info.
+- [BugFix] frmDispProg fix new recipe.
+- [HseKeep] Removed frmLighting, frm_TeachNeedle_LaserCrosshair, frmVision, frmReticleSetup and dependencies, not longer used.
+- [HseKeep] Removed TeachNeedle.StepByStep variables and dependencies
+[Improve] Change XY home mode from MODE8_LmtSearch to EHomeMode.MODE13_LmtSearchReFind, repeat limit find at slow speed, improve home pos repeatability.
+[Improve] Change Z home mode from MODE7_AbsSearch to EHomeMode.MODE11_AbsSearchReFind, repeat limit find at slow speed, improve home pos repeatability.
+[Improve] TaskMHS.Unload_Out() unlock door for jam clear.
+[Improve] Prevent Run_MoveInTo, MoveInToPre, MoveInToPos if OutSensPsnt.
+[Request] LED Scrollbar log first and last value, reduce log for the progress of change.
+[Verify] ZSensorPos readout to be accurate
+
+Ver 6.1.0.0 PE32 - 20240728 - Release to LYL/WK for UnisemCD
+- [BugFix] frm_DispCore_JogGantryVision, update show reticle.
+- [Improve] Dual Mirror Project for x64 and x86 using diferrent dll and native dlls. Master x64. Using framework 4.7.2.
+- [Enhance] Corrected ErrorMap Clear and Edit.
+Ver 6.0.18.3- 20240728 - Release to LYL/WK for UnisemCD - Gitted
+- [Improve] Added TFPress_RS232.Open DiscardInBuffer to clear any in buffers that cause return incorrect value 
+- [Enhance] MVC_GenTL.cs use EmguBox, reduce bmp image conversion loading, optimize memory usage
+- [Improve] Added TaskElev.Right.SafeCheck_ElevMove check SensLFPsnt, prevent elev move if frame is present in between
+- [Feature] Mag Empty and no frame to process notification, alert op
+Ver 6.0.17 - 20240705 - Release to WK for UnisemCD
+- [Feature] Added TErrorMap
+- [Enhance] UpdateZHeight to include BiasKernel.
+- [Enhance] ExecuteDoHeight Stop will retain old data, to be able to continue.
+- [Bugfix] Corrected DO_HEIGHT for EAlignType.ClstrRow and ClstrCol.
+x [Enhance] MVC_GenTL.cs change PictureBox to EmguBox, reduce bmp image conversion loading.
+[Feature] Added support for ILD1900 
+Ver 6.0.15.2 - 20240621 - KN
+- [Request] Unload Out, allow Stop, magazine assume frame unloaded
+- Abort program if Vision or Height data not ready
+Ver 6.0.14 - 20240621 - KN
+- [Enhance] Saving removes spaces in filename.
+x [Request] frmMap can update to Bypass when program active.
+/ [Enhance] DO_HEIHGHT replace very small Z Value if 0, prevent height skip
+x [Enhance] MVC_GenTL change from PictureBox to EmguImageBox, less processing for image conversion.
+- [Request] DO_VISION, DO_VISINSP save image according to recipe setting, create id folder or time
+[Bugfix] UpdateSZAxis at open board
+- [Bugfix] frm_DispProg_View localize camera windows, prevent camera lost handle
+- [Request] Cancel Button disable according to run status
+Ver 6.0.13 - 20240620 - KN
+x- [Enhance] Unload Out, Prompt Push Frame at Output to Magazine, prevent out magzine up.
+[Bugfix] Remove ratio for SZAxis dependecy on GX2, only single head is used.
+- [Bugfix] Added ProcessLog for DO_HEIGHT to monitor actual Z
+[Enhance] Disable SetCameraLive at DispProg Stop, prevent memory fluctuation during idle
+- [Feature] DO_VIS_INSP implement save image, requested by YL
+- [Enhance] frmProgram update status color, better color contrast
+- [Feature] ModelList limit follow DispGap Limit Setting, request by YL
+Ver 6.0.12 - 20240522 - KN - Gitted
+- [Feature] Added PurgeStage Line
+- [Bugfix] Corrected Z_Ave=0 not dispense
+- [Bugfix] Fix CheckInDispenseArea
+Ver 6.0.11 - 20240521 - KN
+- [BugFix] Fix TaskMHS.RunKick to check Pre and Pro before move evel.
+- [Feature] Added CHeckInDispenseArea to frmDot, MoveLine and MultiDot
+- [Enhance] Lighting off for TaskMHS.Run and Manual_LoadPro, prevent inteference wiht ProPsnt sensor.
+- [Enhance] Selection of frmMap by intersecting rectangle to improve user experience.
+- [Enhance] Change to moveable frmMsgBox to allow move for background check.
+Ver 6.0.10 - 20240520 - KN
+- [Feature] Added DispenseWindow Settings.
+- [Feature] JogControl to check for safe operation.
+- [Enhance] Update frmDisptool to UpdateFormControl
+- [BigFix] frmDispProg2 tstbn_Resume call DispProg.TR_Cancel, instead of Cancel_Click, prevent cancel message
+- [Remove] ExecuteDoHeigh, Remove Z[0]=0 checking, removed redundant Z.Average value manipulation
+- [BigFix] Corrected Option_ShrinkLast2CLine=0 to execute default
+Ver 6.0.9 - 20240517 - KN
+- [Feature] Added Option_ShrinkLast2CLine to shink last 2nd Line length.
+Ver 6.0.8 - 20240510 - KN - Gitted
+- [BugFix] Fix 3DPlane number of points to 3
+- [Feature] Refactor Upload and Dnload Flip to Recipe
+- [Feature] Update DispProg camera to freeze for DoVision
+- [Feature] Added TFMatrix
+- [Enhance] RetryOpenCL3000
+- [Enhance] frmAuto improve display
+Ver 6.0.6 - 20240509 - KN
+- [Feature] Added frmMVCGenTLCamera VisImage to display last Vision Image.
+- [Feature] Added CLineSpeedRatio to define speed compensation for Cline.
+- [HseKeep] Removed sign conversion when value is negative. Display negative average as actual.
+- [Change] DoHeight Z height = 0, prompt to stop or OK to accept.
+- [Improve] frmDispProg_ReadID update current lighting values.
+Ver 6.0.5 - 20240507 - KN
+- [Change] Update frm_DispCore_JogGantryVision from std version
+- [Change] Added frmMain set path for x64 app.  
+Ver 6.0.4 - 20240505 - KN - Gitted
+- [Change] Refactor frmVisionFailMsg2 to solve camera switching problem.
+- [Feature] Enable Cancel after program stop.
+Ver 6.0.2 - 20240505 - KN - Gitted
+- [Change] Removed NDispLicense
+- [Change] Removed LHS_ILD.dll, CReader.dll and Cognex.DataMan.SDK.dll references and dependencies
+- [Change] Removed FlyCapture2Managed.dll, FlyCap2CameraControl.dll references and dependencies
+- [Change] Added MEDAQ.cs and removed CLaser.dll
+Ver 6.0.1 - 20240505 - KN
+- [Feature] Added StripMapFollowRecipe
+Ver 6.0.0 - 20240501 - KN
+- [Migrate] Refactor to x64 from 5.3.0
+
+Ver 5.3.0 - 20240420 - KN - Gitted
+- [Feature] Added Keyence CL3 Support
+- [Enhance] Update frmDisptool to enable label to prevent autorun acccess
+- [Change] Corrected use of NVision.dll version 2.2.34.20053
+Ver 5.2.97 - 20240410 - KN
+- [Feature] Added Options_ExtendLastCLine to add additional line to end of last CLine. 
+- [Enhance] Change FPressH_Timer from 300 tpo 3600, LYL
+- [Feature] Added MsgBtn.Skip and MsgBtn.Retry
+- [BugFix] Pass EStation variables to TaskConv.PushIn(EStation).
+- [Improve] Added EStation variables to manual call for TaskConv.PushIn(EStation).
+- [BugFix] TaskWeigh.WeightCal_Execute set NewAdjustPress = 0 if not weight change to prevent divide by 0.
+Ver 5.2.96 - 20240401 - KN - Gitted
+- [Improve] Refactor DispProg CheckBoardYield to check with or without BdReady.
+- [Improve] Added TaskElev.Left.TransferBusy = false to TaskConv.Init() to prevent flag status interrupt Auto Run.
+- [Improve] Added RunKick(Status) to check destination of frame and check present sensor.
+Ver 5.2.95 - 20240322 - KN - Gitted
+- [BugFix] Corrected Elevator TaskMHS.Left.RunLevel initial condition. Fix skip level.
+- [Changes] frm_DispCore_DispTools remove GControl.UpdateFormControl(this) to prevent buttons enabled.
+- [Changes] Prompt for Level MisMatch to continue and confirmation. Req LYL.
+Ver 5.2.94 - 20240311 - KN  - Gitted 20240311, remote release to LYL
+- [BugFix] Corrected TaskMHS.PusherExt() retry conveyor trigger for when Pusher Enable Conv.
+- [BugFix] Reset Left Mag set ReadyToSend = false;
+- [BugFix] TaskElev.Left/Right move to Mag,level 1,1 if 0,0 and not ready.
+- [Feature] Pro.SvStopperUp when Push with PusherConvRun
+Ver 5.2.93 - 20240304 - KN - Remote release to LYL
+- [Temp] Undo 5.2.88 frm_DispCore_DispTools update GControl.UpdateFormControl(this), to prevent buttons enabled.
+- [BugFix] Revert to check TaskMHS.PushIn thread to prevent multiple instance of PushIn and elev move.
+- [Improve] TaskMHS.PushIn Error stops conveyor
+- [Feature] Added Left and Right Elevator Reset Event
+Ver 5.2.92 - 20240223 - KN - Gitted 20240223
+- [BugFix] Fix bug for DnloadStripMap Flip, correct interation.
+Ver 5.2.91 - 20240223 - KN - Gitted 20240223
+- [Feature] Added EnableUploadStripMapE142 function.
+  - Removed EnableStripMapE142 and UseFreshMap, replace with EnableDnloadStripMapE142, refactor.
+- [Feature] Added DnloadStripMap Flip
+Ver 5.2.90 - 20240130 - KN
+- [Improve] Executes Options_CheckBoardYield at BdReady Command, unload after confirmation to prevent next frame loading.
+- [BugFix] Corrected PPressAdj and FPressAdj save and loading.
+- [Feature] Added FPressH Timer for timed High Press Purge.
+- [Feature] Added OutLevelFollowInLevel to check unload level match load level. MagNo not check to allow flexibility.
+- [Improve] Set SECSGEMConnect2.xmlString to null after upload. Prevent bring forward of old data.
+- [HseKeep] Removed Conv2 methods and dependencies. Not used by Unisem.
+Ver 5.2.89 - 20240116 - KN
+- [Changes] Increase TxRx(TRIGGER:ASET..) from 500 to 1000ms to lessen occurence of Invalid Response.
+- [Improve] Prompt to remove part from conveyor during cancel, set status as Error.
+- [Changes] Set_PressUnit implement singleton, removed threading to prevent error.
+Ver 5.2.88 - 20240103 - KN - Gitted 20240104
+- [BugFix] frm_DispCore_DispTools update GControl.UpdateFormControl(this) to refresh correct access settings.
+- [Improve] Added DispProg.fPoolVermes to frm_DispProg2 to prevent Vermes Error 702
+Ver 5.2.87 - 20231223 - KN
+- [Changes] Discontinue support for DOT_ARRAY, FILL_PAT, SPIRAL_FILL, GROUP_DISP due to complication in adding OffestAll
+- [Feature] Added tsbtn_OffsetAll to OffsetAll Dispense Pattern
+- [Feature] Added Min and Max Adjust for PPress and FPress for SP.
+- [Improve] Conveyor Move Timeout Error, remove Stop option. Retry or Cancel. Cancel will require conveyor init.
+Ver 5.2.86 - 20231127 - KN - Gitted 
+- [BugFix] Correctd TaskMHS.PsntMagz selection
+Ver 5.2.85 - 20231118 - KN - Gitted 20231118
+- [Improve] Update Present Magazine at frm_MHSElevSetup
+- [BugFix] Corrected frm_MHSElevSetup SetLastMagazine to use corrected 1stMag Pos.
+Ver 5.2.84 - 20231116 - KN
+- [Changes] Corrected SP.IntPulseOffDelay display unit.
+- [Changes] Increase MagLevelPitch limit from 10 to 50
+- [Changes] Support Independent MagLevelCount and MagLevelPitch
+Ver 5.2.83 - 20231103 - KN - Gitted 20231106
+- [Changes] Refactor CLine IntSPOff when DispProg.SP.IntPulseOffDelay[0] != 0, correct unit bug and sequence.
+- [Changes] TaskDisp.TaskShotNeedle refactor same as controller
+Ver 5.2.82 - 20231026 - KN - Gitted 20231026
+- [Changes] Added special condition for CLine SPOff when DispProg.SP.IntPulseOffDelay[0] != 0 to cater SMC valve variation.
+- [Changes] Removed Thread_SetDispVolume_Run with SetDispVolume.
+- [Improve] Added EMapBin.RefOK2 = 7 and RefNG2 = 107 for DoVision result, display different color when DoRef is used.
+Ver 5.2.81 - 20230906 - KN - Gitted 20230914
+- [BugFix] Corrected FuncPurgeStage.Execute using StartDelay from changes for 5.2.71
+Ver 5.2.80 - 20230905 - KN
+- [BugFix] Correct Vermes set temp display without offset value. - LRK, vrfy LRK 20230906
+- [Improve] Added TEVermesMDS3200 SetParam wait for Rx; prevent immediate valve activation data not updated. - LYL, vrfy LYL 20230906
+- [BugFix] Check DispProg.bPoolVermes once upon UnitComplete, prevent timeout error due to jetting - LRK, vrfy LRK 20230906
+- [Feature] Added feature DO_VIS_INSP Inspect Prior - to inspect number of prior completed unit. - LYL, vrfy LYL 20230906
+- [Feature] Added TInputMap.Execute added SendDownload retry. - LYL, vrfy LYL 20230906
+Ver 5.2.79 - 20230830 - KN
+- [Revert] TEVermesMDS3200.cs revert TxRx ReadTimeout from 1000 to 500;
+- [[Improve] Added DispProg.bPoolVermes to check temp at start of loop, prevent  timeout error due to jetting
+Ver 5.2.78 - 20230829 - KN - Gitted 20230829
+- [Improve] TEVermesMDS3200.cs added InRange prompt only if 2 consec timeout.
+- [Changes] TEVermesMDS3200.cs chagne TxRx ReadTimeout from 500 to 1000;
+Ver 5.2.77 - 20230829 - KN - Gitted 20230829
+- [Changes] Added VermesLog. Removed frmVermesLog.
+Ver 5.2.76 - 20230824 - KN - Gitted 20230824
+- [Feature] Added STOPPER_UP, STOPPER_DN and SENSOR_DETECT event for Pro station.
+- [Changes] MoveToPro, if MoveTimeOut and stop is selected, set ConvStatus=ErrorInit. Prevent unhandled frame on track.
+- [BufFix] Update b_MovePanelGap at WAIT to prevent needle not up and crash.
+    Updated MovePanelGap with NextCmd == ECmd.FILL_PAT || NextCmd == ECmd.GROUP_DISP
+- Added MDS3200.Heater.TempOfst
+Ver 5.2.75 - 20230617 - KN - Release at Unisem C100.
+- Corrected frmMap edited when maximizing. 
+Ver 5.2.74 - 20230616 - KN - Release at Unisem 10k.
+- Uses NVision 2.2.24.dll
+20230615 11:00-16:00 - KN - Unisem Chengdu
+- TaskMHS.MoveToPro check ProSensor
+- TEVermesMDS3200 refactor to mutex TX and RX
+- TR_StartRun check ProSatus=Empty and ProSensorPsnt move to purge pos, prevent lighting interference to ProSens. 
+- AutoIdle to move pump to Purge Position
+Ver 5.2.73 - 20230512 - KN
+- [Feature] Added frmOptions.Calibration DispProg.SP.IntPulseOnDelay and PulseOffDelay.
+Ver 5.2.72 - 20230408 - KN
+- [Bugfix] Corrected frmSystemConfig description.
+- [Refactor] TEVermesMDS3200 to handle heater temp and tolerance setting.
+- [Feature] Added Vermes Temp checking in AutoRun.
+- [Feature] TaskDisp.PurgeStage.Execute uses Model.DispTime, replace previous use of StartDelay
+- [Changes] Seperate Init Left Elev and Init Right Elev at frm_MHS2Main 
+Ver 5.2.71 - 20230209 - KN
+- [Feature] DispProgUI omit loading invalid command UI.
+- [Request] CamGoOrigin retains last DispProg.RunTime.UIndex, not reset to first unit.
+- [Changes] Increased MaxMPa from 0.45 to 0.7
+- [BugFix] Added MovePanelGap for DOT_P, DOTLINE_MULTI, FILL_PAT and GROUP_DISP
+- [Changes] Seperate frmMain InitLeft and InitRight
+- [Feature] Added Model.DispTime, replace previous use of StartDelay
+Ver 5.2.70 - 20230209 - KN
+- [BugFix] Corrected frmDispProg_ModelList BasicModel index for ParameterChange log
+- [Enhance] Added BOARD_PUSH_IN and BOARD_SEND_OUT event log.
+- [Changes] frmMap MoveTo(int UnitNo, bool temp = true) set to temporary, by request YL
+- [Improve] FPressCtrl.Thread.Set_PressUnit set as individual channel
+- [Improve] Improve DispProg Set_PressUnit to update if different running press 
+- [Improve] Improve TaskDisp.PurgeStage.Execute Set_PressUnit to update if different running press 
+- [Changes] frmDispProg2 set Disp1/2 Pre and Pro Status to NDispWin.TaskConv.EProcessStatus.InProcess at anytime.
+- [Hsekeep] Removed SM_CIRC2 and SM_CIRC3 command and dependecies not used by Unisem
+- [BugFix] Corrected UNIT_CONTINUE set state. Feature is not used by Unisem.
+Ver 5.2.69 - 20221202 - KN
+- [Enhance] Replace Condition Disable with Disp_Counter3
+- [Obsolete] Removed older counter commands COUNTER, CNTR_ACTION, COND_ON, COND_OFF, related methods and dependencies
+- [Feature] Added UNIT_CONTINUE to increment unit stats and update map status as Continue bin.
+Ver 5.2.68 - 20221229 - KN
+- [Enhance] DispProg added Disp_Counter, provide 2 counters.
+- [Improve] frmDispProg added condition para, better display.
+- [Improve] TaskMHS check stopper up before move frame, prevent frame over shoot stopper
+Ver 5.2.67 - 20220722 - KN - Gitted 20221105
+- Added Event 2845 for selected parameter change, including LineSpeed, FPress0, FPress1, DotWeight.
+- Corrected increment of Material.Unit.Count
+Ver 5.2.65 - 20220715 - KN
+- Removed TaskWeight using Vermes ValveCycles
+Ver 5.2.63 - 20220715 - KN
+- Material.Unit.Count by Vermes ValveCycles
+- Removed update TaskConv.Pro.Status from DispProg.Run
+- Added Bias Kernel to support Z compensation
+- Save Material.Unit.Count
+Ver 5.2.59 - 20220705 - KN
+- Corrected DispProg RunDispTable() missing code due to housekeeping.
+- DispProg.Settings.SetZStation as value. Remove offset consideration.
+- Added CheckBoardYield function.
+- Removed LmdsWebService and LmdsCOBTester and all relations.
+- frmPurgeClean disable control when Count = 0 (Auto)
+Ver 5.2.56 - 20220530 - KN
+- TaskWeight Cal and Meas FPressOn after Clean to prevent FPress off during weight.
+Ver 5.2.55 - 20220530 - KN
+- Added frmDispProg display Comment (Add to event log.)
+- Shrink frmDispProg_DoVision height smaller to prevent hinden button for smaller res monitor.
+- Increment Stats.DispCount for TaskWeight_DownWeightUp, increase count for measure and calibration.
+- TaskGantry LoadDeviceConfig Input and Output limits the max AxisPort no
+Ver 5.2.53 - 20220513 - KN
+- frmVermesMDS3200 increment Material.Unit.
+- Removed OsramSCC and all dependencies, not used by Unisem incl frm_InfoPanel_VolAdjust, frm_OsramSCC_LotInfo, TaskDisp.OsramSCC
+Ver 5.2.52 - 20220428 - KN
+- added write COMMENT to Event.
+- frmAuto and frm_DispCore_DispTools add GControl.UpdateFormControl(this);
+Ver 5.2.51 - 20220418 - KN
+- Added DispProg check MapState for PurgeStage and WipeStage
+Ver 5.2.50 - KN
+- TaskDisp.TempCtrl.Set round values before cast to short. Prevent (int) taking the integer value only result lower value. eg 29.99 set as 29.
+- Increment Stats.DispCount for CleanPurge by estimation of dots 
+Ver 5.2.49 - KN
+- Update code to Generate ALID and CEID
+Ver 5.2.48 - 2022/4/4 - KN
+- Added SECSGEMConnect2 EStripMapFlip to flip map during upload
+- MHS2ConvIO conveyor mouse down to check for Left button to prevent right click which call credential context menu 
+- TempCtrl.Run alway set run. Prevent SV=0 not set to run mode
+- frmDispProg_MoveLine btn_OfstAll apply to current FOR_LAYOUT group only.
+- Update frmMHSMain InitElev according to config.
+Ver 5.2.47 - 2022/2/13 - KN
+- Improve GControl ComboBox update
+- TaskGantry LoadDeviceConfig Input and Output limits the max AxisPort no
+Ver 5.2.46 - 2022/1/13 - KN - Gitted
+- OpenBoard prioriy to reset GUAxis error, sequence of AlarmDisable then ClearError
+- Corrected DoorCheck_Elev to handled prompt correctly.
+Ver 5.2.45 - 2022/1/10 - KN
+- Verified funtion of ElevDoor stop disp.
+- Added DoorLock to DispProg Run, Resume, PumpMaint, McMaint, Clean Purge
+- UseConfig file ClearAxisError for GUAxis.
+- Remove frmDispProg2 test Button1
+Ver 5.2.43 - 2021/12/23 - KN
+- frmDispProg2 set ProStatus to NDispWin.TaskConv.EProcessStatus.InProcess at anytime.
+- Door unlock upon frmDispProg completion
+Ver 5.2.42 - KN
+- Prompt confirm Run RecoverMap Upload
+Ver 5.2.41 - KN
+- Allow functional SECSGEMConnect2.UseMap
+- Handle DispProg.Run _Pause and _Error, check LastLine >= 0  that cause hang, unknown why exception error was not thrown
+- Removed TOutputMap.Execute for Unisem SECSGEM. Unecessary map loading.
+Ver 5.2.40 - KN
+- GDefine.RunDispConv prevent TR_Cancel at WaitDisp 
+- frmAuto display on Device.Recipe - requested Nov2021
+- Removed redundant Intf.Program.Name. Used GDefine.ProgRecipeName.
+Ver 5.2.39 - Branched from standard.

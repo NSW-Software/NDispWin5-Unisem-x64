@@ -1,5 +1,12 @@
 ﻿NDispWin Unisem Version
 
+Readme:
+The souce contains 2 project one under AnyCPU and another x86, due to different management of Managed and Native dlls.
+All framework and sources are identical except:
+- NDispWin.proj -> AnyCPU Build wiht references to 64bit dlls.
+- NDispWin x86.proj -> AnyCPU Build wiht references to 32bit dlls.
+Edit on the 64bits version, duplicate the project and replace NDispWin x86.proj file and bin folders. Build solution.
+
 TaskWeight ReadImme at Open
 
 Todo:
@@ -8,14 +15,28 @@ Tidy frm_DispProg_View
 Refac TaskVision
 Refac frm_DispCore_JogGantryVision
 
-
 Solder End Point Bigger
 Solder Start Line Thin
 Diff Height Result 
 Software Hang frequent
 Dispense Head Z Path
 
-
+Ver 6.1.0.0 PE32 - 20240810 - Release to LYL/WK for UnisemCD - Gitted
+- [Request] Removed ProcessCamera function and dependencies.
+- [Enhance] Added frmDispProg border with sw information.
+- [Feature] Added rtbAdmin to DispProg for display of advance info.
+- [BugFix] frmDispProg fix new recipe.
+- [HseKeep] Removed frmLighting, frm_TeachNeedle_LaserCrosshair, frmVision, frmReticleSetup and dependencies, not longer used.
+- [HseKeep] Removed TeachNeedle.StepByStep variables and dependencies
+- [Improve] Change XY home mode from MODE8_LmtSearch to EHomeMode.MODE13_LmtSearchReFind, repeat limit find at slow speed, improve home pos repeatability.
+- [Improve] Change Z home mode from MODE7_AbsSearch to EHomeMode.MODE11_AbsSearchReFind, repeat limit find at slow speed, improve home pos repeatability.
+[Improve] TaskMHS.Unload_Out() unlock door for jam clear.
+[Improve] Prevent Run_MoveInTo, MoveInToPre, MoveInToPos if OutSensPsnt.
+- [Request] LED Scrollbar log first and last value, reduce log for the progress of change.
+[Verify] ZSensorPos readout to be accurate
+- [BugFix] frm_DispCore_JogGantryVision, update show reticle.
+- [Improve] Dual Mirror Project for x64 and x86 using diferrent dll and native dlls. Master x64. Using framework 4.7.2.
+- [Enhance] Corrected ErrorMap Clear and Edit.
 Ver 6.0.18.3- 20240728 - Release to LYL/WK for UnisemCD - Gitted
 - [Improve] Added TFPress_RS232.Open DiscardInBuffer to clear any in buffers that cause return incorrect value 
 - [Enhance] MVC_GenTL.cs use EmguBox, reduce bmp image conversion loading, optimize memory usage
