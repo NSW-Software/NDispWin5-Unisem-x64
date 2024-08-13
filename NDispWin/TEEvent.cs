@@ -240,6 +240,11 @@ namespace NDispWin
         public static TEEvent BOARD_MANUAL_ARRIVED_IN_STATION = new TEEvent(MHS_EVENT + 121, "Board Manual Arrived In Station.");
         public static TEEvent BOARD_SMEMA_ARRIVED_IN_STATION = new TEEvent(MHS_EVENT + 122, "Board SMEMA Arrived In Station.");
 
+        public static TEEvent BOARD_MANUAL_RETURN = new TEEvent(MHS_EVENT + 124, "Manual Return Board to In Station.");
+        public static TEEvent BOARD_MANUAL_LOADPRE = new TEEvent(MHS_EVENT + 125, "Manual Load Board to Pre Station.");
+        public static TEEvent BOARD_MANUAL_LOADPRO = new TEEvent(MHS_EVENT + 126, "Manual Load Board to Pro Station.");
+        public static TEEvent BOARD_MANUAL_UNLOAD = new TEEvent(MHS_EVENT + 127, "Manual UnLoad Board.");
+
         public static TEEvent BOARD_SEND_OUT_CONV2 = new TEEvent(MHS_EVENT + 130, "Board Send Out Conv2.");
         public static TEEvent BOARD_SENT_OUT_TO_MAGAZINE = new TEEvent(MHS_EVENT + 131, "Board Send Out to Magazine.");
         public static TEEvent BOARD_SEND_OUT_SMEMA = new TEEvent(MHS_EVENT + 132, "Board Send Out SMEMA.");

@@ -5918,18 +5918,11 @@ namespace NDispWin
             }
             #endregion
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                TaskVision.flirCamera2[0].GrabCont();
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 TaskVision.genTLCamera[0].StartGrab();
             return true;
 
         _Fail:
-            if (GDefine.CameraType[0] == GDefine.ECameraType.PtGrey)
-            {// TaskVision.PtGrey_CamLive(0);
-            }
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                TaskVision.flirCamera2[0].GrabCont();
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 TaskVision.genTLCamera[0].StartGrab();
             return false;
@@ -9063,13 +9056,6 @@ namespace NDispWin
                         Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
 
                         _Retry:
-                        if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                        {
-                            //TaskVision.flirCamera2[0].Snap();
-                            if (!TaskVision.flirCamera2[0].Snap()) return false;
-                            Image = TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Clone();
-                            TaskVision.flirCamera2[0].GrabCont();
-                        }
                         if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
                         {
                             TaskVision.genTLCamera[0].GrabOneImage();

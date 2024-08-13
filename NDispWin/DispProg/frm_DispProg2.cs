@@ -379,23 +379,7 @@ namespace NDispWin
                             break;
                         }
                     #endregion
-                    case DispProg.ECmd.DO_REF_EDGE:
-                        #region
-                        {
-                            Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
-                            Para = "[" + CmdLine.Line[i].ID.ToString() + "] ";
-
-                            Para = Para + Enum.GetName(typeof(EAlignType), CmdLine.Line[i].IPara[2]) + " ";
-
-                            Para = Para + "P1(" + CmdLine.Line[i].X[0].ToString("F3") + "," + CmdLine.Line[i].Y[0].ToString("F3") + ") ";
-                            if (CmdLine.Line[i].IPara[0] == 2)
-                            {
-                                Para = Para + "P2(" + CmdLine.Line[i].X[1].ToString("F3") + "," + CmdLine.Line[i].Y[1].ToString("F3") + ")";
-                            }
-                            break;
-                        }
-                    #endregion
-                    case DispProg.ECmd.USE_REF:
+                   case DispProg.ECmd.USE_REF:
                     case DispProg.ECmd.USE_VISION:
                         #region
                         {
@@ -929,7 +913,6 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        public static frmCamera frmCamera = new frmCamera();
         private void frmDispProg_Load(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
@@ -942,26 +925,22 @@ namespace NDispWin
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
-                frmCamera.Dispose();
-                //Invoke(new Action(() =>
-                //{
-                    TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
-                    TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
-                    TaskVision.frmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
-                    TaskVision.frmMVCGenTLCamera.TopLevel = false;
-                    TaskVision.frmMVCGenTLCamera.Parent = splitContainer2.Panel1;
-                    TaskVision.frmMVCGenTLCamera.Dock = DockStyle.Fill;
-                    TaskVision.frmMVCGenTLCamera.Show();
+                TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
+                TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
+                TaskVision.frmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
+                TaskVision.frmMVCGenTLCamera.TopLevel = false;
+                TaskVision.frmMVCGenTLCamera.Parent = splitContainer2.Panel1;
+                TaskVision.frmMVCGenTLCamera.Dock = DockStyle.Fill;
+                TaskVision.frmMVCGenTLCamera.Show();
 
-                    if (TaskVision.genTLCamera[0].IsConnected)
-                    {
-                        TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                        TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
-                        TaskVision.genTLCamera[0].StartGrab();
-                    }
-                //}));
-
+                if (TaskVision.genTLCamera[0].IsConnected)
+                {
+                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
+                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
+                    TaskVision.genTLCamera[0].StartGrab();
+                }
             }
+            
             frm_Jog = new frmJogGantry();
             frm_Jog.FormBorderStyle = FormBorderStyle.None;
             frm_Jog.TopLevel = false;
@@ -1632,22 +1611,6 @@ namespace NDispWin
                                         break;
                                     }
                                 #endregion
-                                case DispProg.ECmd.DO_REF_EDGE:
-                                    #region
-                                    {
-                                        frmDispProgDoRefEdge frm = new frmDispProgDoRefEdge();
-                                        frm.TopLevel = false;
-                                        frm.Parent = this;
-                                        frm.ProgNo = SelProg;
-                                        frm.LineNo = ProgLine;
-                                        frm.SubOrigin = SubOfst;
-                                        frm.BringToFront();
-                                        Dirty = true;
-                                        Done = false;
-                                        frm.Show();
-                                        break;
-                                    }
-                                #endregion
                                 case DispProg.ECmd.DO_VISION:
                                     #region
                                     {
@@ -2262,7 +2225,6 @@ namespace NDispWin
                                 case DispProg.ECmd.DO_HEIGHT:
                                 case DispProg.ECmd.DO_REF:
                                 case DispProg.ECmd.DO_VISION:
-                                case DispProg.ECmd.DO_REF_EDGE:
                                     double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOfst.X) + DispProg.Script[SelProg].CmdList.Line[ProgLine].X[0];
                                     double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOfst.Y) + DispProg.Script[SelProg].CmdList.Line[ProgLine].Y[0];
                                     if (!TaskDisp.TaskMoveGZZ2Up()) return;
@@ -2718,11 +2680,6 @@ namespace NDispWin
 
             await Task.Run(() => TaskRun());
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                frmCamera.SelectCamera(0);
-                frmCamera.Grab();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera.SelectCamera(0);
@@ -2784,11 +2741,6 @@ namespace NDispWin
 
             await Task.Run(() => TaskCycleRun());
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                frmCamera.SelectCamera(0);
-                frmCamera.Grab();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.frmMVCGenTLCamera.SelectCamera(0);

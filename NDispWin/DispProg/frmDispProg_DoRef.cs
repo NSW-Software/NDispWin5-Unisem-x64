@@ -328,10 +328,6 @@ namespace NDispWin
 
             int Threshold = (int)CmdLine.DPara[5];
             TaskVision.TeachReference(CamID, CmdLine.ID, (int)EVisionRef.No1, ref Threshold);
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                TaskVision.flirCamera2[0].GrabCont();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.genTLCamera[0].StartGrab();
@@ -359,10 +355,6 @@ namespace NDispWin
             int CamID = CmdLine.IPara[1];
             int Threshold = (int)CmdLine.DPara[5];
             TaskVision.TeachReference(CamID, CmdLine.ID, (int)EVisionRef.No2, ref Threshold);
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                TaskVision.flirCamera2[0].GrabCont();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVision.genTLCamera[0].StartGrab();
@@ -448,10 +440,6 @@ namespace NDispWin
             else
             {
                 if (!TaskVision.MatchReference(CmdLine.IPara[1], CmdLine.ID, (int)EVisionRef.No1, Threshold, out ox, out oy, out s)) return;
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[0].StartGrab();
@@ -513,10 +501,6 @@ namespace NDispWin
             {
                 if (!TaskVision.MatchReference(CmdLine.IPara[1], CmdLine.ID, (int)EVisionRef.No2, Threshold, out ox, out oy, out s)) return;
 
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
                 if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[0].StartGrab();

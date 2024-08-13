@@ -8,6 +8,8 @@ using System.Threading;
 using System.Windows.Forms;
 using MvCamCtrl.NET;
 using System.Reflection;
+using System.Drawing;
+using System.Xml;
 
 namespace MVC
 {

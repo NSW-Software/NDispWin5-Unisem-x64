@@ -25,7 +25,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>x64</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -50,7 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;x86</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -59,7 +60,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;x86</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -164,6 +165,12 @@
     </Compile>
     <Compile Include="frmAppInfo.Designer.cs">
       <DependentUpon>frmAppInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DispProg\frmDispProgDoRefEdge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispProg\frmDispProgDoRefEdge.Designer.cs">
+      <DependentUpon>frmDispProgDoRefEdge.cs</DependentUpon>
     </Compile>
     <Compile Include="DispProg\frmCmdSelect.cs">
       <SubType>Form</SubType>
@@ -272,6 +279,12 @@
     </Compile>
     <Compile Include="Vermes\frmVermesMDS3200.Designer.cs">
       <DependentUpon>frmVermesMDS3200.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JogAndVision\frmImageSelectBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JogAndVision\frmImageSelectBox.designer.cs">
+      <DependentUpon>frmImageSelectBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\frmDevice.cs">
       <SubType>Form</SubType>
@@ -419,6 +432,7 @@
     <Compile Include="Main\frm_Main.designer.cs">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Camera\Camera.cs" />
     <Compile Include="CMControl.cs" />
     <Compile Include="Settings\frmDeviceAxisConfigEditor.cs">
       <SubType>Form</SubType>
@@ -661,6 +675,12 @@
     </Compile>
     <Compile Include="DispProg\frmDispProg_SpiralFill.designer.cs">
       <DependentUpon>frmDispProg_SpiralFill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Camera\frmCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Camera\frmCamera.designer.cs">
+      <DependentUpon>frmCamera.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMap.cs">
       <SubType>Form</SubType>
@@ -1258,6 +1278,9 @@
     <EmbeddedResource Include="frmAppInfo.resx">
       <DependentUpon>frmAppInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DispProg\frmDispProgDoRefEdge.resx">
+      <DependentUpon>frmDispProgDoRefEdge.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmCmdSelect.resx">
       <DependentUpon>frmCmdSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -1289,6 +1312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vermes\frmVermesMDS3200.resx">
       <DependentUpon>frmVermesMDS3200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JogAndVision\frmImageSelectBox.resx">
+      <DependentUpon>frmImageSelectBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main\frmDevice.resx">
       <DependentUpon>frmDevice.cs</DependentUpon>
@@ -1362,6 +1388,9 @@
     <EmbeddedResource Include="Main\frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Camera\frmCamera.resx">
+      <DependentUpon>frmCamera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JogAndVision\frmReticleSetup2.resx">
       <DependentUpon>frmReticleSetup2.cs</DependentUpon>

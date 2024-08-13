@@ -256,13 +256,6 @@ namespace NDispWin
             try
             {
                 Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
-                if (GDefine.CameraType[CamID] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[CamID].Snap();
-                    Image = TaskVision.flirCamera2[CamID].m_ImageEmgu.m_Image.Clone();
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
-                else
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[CamID].GrabOneImage();
@@ -413,14 +406,7 @@ namespace NDispWin
                 TaskVision.TDoRefData DoRefData = new TaskVision.TDoRefData();
 
                 TaskVision.ExecVision(CamID, CmdLine.ID, ref X, ref Y, ref A, ref S, ref OK);
-                if (GDefine.CameraType[CamID] == GDefine.ECameraType.PtGrey)
-                {
-                    //TaskVision.PtGrey_CamLive(CamID);
-                }
-                if (GDefine.CameraType[CamID] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
+
                 if (GDefine.CameraType[CamID] == GDefine.ECameraType.MVSGenTL)
                 {
                     TaskVision.genTLCamera[0].StartGrab();

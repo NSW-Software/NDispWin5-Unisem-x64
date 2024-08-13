@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDispWin x86", "NDispWin x86\NDispWin x86.csproj", "{081767F7-5ED0-4016-888D-7B67AEBBF83C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDispWin x86", "NDispWin\NDispWin x86.csproj", "{081767F7-5ED0-4016-888D-7B67AEBBF83C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

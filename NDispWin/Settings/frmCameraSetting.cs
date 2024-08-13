@@ -75,16 +75,6 @@ namespace NDispWin
         {
             switch (GDefine.CameraType[CamNo])
             {
-                case GDefine.ECameraType.Spinnaker2:
-                    {
-                        double Min = 0;
-                        double Max = 20;
-                        double d = TaskVision.ExposureTime[CamNo];
-                        UC.AdjustExec("Cam " + CamNo.ToString() + ", Exposure Time (us)", ref d, Min, Max);
-                        TaskVision.ExposureTime[CamNo] = d;
-                        TaskVision.flirCamera2[CamNo].Exposure = d * 1000;
-                        break;
-                    }
                 case GDefine.ECameraType.MVSGenTL:
                     {
                         double Min = 0;
@@ -102,14 +92,6 @@ namespace NDispWin
         {
             switch (GDefine.CameraType[CamNo])
             {
-                case GDefine.ECameraType.Spinnaker2:
-                    {
-                        double Min = 0;
-                        double Max = 24;
-                        UC.AdjustExec("Cam " + CamNo.ToString() + ", Gain", ref TaskVision.Gain[CamNo], Min, Max);
-                        TaskVision.flirCamera2[CamNo].Gain = TaskVision.Gain[CamNo];
-                        break;
-                    }
                 case GDefine.ECameraType.MVSGenTL:
                     {
                         double Min = 0;

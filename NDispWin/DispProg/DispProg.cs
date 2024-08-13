@@ -404,7 +404,7 @@ namespace NDispWin
             X[0]            [XPos]
             Y[0]            [YPos]
             */
-            DO_REF_EDGE = 227,
+            //DO_REF_EDGE = 227,
             DO_REF_CHECK = 228,
             DO_VISION_CHECK = 229,
 
@@ -2984,14 +2984,6 @@ namespace NDispWin
 
         public static void SetCameraLive()
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                Application.OpenForms[0].Invoke(new Action(() => {
-                    TaskVision.frmCamera.SelectCamera(0);
-                    //TaskVision.flirCamera2[0].GrabCont();
-                }));
-                TaskVision.flirCamera2[0].GrabCont();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 Application.OpenForms[0].Invoke(new Action(() =>
@@ -3866,7 +3858,7 @@ namespace NDispWin
                             }
                         }
                     }
-                    if (CmdList.Line[i].Cmd == ECmd.DO_REF || CmdList.Line[i].Cmd == ECmd.DO_REF_EDGE)
+                    if (CmdList.Line[i].Cmd == ECmd.DO_REF)
                     {
                         //auto assign ID
                         CmdList.Line[i].ID = DoRefNo;
@@ -3879,7 +3871,7 @@ namespace NDispWin
                             CmdList.Line[i].ID = 0;
                             for (int j = i; j > 0; j--)
                             {
-                                if (CmdList.Line[j].Cmd == ECmd.DO_REF || CmdList.Line[i].Cmd == ECmd.DO_REF_EDGE)
+                                if (CmdList.Line[j].Cmd == ECmd.DO_REF)
                                 {
                                     CmdList.Line[i].ID = CmdList.Line[j].ID;
                                     break;
@@ -4079,7 +4071,6 @@ namespace NDispWin
                             break;
                         #endregion
                         case ECmd.DO_REF:
-                        case ECmd.DO_REF_EDGE:
                             #region
                             b_DoRef = true;
                             break;
@@ -6022,788 +6013,6 @@ namespace NDispWin
                                     _End:
                                     break;
                                 }
-                            case ECmd.DO_REF_EDGE:
-                                {
-                                    //SetCameraLive();
-
-                                    EMsg = Msg + ActiveLine.Cmd.ToString();
-                                    int RefID = ActiveLine.ID;
-
-                                    #region Get current unit info
-                                    int CColNo = 0; int CRowNo = 0; int UColNo = 0; int URowNo = 0;
-                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex, ref UColNo, ref URowNo, ref CColNo, ref CRowNo);
-                                    int ColNo = 0; int RowNo = 0;
-                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex, ref ColNo, ref RowNo);
-                                    #endregion
-
-                                    TRefData RefData = new TRefData();
-                                    double d_Ref_Rel_X = rt_Layout_Rel_X;
-                                    double d_Ref_Rel_Y = rt_Layout_Rel_Y;
-
-                                    if (rt_Layouts[rt_LayoutID].UnitNoIsHead2(RunTime.UIndex))
-                                    {
-                                        if (rt_Head2MapBin >= EMapBin.BinNG) goto _End;
-                                    }
-                                    else
-                                        if (rt_Head1MapBin >= EMapBin.BinNG) goto _End;
-
-                                    if (rt_RefDatas[RefID].Data[RunTime.UIndex].Ready) goto _End;
-
-                                    b_Flag_ConsecutiveUnit = false;
-
-                                    switch ((EAlignType)ActiveLine.IPara[2])
-                                    {
-                                        #region Manage Align Type
-                                        case EAlignType.Board:
-                                        default:
-                                            #region
-                                            d_Ref_Rel_X = rt_LayoutRelPos[0].X;
-                                            d_Ref_Rel_Y = rt_LayoutRelPos[0].Y;
-                                            break;
-                                        #endregion
-                                        case EAlignType.Clstr:
-                                            #region
-                                            for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                            {
-                                                int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                if (i_CColNo == CColNo && i_CRowNo == CRowNo && i_UColNo == 0 && i_URowNo == 0)
-                                                {
-                                                    d_Ref_Rel_X = rt_LayoutRelPos[i].X;
-                                                    d_Ref_Rel_Y = rt_LayoutRelPos[i].Y;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        #endregion
-                                        case EAlignType.ClstrCol:
-                                            #region
-                                            for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                            {
-                                                int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                if (i_CColNo == CColNo && i_CRowNo == 0 && i_UColNo == 0 && i_URowNo == 0)
-                                                {
-                                                    d_Ref_Rel_X = rt_LayoutRelPos[i].X;
-                                                    d_Ref_Rel_Y = rt_LayoutRelPos[i].Y;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        #endregion
-                                        case EAlignType.ClstrRow:
-                                            #region
-                                            for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                            {
-                                                int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                if (i_CColNo == 0 && i_CRowNo == CRowNo && i_UColNo == 0 && i_URowNo == 0)
-                                                {
-                                                    d_Ref_Rel_X = rt_LayoutRelPos[i].X;
-                                                    d_Ref_Rel_Y = rt_LayoutRelPos[i].Y;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        #endregion
-                                        case EAlignType.Unit:
-                                            #region
-                                            if (rt_Head1MapBin >= EMapBin.BinNG) goto _End;
-                                            break;
-                                        #endregion
-                                        case EAlignType.UnitCol:
-                                            #region
-                                            for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                            {
-                                                int i_ColNo = 0; int i_RowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);
-
-                                                if (i_ColNo == ColNo && i_RowNo == 0)
-                                                {
-                                                    d_Ref_Rel_X = rt_LayoutRelPos[i].X;
-                                                    d_Ref_Rel_Y = rt_LayoutRelPos[i].Y;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                        #endregion
-                                        case EAlignType.UnitRow:
-                                            #region
-                                            for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                            {
-                                                int i_ColNo = 0; int i_RowNo = 0;
-                                                rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);
-
-                                                if (i_ColNo == 0 && i_RowNo == RowNo)
-                                                {
-                                                    d_Ref_Rel_X = rt_LayoutRelPos[i].X;
-                                                    d_Ref_Rel_Y = rt_LayoutRelPos[i].Y;
-                                                    break;
-                                                }
-                                            }
-                                            break;
-                                            #endregion
-                                            #endregion
-                                    }
-
-                                    TaskVision.LightingOn(TaskVision.LightRGB[RefID]);
-
-                                    #region assign position and do pt1 vision
-                                    double dx1 = f_origin_x + d_Ref_Rel_X + ActiveLine.X[0];
-                                    double dy1 = f_origin_y + d_Ref_Rel_Y + ActiveLine.Y[0];
-
-                                    double tdx1 = dx1;
-                                    double tdy1 = dy1;
-
-                                    if (ActiveLine.ID > 0) TranslatePos(dx1, dy1, rt_Head1RefData, ref dx1, ref dy1);
-
-                                    _RetryRef1:
-                                    double v_ox1_mm = 0;
-                                    double v_oy1_mm = 0;
-                                    PointF patLoc = new PointF(0, 0);
-                                    float ampScore = 0;
-                                    float ampScore2 = 0;
-                                    int found = 0;
-                                    int found2 = 0;
-                                    float roundness = 0;
-                                    float roundness2 = 0;
-
-                                    bool OK1 = false;
-                                    switch (ActiveLine.IPara[8])
-                                    {
-                                        case 0:
-                                            {
-                                                PointF ofst_mm = new PointF(0, 0);
-                                                if (!DoRefEdge(ActiveLine, 0, dx1, dy1, ref patLoc, ref ofst_mm, ref ampScore)) goto _Error;
-                                                v_ox1_mm = ofst_mm.X;
-                                                v_oy1_mm = ofst_mm.Y;
-                                                OK1 = (Math.Abs(v_ox1_mm) <= ActiveLine.DPara[1]) && (Math.Abs(v_oy1_mm) <= ActiveLine.DPara[1]) && (ampScore > 10);
-
-                                                Graphics g;
-                                                g = TaskVision.flirCamera2[0].imgBoxEmgu.CreateGraphics();
-                                                Pen p = new Pen(Color.Blue, 10);
-                                                p.Color = ampScore > 10 ? Color.Lime : Color.Red;
-                                                g.DrawLine(p, patLoc.X, patLoc.Y - 20, patLoc.X, patLoc.Y + 20);
-                                                g.DrawLine(p, patLoc.X - 20, patLoc.Y, patLoc.X + 20, patLoc.Y);
-
-                                                FoundDoRef1_X = v_ox1_mm;
-                                                FoundDoRef1_Y = v_oy1_mm;
-                                                FoundDoRef1_S = ampScore / 255;
-                                                FoundDoRef1_OK = OK1;
-
-                                                break;
-                                            }
-                                        case 1:
-                                            {
-                                                PointF ofst_mm = new PointF(0, 0);
-                                                if (!DoRefCircle(ActiveLine, 0, dx1, dy1, ref patLoc, ref ofst_mm, ref found, ref roundness)) goto _Error;
-                                                v_ox1_mm = ofst_mm.X;
-                                                v_oy1_mm = ofst_mm.Y;
-                                                OK1 = (roundness > 0.85) && (Math.Abs(v_ox1_mm) <= ActiveLine.DPara[1]) && (Math.Abs(v_oy1_mm) <= ActiveLine.DPara[1]);
-
-                                                Graphics g;
-                                                g = TaskVision.flirCamera2[0].imgBoxEmgu.CreateGraphics();
-                                                Pen p = new Pen(Color.Blue, 10);
-                                                p.Color = ampScore > 0.8 ? Color.Lime : Color.Red;
-                                                g.DrawLine(p, patLoc.X, patLoc.Y - 20, patLoc.X, patLoc.Y + 20);
-                                                g.DrawLine(p, patLoc.X - 20, patLoc.Y, patLoc.X + 20, patLoc.Y);
-
-                                                FoundDoRef1_X = v_ox1_mm;
-                                                FoundDoRef1_Y = v_oy1_mm;
-                                                FoundDoRef1_S = roundness;
-                                                FoundDoRef1_OK = OK1;
-
-                                                break;
-                                            }
-                                    }
-
-
-                                    if (!OK1)
-                                    {
-                                        #region
-                                        i_DoRefSkipCntr++;
-                                        EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
-                                        int SkipCount = CmdList.Line[Line].IPara[5];
-                                        if (i_DoRefSkipCntr > SkipCount)
-                                        {
-                                            i_DoRefSkipCntr = 0;
-                                            #region
-                                            if (FailAction == EFailAction.AutoReject)
-                                            {
-                                                BdStatus = EBoardStatus.Reject;
-                                                goto _EndBoard;
-                                            }
-
-                                            DefineSafety.DoorLock = false;
-
-                                            if (System.IO.File.Exists(GDefine.AppPath + "\\Debug.txt"))
-                                            {
-                                                frm_DispCore_JogGantryVision frm = new frm_DispCore_JogGantryVision();
-                                                frm.Inst = "Position Crosshair to Ref";
-                                                frm.ShowVision = true;
-                                                frm.Top = 0;
-                                                DialogResult dr = frm.ShowDialog();
-
-                                                if (dr == DialogResult.OK)
-                                                {
-                                                    OK1 = true;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                frmVisionFailMsg2 frmV = new frmVisionFailMsg2();
-                                                string msg = "Point 1 Fail";
-                                                Log.AddToLog(ActiveLine.Cmd.ToString() + " Fail Unit No " + RunTime.UIndex.ToString() + " " + msg);
-                                                frmV.Message = msg;
-                                                DialogResult dr = frmV.ShowDialog();
-
-                                                switch (dr)
-                                                {
-                                                    #region
-                                                    case DialogResult.Retry:
-                                                        Log.AddToLog("0" + (char)9 + "Retry");
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        goto _RetryRef1;
-                                                    case DialogResult.Cancel://Skip
-                                                        Log.AddToLog("0" + (char)9 + "Skip");
-                                                        OK1 = false;
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        break;
-                                                    case DialogResult.OK://Manual Adjust
-                                                        Log.AddToLog("0" + (char)9 + "Manual");
-                                                        frm_DispProg_View frm = new frm_DispProg_View();
-
-                                                        if (frm.ShowDialog() == DialogResult.OK)
-                                                        {
-                                                            v_ox1_mm = TaskGantry.GXPos() - dx1;
-                                                            v_oy1_mm = TaskGantry.GYPos() - dy1;
-                                                            Log.AddToLog("0" + (char)9 + v_ox1_mm.ToString("f3") + "," + v_oy1_mm.ToString("f3"));
-                                                            OK1 = true;
-                                                        }
-                                                        else goto default;
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        break;
-                                                    default://Stop
-                                                        Log.AddToLog("0" + (char)9 + "Stop");
-                                                        for (int L = Line; L >= 0; L--)
-                                                        {
-                                                            if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                            {
-                                                                LastLine = L;
-                                                                break;
-                                                            }
-                                                        }
-                                                        Thread.Sleep(100);
-                                                        goto _Pause;
-                                                        #endregion
-                                                }
-
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-                                                        TaskVision.frmCamera.SelectCamera(0);
-                                                        TaskVision.frmCamera.Grab();
-                                                    }));
-                                                }
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-                                                        if (TaskVision.frmMVCGenTLCamera.Visible)
-                                                        {
-                                                            TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                                            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                                                        }
-                                                    }));
-                                                }
-                                            }
-                                            #endregion
-                                        }
-                                        #endregion
-                                    }
-                                    else
-                                        if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr = 0;
-
-                                    double ndx1 = dx1 + v_ox1_mm;
-                                    double ndy1 = dy1 + v_oy1_mm;
-                                    #endregion
-
-                                    #region assign ref data
-                                    RefData.Ready = true;
-                                    RefData.DatumX = tdx1;
-                                    RefData.DatumY = tdy1;
-                                    RefData.NewDatumX = ndx1;
-                                    RefData.NewDatumY = ndy1;
-                                    RefData.Angle = 0;
-                                    RefData.OK = OK1;
-                                    #endregion
-
-                                    if (!OK1) goto _RefEnd;
-
-                                    if (CmdList.Line[Line].IPara[0] == 2)
-                                    {
-                                        #region assign position and do pt2 vision
-                                        double dx2 = f_origin_x + d_Ref_Rel_X + ActiveLine.X[1];
-                                        double dy2 = f_origin_y + d_Ref_Rel_Y + ActiveLine.Y[1];
-                                        if (ActiveLine.ID > 0) TranslatePos(dx2, dy2, rt_Head1RefData, ref dx2, ref dy2);
-
-                                        double v_ox2_mm = 0;
-                                        double v_oy2_mm = 0;
-                                        bool OK2 = false;
-
-                                        switch (ActiveLine.IPara[9])
-                                        {
-                                            case 0:
-                                                {
-                                                    PointF ofst_mm = new PointF(0, 0);
-                                                    if (!DoRefEdge(ActiveLine, 1, dx2, dy2, ref patLoc, ref ofst_mm, ref ampScore2)) goto _Error;
-                                                    v_ox2_mm = ofst_mm.X;
-                                                    v_oy2_mm = ofst_mm.Y;
-                                                    OK2 = (Math.Abs(v_ox2_mm) <= ActiveLine.DPara[1]) && (Math.Abs(v_oy2_mm) <= ActiveLine.DPara[1]) && (ampScore2 > 10);
-
-                                                    Graphics g;
-                                                    g = TaskVision.flirCamera2[0].imgBoxEmgu.CreateGraphics();
-                                                    Pen p = new Pen(Color.Blue, 10);
-                                                    p.Color = ampScore2 > 10 ? Color.Lime : Color.Red;
-                                                    g.DrawLine(p, patLoc.X, patLoc.Y - 20, patLoc.X, patLoc.Y + 20);
-                                                    g.DrawLine(p, patLoc.X - 20, patLoc.Y, patLoc.X + 20, patLoc.Y);
-
-                                                    FoundDoRef2_X = v_ox2_mm;
-                                                    FoundDoRef2_Y = v_oy2_mm;
-                                                    FoundDoRef2_S = ampScore2 / 255;
-                                                    FoundDoRef2_OK = OK2;
-                                                    break;
-                                                }
-                                            case 1:
-                                                {
-                                                    PointF ofst_mm = new PointF(0, 0);
-                                                    if (!DoRefCircle(ActiveLine, 1, dx2, dy2, ref patLoc, ref ofst_mm, ref found2, ref roundness2)) goto _Error;
-                                                    v_ox2_mm = ofst_mm.X;
-                                                    v_oy2_mm = ofst_mm.Y;
-                                                    OK2 = (roundness2 > 0.85) && (Math.Abs(v_ox2_mm) <= ActiveLine.DPara[1]) && (Math.Abs(v_oy2_mm) <= ActiveLine.DPara[1]);
-
-                                                    Graphics g;
-                                                    g = TaskVision.flirCamera2[0].imgBoxEmgu.CreateGraphics();
-                                                    Pen p = new Pen(Color.Blue, 10);
-                                                    p.Color = ampScore2 > 0.8 ? Color.Lime : Color.Red;
-                                                    g.DrawLine(p, patLoc.X, patLoc.Y - 20, patLoc.X, patLoc.Y + 20);
-                                                    g.DrawLine(p, patLoc.X - 20, patLoc.Y, patLoc.X + 20, patLoc.Y);
-
-                                                    FoundDoRef2_X = v_ox2_mm;
-                                                    FoundDoRef2_Y = v_oy2_mm;
-                                                    FoundDoRef2_S = roundness2;
-                                                    FoundDoRef2_OK = OK2;
-
-                                                    break;
-                                                }
-                                        }
-
-                                        double ndx2 = dx2 + v_ox2_mm;
-                                        double ndy2 = dy2 + v_oy2_mm;
-                                        #endregion
-
-                                        #region compute pt1 and pt2 angle
-                                        Point2D OriPt1 = new Point2D(dx1, dy1);
-                                        Point2D OriPt2 = new Point2D(dx2, dy2);
-                                        Point2D NewPt1 = new Point2D(ndx1, ndy1);
-                                        Point2D NewPt2 = new Point2D(ndx2, ndy2);
-                                        double Angle_Rad = (double)NewPt2.Angle(NewPt1, OriPt1, OriPt2);
-                                        if (Angle_Rad > Math.PI) Angle_Rad = Angle_Rad - (Math.PI * 2);
-                                        double Angle_Deg = (Angle_Rad * 180) / Math.PI;
-                                        bool OKA = (Math.Abs(Angle_Rad) <= ActiveLine.DPara[2]);
-                                        OK2 = OK2 && OKA;
-                                        #endregion
-
-                                        if (!OK2)
-                                        {
-                                            #region
-                                            EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
-                                            i_DoRefSkipCntr++;
-                                            int SkipCount = CmdList.Line[Line].IPara[5];
-                                            if (i_DoRefSkipCntr > SkipCount)
-                                            {
-                                                i_DoRefSkipCntr = 0;
-
-                                                if (FailAction == EFailAction.AutoReject)
-                                                {
-                                                    BdStatus = EBoardStatus.Reject;
-                                                    goto _EndBoard;
-                                                }
-
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-
-                                                        TaskVision.frmCamera.SelectCamera(0);
-                                                        TaskVision.frmCamera.Grab();
-                                                    }));
-                                                }
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-                                                        if (TaskVision.frmMVCGenTLCamera.Visible)
-                                                        {
-                                                            TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                                            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                                                        }
-                                                    }));
-                                                }
-
-                                                frmVisionFailMsg2 frmV = new frmVisionFailMsg2();
-                                                string msg = "Point 2 Fail";
-                                                Log.AddToLog(ActiveLine.Cmd.ToString() + " Fail Unit No " + RunTime.UIndex.ToString() + " " + msg);
-                                                frmV.Message = msg;
-                                                DialogResult dr = frmV.ShowDialog();
-
-                                                switch (dr)
-                                                {
-                                                    #region
-                                                    case DialogResult.Retry:
-                                                        Log.AddToLog("0" + (char)9 + "Retry");
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        goto _RetryRef1;
-                                                    case DialogResult.Cancel://Skip
-                                                        Log.AddToLog("0" + (char)9 + "Skip");
-                                                        OK2 = false;
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        break;
-                                                    case DialogResult.OK://Manual Adjust
-                                                        Log.AddToLog("0" + (char)9 + "Manual");
-                                                        frm_DispProg_View frm = new frm_DispProg_View();
-
-                                                        if (frm.ShowDialog() == DialogResult.OK)
-                                                        {
-                                                            v_ox2_mm = TaskGantry.GXPos() - dx2;
-                                                            v_oy2_mm = TaskGantry.GYPos() - dy2;
-                                                            Log.AddToLog("0" + (char)9 + v_ox2_mm.ToString("f3") + "," + v_oy2_mm.ToString("f3"));
-                                                            OK2 = true;
-                                                        }
-                                                        else goto default;
-                                                        DefineSafety.DoorLock = true;
-                                                        Thread.Sleep(100);
-                                                        break;
-                                                    default://Stop
-                                                        Log.AddToLog("0" + (char)9 + "Stop");
-                                                        for (int L = Line; L >= 0; L--)
-                                                        {
-                                                            if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                            {
-                                                                LastLine = L;
-                                                                break;
-                                                            }
-                                                        }
-                                                        Thread.Sleep(100);
-                                                        goto _Pause;
-                                                        #endregion
-                                                }
-
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-                                                        TaskVision.frmCamera.SelectCamera(0);
-                                                        TaskVision.frmCamera.Grab();
-                                                    }));
-                                                }
-                                                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                                {
-                                                    Application.OpenForms[0].Invoke(new Action(() =>
-                                                    {
-                                                        if (TaskVision.frmMVCGenTLCamera.Visible)
-                                                        {
-                                                            TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                                            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                                                        }
-                                                    }));
-                                                }
-                                            }
-                                            #endregion
-                                        }
-                                        else
-                                            i_DoRefSkipCntr = 0;
-
-                                        #region compute pt1 and pt2 distance
-                                        {
-                                            Polar Ori = new Polar(OriPt1, OriPt2);
-                                            Polar New = new Polar(NewPt1, NewPt2);
-                                            double Diff = Math.Abs(Ori.R - New.R);
-                                            if (ActiveLine.DPara[3] > 0)
-                                            {
-                                                bool OKD = Diff <= ActiveLine.DPara[3];
-                                                OK2 = OK2 && OKD;
-
-                                                if (!OKD)
-                                                {
-                                                    Msg MsgBox = new Msg();
-                                                    EMsgRes MsgRes = MsgBox.Show(ErrCode.DO_REF_PT1_PT2_DIST_OOS, EMcState.Warning, EMsgBtn.smbOK_Stop, false);
-                                                    if (MsgRes == EMsgRes.smrStop)
-                                                    {
-                                                        goto _Pause;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        #endregion
-
-                                        #region assign ref data
-                                        RefData.Angle = Angle_Rad;
-                                        RefData.OK = OK1 && OK2;
-                                        #endregion
-                                    }
-
-                                _RefEnd:
-
-                                    #region Write Vision Data
-                                    string s_VisionData = "";
-                                    if (CmdList.Line[Line].IPara[0] == 2)
-                                    {
-                                        s_VisionData = s_VisionData + "OX, OY, OA, AmpScore, Result" + (char)9 +
-                                            v_ox1_mm.ToString("f3") + (char)9 +
-                                            v_oy1_mm.ToString("f3") + (char)9 +
-                                            (RefData.Angle * 180 / Math.PI).ToString("f3") + (char)9 +
-                                            ampScore.ToString("f3") + (char)9 +
-                                            RefData.OK.ToString();
-                                    }
-                                    else
-                                    {
-                                        s_VisionData = s_VisionData + "OX, OY, AmpScore, Result" + (char)9 +
-                                            v_ox1_mm.ToString("f3") + (char)9 +
-                                            v_oy1_mm.ToString("f3") + (char)9 +
-                                            ampScore2.ToString("f3") + (char)9 +
-                                            OK1.ToString();
-                                    }
-                                    Log.Vision.WriteByMonthDay("UnitNo " + (char)9 + RunTime.UIndex.ToString() + (char)9 + s_VisionData);
-                                    #endregion
-
-                                    if (!b_InLoop)//***update all layout if ref is done outside loop
-                                    {
-                                        #region
-                                        for (int ID = 0; ID < rt_LayoutCount; ID++)
-                                        {
-                                            for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
-                                            {
-                                                rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
-                                                if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
-                                                {
-                                                    if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
-                                                        Map.CurrMap[ID].Bin[i] = EMapBin.RefOK;
-                                                    else
-                                                        Map.CurrMap[ID].Bin[i] = EMapBin.RefNG;
-                                                }
-                                            }
-                                        }
-                                        #endregion
-                                    }
-                                    else
-                                        switch ((EAlignType)ActiveLine.IPara[2])
-                                        {
-                                            #region Update Unit RefData
-                                            case EAlignType.Board:
-                                            default:
-                                                #region
-                                                {
-                                                    if (ActiveLine.IPara[7] > 0)//update all layout; eg for net dispense
-                                                    {
-                                                        for (int ID = rt_LayoutID; ID < rt_LayoutCount; ID++)
-                                                        {
-                                                            for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
-                                                            {
-                                                                rt_RefDatas[RefID].Data[i].Copy(RefData);
-                                                                if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
-                                                                {
-                                                                    if (rt_RefDatas[RefID].Data[i].OK)
-                                                                        Map.CurrMap[ID].Bin[i] = EMapBin.RefOK;
-                                                                    else
-                                                                        Map.CurrMap[ID].Bin[i] = EMapBin.RefNG;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                        {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
-                                                            if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                            {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
-                                                                    Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                                else
-                                                                    Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.Clstr:
-                                                #region
-                                                {
-                                                    if (ActiveLine.IPara[7] > 0)//update all layout; eg for net dispense
-                                                    {
-                                                        for (int ID = rt_LayoutID; ID < rt_LayoutCount; ID++)
-                                                        {
-                                                            for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
-                                                            {
-                                                                int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                                rt_Layouts[ID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                                if (i_CColNo == CColNo && i_CRowNo == CRowNo)
-                                                                {
-                                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);
-                                                                    if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
-                                                                    {
-                                                                        if (rt_RefDatas[RefID].Data[i].OK)
-                                                                            Map.CurrMap[ID].Bin[i] = EMapBin.RefOK;
-                                                                        else
-                                                                            Map.CurrMap[ID].Bin[i] = EMapBin.RefNG;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                        {
-                                                            int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                            rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                            if (i_CColNo == CColNo && i_CRowNo == CRowNo)
-                                                            {
-                                                                rt_RefDatas[RefID].Data[i].Copy(RefData);
-                                                                if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                                {
-                                                                    if (rt_RefDatas[RefID].Data[i].OK)
-                                                                        Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                                    else
-                                                                        Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.ClstrCol:
-                                                #region
-                                                {
-                                                    for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                    {
-                                                        int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                        rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                        if (i_CColNo == CColNo)
-                                                        {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
-                                                            if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                            {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
-                                                                    Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                                else
-                                                                    Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.ClstrRow:
-                                                #region
-                                                for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                {
-                                                    int i_CColNo = 0; int i_CRowNo = 0; int i_UColNo = 0; int i_URowNo = 0;
-                                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_UColNo, ref i_URowNo, ref i_CColNo, ref i_CRowNo);
-
-                                                    if (i_CRowNo == CRowNo)// && i_UColNo == UColNo && i_URowNo == URowNo)
-                                                    {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
-                                                        if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                        {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                            else
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.Unit:
-                                                #region
-                                                {
-                                                    int i = RunTime.UIndex;
-                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
-                                                    if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                    {
-                                                        if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
-                                                            Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                        else
-                                                            Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.UnitCol:
-                                                #region
-                                                //if (RowNo == 0)
-                                                for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                {
-                                                    int i_ColNo = 0; int i_RowNo = 0;
-                                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);
-
-                                                    if (i_ColNo == ColNo)
-                                                    {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
-                                                        if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                        {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                            else
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            #endregion
-                                            case EAlignType.UnitRow:
-                                                #region
-                                                //if (ColNo == 0)
-                                                for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                                {
-                                                    int i_ColNo = 0; int i_RowNo = 0;
-                                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref i_ColNo, ref i_RowNo);
-
-                                                    if (i_RowNo == RowNo)
-                                                    {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
-                                                        if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
-                                                        {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
-                                                            else
-                                                                Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                                #endregion
-                                                #endregion
-                                        }
-                                    _End:
-                                    break;
-                                }
                             case ECmd.USE_VISION:
                             case ECmd.USE_REF:
                                 {
@@ -7596,9 +6805,6 @@ namespace NDispWin
                                         }
                                         switch (GDefine.CameraType[0])
                                         {
-                                            case GDefine.ECameraType.Spinnaker2:
-                                                TaskVision.flirCamera2[CmdList.Line[Line].IPara[1]].GrabCont();
-                                                break;
                                             case GDefine.ECameraType.MVSGenTL:
                                                 if (TaskVision.frmMVCGenTLCamera.Visible)
                                                 {
@@ -21977,14 +21183,6 @@ namespace NDispWin
 
                 switch (GDefine.CameraType[0])
                 {
-                    case GDefine.ECameraType.PtGrey:
-                        //TaskVision.PGCamera[CamID].SetProperty(PtGrey.TCamera.EProperty.Shutter, Exposure);
-                        //TaskVision.PGCamera[CamID].SetProperty(PtGrey.TCamera.EProperty.Gain, Gain);
-                        break;
-                    case GDefine.ECameraType.Spinnaker2:
-                        TaskVision.flirCamera2[CamID].Exposure = Line.DPara[5] * 1000;
-                        TaskVision.flirCamera2[CamID].Gain = Line.DPara[6];
-                        break;
                     case GDefine.ECameraType.MVSGenTL:
                         TaskVision.genTLCamera[CamID].Exposure = Line.DPara[5] * 1000;
                         TaskVision.genTLCamera[CamID].Gain = Line.DPara[6];
@@ -22019,21 +21217,6 @@ namespace NDispWin
 
                     switch (GDefine.CameraType[CamID])
                     {
-                        case GDefine.ECameraType.Basler:
-                        case GDefine.ECameraType.Spinnaker:
-                            TaskVision.GrabN(CamID, ref SImg[indexX, indexY]);
-                            break;
-                        case GDefine.ECameraType.PtGrey:
-                            //TaskVision.PtGrey_CamStop();
-                            //TaskVision.PtGrey_CamArm(CamID);
-                            //TaskVision.PtGrey_CamTrig(CamID);
-                            //TaskVision.PtGrey_CamImage(CamID, ref SImg[indexX, indexY]);
-                            //TaskVision.PtGrey_CamLive(CamID);
-                            break;
-                        case GDefine.ECameraType.Spinnaker2:
-                            TaskVision.flirCamera2[CamID].Grab();
-                            SImg[indexX, indexY] = TaskVision.flirCamera2[CamID].m_ImageEmgu.m_Image.Clone();
-                            break;
                         case GDefine.ECameraType.MVSGenTL:
                             TaskVision.genTLCamera[CamID].GrabOneImage();
                             SImg[indexX, indexY] = TaskVision.genTLCamera[CamID].mImage.Clone();
@@ -22155,13 +21338,6 @@ namespace NDispWin
             {
                 switch (GDefine.CameraType[0])
                 {
-                    case GDefine.ECameraType.PtGrey:
-                        //TaskVision.PtGrey_CamStop();
-                        break;
-                    case GDefine.ECameraType.Spinnaker2:
-                        TaskVision.flirCamera2[0].GrabStop();
-                        TaskVision.flirCamera2[CamNo].GrabStop();
-                        break;
                     case GDefine.ECameraType.MVSGenTL:
                         TaskVision.genTLCamera[0].StopGrab();
                         TaskVision.genTLCamera[CamNo].StopGrab();
@@ -22227,21 +21403,6 @@ namespace NDispWin
                 #region Set Camera
                 switch (GDefine.CameraType[0])
                 {
-                    case GDefine.ECameraType.PtGrey:
-                        {
-                            //TaskVision.PGCamera[CamNo].SetProperty(GrabberNET.PtGrey.TCamera.EProperty.Shutter, Line.DPara[5]);
-                            //TaskVision.PGCamera[CamNo].SetProperty(GrabberNET.PtGrey.TCamera.EProperty.Gain, Line.DPara[6]);
-                            //TaskVision.PGCamera[CamNo].GetImageSettings(ref MaxH, ref MaxW, ref L, ref T, ref W, ref H);
-                            break;
-                        }
-                    case GDefine.ECameraType.Spinnaker2:
-                        {
-                            TaskVision.flirCamera2[CamNo].Exposure = Line.DPara[5] * 1000;
-                            TaskVision.flirCamera2[CamNo].Gain = Line.DPara[6];
-                            MaxH = (uint)TaskVision.flirCamera2[CamNo].m_iCamHeight;
-                            MaxW = (uint)TaskVision.flirCamera2[CamNo].m_iCamWidth;
-                            break;
-                        }
                     case GDefine.ECameraType.MVSGenTL:
                         {
                             TaskVision.genTLCamera[CamNo].Exposure = Line.DPara[5] * 1000;
@@ -22262,15 +21423,6 @@ namespace NDispWin
                             int Top = 0;
                             switch (GDefine.CameraType[0])
                             {
-                                case GDefine.ECameraType.PtGrey:
-                                    //TaskVision.PGCamera[CamNo].SetImageSettings((uint)Left, (uint)Top, (uint)LineW_Pix, (uint)MaxH);
-                                    break;
-                                case GDefine.ECameraType.Spinnaker2:
-                                    TaskVision.flirCamera2[CamNo].ImageWidth = (int)LineW_Pix;
-                                    TaskVision.flirCamera2[CamNo].ImageHeight = (int)MaxH;
-                                    TaskVision.flirCamera2[CamNo].OffsetX = (int)Left;
-                                    TaskVision.flirCamera2[CamNo].OffsetY = (int)Top;
-                                    break;
                                 case GDefine.ECameraType.MVSGenTL:
                                     TaskVision.genTLCamera[CamNo].ImageWidth = (uint)LineW_Pix;
                                     TaskVision.genTLCamera[CamNo].ImageHeight = (uint)MaxH;
@@ -22288,15 +21440,6 @@ namespace NDispWin
                             if (Top % 2 == 1) Top--;
                             switch (GDefine.CameraType[0])
                             {
-                                case GDefine.ECameraType.PtGrey:
-                                    //TaskVision.PGCamera[CamNo].SetImageSettings((uint)Left, (uint)Top, (uint)MaxW, (uint)LineW_Pix);
-                                    break;
-                                case GDefine.ECameraType.Spinnaker2:
-                                    TaskVision.flirCamera2[CamNo].ImageWidth = (int)MaxW;
-                                    TaskVision.flirCamera2[CamNo].ImageHeight = (int)LineW_Pix;
-                                    TaskVision.flirCamera2[CamNo].OffsetX = (int)Left;
-                                    TaskVision.flirCamera2[CamNo].OffsetY = (int)Top;
-                                    break;
                                 case GDefine.ECameraType.MVSGenTL:
                                     TaskVision.genTLCamera[CamNo].ImageWidth = (uint)MaxW;
                                     TaskVision.genTLCamera[CamNo].ImageHeight = (uint)LineW_Pix;
@@ -22351,13 +21494,7 @@ namespace NDispWin
 
                 switch (GDefine.CameraType[0])
                 {
-                    case GDefine.ECameraType.PtGrey:
-                        //TaskVision.PtGrey_CamArm(CamNo);
-                        break;
-                    case GDefine.ECameraType.Spinnaker2:
-                        TaskVision.flirCamera2[CamNo].TriggerSourceHw = true;
-                        TaskVision.flirCamera2[CamNo].TriggerMode = true;
-                        break;
+
                     case GDefine.ECameraType.MVSGenTL:
                         TaskVision.genTLCamera[CamNo].TriggerSourceHw = true;
                         TaskVision.genTLCamera[CamNo].TriggerMode = true;
@@ -22383,82 +21520,6 @@ namespace NDispWin
 
                     switch (GDefine.CameraType[0])
                     {
-                        case GDefine.ECameraType.PtGrey:
-                            {
-                                //int t_RetreiveTimeOut = GDefine.GetTickCount();
-                                //TaskVision.PGCamera[CamNo].RetreiveBuffer();
-                                //int t3 = GDefine.GetTickCount() - t_RetreiveTimeOut;
-                                //if (t3 >= 3000)
-                                //{
-                                //    if (Retried < 1)
-                                //    {
-                                //        Retried++;
-                                //        Log.AddToLog("DoBdCapture retried " + Retried.ToString());
-                                //        goto _Retry;
-                                //    }
-                                //    else
-                                //    {
-                                //        Msg MsgBox = new Msg();
-                                //        EMsgRes Resp = MsgBox.Show(ErrCode.CAMERA_GRAB_TIMEOUT, EMcState.Error, EMsgBtn.smbRetry_Stop, true);
-
-                                //        switch (Resp)
-                                //        {
-                                //            case EMsgRes.smrRetry:
-                                //                {
-                                //                    TaskVision.PtGrey_CamStop();
-                                //                    Retried = 0;
-                                //                    goto _Retry;
-                                //                }
-                                //            case EMsgRes.smrStop:
-                                //                goto _Stop;
-                                //        }
-                                //    }
-                                //}
-
-                                ////Img_Strip = new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[CamNo].Image());
-                                ////Img_Strips.Add(Img_Strip);
-                                //imgVertSlices.Add(TaskVision.PGCamera[CamNo].Image().ToImage<Gray, byte>());//(new Emgu.CV.Image<Emgu.CV.Structure.Gray, byte>(TaskVision.PGCamera[CamNo].Image()));
-                                break;
-                            }
-                        case GDefine.ECameraType.Spinnaker2:
-                            {
-                                int t_TimeOut = GDefine.GetTickCount() + 500;
-                                TaskVision.flirCamera2[CamNo].GrabOne(1000);
-
-                                if (GDefine.GetTickCount() >= t_TimeOut)
-                                {
-                                    if (Retried < 2)
-                                    {
-                                        Retried++;
-                                        Log.AddToLog("DoBdCapture Retried " + Retried.ToString() + " Section " + i.ToString() + " of " + lines.ToString());
-                                        if (!TaskGantry.DecelStop(TaskGantry.GXAxis)) goto _Error;
-                                        if (!TaskGantry.WaitGXY()) goto _Error;
-                                        goto _Retry;
-                                    }
-                                    else
-                                    {
-                                        Msg MsgBox = new Msg();
-                                        EMsgRes Resp = MsgBox.Show(ErrCode.CAMERA_GRAB_TIMEOUT, EMcState.Error, EMsgBtn.smbRetry_Stop, true);
-
-                                        switch (Resp)
-                                        {
-                                            case EMsgRes.smrRetry:
-                                                {
-                                                    Retried = 0;
-                                                    goto _Retry;
-                                                }
-                                            case EMsgRes.smrStop:
-                                                if (!TaskGantry.DecelStop(TaskGantry.GXAxis)) goto _Error;
-                                                if (!TaskGantry.WaitGXY()) goto _Error;
-                                                goto _Stop;
-                                        }
-                                    }
-                                }
-                                //Img_Strip = TaskVision.flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
-                                //Img_Strips.Add(Img_Strip);
-                                imgVertSlices.Add(TaskVision.flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone());
-                                break;
-                            }
                         case GDefine.ECameraType.MVSGenTL:
                             {
                                 int t_TimeOut = GDefine.GetTickCount() + 500;
@@ -22585,25 +21646,6 @@ namespace NDispWin
                 uint L = 0; uint T = 0; uint W = 0; uint H = 0;
                 switch (GDefine.CameraType[0])
                 {
-                    case GDefine.ECameraType.PtGrey:
-                        {
-                            //TaskVision.PtGrey_CamStop();
-                            //TaskVision.PGCamera[CamNo].GetImageSettings(ref MaxH, ref MaxW, ref L, ref T, ref W, ref H);
-                            //TaskVision.PGCamera[CamNo].SetImageSettings(0, 0, (uint)MaxW, (uint)MaxH);
-                            //TaskVision.CameraRun = true;
-                            //TaskVision.PtGrey_CamLive(CamNo);
-                            break;
-                        }
-                    case GDefine.ECameraType.Spinnaker2:
-                        {
-                            TaskVision.flirCamera2[CamNo].GrabStop();
-                            TaskVision.flirCamera2[CamNo].OffsetX = 0;
-                            TaskVision.flirCamera2[CamNo].OffsetY = 0;
-                            TaskVision.flirCamera2[CamNo].ImageWidth = TaskVision.flirCamera2[CamNo].m_iCamWidthMax;
-                            TaskVision.flirCamera2[CamNo].ImageHeight = TaskVision.flirCamera2[CamNo].m_iCamHeightMax;
-                            TaskVision.flirCamera2[CamNo].Snap();
-                            break;
-                        }
                     case GDefine.ECameraType.MVSGenTL:
                         {
                             TaskVision.genTLCamera[CamNo].StopGrab();
@@ -23598,268 +22640,254 @@ namespace NDispWin
             GDefine.Status = EStatus.Stop;
             return false;
         }
-        public static bool DoRefEdge(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref float amplitude)
-        {
-            string EMsg = Line.Cmd.ToString();
-            GDefine.Status = EStatus.Busy;
+        //public static bool DoRefEdge(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref float amplitude)
+        //{
+        //    string EMsg = Line.Cmd.ToString();
+        //    GDefine.Status = EStatus.Busy;
 
-            int id = Line.ID;
+        //    int id = Line.ID;
 
-            TaskVision.LightingOn(TaskVision.LightRGB[id]);
+        //    TaskVision.LightingOn(TaskVision.LightRGB[id]);
 
-            if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
-            if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
+        //    if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
+        //    if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
 
-            #region Move to XY
-            double StartV = Line.DPara[10];
-            if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
-            double DriveV = Line.DPara[11];
-            if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
-            double Accel = Line.DPara[12];
-            if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
-            if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
-            if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
-            #endregion
+        //    #region Move to XY
+        //    double StartV = Line.DPara[10];
+        //    if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
+        //    double DriveV = Line.DPara[11];
+        //    if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
+        //    double Accel = Line.DPara[12];
+        //    if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
+        //    if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
+        //    if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
+        //    #endregion
 
-            Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
-            try
-            {
-                int i_Retry = 0;
-            _Retry:
+        //    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
+        //    try
+        //    {
+        //        int i_Retry = 0;
+        //    _Retry:
 
-                #region Settle Time
-                int SettleTime = Line.IPara[4];
-                int t = GDefine.GetTickCount() + SettleTime;
-                while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-                #endregion
+        //        #region Settle Time
+        //        int SettleTime = Line.IPara[4];
+        //        int t = GDefine.GetTickCount() + SettleTime;
+        //        while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
+        //        #endregion
 
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[0].Snap();
-                    img = TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Clone();
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
-                else
-                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                {
-                    TaskVision.genTLCamera[0].GrabOneImage();
-                    img = TaskVision.genTLCamera[0].mImage.Clone();
-                    if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                }
-                else
-                    throw new Exception("Camera Type not Supported.");
+        //        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //        {
+        //            TaskVision.genTLCamera[0].GrabOneImage();
+        //            img = TaskVision.genTLCamera[0].mImage.Clone();
+        //            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
+        //        }
+        //        else
+        //            throw new Exception("Camera Type not Supported.");
 
-                List<PointF> pointX = new List<PointF>();
-                List<PointF> pointY = new List<PointF>();
-                PointF patOfst = new PointF(0, 0);
+        //        List<PointF> pointX = new List<PointF>();
+        //        List<PointF> pointY = new List<PointF>();
+        //        PointF patOfst = new PointF(0, 0);
 
-                Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
+        //        Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
 
-                TFVision.EArea area = refNo == 0 ? (TFVision.EArea)Line.IPara[14] : (TFVision.EArea)Line.IPara[15];
-                TFVision.EDirPair dirPair = refNo == 0 ? (TFVision.EDirPair)Line.IPara[10] : (TFVision.EDirPair)Line.IPara[11];
-                TFVision.ETransPair transPair = refNo == 0 ? (TFVision.ETransPair)Line.IPara[12] : (TFVision.ETransPair)Line.IPara[13]; TFVision.EDirection dir1 = TFVision.EDirection.PLUS;
-                TFVision.EDirection dir2 = TFVision.EDirection.PLUS;
-                TFVision.ETransition trans1 = TFVision.ETransition.BW;
-                TFVision.ETransition trans2 = TFVision.ETransition.WB;
-                switch (dirPair)
-                {
-                    case TFVision.EDirPair.XRight_YDown:
-                        dir1 = TFVision.EDirection.PLUS;
-                        dir2 = TFVision.EDirection.PLUS;
-                        break;
-                    case TFVision.EDirPair.XRight_YUp:
-                        dir1 = TFVision.EDirection.PLUS;
-                        dir2 = TFVision.EDirection.MINUS;
-                        break;
-                    case TFVision.EDirPair.XLeft_YDown:
-                        dir1 = TFVision.EDirection.MINUS;
-                        dir2 = TFVision.EDirection.PLUS;
-                        break;
-                    case TFVision.EDirPair.XLeft_YUp:
-                        dir1 = TFVision.EDirection.MINUS;
-                        dir2 = TFVision.EDirection.MINUS;
-                        break;
-                }
+        //        TFVision.EArea area = refNo == 0 ? (TFVision.EArea)Line.IPara[14] : (TFVision.EArea)Line.IPara[15];
+        //        TFVision.EDirPair dirPair = refNo == 0 ? (TFVision.EDirPair)Line.IPara[10] : (TFVision.EDirPair)Line.IPara[11];
+        //        TFVision.ETransPair transPair = refNo == 0 ? (TFVision.ETransPair)Line.IPara[12] : (TFVision.ETransPair)Line.IPara[13]; TFVision.EDirection dir1 = TFVision.EDirection.PLUS;
+        //        TFVision.EDirection dir2 = TFVision.EDirection.PLUS;
+        //        TFVision.ETransition trans1 = TFVision.ETransition.BW;
+        //        TFVision.ETransition trans2 = TFVision.ETransition.WB;
+        //        switch (dirPair)
+        //        {
+        //            case TFVision.EDirPair.XRight_YDown:
+        //                dir1 = TFVision.EDirection.PLUS;
+        //                dir2 = TFVision.EDirection.PLUS;
+        //                break;
+        //            case TFVision.EDirPair.XRight_YUp:
+        //                dir1 = TFVision.EDirection.PLUS;
+        //                dir2 = TFVision.EDirection.MINUS;
+        //                break;
+        //            case TFVision.EDirPair.XLeft_YDown:
+        //                dir1 = TFVision.EDirection.MINUS;
+        //                dir2 = TFVision.EDirection.PLUS;
+        //                break;
+        //            case TFVision.EDirPair.XLeft_YUp:
+        //                dir1 = TFVision.EDirection.MINUS;
+        //                dir2 = TFVision.EDirection.MINUS;
+        //                break;
+        //        }
 
-                switch (transPair)
-                {
-                    case TFVision.ETransPair.Auto:
-                        trans1 = TFVision.ETransition.AUTO;
-                        trans2 = TFVision.ETransition.AUTO;
-                        break;
-                    case TFVision.ETransPair.BW:
-                        trans1 = TFVision.ETransition.BW;
-                        trans2 = TFVision.ETransition.BW;
-                        break;
-                    case TFVision.ETransPair.WB:
-                        trans1 = TFVision.ETransition.WB;
-                        trans2 = TFVision.ETransition.WB;
-                        break;
-                    case TFVision.ETransPair.XBW_YWB:
-                        trans1 = TFVision.ETransition.BW;
-                        trans2 = TFVision.ETransition.WB;
-                        break;
-                    case TFVision.ETransPair.XWB_YBW:
-                        trans1 = TFVision.ETransition.WB;
-                        trans2 = TFVision.ETransition.BW;
-                        break;
-                }
+        //        switch (transPair)
+        //        {
+        //            case TFVision.ETransPair.Auto:
+        //                trans1 = TFVision.ETransition.AUTO;
+        //                trans2 = TFVision.ETransition.AUTO;
+        //                break;
+        //            case TFVision.ETransPair.BW:
+        //                trans1 = TFVision.ETransition.BW;
+        //                trans2 = TFVision.ETransition.BW;
+        //                break;
+        //            case TFVision.ETransPair.WB:
+        //                trans1 = TFVision.ETransition.WB;
+        //                trans2 = TFVision.ETransition.WB;
+        //                break;
+        //            case TFVision.ETransPair.XBW_YWB:
+        //                trans1 = TFVision.ETransition.BW;
+        //                trans2 = TFVision.ETransition.WB;
+        //                break;
+        //            case TFVision.ETransPair.XWB_YBW:
+        //                trans1 = TFVision.ETransition.WB;
+        //                trans2 = TFVision.ETransition.BW;
+        //                break;
+        //        }
 
 
-                if (!TFVision.PatEdgeCorner(img, TaskVision.RefTemplate[id, refNo].Image, rects, ref pointX, ref pointY, ref patLoc, ref patOfst, ref amplitude,
-                    area, dir1, dir2, trans1, trans2)) return false;
+        //        if (!TFVision.PatEdgeCorner(img, TaskVision.RefTemplate[id, refNo].Image, rects, ref pointX, ref pointY, ref patLoc, ref patOfst, ref amplitude,
+        //            area, dir1, dir2, trans1, trans2)) return false;
 
-                float n_ox = 0;
-                float n_oy = 0;
-                n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
-                n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
-                {
-                    n_oy = -n_oy;
-                }
-                ofst.X += n_ox;
-                ofst.Y += n_oy;
+        //        float n_ox = 0;
+        //        float n_oy = 0;
+        //        n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
+        //        n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
+        //        if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
+        //        {
+        //            n_oy = -n_oy;
+        //        }
+        //        ofst.X += n_ox;
+        //        ofst.Y += n_oy;
 
-                if (Line.DPara[6] > 0)
-                {
-                    if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
-                    {
-                        i_Retry++;
+        //        if (Line.DPara[6] > 0)
+        //        {
+        //            if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
+        //            {
+        //                i_Retry++;
 
-                        if (i_Retry < 3)
-                        {
-                            double nX = TaskGantry.GXPos();
-                            double nY = TaskGantry.GYPos();
-                            nX = nX + n_ox;
-                            nY = nY + n_oy;
-                            if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
-                            goto _Retry;
-                        }
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                GDefine.Status = EStatus.ErrorInit;
-                EMsg = EMsg + (char)13 + Ex.ToString();
-                throw new Exception(EMsg);
-            }
-            finally
-            {
-                if (img != null) img.Dispose();
-            }
-            GDefine.Status = EStatus.Ready;
-            return true;
-        _Stop:
-            GDefine.Status = EStatus.Stop;
-            return false;
-        }
-        public static bool DoRefCircle(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref int found, ref float roundness)
-        {
-            string EMsg = Line.Cmd.ToString();
-            GDefine.Status = EStatus.Busy;
+        //                if (i_Retry < 3)
+        //                {
+        //                    double nX = TaskGantry.GXPos();
+        //                    double nY = TaskGantry.GYPos();
+        //                    nX = nX + n_ox;
+        //                    nY = nY + n_oy;
+        //                    if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
+        //                    goto _Retry;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        GDefine.Status = EStatus.ErrorInit;
+        //        EMsg = EMsg + (char)13 + Ex.ToString();
+        //        throw new Exception(EMsg);
+        //    }
+        //    finally
+        //    {
+        //        if (img != null) img.Dispose();
+        //    }
+        //    GDefine.Status = EStatus.Ready;
+        //    return true;
+        //_Stop:
+        //    GDefine.Status = EStatus.Stop;
+        //    return false;
+        //}
+        //public static bool DoRefCircle(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref int found, ref float roundness)
+        //{
+        //    string EMsg = Line.Cmd.ToString();
+        //    GDefine.Status = EStatus.Busy;
 
-            int id = Line.ID;
+        //    int id = Line.ID;
 
-            TaskVision.LightingOn(TaskVision.LightRGB[id]);
+        //    TaskVision.LightingOn(TaskVision.LightRGB[id]);
 
-            if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
-            if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
+        //    if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
+        //    if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
 
-            #region Move to XY
-            double StartV = Line.DPara[10];
-            if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
-            double DriveV = Line.DPara[11];
-            if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
-            double Accel = Line.DPara[12];
-            if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
-            if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
-            if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
-            #endregion
+        //    #region Move to XY
+        //    double StartV = Line.DPara[10];
+        //    if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
+        //    double DriveV = Line.DPara[11];
+        //    if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
+        //    double Accel = Line.DPara[12];
+        //    if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
+        //    if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
+        //    if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
+        //    #endregion
 
-            Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
-            try
-            {
-                int i_Retry = 0;
-            _Retry:
+        //    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
+        //    try
+        //    {
+        //        int i_Retry = 0;
+        //    _Retry:
 
-                #region Settle Time
-                int SettleTime = Line.IPara[4];
-                int t = GDefine.GetTickCount() + SettleTime;
-                while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-                #endregion
+        //        #region Settle Time
+        //        int SettleTime = Line.IPara[4];
+        //        int t = GDefine.GetTickCount() + SettleTime;
+        //        while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
+        //        #endregion
 
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[0].Snap();
-                    img = TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Clone();
-                    TaskVision.flirCamera2[0].GrabCont();
-                }
-                else
-                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                {
-                    TaskVision.genTLCamera[0].GrabOneImage();
-                    img = TaskVision.genTLCamera[0].mImage.Clone();
-                    if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                }
-                else
-                    throw new Exception("Camera Type not Supported.");
+        //        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+        //        {
+        //            TaskVision.genTLCamera[0].GrabOneImage();
+        //            img = TaskVision.genTLCamera[0].mImage.Clone();
+        //            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
+        //        }
+        //        else
+        //            throw new Exception("Camera Type not Supported.");
 
-                Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
+        //        Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
 
-                TFVision.EDetContrast detContrast = refNo == 0 ? (TFVision.EDetContrast)Line.IPara[16] : (TFVision.EDetContrast)Line.IPara[17];
-                int threshold = (int)Line.DPara[5];
-                float padRadius = 0;
+        //        TFVision.EDetContrast detContrast = refNo == 0 ? (TFVision.EDetContrast)Line.IPara[16] : (TFVision.EDetContrast)Line.IPara[17];
+        //        int threshold = (int)Line.DPara[5];
+        //        float padRadius = 0;
 
-                PointF patOfst = new PointF(0, 0);
-                found = TFVision.PatCircle(img, TaskVision.RefTemplate[id, refNo].Image, threshold, rects, detContrast, ref patLoc, ref padRadius, ref patOfst, ref roundness);
-                if (found == 0) return true;
+        //        PointF patOfst = new PointF(0, 0);
+        //        found = TFVision.PatCircle(img, TaskVision.RefTemplate[id, refNo].Image, threshold, rects, detContrast, ref patLoc, ref padRadius, ref patOfst, ref roundness);
+        //        if (found == 0) return true;
 
-                float n_ox = 0;
-                float n_oy = 0;
-                n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
-                n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
-                {
-                    n_oy = -n_oy;
-                }
-                ofst.X += n_ox;
-                ofst.Y += n_oy;
+        //        float n_ox = 0;
+        //        float n_oy = 0;
+        //        n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
+        //        n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
+        //        if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
+        //        {
+        //            n_oy = -n_oy;
+        //        }
+        //        ofst.X += n_ox;
+        //        ofst.Y += n_oy;
 
-                if (Line.DPara[6] > 0)
-                {
-                    if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
-                    {
-                        i_Retry++;
+        //        if (Line.DPara[6] > 0)
+        //        {
+        //            if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
+        //            {
+        //                i_Retry++;
 
-                        if (i_Retry < 3)
-                        {
-                            double nX = TaskGantry.GXPos();
-                            double nY = TaskGantry.GYPos();
-                            nX = nX + n_ox;
-                            nY = nY + n_oy;
-                            if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
-                            goto _Retry;
-                        }
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                GDefine.Status = EStatus.ErrorInit;
-                EMsg = EMsg + (char)13 + Ex.ToString();
-                throw new Exception(EMsg);
-            }
-            finally
-            {
-                if (img != null) img.Dispose();
-            }
-            GDefine.Status = EStatus.Ready;
-            return true;
-        _Stop:
-            GDefine.Status = EStatus.Stop;
-            return false;
-        }
+        //                if (i_Retry < 3)
+        //                {
+        //                    double nX = TaskGantry.GXPos();
+        //                    double nY = TaskGantry.GYPos();
+        //                    nX = nX + n_ox;
+        //                    nY = nY + n_oy;
+        //                    if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
+        //                    goto _Retry;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        GDefine.Status = EStatus.ErrorInit;
+        //        EMsg = EMsg + (char)13 + Ex.ToString();
+        //        throw new Exception(EMsg);
+        //    }
+        //    finally
+        //    {
+        //        if (img != null) img.Dispose();
+        //    }
+        //    GDefine.Status = EStatus.Ready;
+        //    return true;
+        //_Stop:
+        //    GDefine.Status = EStatus.Stop;
+        //    return false;
+        //}
 
         public enum ERealTimeOp { Add, Minus };
         public static void RealTimeOffset(ERealTimeOp Op, ref double X, ref double Y)

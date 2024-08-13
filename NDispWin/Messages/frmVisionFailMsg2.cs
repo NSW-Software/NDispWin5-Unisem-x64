@@ -16,7 +16,6 @@ namespace NDispWin
         public bool ShowSkip = true;
         public bool ShowManual = true;
 
-        frmCamera TaskVisionfrmCamera = new frmCamera();
         frmMVCGenTLCamera TaskVisionfrmMVCGenTLCamera = new frmMVCGenTLCamera();
 
         public frmVisionFailMsg2()
@@ -40,30 +39,6 @@ namespace NDispWin
             UpdateDisplay();
 
             Text = "Vision Fail Message";
-
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                this.WindowState = FormWindowState.Maximized;
-                AutoSize = false;
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                panel1.Top = 0;
-                panel1.Left = this.Width - panel1.Width;
-                panel1.AutoSize = true;
-                this.TopMost = true;
-                this.BringToFront();
-
-                TaskVisionfrmCamera.flirCamera = TaskVision.flirCamera2;
-                TaskVisionfrmCamera.CamReticles = Reticle.Reticles;
-                TaskVisionfrmCamera.FormBorderStyle = FormBorderStyle.None;
-                TaskVisionfrmCamera.TopLevel = false;
-                TaskVisionfrmCamera.Parent = this;
-                TaskVisionfrmCamera.Dock = DockStyle.Fill;
-                TaskVisionfrmCamera.SelectCamera(0);
-                TaskVisionfrmCamera.Show();
-
-                TaskVisionfrmCamera.ShowCamReticles = true;
-                TaskVision.flirCamera2[0].GrabCont();
-            }
 
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
@@ -92,7 +67,6 @@ namespace NDispWin
         }
         private void frmVisionFailMsg2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2) TaskVisionfrmCamera.Close();
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL) TaskVisionfrmMVCGenTLCamera.Close();
         }
 

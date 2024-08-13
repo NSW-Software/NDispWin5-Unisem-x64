@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6565DDBC-AC99-4DA9-AB8D-0AC008E511F4}</ProjectGuid>
+    <ProjectGuid>{081767F7-5ED0-4016-888D-7B67AEBBF83C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NDispWin</RootNamespace>
-    <AssemblyName>NDispWin</AssemblyName>
+    <AssemblyName>NDispWin x86</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
@@ -24,20 +24,19 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>x64</DefineConstants>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>x86</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>x64</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
@@ -77,53 +76,54 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdvMotAPI">
-      <HintPath>..\dll x64\AdvMotAPI.dll</HintPath>
+      <HintPath>..\dll x86\AdvMotAPI.dll</HintPath>
     </Reference>
     <Reference Include="AppLanguage">
-      <HintPath>..\dll x64\AppLanguage.dll</HintPath>
+      <HintPath>..\dll x86\AppLanguage.dll</HintPath>
     </Reference>
-    <Reference Include="Automation.BDaq4">
-      <HintPath>..\dll x64\Automation.BDaq4.dll</HintPath>
+    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll x86\Automation.BDaq4.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.UI">
-      <HintPath>..\dll x64\Emgu.CV.UI.dll</HintPath>
+      <HintPath>..\dll x86\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.World.Netstandard">
-      <HintPath>..\dll x64\Emgu.CV.World.Netstandard.dll</HintPath>
+      <HintPath>..\dll x86\Emgu.CV.World.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="HPC15">
-      <HintPath>..\dll x64\HPC15.dll</HintPath>
+      <HintPath>..\dll x86\HPC15.dll</HintPath>
     </Reference>
     <Reference Include="LEDStudio.Net">
-      <HintPath>..\dll x64\LEDStudio.Net.dll</HintPath>
+      <HintPath>..\dll x86\LEDStudio.Net.dll</HintPath>
     </Reference>
-    <Reference Include="MEDAQLib.NET">
-      <HintPath>..\dll x64\MEDAQLib.NET.dll</HintPath>
+    <Reference Include="MEDAQLib.NET, Version=4.4.0.27352, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll x86\MEDAQLib.NET.dll</HintPath>
     </Reference>
     <Reference Include="Modbus">
-      <HintPath>..\dll x64\Modbus.dll</HintPath>
+      <HintPath>..\dll x86\Modbus.dll</HintPath>
     </Reference>
     <Reference Include="MvCameraControl.Net">
-      <HintPath>..\dll x64\MvCameraControl.Net.dll</HintPath>
+      <HintPath>..\dll x86\MvCameraControl.Net.dll</HintPath>
     </Reference>
     <Reference Include="NSW.Net">
-      <HintPath>..\dll x64\NSW.Net.dll</HintPath>
+      <HintPath>..\dll x86\NSW.Net.dll</HintPath>
     </Reference>
     <Reference Include="NUtils">
-      <HintPath>..\dll x64\NUtils.dll</HintPath>
+      <HintPath>..\dll x86\NUtils.dll</HintPath>
     </Reference>
-    <Reference Include="NVision, Version=2.2.34.27070, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dll x64\NVision.dll</HintPath>
+    <Reference Include="NVision">
+      <HintPath>..\dll x86\NVision.dll</HintPath>
     </Reference>
     <Reference Include="Open_eVision_NetApi_2_5">
-      <HintPath>..\dll x64\Open_eVision_NetApi_2_5.dll</HintPath>
+      <HintPath>..\dll x86\Open_eVision_NetApi_2_5.dll</HintPath>
     </Reference>
     <Reference Include="SocketV1">
-      <HintPath>..\dll x64\SocketV1.dll</HintPath>
+      <HintPath>..\dll x86\SocketV1.dll</HintPath>
     </Reference>
     <Reference Include="SpinnakerNET_v140">
-      <HintPath>..\dll x64\SpinnakerNET_v140.dll</HintPath>
+      <HintPath>..\dll x86\SpinnakerNET_v140.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -142,11 +142,12 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\dll x64\ZedGraph.dll</HintPath>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll x86\ZedGraph.dll</HintPath>
     </Reference>
-    <Reference Include="ZKANet64">
-      <HintPath>..\dll x64\ZKANet64.dll</HintPath>
+    <Reference Include="ZKANet32">
+      <HintPath>..\dll x86\ZKANet32.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

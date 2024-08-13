@@ -1,4 +1,4 @@
-﻿NDispWin Unisem Version
+﻿NDispWin Unisem Version 
 
 Readme:
 The souce contains 2 project one under AnyCPU and another x86, due to different management of Managed and Native dlls.
@@ -21,6 +21,11 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
+
+Ver 6.1.1.0 20240813 - Release to YZ/WK for UnisemCD - Gitted
+- [HseKeep] Remove Basler, PtGrey, Spinnaker and Spinnaker2 references and dependencies.
+- [Enhance] Added log for Manual Load operations - Req YZ.
+- [BugFix] Corrected scaling for frmAuto.Image scaling
 Ver 6.1.0.0 PE32 - 20240810 - Release to LYL/WK for UnisemCD - Gitted
 - [Request] Removed ProcessCamera function and dependencies.
 - [Enhance] Added frmDispProg border with sw information.

@@ -45,7 +45,6 @@
             this.btn_Back = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tpage_RunInfo = new System.Windows.Forms.TabPage();
-            this.rtbPumpSettings = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btn_SysInfoReset = new System.Windows.Forms.Button();
@@ -68,6 +67,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rtbPumpSettings = new System.Windows.Forms.RichTextBox();
             this.rtbOptions = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblRunInfoMaterialDispCount = new System.Windows.Forms.Label();
@@ -395,18 +395,6 @@
             this.tpage_RunInfo.TabIndex = 0;
             this.tpage_RunInfo.Text = "Run Info";
             // 
-            // rtbPumpSettings
-            // 
-            this.rtbPumpSettings.BackColor = System.Drawing.SystemColors.Control;
-            this.rtbPumpSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbPumpSettings.Cursor = System.Windows.Forms.Cursors.Default;
-            this.rtbPumpSettings.ForeColor = System.Drawing.Color.Navy;
-            this.rtbPumpSettings.Location = new System.Drawing.Point(6, 25);
-            this.rtbPumpSettings.Name = "rtbPumpSettings";
-            this.rtbPumpSettings.Size = new System.Drawing.Size(244, 151);
-            this.rtbPumpSettings.TabIndex = 332;
-            this.rtbPumpSettings.Text = "";
-            // 
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
@@ -694,6 +682,18 @@
             this.groupBox2.Size = new System.Drawing.Size(259, 304);
             this.groupBox2.TabIndex = 329;
             this.groupBox2.TabStop = false;
+            // 
+            // rtbPumpSettings
+            // 
+            this.rtbPumpSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.rtbPumpSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbPumpSettings.Cursor = System.Windows.Forms.Cursors.Default;
+            this.rtbPumpSettings.ForeColor = System.Drawing.Color.Navy;
+            this.rtbPumpSettings.Location = new System.Drawing.Point(6, 25);
+            this.rtbPumpSettings.Name = "rtbPumpSettings";
+            this.rtbPumpSettings.Size = new System.Drawing.Size(244, 151);
+            this.rtbPumpSettings.TabIndex = 332;
+            this.rtbPumpSettings.Text = "";
             // 
             // rtbOptions
             // 
@@ -1054,6 +1054,7 @@
             // 
             // imgBoxEmgu
             // 
+            this.imgBoxEmgu.BackColor = System.Drawing.SystemColors.Control;
             this.imgBoxEmgu.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.imgBoxEmgu.Location = new System.Drawing.Point(6, 6);
             this.imgBoxEmgu.Name = "imgBoxEmgu";

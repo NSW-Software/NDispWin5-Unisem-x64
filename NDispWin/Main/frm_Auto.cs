@@ -64,7 +64,6 @@ namespace NDispWin
             lbl_RunTime.Text = GDefineN.UpdateRunTime(true);
         }
 
-
         public NDispWin.frm_DispCore_Map frm_Map = new NDispWin.frm_DispCore_Map();
         public NDispWin.frm_DispCore_DispTools frm_DispTool = new NDispWin.frm_DispCore_DispTools();
 
@@ -181,8 +180,16 @@ namespace NDispWin
                 tpageImage.VerticalScroll.Visible = false;
                 imgBoxEmgu.HorizontalScrollBar.Visible = false;
                 imgBoxEmgu.VerticalScrollBar.Visible = false;
-                double XScale = (double)tpageImage.Width / TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Width;
-                double YScale = (double)tpageImage.Height / TaskVision.flirCamera2[0].m_ImageEmgu.m_Image.Height;
+
+                double width = 1440;
+                double height = 1080;
+                if (TaskVision.genTLCamera[0].IsConnected)
+                {
+                    width = TaskVision.genTLCamera[0].ImageWidth;
+                    height = TaskVision.genTLCamera[0].ImageHeight;
+                }
+                double XScale = (double)tpageImage.Width / width;
+                double YScale = (double)tpageImage.Height / height;
                 imgBoxEmgu.SetZoomScale(Math.Min(XScale, YScale), new Point(imgBoxEmgu.Width / 2, imgBoxEmgu.Height / 2));
             }
 

@@ -655,523 +655,12 @@ namespace NDispWin
         }
     }
 
-
-    class PtGrey
-    {
-        //public class TCamera
-        //{
-        //    private ManagedCameraBase m_camera = new ManagedCamera();
-        //    private ManagedImage m_rawImage = new ManagedImage();
-        //    private ManagedImage m_processedImage = new ManagedImage();
-        //    private CameraInfo m_camInfo = new CameraInfo();
-        //    private AutoResetEvent m_grabThreadExited = new AutoResetEvent(false);
-        //    private BackgroundWorker m_grabThread;
-
-        //    public TCamera()
-        //    {
-        //    }
-
-        //    public bool Open(string ipAddress)
-        //    {
-        //        try
-        //        {
-        //            ManagedBusManager busMgr = new ManagedBusManager();
-        //            uint numCameras = busMgr.GetNumOfCameras();
-
-        //            IPAddress IP = IPAddress.Parse(ipAddress);
-
-        //            ManagedPGRGuid guid = busMgr.GetCameraFromIPAddress(IP);
-
-        //            m_camera.Connect(guid);
-        //            m_camInfo = m_camera.GetCameraInfo();
-
-        //            SetDefProperties();
-        //        }
-        //        catch
-        //        {
-        //            throw;
-        //            //return false;
-        //        }
-
-        //        return true;
-        //    }
-        //    public void Close()
-        //    {
-        //        b_Grabbing = false;
-        //        try
-        //        {
-        //            m_camera.StopCapture();
-        //        }
-        //        catch
-        //        { }
-
-        //        try
-        //        {
-        //            m_camera.Disconnect();
-        //        }
-        //        catch
-        //        { }
-        //    }
-
-        //    public bool IsConnected
-        //    {
-        //        get { return m_camera.IsConnected(); }
-        //    }
-        //    public bool IsGrabbing
-        //    {
-        //        get { return b_Grabbing; }
-        //    }
-
-        //    private Object localLock2 = new Object();
-        //    public Bitmap Image()
-        //    {
-        //        //lock (localLock2)
-        //        //{
-        //        return m_processedImage.bitmap;
-        //        //}
-        //    }
-
-        //    #region Camera Properties
-        //    public void SetDefProperties()
-        //    {
-        //        //SetProperty(PropertyType.Brightness, 0);
-
-        //        //Property      
-        //        //Brightness
-
-
-        //        //Brightness Valaue = 0;
-        //        CameraProperty Prop = m_camera.GetProperty(PropertyType.Brightness);
-        //        Prop.absControl = false;
-        //        Prop.absValue = 0;
-        //        m_camera.SetProperty(Prop);
-
-        //        //AutoExposure Auto=false, OnOff=true and Value=0 EV;
-        //        Prop = m_camera.GetProperty(PropertyType.AutoExposure);
-        //        Prop.autoManualMode = false;
-        //        Prop.onOff = true;
-        //        Prop.absControl = true;
-        //        Prop.absValue = 0;
-        //        m_camera.SetProperty(Prop);
-
-        //        //Sharpness Auto=false, OnOff=false
-        //        Prop = m_camera.GetProperty(PropertyType.Sharpness);
-        //        Prop.autoManualMode = false;
-        //        Prop.onOff = true;
-        //        //Prop.absControl = true;
-        //        Prop.valueA = 1024;
-        //        m_camera.SetProperty(Prop);
-
-        //        //Gamma OnOff=false
-        //        Prop = m_camera.GetProperty(PropertyType.Gamma);
-        //        Prop.autoManualMode = false;
-        //        Prop.onOff = true;
-        //        Prop.absControl = true;
-        //        Prop.absValue = 1;
-        //        m_camera.SetProperty(Prop);
-
-        //        TriggerMode = false;
-
-        //        //Shutter Auto=false
-        //        Prop = m_camera.GetProperty(PropertyType.Shutter);
-        //        Prop.autoManualMode = false;
-        //        Prop.absControl = true;
-        //        Prop.absValue = 0;
-        //        m_camera.SetProperty(Prop);
-
-        //        //Gain Auto=false, Value=0 dB
-        //        Prop = m_camera.GetProperty(PropertyType.Gain);
-        //        Prop.autoManualMode = false;
-        //        Prop.onOff = true;
-        //        Prop.absControl = true;
-        //        Prop.absValue = 0;
-        //        m_camera.SetProperty(Prop);
-
-        //        //FrameRate Auto=false, OnOff=true
-        //        Prop = m_camera.GetProperty(PropertyType.FrameRate);
-        //        Prop.autoManualMode = false;
-        //        Prop.onOff = true;
-        //        Prop.absControl = true;
-        //        Prop.absValue = 25;
-        //        m_camera.SetProperty(Prop);
-        //    }
-        //    public enum EProperty
-        //    {
-        //        Gain = (int)PropertyType.Gain,
-        //        Shutter = (int)PropertyType.Shutter,
-        //        FrameRate = (int)PropertyType.FrameRate,
-        //    }
-        //    public void GetProperty(EProperty Property, ref bool Avail, ref double Min, ref double Max, ref double Value)
-        //    {
-        //        CameraProperty Prop = m_camera.GetProperty((PropertyType)Property);
-        //        if (!Prop.present)
-        //        {
-        //            Avail = false;
-        //        }
-        //        else
-        //        {
-        //            CameraPropertyInfo PropInfo = m_camera.GetPropertyInfo((PropertyType)Property);
-        //            Min = PropInfo.absMin;
-        //            Max = PropInfo.absMax;
-        //            Value = Prop.absValue;
-        //        }
-        //    }
-        //    public void GetProperty(EProperty Property, ref bool Avail, ref bool Value)
-        //    {
-        //        CameraProperty Prop = m_camera.GetProperty((PropertyType)Property);
-        //        if (!Prop.present)
-        //        {
-        //            Avail = false;
-        //        }
-        //        else
-        //        {
-        //            Value = Prop.onOff;
-        //        }
-        //    }
-        //    private void SetProperty(PropertyType Property, double Value)
-        //    {
-        //        CameraProperty Prop = m_camera.GetProperty((PropertyType)Property);
-        //        if (!Prop.present) return;
-
-        //        Prop.absValue = (float)Value;
-
-        //        m_camera.SetProperty(Prop);
-        //    }
-        //    public void SetProperty(EProperty Property, double Value)
-        //    {
-        //        SetProperty((PropertyType)Property, Value);
-        //    }
-        //    public void SetProperty(EProperty Property, bool Value)
-        //    {
-        //        CameraProperty Prop = m_camera.GetProperty((PropertyType)Property);
-        //        if (!Prop.present) return;
-
-        //        Prop.onOff = Value;
-
-        //        m_camera.SetProperty(Prop);
-        //    }
-
-        //    private const uint sk_imageDataFmtReg = 0x1048;
-        //    private const uint sk_mirrorImageCtrlReg = 0x1054;
-        //    public void GetRegister_Mirror(ref uint Value)
-        //    {
-        //        uint reg = 0;
-        //        uint mirrorCtrlRegister = sk_imageDataFmtReg;
-        //        uint mirrorMask = 0x1 << 8;
-        //        const uint iidcVersion = 132;
-        //        if (m_camInfo.iidcVersion >= iidcVersion)
-        //        {
-        //            mirrorCtrlRegister = sk_mirrorImageCtrlReg;
-        //            mirrorMask = 0x1;
-        //        }
-
-        //        try
-        //        {
-        //            reg = m_camera.ReadRegister(mirrorCtrlRegister);
-        //        }
-        //        catch (FC2Exception ex)
-        //        {
-        //            throw;
-        //        }
-
-        //        Value = reg;
-        //    }
-        //    public void SetRegister_Mirror(uint Value)
-        //    {
-        //        uint mirrorCtrlRegister = sk_imageDataFmtReg;
-        //        uint mirrorMask = 0x1 << 8;
-        //        const uint iidcVersion = 132;
-        //        if (m_camInfo.iidcVersion >= iidcVersion)
-        //        {
-        //            mirrorCtrlRegister = sk_mirrorImageCtrlReg;
-        //            mirrorMask = 0x1;
-        //        }
-
-        //        if (Value > 0)
-        //        {
-        //            Value |= mirrorMask;
-        //        }
-        //        else
-        //        {
-        //            Value &= ~mirrorMask;
-        //        }
-
-        //        try
-        //        {
-        //            m_camera.WriteRegister(mirrorCtrlRegister, Value);
-        //        }
-        //        catch (FC2Exception ex)
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    public void GetImageSettings(ref uint maxHeight, ref uint maxWidth, ref uint Left, ref uint Top, ref uint Width, ref uint Height)
-        //    {
-        //        try
-        //        {
-        //            ManagedCamera camera = (ManagedCamera)m_camera;
-
-        //            // Query for available Format 7 modes
-        //            const Mode k_fmt7Mode = Mode.Mode0;
-        //            bool supported = false;
-        //            Format7Info fmt7Info = camera.GetFormat7Info(k_fmt7Mode, ref supported);
-        //            maxHeight = fmt7Info.maxHeight;
-        //            maxWidth = fmt7Info.maxWidth;
-
-        //            Format7ImageSettings imageSettings = new Format7ImageSettings();
-        //            uint packetSize = 0;
-        //            float speed = 0;
-        //            camera.GetFormat7Configuration(imageSettings, ref packetSize, ref speed);
-
-        //            Left = imageSettings.offsetX;
-        //            Top = imageSettings.offsetY;
-        //            Width = imageSettings.width;
-        //            Height = imageSettings.height;
-        //        }
-        //        catch { throw; }
-        //    }
-        //    public void SetImageSettings(uint Left, uint Top, uint Width, uint Height)
-        //    {
-        //        try
-        //        {
-        //            ManagedCamera camera = (ManagedCamera)m_camera;
-
-        //            Format7ImageSettings imageSettings = new Format7ImageSettings();
-        //            uint packetSize = 0;
-        //            float speed = 0;
-
-        //            camera.GetFormat7Configuration(imageSettings, ref packetSize, ref speed);
-
-        //            imageSettings.offsetX = Left;
-        //            imageSettings.offsetY = Top;
-        //            imageSettings.width = Width;
-        //            imageSettings.height = Height;
-
-        //            camera.SetFormat7Configuration(imageSettings, speed);
-        //        }
-        //        catch
-        //        { throw; }
-        //    }
-        //    #endregion
-
-        //    public delegate void OnAcquiredEventHandler(object sender, EventArgs e);
-        //    public event OnAcquiredEventHandler AcquiredEvent;
-        //    private void OnAcquiredEvent()
-        //    {
-        //        if (AcquiredEvent != null) AcquiredEvent(this, EventArgs.Empty);
-        //    }
-
-        //    public delegate void OnGrabbedEventHandler(object sender, EventArgs e);
-        //    public event OnGrabbedEventHandler GrabbedEvent;
-        //    private void OnGrabbedEvent()
-        //    {
-        //        if (GrabbedEvent != null) GrabbedEvent(this, EventArgs.Empty);
-        //    }
-
-        //    private bool b_Grabbing;
-        //    public void StartGrab()
-        //    {
-        //        if (!m_camera.IsConnected()) return;
-
-        //        //if (m_frameCount == 0)
-        //        if (b_Grabbing) return;
-
-        //        // Get the camera configuration
-        //        FC2Config config = m_camera.GetConfiguration();
-
-        //        // Set the grab timeout to 1 seconds
-        //        config.grabTimeout = 500;
-
-        //        // Set the camera configuration
-        //        m_camera.SetConfiguration(config);
-
-        //        m_camera.StartCapture();
-        //        b_Grabbing = true;
-
-        //        if (!TrigMode)
-        //        {
-        //            m_grabThread = new BackgroundWorker();
-        //            m_grabThread.DoWork += new DoWorkEventHandler(GrabLoop);
-        //            m_grabThread.WorkerReportsProgress = true;
-        //            m_grabThread.RunWorkerAsync();
-        //        }
-        //    }
-
-        //    private Object localLock = new Object();
-        //    public void GrabLoop(object sender, DoWorkEventArgs e)
-        //    {
-        //        while (b_Grabbing)
-        //        {
-        //            try
-        //            {
-        //                m_camera.RetrieveBuffer(m_rawImage);
-        //            }
-        //            catch (FC2Exception ex)
-        //            {
-        //                continue;
-        //            }
-
-        //            OnAcquiredEvent();
-
-        //            lock (localLock)
-        //            {
-        //                m_rawImage.Convert(FlyCapture2Managed.PixelFormat.PixelFormatBgr, m_processedImage);
-        //            }
-
-        //            OnGrabbedEvent();
-        //        }
-
-        //        m_grabThreadExited.Set();
-        //    }
-        //    public void StopGrab()
-        //    {
-        //        if (!m_camera.IsConnected()) return;
-
-        //        if (!b_Grabbing) return;
-
-        //        b_Grabbing = false;
-
-        //        try
-        //        {
-        //            m_camera.StopCapture();
-        //        }
-        //        catch (FC2Exception ex)
-        //        {
-        //            throw;
-        //        }
-        //        catch (NullReferenceException)
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    //private bool TrigSoure = 
-        //    private bool TrigMode = false;
-        //    public bool TriggerMode
-        //    {
-        //        get
-        //        {
-        //            TriggerMode triggerMode = m_camera.GetTriggerMode();
-        //            return triggerMode.onOff;
-        //        }
-        //        set
-        //        {
-        //            if (value)
-        //            {
-        //                // Get current trigger settings
-        //                TriggerMode triggerMode = m_camera.GetTriggerMode();
-
-        //                // Set camera to trigger mode 0
-        //                // A source of 7 means software trigger
-        //                triggerMode.onOff = true;
-        //                triggerMode.mode = 0;
-        //                triggerMode.parameter = 0;
-
-        //                //            if (useSoftwareTrigger)
-        //                {
-        //                    // A source of 7 means software trigger
-        //                    //triggerMode.source = 7;
-        //                }
-        //                //            else
-        //                {
-        //                    // Triggering the camera externally using source 0.
-        //                    triggerMode.source = 0;
-        //                }
-
-        //                // Set the trigger mode
-        //                m_camera.SetTriggerMode(triggerMode);
-        //                TrigMode = true;
-
-        //                //wait trigger ready
-        //                const uint k_softwareTrigger = 0x62C;
-        //                uint regVal = 0;
-        //                do
-        //                {
-        //                    regVal = m_camera.ReadRegister(k_softwareTrigger);
-        //                }
-        //                while ((regVal >> 31) != 0);
-        //            }
-        //            else
-        //            {
-        //                // Turn off trigger mode
-        //                TriggerMode triggerMode = m_camera.GetTriggerMode();
-        //                triggerMode.onOff = false;
-        //                TrigMode = false;
-        //                m_camera.SetTriggerMode(triggerMode);
-        //            }
-
-        //        }
-        //    }
-        //    public void SoftTrigger()
-        //    {
-        //        m_camera.FireSoftwareTrigger(false);
-        //    }
-        //    public void RetreiveBuffer()
-        //    {
-        //        //Stopwatch sw;
-        //        //sw = Stopwatch.StartNew();
-        //        //MsgBox2.Log.AddToLog("RetrieveBuffer - Start");
-        //        try
-        //        {
-        //            m_camera.RetrieveBuffer(m_rawImage);
-        //        }
-        //        catch (FC2Exception ex)
-        //        {
-        //            //continue;
-        //        }
-        //        //MsgBox2.Log.AddToLog("RetrieveBuffer - AcquireEnd " + sw.ElapsedMilliseconds.ToString("f3"));
-        //        //sw.Restart();
-
-        //        lock (localLock)
-        //        {
-        //            m_rawImage.Convert(FlyCapture2Managed.PixelFormat.PixelFormatBgr, m_processedImage);
-        //        }
-        //        //MsgBox2.Log.AddToLog("RetrieveBuffer - ConvertEnd " + sw.ElapsedMilliseconds.ToString("f3"));
-        //    }
-
-        //    //private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg = new FlyCapture2Managed.Gui.CameraControlDialog();
-        //    //public bool ControlDlg
-        //    //{
-        //    //    get
-        //    //    {
-        //    //        m_camCtlDlg.Connect(m_camera);
-        //    //        return m_camCtlDlg.IsVisible();
-        //    //    }
-        //    //    set
-        //    //    {
-        //    //        m_camCtlDlg.Connect(m_camera);
-        //    //        if (value)
-        //    //        {
-        //    //            m_camCtlDlg.Show();
-        //    //        }
-        //    //        else
-        //    //        {
-        //    //            if (m_camCtlDlg.IsVisible())
-        //    //            {
-        //    //                m_camCtlDlg.Hide();
-        //    //            }
-        //    //        }
-        //    //    }
-        //    //}
-        //}
-    }
-
     class TaskVision
     {
-        //static Basler Basler = new Basler();  
         public static int MAX_CAMERA = 3;
-        //public static Basler.TCamera[] CameraN = new Basler.TCamera[MAX_CAMERA];
-        //public static PtGrey.TCamera[] PGCamera = new PtGrey.TCamera[MAX_CAMERA];
-
-        //public static NImager.frmImageView frmGenImageView = new NImager.frmImageView();
-        //public static NImager.GenericCamera[] FlirCamera = new NImager.GenericCamera[MAX_CAMERA];
 
         public static MVC.MVC_GenTL[] genTLCamera = new MVC.MVC_GenTL[4] { new MVC.MVC_GenTL(), new MVC.MVC_GenTL(), new MVC.MVC_GenTL(), new MVC.MVC_GenTL() };
         public static frmMVCGenTLCamera frmMVCGenTLCamera = new frmMVCGenTLCamera();
-
-        public static FlirCamera[] flirCamera2 = new FlirCamera[4] { new NDispWin.FlirCamera(), new NDispWin.FlirCamera(), new NDispWin.FlirCamera(), new NDispWin.FlirCamera() };
-        public static frmCamera frmCamera = new frmCamera();
 
         public static ECamNo SelectedCam = ECamNo.Cam00;
 
@@ -1644,10 +1133,6 @@ namespace NDispWin
         }
         public static void CloseCamera(int CamNo)
         {
-            if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-            {
-                flirCamera2[CamNo].DisConnect();
-            }
             if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
             {
                 genTLCamera[CamNo].CloseDevice();
@@ -1663,10 +1148,6 @@ namespace NDispWin
 
         public static bool CameraOpened(int CamNo)
         {
-            if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-            {
-                return flirCamera2[CamNo].IsConnected;
-            }
             if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
             {
                 return genTLCamera[CamNo].IsConnected;
@@ -1861,12 +1342,6 @@ namespace NDispWin
         {
             Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                TaskVision.flirCamera2[(int)ECamNo.Cam00].Snap();
-                img = TaskVision.flirCamera2[(int)ECamNo.Cam00].m_ImageEmgu.m_Image.Clone();
-            }
-            else
             if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
             {
                 genTLCamera[(int)ECamNo.Cam00].GrabOneImage();
@@ -3633,26 +3108,6 @@ namespace NDispWin
             Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
             try
             {
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Basler)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.PtGrey)
-                {
-                    //TaskVision.PtGrey_CamStop();
-                    //TaskVision.PtGrey_CamArm(CamNo);
-                    //TaskVision.PtGrey_CamTrig(CamNo);
-                    //TaskVision.PtGrey_CamImage(CamNo, ref Image);
-                    //TaskVision.PtGrey_CamLive(CamNo);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-                {
-                    Image = flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
-                }
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
                 {
                     genTLCamera[CamNo].GrabOneImage();
@@ -3727,27 +3182,6 @@ namespace NDispWin
             Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
             try
             {
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Basler)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.PtGrey)
-                {
-                    //TaskVision.PtGrey_CamStop();
-                    //TaskVision.PtGrey_CamArm(CamNo);
-                    //TaskVision.PtGrey_CamTrig(CamNo);
-                    //TaskVision.PtGrey_CamImage(CamNo, ref Image);
-                    //TaskVision.PtGrey_CamLive(CamNo);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[CamNo].Snap();
-                    Image = flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
-                }
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
                 {
                     genTLCamera[CamNo].GrabOneImage();
@@ -3802,27 +3236,6 @@ namespace NDispWin
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.None)
                 {
                     Image = TaskVision.LoadedImageG.Copy();
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Basler)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.PtGrey)
-                {
-                    //TaskVision.PtGrey_CamStop();
-                    //TaskVision.PtGrey_CamArm(CamNo);
-                    //TaskVision.PtGrey_CamTrig(CamNo);
-                    //TaskVision.PtGrey_CamImage(CamNo, ref  Image);
-                    //TaskVision.PtGrey_CamLive(CamNo);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[CamNo].Snap();
-                    Image = flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
                 }
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
                 {
@@ -3955,20 +3368,6 @@ namespace NDispWin
             Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
             try
             {
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Basler)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker)
-                {
-                    GrabN(CamNo, ref Image);
-                }
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-                {
-                    X = 0; Y = 0;  S = 0;
-                    if (!TaskVision.flirCamera2[CamNo].Snap()) return false;
-                    Image = flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
-                }
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
                 {
                     X = 0; Y = 0; S = 0;
@@ -4010,12 +3409,6 @@ namespace NDispWin
             {
                 Image = null;
 
-                if (GDefine.CameraType[CamNo] == GDefine.ECameraType.Spinnaker2)
-                {
-                    TaskVision.flirCamera2[CamNo].Snap();
-                    Image = TaskVision.flirCamera2[CamNo].m_ImageEmgu.m_Image.Clone();
-                }
-                else
                 if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
                 {
                     genTLCamera[CamNo].GrabOneImage();
@@ -4234,10 +3627,6 @@ namespace NDispWin
                 #endregion
             }
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-            {
-                TaskVision.flirCamera2[0].GrabCont();
-            }
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 if (TaskVision.frmMVCGenTLCamera.Visible) genTLCamera[0].StartGrab();
@@ -4651,6 +4040,442 @@ namespace NDispWin
                 if (!LCSerLegacy.SetConstInt(LEDStudio.Net.LC.TChannel.No4, 0)) return false;
             }
             return true;
+        }
+    }
+
+    public class TReticle2
+    {
+        public enum EType
+        {
+            None = 0,
+            CenterCross = 1,
+            CenterCross3 = 7,
+            CenterCross50u = 8,
+            CenterCross100u = 9,
+            //CenterReticle,
+            Line = 2,
+            Cross = 3,
+            Circle = 4,
+            Rectangle = 5,
+            Text = 6
+        }
+        public EType Type;
+        public PointF Location;
+        public SizeF Size;
+        public string Text;
+        public Color Color;
+
+        public TReticle2()
+        {
+            this.Type = EType.None;
+            this.Location = new PointF(0, 0);
+            this.Size = new SizeF(0, 0);
+            this.Text = "";
+            this.Color = Color.Yellow;
+        }
+        public TReticle2(TReticle2 Reticle)
+        {
+            this.Type = Reticle.Type;
+            this.Location = Reticle.Location;
+            this.Size = Reticle.Size;
+            this.Text = Reticle.Text;
+            this.Color = Reticle.Color;
+        }
+        public TReticle2(EType Type, PointF Location, SizeF Size, Color Color, string Text = "")
+        {
+            this.Type = Type;
+            this.Location = Location;
+            this.Size = Size;
+            this.Text = Text;
+            this.Color = Color;
+        }
+    }
+    public class TReticles
+    {
+        public const int MAX_RETICLES = 10;
+        public TReticle2[] Reticle = new TReticle2[MAX_RETICLES];
+
+        public TReticles()
+        {
+            for (int i = 0; i < MAX_RETICLES; i++)
+            {
+                Reticle[i] = new TReticle2();
+            }
+        }
+
+        public TReticles(TReticles reticles)
+        {
+            for (int i = 0; i < MAX_RETICLES; i++)
+            {
+                this.Reticle[i] = reticles.Reticle[i];
+            }
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < MAX_RETICLES; i++)
+            {
+                Reticle[i].Type = TReticle2.EType.None;
+            }
+        }
+    }
+    public static class Reticle
+    {
+        const int Max_Reticle = 4;
+        public static TReticles[] Reticles = new TReticles[Max_Reticle] { new TReticles(), new TReticles(), new TReticles(), new TReticles() };
+        public static void SaveCamReticles(string FullFilename)
+        {
+            if (Path.GetExtension(FullFilename).Length == 0) FullFilename = FullFilename + ".ini";
+
+            List<string> Lines = new List<string>();
+
+            for (int i = 0; i < Max_Reticle; i++)
+            {
+                for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                {
+                    string Line = "Group," + i.ToString() + (char)9 + "No," + j.ToString() + (char)9;
+                    Line = Line + "Type," + ((int)Reticles[i].Reticle[j].Type).ToString() + (char)9 +
+                    "Location," + Reticles[i].Reticle[j].Location.X.ToString() + "," + Reticles[i].Reticle[j].Location.Y.ToString() + (char)9 +
+                    "Size," + Reticles[i].Reticle[j].Size.Width.ToString() + "," + Reticles[i].Reticle[j].Size.Height.ToString() + (char)9 +
+                    "Text," + Reticles[i].Reticle[j].Text + (char)9 +
+                    "Color," + Reticles[i].Reticle[j].Color.ToArgb().ToString();
+                    Lines.Add(Line);
+                }
+            }
+            System.IO.File.WriteAllLines(FullFilename, Lines);
+        }
+        public static void LoadCamReticles(string FullFilename)
+        {
+            for (int i = 0; i < Max_Reticle; i++)
+            {
+                for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                {
+                    Reticles[i].Reticle[j] = new TReticle2();
+                }
+            }
+
+            if (!File.Exists(FullFilename)) return;
+
+            string[] Lines = System.IO.File.ReadAllLines(FullFilename);
+            for (int x = 0; x < Lines.Length; x++)
+            {
+                int iGroup = 0;
+                int iNo = 0;
+                string[] L = Lines[x].Split((char)9);
+
+                TReticle2 reticle = new TReticle2();
+                for (int i = 0; i < L.Count(); i++)
+                {
+                    if (L[i].StartsWith("Group"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            iGroup = Convert.ToInt32(l[1]);
+                        }
+                        catch { }
+                    }
+                    if (L[i].StartsWith("No"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            iNo = Convert.ToInt32(l[1]);
+                        }
+                        catch { }
+                    }
+                    if (L[i].StartsWith("Type"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            int t = Convert.ToInt32(l[1]);
+                            reticle.Type = (TReticle2.EType)t;
+                        }
+                        catch { }
+                    }
+                    if (L[i].StartsWith("Location"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            reticle.Location.X = (float)Convert.ToDouble(l[1]);
+                            reticle.Location.Y = (float)Convert.ToDouble(l[2]);
+                        }
+                        catch { }
+                    }
+                    if (L[i].StartsWith("Size"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            reticle.Size.Width = (float)Convert.ToDouble(l[1]);
+                            reticle.Size.Height = (float)Convert.ToDouble(l[2]);
+                        }
+                        catch { }
+                    }
+                    if (L[i].StartsWith("Para"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                        try
+                        {
+                            //reticle.Para.Clear();
+                            //for (int p = 1; p < l.Count(); p++)
+                            //{
+                            //    reticle.Para.Add((float)Convert.ToDouble(l[p]));
+                            //}
+                        }
+                        catch { };
+                    }
+                    if (L[i].StartsWith("Text"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        if (l.Count() > 1) reticle.Text = l[1];
+                    }
+                    if (L[i].StartsWith("Color"))
+                    {
+                        string[] l = L[i].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        try
+                        {
+                            int c = Convert.ToInt32(l[1]);
+                            reticle.Color = Color.FromArgb(c);
+                        }
+                        catch { }
+                    }
+                }
+
+                Reticles[iGroup].Reticle[iNo] = reticle;
+            }
+        }
+        public static void saveCamReticlesXML(string fileName, string root, string chapter)
+        {
+            NUtils.XmlFile xmlFile = new NUtils.XmlFile(fileName, root);
+
+            xmlFile.Open();
+
+            try
+            {
+                for (int i = 0; i < Max_Reticle; i++)
+                {
+                    int[] intType = new int[TReticles.MAX_RETICLES];
+                    double[] dX = new double[TReticles.MAX_RETICLES];
+                    double[] dY = new double[TReticles.MAX_RETICLES];
+                    double[] dW = new double[TReticles.MAX_RETICLES];
+                    double[] dH = new double[TReticles.MAX_RETICLES];
+                    string[] Text = new string[TReticles.MAX_RETICLES];
+                    int[] Color = new int[TReticles.MAX_RETICLES];
+                    for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                    {
+                        intType[j] = (int)Reticles[i].Reticle[j].Type;
+
+                        dX[j] = Reticles[i].Reticle[j].Location.X;
+                        dY[j] = Reticles[i].Reticle[j].Location.Y;
+                        dW[j] = Reticles[i].Reticle[j].Size.Width;
+                        dH[j] = Reticles[i].Reticle[j].Size.Height;
+
+                        Text[j] = Reticles[i].Reticle[j].Text;
+                        Color[j] = Reticles[i].Reticle[j].Color.ToArgb();
+                    }
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "Type", intType);
+
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "X", dX);
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "Y", dY);
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "W", dW);
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "H", dH);
+
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "Text", Text);
+                    xmlFile.SetValue(chapter, "Camera" + i.ToString(), "Reticle", "Color", Color);
+                }
+            }
+            finally
+            {
+                xmlFile.Save();
+            }
+        }
+        public static void loadCamReticlesXML(string fileName, string root, string chapter)
+        {
+            NUtils.XmlFile xmlFile = new NUtils.XmlFile(fileName, root);
+
+            xmlFile.Open();
+
+            try
+            {
+                for (int i = 0; i < Max_Reticle; i++)
+                {
+                    int[] intType = new int[TReticles.MAX_RETICLES];
+                    intType = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "Type", intType);
+                    double[] dX = new double[TReticles.MAX_RETICLES];
+                    dX = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "X", dX);
+                    double[] dY = new double[TReticles.MAX_RETICLES];
+                    dY = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "Y", dY);
+                    double[] dW = new double[TReticles.MAX_RETICLES];
+                    dW = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "W", dW);
+                    double[] dH = new double[TReticles.MAX_RETICLES];
+                    dH = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "H", dH);
+                    string[] Text = new string[TReticles.MAX_RETICLES];
+                    Text = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "Text", Text);
+                    int[] Color = new int[TReticles.MAX_RETICLES];
+                    Color = xmlFile.GetValue(chapter, "Camera" + i.ToString(), "Reticle", "Color", Color);
+
+                    TReticle2 reticle = new TReticle2();
+                    for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                    {
+                        Reticles[i].Reticle[j].Type = (TReticle2.EType)intType[j];
+
+                        Reticles[i].Reticle[j].Location.Y = (float)dY[j];
+                        Reticles[i].Reticle[j].Location.X = (float)dX[j];
+                        Reticles[i].Reticle[j].Size.Width = (float)dW[j];
+                        Reticles[i].Reticle[j].Size.Height = (float)dH[j];
+
+                        Reticles[i].Reticle[j].Text = Text[j];
+                        Reticles[i].Reticle[j].Color = System.Drawing.Color.FromArgb(Color[j]);
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+        public static void saveCamReticlesXML(XmlWriter writer)
+        {
+            writer.WriteStartElement("chapter");
+            writer.WriteAttributeString("name", "Vision");
+
+            for (int i = 0; i < Max_Reticle; i++)
+            {
+                int[] intType = new int[TReticles.MAX_RETICLES];
+                double[] dX = new double[TReticles.MAX_RETICLES];
+                double[] dY = new double[TReticles.MAX_RETICLES];
+                double[] dW = new double[TReticles.MAX_RETICLES];
+                double[] dH = new double[TReticles.MAX_RETICLES];
+                string[] Text = new string[TReticles.MAX_RETICLES];
+                int[] Color = new int[TReticles.MAX_RETICLES];
+                for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                {
+                    intType[j] = (int)Reticles[i].Reticle[j].Type;
+
+                    dX[j] = Reticles[i].Reticle[j].Location.X;
+                    dY[j] = Reticles[i].Reticle[j].Location.Y;
+                    dW[j] = Reticles[i].Reticle[j].Size.Width;
+                    dH[j] = Reticles[i].Reticle[j].Size.Height;
+
+                    Text[j] = Reticles[i].Reticle[j].Text;
+                    Color[j] = Reticles[i].Reticle[j].Color.ToArgb();
+                }
+
+                writer.WriteStartElement("section");//section
+                writer.WriteAttributeString("name", "Camera" + i.ToString());
+
+                writer.WriteStartElement("entry");//entry
+                writer.WriteAttributeString("name", "Reticle");
+
+                DispProg.WriteSubEntry(writer, "Type", intType);
+                DispProg.WriteSubEntry(writer, "X", dX);
+                DispProg.WriteSubEntry(writer, "Y", dY);
+                DispProg.WriteSubEntry(writer, "W", dW);
+                DispProg.WriteSubEntry(writer, "H", dH);
+                DispProg.WriteSubEntry(writer, "Text", Text);
+                DispProg.WriteSubEntry(writer, "Color", Color);
+
+                writer.WriteEndElement();//end entry
+
+                writer.WriteEndElement();//end section
+            }
+
+            writer.WriteEndElement();//end chapter
+        }
+        public static void loadCamReticlesXML(XmlReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.Name == "chapter" && reader.MoveToContent() == XmlNodeType.EndElement) break;
+
+                #region section
+                if (reader.Name == "section")
+                {
+                    string secAttVal = reader["name"];
+
+                    switch (secAttVal)
+                    {
+                        case "Camera0":
+                        case "Camera1":
+                        case "Camera2":
+                        case "Camera3":
+                            {
+                                int iNo = int.Parse(secAttVal.Remove(0, 6));
+
+                                while (reader.Read())
+                                {
+                                    if (reader.Name == "section" && reader.MoveToContent() == XmlNodeType.EndElement) break;
+
+                                    if (reader.Name == "entry" && reader["name"] == "Reticle")
+                                    {
+                                        while (reader.Read())
+                                        {
+                                            if (reader.Name == "entry" && reader.MoveToContent() == XmlNodeType.EndElement) break;
+
+                                            if (reader.Name == "subentry")
+                                            {
+                                                string attName = reader["name"];
+
+                                                switch (attName)
+                                                {
+                                                    case "Type":
+                                                        int[] intType = new int[TReticles.MAX_RETICLES];
+                                                        intType = DispProg.ReadSubEntry(reader, intType);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Type = (TReticle2.EType)intType[j];
+                                                        break;
+                                                    case "X":
+                                                        double[] dX = new double[TReticles.MAX_RETICLES];
+                                                        dX = DispProg.ReadSubEntry(reader, dX);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Location.X = (float)dX[j];
+                                                        break;
+                                                    case "Y":
+                                                        double[] dY = new double[TReticles.MAX_RETICLES];
+                                                        dY = DispProg.ReadSubEntry(reader, dY);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Location.Y = (float)dY[j];
+                                                        break;
+                                                    case "W":
+                                                        double[] dW = new double[TReticles.MAX_RETICLES];
+                                                        dW = DispProg.ReadSubEntry(reader, dW);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Size.Width = (float)dW[j];
+                                                        break;
+                                                    case "H":
+                                                        double[] dH = new double[TReticles.MAX_RETICLES];
+                                                        dH = DispProg.ReadSubEntry(reader, dH);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Size.Height = (float)dH[j];
+                                                        break;
+                                                    case "Text":
+                                                        string[] Text = new string[TReticles.MAX_RETICLES];
+                                                        Text = DispProg.ReadSubEntry(reader, Text);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Text = Text[j];
+                                                        break;
+                                                    case "Color":
+                                                        int[] Color = new int[TReticles.MAX_RETICLES];
+                                                        Color = DispProg.ReadSubEntry(reader, Color);
+                                                        for (int j = 0; j < TReticles.MAX_RETICLES; j++)
+                                                            Reticles[iNo].Reticle[j].Color = System.Drawing.Color.FromArgb(Color[j]);
+                                                        break;
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                #endregion
+            }
         }
     }
 

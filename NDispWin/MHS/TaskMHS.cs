@@ -4937,6 +4937,8 @@ namespace NDispWin
         {
             if (!TaskConv.CheckReady()) return false;
 
+            Event.BOARD_MANUAL_RETURN.Set();
+
             switch (TaskConv.Buf1.Status)
             {
                 case TaskConv.EProcessStatus.Psnt:
@@ -5054,6 +5056,8 @@ namespace NDispWin
         {
             if (!TaskConv.CheckReady()) return false;
 
+            Event.BOARD_MANUAL_LOADPRE.Set();
+
             if (TaskConv.Out.SensPsnt) return true;
 
             if (TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty)
@@ -5098,9 +5102,9 @@ namespace NDispWin
         }
         internal static bool Manual_LoadPro()
         {
-            //TaskVision.LightingOff();
-
             if (!TaskConv.CheckReady()) return false;
+
+            Event.BOARD_MANUAL_LOADPRO.Set();
 
             if (TaskConv.Out.SensPsnt) return true;
 
@@ -5173,8 +5177,12 @@ namespace NDispWin
                 }
             }
 
-            if (!TaskConv.Out.SensPsnt)
-            {
+            string maglevel = "";
+            if (RightMode == ERightMode.ElevatorZ) maglevel = $"Mag {TaskElev.Right.Setup.PsntMagz} Level {TaskElev.Right.Setup.PsntLevel}";
+            Event.BOARD_MANUAL_UNLOAD.Set("", maglevel);
+
+                        if (!TaskConv.Out.SensPsnt)
+            { 
                 TaskConv.Out.Status = TaskConv.EProcessStatus.Empty;
 
                 if (TaskConv.RightMode == TaskConv.ERightMode.ElevatorZ && !TaskElev.Right.ReadyToReceive) goto _End;
@@ -5193,7 +5201,7 @@ namespace NDispWin
                             if (TaskElev.Right.Setup.PsntLevel != TaskConv.Pro.InLevel)
                             {
                                 Msg MsgBox = new Msg();
-                                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_OUT_MAG_LEVEL_MISMATCH, $"Expected Output Level No {TaskConv.Pro.InLevel}", EMcState.Notice, EMsgBtn.smbStop|EMsgBtn.smbContinue, false);
+                                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_OUT_MAG_LEVEL_MISMATCH, $"Expected Output Level No {TaskConv.Pro.InLevel}", EMcState.Notice, EMsgBtn.smbStop | EMsgBtn.smbContinue, false);
                                 switch (MsgRes)
                                 {
                                     case EMsgRes.smrContinue:
