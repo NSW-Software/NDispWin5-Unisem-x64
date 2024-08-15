@@ -22,6 +22,12 @@ Software Hang frequent
 Dispense Head Z Path
 
 
+Ver 6.1.1.1 20240815 - Release at YZ/WK for UnisemCD
+[BugFix] Fix frm_Setup_SP timer display.
+- [Improve] Totally remove all camera exceptions.
+[Enhance] Added CamReticle frmMVCGenTL to toggle CamReticle for setup use.
+[Improve] KickIn check Pre and Pro for frame presence.
+[Addition] Add GZPos to TaskMoveGZUp() to monitor for GZ Abnormal Alarm.
 Ver 6.1.1.0 20240813 - Release to YZ/WK for UnisemCD - Gitted
 - [HseKeep] Remove Basler, PtGrey, Spinnaker and Spinnaker2 references and dependencies.
 - [Enhance] Added log for Manual Load operations - Req YZ.

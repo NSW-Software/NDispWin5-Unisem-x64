@@ -120,6 +120,9 @@ namespace NDispWin
         {
 
         }
+        private void frmMVCGenTLCamera_Shown(object sender, EventArgs e)
+        {
+        }
 
         private void tsbtn_Cam1_Click(object sender, EventArgs e)
         {
@@ -484,8 +487,6 @@ _Retry:
         private void showCamReticlesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowCamReticles = !ShowCamReticles;
-            //imgBoxEmgu.Refresh();
-
             UpdateControls();
         }
 
@@ -518,10 +519,10 @@ _Retry:
             TaskVision.genTLCamera[m_iSelectedCam].SoftwareTrigger();
         }
 
-        private void frmMVCGenTLCamera_Shown(object sender, EventArgs e)
+        private void rsbShowCamReticle_Click(object sender, EventArgs e)
         {
-            //Thread.Sleep(250);
-            //ZoomFit();
+            ShowCamReticles = !ShowCamReticles;
+            UpdateControls();
         }
     }
 }

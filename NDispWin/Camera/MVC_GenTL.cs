@@ -344,7 +344,7 @@ namespace MVC
                             }
                             catch (Exception ex)
                             {
-                                NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), m_CamName + " " + ex.Message.ToString());
+                                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), m_CamName + " " + ex.Message.ToString());
                                 m_MyCamera.MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
                                 System.Threading.Thread.Sleep(10);
                             }
@@ -398,7 +398,7 @@ namespace MVC
                         }
                         catch (Exception ex)
                         {
-                            NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), m_CamName + " " + ex.Message.ToString());
+                            if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), m_CamName + " " + ex.Message.ToString());
                             m_MyCamera.MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
                             System.Threading.Thread.Sleep(10);
                         }

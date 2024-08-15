@@ -5578,7 +5578,7 @@ namespace NDispWin
                 if (TaskGantry.GZPos() < 0)
                 {
                     Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, "GZ", true);
+                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ, Pos {TaskGantry.GZPos()}", true);
                     GDefine.Status = EStatus.ErrorInit;
                     return false;
                 }
@@ -5693,7 +5693,7 @@ namespace NDispWin
                 if (TaskGantry.GZPos() < -0.1)
                 {
                     Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, "GZ", true);
+                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ, Pos {TaskGantry.GZPos()}", true);
                     GDefine.Status = EStatus.ErrorInit;
                     return false;
                 }
@@ -5702,7 +5702,7 @@ namespace NDispWin
                     if (TaskGantry.GZ2Pos() < -0.1)
                     {
                         Msg MsgBox = new Msg();
-                        MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, "GZ2", true);
+                        MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ2, Pos {TaskGantry.GZ2Pos()}", true);
                         GDefine.Status = EStatus.ErrorInit;
                         return false;
                     }

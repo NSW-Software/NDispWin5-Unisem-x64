@@ -435,10 +435,14 @@ namespace NDispWin
 
         private void tmr500ms_Tick(object sender, EventArgs e)
         {
-            double d = (double)(tcFPressHOff - Environment.TickCount) / 1000;
-            int t = (int)Math.Ceiling(d);
-            string st = t > 0 ? $"{t} / " : "";
-            lblFPressHTimer.Text = $"{st}{DispProg.FPressH_Timer}";
+            string s = "";
+            if (FPressHTimerRunning)
+            {
+                double d = (double)(tcFPressHOff - Environment.TickCount) / 1000;
+                int t = (int)Math.Ceiling(d);
+                s = $"{t} / ";
+            }
+            lblFPressHTimer.Text = $"{s}{DispProg.FPressH_Timer}";
         }
     }
 }

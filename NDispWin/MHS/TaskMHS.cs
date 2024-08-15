@@ -8359,28 +8359,50 @@ namespace NDispWin
                             goto _End;
                         }
 
+                        if (TaskConv.Pre.SensPsnt)
+                        {
+                            if (TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty)
+                            {
+                                Msg MsgBox = new Msg();
+                                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRE", EMcState.Error, EMsgBtn.smbStop, true);
+                                TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                goto _End;
+                            }
+                        }
+
+                        if (TaskConv.Pro.SensPsnt)
+                        {
+                            if (TaskConv.Pro.Status == TaskConv.EProcessStatus.Empty)
+                            {
+                                Msg MsgBox = new Msg();
+                                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRO", EMcState.Error, EMsgBtn.smbStop, true);
+                                TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                goto _End;
+                            }
+                        }
+
                         if (Setup.PusherRunConv)
                         {
                             if (Station == TaskConv.EStation.Pro)
                             {
-                                if (TaskConv.Pro.SensPsnt)
-                                {
-                                    Msg MsgBox = new Msg();
-                                    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRO", EMcState.Error, EMsgBtn.smbStop, true);
-                                    TaskConv.Status = TaskConv.EConvStatus.Stop;
-                                    goto _End;
-                                }
+                                //if (TaskConv.Pro.SensPsnt)
+                                //{
+                                //    Msg MsgBox = new Msg();
+                                //    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRO", EMcState.Error, EMsgBtn.smbStop, true);
+                                //    TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                //    goto _End;
+                                //}
                                 TaskConv.Pro.SvStopperUp = true;
                             }
                             if (Station == TaskConv.EStation.Pre)
                             {
-                                if (TaskConv.Pre.SensPsnt)
-                                {
-                                    Msg MsgBox = new Msg();
-                                    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRE", EMcState.Error, EMsgBtn.smbStop, true);
-                                    TaskConv.Status = TaskConv.EConvStatus.Stop;
-                                    goto _End;
-                                }
+                                //if (TaskConv.Pre.SensPsnt)
+                                //{
+                                //    Msg MsgBox = new Msg();
+                                //    EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRE", EMcState.Error, EMsgBtn.smbStop, true);
+                                //    TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                //    goto _End;
+                                //}
                                 TaskConv.Pre.SvStopperUp = true;
                             }
                             TaskConv.Conv.Fwd_Fast();

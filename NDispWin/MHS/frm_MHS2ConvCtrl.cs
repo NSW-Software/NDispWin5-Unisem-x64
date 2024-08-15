@@ -347,6 +347,7 @@ namespace NDispWin
         private void btn_StopInput_Click(object sender, EventArgs e)
         {
             TaskConv.StopInput = !TaskConv.StopInput;
+            Event.OP_OPTION_CHANGED.Set("StopInput", TaskConv.StopInput.ToString());
 
             switch (TaskConv.LeftMode)
             {
@@ -369,16 +370,22 @@ namespace NDispWin
         private void btn_SkipDisp_Click(object sender, EventArgs e)
         {
             TaskConv.SkipDisp = !TaskConv.SkipDisp;
+            Event.OP_OPTION_CHANGED.Set("SkipDisp", TaskConv.SkipDisp.ToString());
+
             UpdateDisplay();
         }
         private void btn_DispEndStop_Click(object sender, EventArgs e)
         {
             TaskConv.DispEndStop = !TaskConv.DispEndStop;
+            Event.OP_OPTION_CHANGED.Set("DispEndStop", TaskConv.DispEndStop.ToString());
+
             UpdateDisplay();
         }
         private void btn_BoardEndStop_Click(object sender, EventArgs e)
         {
             TaskConv.UnloadStop = !TaskConv.UnloadStop;
+            Event.OP_OPTION_CHANGED.Set("UnloadStop", TaskConv.UnloadStop.ToString());
+
             UpdateDisplay();
         }
 

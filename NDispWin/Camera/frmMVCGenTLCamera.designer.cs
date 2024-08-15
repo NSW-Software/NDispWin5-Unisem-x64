@@ -67,6 +67,7 @@
             this.tssl_FPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssl_Status = new System.Windows.Forms.ToolStripStatusLabel();
+            this.rsbShowCamReticle = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).BeginInit();
             this.pnl_Image.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu2)).BeginInit();
@@ -93,9 +94,9 @@
             this.pnl_Image.Controls.Add(this.imgBoxEmgu2);
             this.pnl_Image.Controls.Add(this.imgBoxEmgu);
             this.pnl_Image.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_Image.Location = new System.Drawing.Point(0, 31);
+            this.pnl_Image.Location = new System.Drawing.Point(0, 27);
             this.pnl_Image.Name = "pnl_Image";
-            this.pnl_Image.Size = new System.Drawing.Size(644, 350);
+            this.pnl_Image.Size = new System.Drawing.Size(644, 354);
             this.pnl_Image.TabIndex = 3;
             this.pnl_Image.Resize += new System.EventHandler(this.pnl_Image_Resize);
             // 
@@ -128,11 +129,12 @@
             this.tsbtn_ZoomFit,
             this.tsbtn_ZoomIn,
             this.toolStripSeparator3,
+            this.rsbShowCamReticle,
             this.tsddb_Image,
             this.tsddb_Tools});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(644, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(644, 27);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -175,7 +177,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbtn_Grab
             // 
@@ -183,7 +185,7 @@
             this.tsbtn_Grab.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Grab.Image")));
             this.tsbtn_Grab.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Grab.Name = "tsbtn_Grab";
-            this.tsbtn_Grab.Size = new System.Drawing.Size(39, 28);
+            this.tsbtn_Grab.Size = new System.Drawing.Size(39, 24);
             this.tsbtn_Grab.Text = "&Live";
             this.tsbtn_Grab.Click += new System.EventHandler(this.tsbtn_Grab_Click);
             // 
@@ -193,7 +195,7 @@
             this.tsbtn_Stop.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Stop.Image")));
             this.tsbtn_Stop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Stop.Name = "tsbtn_Stop";
-            this.tsbtn_Stop.Size = new System.Drawing.Size(44, 28);
+            this.tsbtn_Stop.Size = new System.Drawing.Size(44, 24);
             this.tsbtn_Stop.Text = "&Stop";
             this.tsbtn_Stop.Click += new System.EventHandler(this.tsbtn_Stop_Click);
             // 
@@ -203,7 +205,7 @@
             this.tsbtn_Capture.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_Capture.Image")));
             this.tsbtn_Capture.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_Capture.Name = "tsbtn_Capture";
-            this.tsbtn_Capture.Size = new System.Drawing.Size(65, 28);
+            this.tsbtn_Capture.Size = new System.Drawing.Size(65, 24);
             this.tsbtn_Capture.Text = "&Capture";
             this.tsbtn_Capture.Click += new System.EventHandler(this.tsbtn_Capture_Click);
             // 
@@ -261,7 +263,7 @@
             this.tsddb_Image.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Image.Image")));
             this.tsddb_Image.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Image.Name = "tsddb_Image";
-            this.tsddb_Image.Size = new System.Drawing.Size(65, 28);
+            this.tsddb_Image.Size = new System.Drawing.Size(65, 24);
             this.tsddb_Image.Text = "Image";
             // 
             // openToolStripMenuItem
@@ -292,7 +294,7 @@
             this.tsddb_Tools.Image = ((System.Drawing.Image)(resources.GetObject("tsddb_Tools.Image")));
             this.tsddb_Tools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddb_Tools.Name = "tsddb_Tools";
-            this.tsddb_Tools.Size = new System.Drawing.Size(58, 28);
+            this.tsddb_Tools.Size = new System.Drawing.Size(58, 24);
             this.tsddb_Tools.Text = "Tools";
             // 
             // tsmi_SetupReticle
@@ -421,6 +423,16 @@
             this.tssl_Status.Size = new System.Drawing.Size(49, 16);
             this.tssl_Status.Text = "Status";
             // 
+            // rsbShowCamReticle
+            // 
+            this.rsbShowCamReticle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.rsbShowCamReticle.Image = ((System.Drawing.Image)(resources.GetObject("rsbShowCamReticle.Image")));
+            this.rsbShowCamReticle.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rsbShowCamReticle.Name = "rsbShowCamReticle";
+            this.rsbShowCamReticle.Size = new System.Drawing.Size(92, 24);
+            this.rsbShowCamReticle.Text = "Cam Reticle";
+            this.rsbShowCamReticle.Click += new System.EventHandler(this.rsbShowCamReticle_Click);
+            // 
             // frmMVCGenTLCamera
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -484,5 +496,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOff;
         private System.Windows.Forms.ToolStripMenuItem tsmiTriggerModeOn;
         private Emgu.CV.UI.ImageBox imgBoxEmgu2;
+        private System.Windows.Forms.ToolStripButton rsbShowCamReticle;
     }
 }

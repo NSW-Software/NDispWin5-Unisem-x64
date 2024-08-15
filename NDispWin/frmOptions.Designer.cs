@@ -104,6 +104,10 @@
             this.lblUseRecipeFile = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tpCalibration = new System.Windows.Forms.TabPage();
+            this.gboxErrorMap = new System.Windows.Forms.GroupBox();
+            this.btnEditErrorMap = new System.Windows.Forms.Button();
+            this.btnCreateErrorMap = new System.Windows.Forms.Button();
+            this.btnClearErrorMap = new System.Windows.Forms.Button();
             this.lblShrinkLast2CLine = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.lblCLineSpeedRatio = new System.Windows.Forms.Label();
@@ -132,10 +136,6 @@
             this.btnAccessConfig = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnJog = new System.Windows.Forms.Button();
-            this.gboxErrorMap = new System.Windows.Forms.GroupBox();
-            this.btnEditErrorMap = new System.Windows.Forms.Button();
-            this.btnCreateErrorMap = new System.Windows.Forms.Button();
-            this.btnClearErrorMap = new System.Windows.Forms.Button();
             this.tpOptions.SuspendLayout();
             this.tpPreference.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -152,8 +152,8 @@
             this.groupBox6.SuspendLayout();
             this.tpRecipe.SuspendLayout();
             this.tpCalibration.SuspendLayout();
-            this.tpAdvance.SuspendLayout();
             this.gboxErrorMap.SuspendLayout();
+            this.tpAdvance.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpOptions
@@ -1081,6 +1081,50 @@
             this.tpCalibration.TabIndex = 4;
             this.tpCalibration.Text = "Calibration";
             // 
+            // gboxErrorMap
+            // 
+            this.gboxErrorMap.AutoSize = true;
+            this.gboxErrorMap.Controls.Add(this.btnEditErrorMap);
+            this.gboxErrorMap.Controls.Add(this.btnCreateErrorMap);
+            this.gboxErrorMap.Controls.Add(this.btnClearErrorMap);
+            this.gboxErrorMap.Location = new System.Drawing.Point(6, 363);
+            this.gboxErrorMap.Name = "gboxErrorMap";
+            this.gboxErrorMap.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.gboxErrorMap.Size = new System.Drawing.Size(343, 70);
+            this.gboxErrorMap.TabIndex = 196;
+            this.gboxErrorMap.TabStop = false;
+            this.gboxErrorMap.Text = "Error Map (...NDisp3Win\\Config\\ErrorMap.txt)";
+            // 
+            // btnEditErrorMap
+            // 
+            this.btnEditErrorMap.Location = new System.Drawing.Point(6, 25);
+            this.btnEditErrorMap.Name = "btnEditErrorMap";
+            this.btnEditErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnEditErrorMap.TabIndex = 152;
+            this.btnEditErrorMap.Text = "Edit";
+            this.btnEditErrorMap.UseVisualStyleBackColor = true;
+            this.btnEditErrorMap.Click += new System.EventHandler(this.btnEditErrorMap_Click);
+            // 
+            // btnCreateErrorMap
+            // 
+            this.btnCreateErrorMap.Location = new System.Drawing.Point(209, 25);
+            this.btnCreateErrorMap.Name = "btnCreateErrorMap";
+            this.btnCreateErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnCreateErrorMap.TabIndex = 151;
+            this.btnCreateErrorMap.Text = "Create";
+            this.btnCreateErrorMap.UseVisualStyleBackColor = true;
+            this.btnCreateErrorMap.Click += new System.EventHandler(this.btnCreateErrorMap_Click);
+            // 
+            // btnClearErrorMap
+            // 
+            this.btnClearErrorMap.Location = new System.Drawing.Point(143, 25);
+            this.btnClearErrorMap.Name = "btnClearErrorMap";
+            this.btnClearErrorMap.Size = new System.Drawing.Size(60, 23);
+            this.btnClearErrorMap.TabIndex = 149;
+            this.btnClearErrorMap.Text = "Clear";
+            this.btnClearErrorMap.UseVisualStyleBackColor = true;
+            this.btnClearErrorMap.Click += new System.EventHandler(this.btnClearErrorMap_Click);
+            // 
             // lblShrinkLast2CLine
             // 
             this.lblShrinkLast2CLine.BackColor = System.Drawing.Color.White;
@@ -1336,7 +1380,7 @@
             // cbEnableEventDebugLog
             // 
             this.cbEnableEventDebugLog.AutoSize = true;
-            this.cbEnableEventDebugLog.Location = new System.Drawing.Point(6, 25);
+            this.cbEnableEventDebugLog.Location = new System.Drawing.Point(13, 17);
             this.cbEnableEventDebugLog.Name = "cbEnableEventDebugLog";
             this.cbEnableEventDebugLog.Size = new System.Drawing.Size(189, 22);
             this.cbEnableEventDebugLog.TabIndex = 6;
@@ -1394,50 +1438,6 @@
             this.btnJog.UseVisualStyleBackColor = true;
             this.btnJog.Click += new System.EventHandler(this.btnJog_Click);
             // 
-            // gboxErrorMap
-            // 
-            this.gboxErrorMap.AutoSize = true;
-            this.gboxErrorMap.Controls.Add(this.btnEditErrorMap);
-            this.gboxErrorMap.Controls.Add(this.btnCreateErrorMap);
-            this.gboxErrorMap.Controls.Add(this.btnClearErrorMap);
-            this.gboxErrorMap.Location = new System.Drawing.Point(6, 363);
-            this.gboxErrorMap.Name = "gboxErrorMap";
-            this.gboxErrorMap.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gboxErrorMap.Size = new System.Drawing.Size(343, 70);
-            this.gboxErrorMap.TabIndex = 196;
-            this.gboxErrorMap.TabStop = false;
-            this.gboxErrorMap.Text = "Error Map (...NDisp3Win\\Config\\ErrorMap.txt)";
-            // 
-            // btnEditErrorMap
-            // 
-            this.btnEditErrorMap.Location = new System.Drawing.Point(6, 25);
-            this.btnEditErrorMap.Name = "btnEditErrorMap";
-            this.btnEditErrorMap.Size = new System.Drawing.Size(60, 23);
-            this.btnEditErrorMap.TabIndex = 152;
-            this.btnEditErrorMap.Text = "Edit";
-            this.btnEditErrorMap.UseVisualStyleBackColor = true;
-            this.btnEditErrorMap.Click += new System.EventHandler(this.btnEditErrorMap_Click);
-            // 
-            // btnCreateErrorMap
-            // 
-            this.btnCreateErrorMap.Location = new System.Drawing.Point(209, 25);
-            this.btnCreateErrorMap.Name = "btnCreateErrorMap";
-            this.btnCreateErrorMap.Size = new System.Drawing.Size(60, 23);
-            this.btnCreateErrorMap.TabIndex = 151;
-            this.btnCreateErrorMap.Text = "Create";
-            this.btnCreateErrorMap.UseVisualStyleBackColor = true;
-            this.btnCreateErrorMap.Click += new System.EventHandler(this.btnCreateErrorMap_Click);
-            // 
-            // btnClearErrorMap
-            // 
-            this.btnClearErrorMap.Location = new System.Drawing.Point(143, 25);
-            this.btnClearErrorMap.Name = "btnClearErrorMap";
-            this.btnClearErrorMap.Size = new System.Drawing.Size(60, 23);
-            this.btnClearErrorMap.TabIndex = 149;
-            this.btnClearErrorMap.Text = "Clear";
-            this.btnClearErrorMap.UseVisualStyleBackColor = true;
-            this.btnClearErrorMap.Click += new System.EventHandler(this.btnClearErrorMap_Click);
-            // 
             // frmOptions
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1485,9 +1485,9 @@
             this.tpRecipe.ResumeLayout(false);
             this.tpCalibration.ResumeLayout(false);
             this.tpCalibration.PerformLayout();
+            this.gboxErrorMap.ResumeLayout(false);
             this.tpAdvance.ResumeLayout(false);
             this.tpAdvance.PerformLayout();
-            this.gboxErrorMap.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

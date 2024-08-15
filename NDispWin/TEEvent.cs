@@ -144,6 +144,7 @@ namespace NDispWin
         public static TEEvent OP_DISP_AUTO_LOAD_SUCCESSFUL = new TEEvent(DISPCORE_EVENT_OP + 19, "Auto Load Device successful.");
         public static TEEvent OP_EXT_VISION_OK = new TEEvent(DISPCORE_EVENT_OP + 30, "Ext Vision Inspection OK.");
         public static TEEvent OP_EXT_VISION_NG = new TEEvent(DISPCORE_EVENT_OP + 31, "Ext Vision Inspection NG.");
+        public static TEEvent OP_OPTION_CHANGED = new TEEvent(DISPCORE_EVENT_OP + 40, "Change Option.");
 
         public static TEEvent OP_LMDS_TESTER_SEQ = new TEEvent(DISPCORE_EVENT_OP + 90, "Lmds Tester Seq.");
         public static TEEvent OP_CHECK_MENISCUS = new TEEvent(DISPCORE_EVENT_OP + 91, "Check Meniscus.");
