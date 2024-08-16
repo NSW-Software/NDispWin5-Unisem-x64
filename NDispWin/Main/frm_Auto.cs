@@ -194,7 +194,8 @@ namespace NDispWin
             }
 
             rtbOptions.Text = $"Settings\r" +
-                (DispProg.Options_CheckBoardYield > 0 ? $"Check Low Yield {DispProg.Options_CheckBoardYield*100:f2}%\r":"") +
+                (DispProg.Options_CheckBoardInputYield > 0 ? $"Check Low Input Yield {DispProg.Options_CheckBoardInputYield * 100:f2}%\r" : "") +
+                (DispProg.Options_CheckBoardYield > 0 ? $"Check Low Output Yield {DispProg.Options_CheckBoardYield*100:f2}%\r":"") +
                 (DispProg.BiasKernelFile.Length > 0 ? $"BiasKernelFile: {DispProg.BiasKernelFile}\r" : "");
         }
         private void frm_Auto_FormClosing(object sender, FormClosingEventArgs e)

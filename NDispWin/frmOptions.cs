@@ -78,9 +78,11 @@ namespace NDispWin
             #region Cal Page
             lblDefZPos.Text = TaskDisp.ZDefPos.ToString("f3");
             lblDefLaserValue.Text = TaskDisp.Laser_CalValue.ToString("f3");
-            lblIntPulseOnDelay.Text = $"{DispProg.SP.IntPulseOnDelay[0]:f3}";
-            lblIntPulseOffDelay.Text = $"{DispProg.SP.IntPulseOffDelay[0]:f3}";
+
+            lblVacuumEarlyOff.Text = $"{TaskDisp.Option_VacuumEarlyOn:f3}";
+            lblLast2CLineEarlyOff.Text = $"{TaskDisp.Option_Last2CLineEarlyOff:f3}";
             lblShrinkLast2CLine.Text = $"{TaskDisp.Option_ShrinkLast2CLine:f3}";
+
             lblExtendLastCLine.Text = $"{TaskDisp.Option_ExtendLastCLine:f3}";
             lblCLineSpeedRatio.Text = $"{TaskDisp.Option_CLineSpeedRatio:f3}";
             #endregion
@@ -490,13 +492,11 @@ namespace NDispWin
             UC.AdjustExec("Maint Disp Counter", ref Maint.Disp.CountLimit[0], 0, 100000000);
             UpdateDisplay();
         }
-
         private void lbl_FillCounterALimit_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Maint Disp Counter Limit", ref Maint.PP.FillCountLimit[0], 0, 100000000);
             UpdateDisplay();
         }
-
         private void btn_UnitCounterAReset_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Reset Disp Counter", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -508,7 +508,6 @@ namespace NDispWin
             }
             UpdateDisplay();
         }
-
         private void btn_FillCounterAReset_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Reset Fill Counter", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -521,37 +520,39 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void lblIntPulseOnDelay_Click(object sender, EventArgs e)
+        private void lblVacuumEarlyOff_Click(object sender, EventArgs e)
         {
-            double d = DispProg.SP.IntPulseOnDelay[0];
-            if (UC.AdjustExec("SP.IntPulseOnDelay", ref d, -5000, 5000))
+            if (UC.AdjustExec("Option VacuumEarlyOff", ref TaskDisp.Option_VacuumEarlyOn, 0, 0.1))
             {
-                DispProg.SP.IntPulseOnDelay[0] = d;
+                TaskDisp.Option_Last2CLineEarlyOff = 0;
+                TaskDisp.Option_ShrinkLast2CLine = 0;
             }
             UpdateDisplay();
         }
-
-        private void lblIntPulseOffDelay_Click(object sender, EventArgs e)
+        private void lblLast2CLineEarlyOff_Click(object sender, EventArgs e)
         {
-            double d = DispProg.SP.IntPulseOffDelay[0];
-            if (UC.AdjustExec("SP.IntPulseOffDelay", ref d, -5000, 5000))
+            if (UC.AdjustExec("Option DecreaseEndOutput", ref TaskDisp.Option_Last2CLineEarlyOff, 0, 0.1))
             {
-                DispProg.SP.IntPulseOffDelay[0] = d;
+                TaskDisp.Option_VacuumEarlyOn = 0;
+                TaskDisp.Option_ShrinkLast2CLine = 0;
             }
             UpdateDisplay();
         }
-
         private void lblShrinkLast2CLine_Click(object sender, EventArgs e)
         {
-            if (UC.AdjustExec("Option ShrinkLast2CLine", ref TaskDisp.Option_ShrinkLast2CLine, 0, 10))
-                UpdateDisplay();
+            if (UC.AdjustExec("Option ShrinkLast2CLine", ref TaskDisp.Option_ShrinkLast2CLine, 0, 0.4))
+            {
+                TaskDisp.Option_VacuumEarlyOn = 0;
+                TaskDisp.Option_Last2CLineEarlyOff = 0;
+            }
+            UpdateDisplay();
         }
+
         private void lblExtendLastCLine_Click(object sender, EventArgs e)
         {
             if (UC.AdjustExec("Option ExtendLastCLine", ref TaskDisp.Option_ExtendLastCLine, 0, 10))
                 UpdateDisplay();
         }
-
         private void lblCLineSpeedRatio_Click(object sender, EventArgs e)
         {
             if (UC.AdjustExec("Option CLineSpeedRatio", ref TaskDisp.Option_CLineSpeedRatio, 0.7, 1.3))
@@ -565,14 +566,12 @@ namespace NDispWin
             else
             System.Diagnostics.Process.Start(DispProg.ErrorMapFile);
         }
-
         private void btnClearErrorMap_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Clear Error Map?", "", MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
 
             DispProg.ErrorMap.Clear();
         }
-
         private void btnCreateErrorMap_Click(object sender, EventArgs e)
         {
             if (File.Exists(DispProg.ErrorMapFile))

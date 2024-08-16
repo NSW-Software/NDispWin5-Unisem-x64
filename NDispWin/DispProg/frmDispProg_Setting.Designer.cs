@@ -41,6 +41,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.cbxStripMapDnloadFlip = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.lblCheckBoardInputYield = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.lblCheckBoardYield = new System.Windows.Forms.Label();
             this.cbEnableProcessLog = new System.Windows.Forms.CheckBox();
@@ -296,6 +298,8 @@
             // 
             this.groupBox7.AutoSize = true;
             this.groupBox7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox7.Controls.Add(this.label31);
+            this.groupBox7.Controls.Add(this.lblCheckBoardInputYield);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.lblCheckBoardYield);
             this.groupBox7.Controls.Add(this.cbEnableProcessLog);
@@ -308,6 +312,29 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Options";
             // 
+            // label31
+            // 
+            this.label31.Location = new System.Drawing.Point(5, 154);
+            this.label31.Margin = new System.Windows.Forms.Padding(2);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(218, 23);
+            this.label31.TabIndex = 154;
+            this.label31.Text = "Check Board Input Yield (%)";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblCheckBoardInputYield
+            // 
+            this.lblCheckBoardInputYield.BackColor = System.Drawing.Color.White;
+            this.lblCheckBoardInputYield.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblCheckBoardInputYield.Location = new System.Drawing.Point(227, 154);
+            this.lblCheckBoardInputYield.Margin = new System.Windows.Forms.Padding(2);
+            this.lblCheckBoardInputYield.Name = "lblCheckBoardInputYield";
+            this.lblCheckBoardInputYield.Size = new System.Drawing.Size(70, 23);
+            this.lblCheckBoardInputYield.TabIndex = 153;
+            this.lblCheckBoardInputYield.Text = "0";
+            this.lblCheckBoardInputYield.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCheckBoardInputYield.Click += new System.EventHandler(this.lblCheckBoardInYield_Click);
+            // 
             // label26
             // 
             this.label26.Location = new System.Drawing.Point(5, 181);
@@ -315,7 +342,7 @@
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(218, 23);
             this.label26.TabIndex = 152;
-            this.label26.Text = "Check Board Yield (%)";
+            this.label26.Text = "Check Board Output Yield (%)";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblCheckBoardYield
@@ -1989,5 +2016,7 @@
         private System.Windows.Forms.CheckBox cbEnableUploadMap;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox cbxStripMapDnloadFlip;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lblCheckBoardInputYield;
     }
 }

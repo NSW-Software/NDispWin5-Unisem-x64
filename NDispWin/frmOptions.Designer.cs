@@ -104,6 +104,10 @@
             this.lblUseRecipeFile = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tpCalibration = new System.Windows.Forms.TabPage();
+            this.lblVacuumEarlyOff = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.lblLast2CLineEarlyOff = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.gboxErrorMap = new System.Windows.Forms.GroupBox();
             this.btnEditErrorMap = new System.Windows.Forms.Button();
             this.btnCreateErrorMap = new System.Windows.Forms.Button();
@@ -114,10 +118,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.lblExtendLastCLine = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.lblIntPulseOffDelay = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.lblIntPulseOnDelay = new System.Windows.Forms.Label();
             this.btnCalDefLaserValue = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -127,8 +127,6 @@
             this.label38 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.lblDefZPos = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.tpAdvance = new System.Windows.Forms.TabPage();
             this.cbEnableEventDebugLog = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -1052,6 +1050,10 @@
             // 
             // tpCalibration
             // 
+            this.tpCalibration.Controls.Add(this.lblVacuumEarlyOff);
+            this.tpCalibration.Controls.Add(this.label30);
+            this.tpCalibration.Controls.Add(this.lblLast2CLineEarlyOff);
+            this.tpCalibration.Controls.Add(this.label28);
             this.tpCalibration.Controls.Add(this.gboxErrorMap);
             this.tpCalibration.Controls.Add(this.lblShrinkLast2CLine);
             this.tpCalibration.Controls.Add(this.label27);
@@ -1059,10 +1061,6 @@
             this.tpCalibration.Controls.Add(this.label26);
             this.tpCalibration.Controls.Add(this.lblExtendLastCLine);
             this.tpCalibration.Controls.Add(this.label22);
-            this.tpCalibration.Controls.Add(this.label24);
-            this.tpCalibration.Controls.Add(this.lblIntPulseOffDelay);
-            this.tpCalibration.Controls.Add(this.label21);
-            this.tpCalibration.Controls.Add(this.lblIntPulseOnDelay);
             this.tpCalibration.Controls.Add(this.btnCalDefLaserValue);
             this.tpCalibration.Controls.Add(this.label7);
             this.tpCalibration.Controls.Add(this.label8);
@@ -1072,8 +1070,6 @@
             this.tpCalibration.Controls.Add(this.label38);
             this.tpCalibration.Controls.Add(this.label39);
             this.tpCalibration.Controls.Add(this.lblDefZPos);
-            this.tpCalibration.Controls.Add(this.label23);
-            this.tpCalibration.Controls.Add(this.label20);
             this.tpCalibration.Location = new System.Drawing.Point(4, 34);
             this.tpCalibration.Name = "tpCalibration";
             this.tpCalibration.Padding = new System.Windows.Forms.Padding(3);
@@ -1081,13 +1077,59 @@
             this.tpCalibration.TabIndex = 4;
             this.tpCalibration.Text = "Calibration";
             // 
+            // lblVacuumEarlyOff
+            // 
+            this.lblVacuumEarlyOff.BackColor = System.Drawing.Color.White;
+            this.lblVacuumEarlyOff.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblVacuumEarlyOff.Location = new System.Drawing.Point(205, 148);
+            this.lblVacuumEarlyOff.Margin = new System.Windows.Forms.Padding(2);
+            this.lblVacuumEarlyOff.Name = "lblVacuumEarlyOff";
+            this.lblVacuumEarlyOff.Size = new System.Drawing.Size(70, 23);
+            this.lblVacuumEarlyOff.TabIndex = 199;
+            this.lblVacuumEarlyOff.Text = "-999.999";
+            this.lblVacuumEarlyOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblVacuumEarlyOff.Click += new System.EventHandler(this.lblVacuumEarlyOff_Click);
+            // 
+            // label30
+            // 
+            this.label30.Location = new System.Drawing.Point(5, 148);
+            this.label30.Margin = new System.Windows.Forms.Padding(2);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(225, 23);
+            this.label30.TabIndex = 201;
+            this.label30.Text = "Vacuum Early Off (s)";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLast2CLineEarlyOff
+            // 
+            this.lblLast2CLineEarlyOff.BackColor = System.Drawing.Color.White;
+            this.lblLast2CLineEarlyOff.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblLast2CLineEarlyOff.Location = new System.Drawing.Point(205, 229);
+            this.lblLast2CLineEarlyOff.Margin = new System.Windows.Forms.Padding(2);
+            this.lblLast2CLineEarlyOff.Name = "lblLast2CLineEarlyOff";
+            this.lblLast2CLineEarlyOff.Size = new System.Drawing.Size(70, 23);
+            this.lblLast2CLineEarlyOff.TabIndex = 197;
+            this.lblLast2CLineEarlyOff.Text = "-999.999";
+            this.lblLast2CLineEarlyOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLast2CLineEarlyOff.Click += new System.EventHandler(this.lblLast2CLineEarlyOff_Click);
+            // 
+            // label28
+            // 
+            this.label28.Location = new System.Drawing.Point(5, 229);
+            this.label28.Margin = new System.Windows.Forms.Padding(2);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(225, 23);
+            this.label28.TabIndex = 198;
+            this.label28.Text = "Decrease End Output (s)";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // gboxErrorMap
             // 
             this.gboxErrorMap.AutoSize = true;
             this.gboxErrorMap.Controls.Add(this.btnEditErrorMap);
             this.gboxErrorMap.Controls.Add(this.btnCreateErrorMap);
             this.gboxErrorMap.Controls.Add(this.btnClearErrorMap);
-            this.gboxErrorMap.Location = new System.Drawing.Point(6, 363);
+            this.gboxErrorMap.Location = new System.Drawing.Point(6, 389);
             this.gboxErrorMap.Name = "gboxErrorMap";
             this.gboxErrorMap.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.gboxErrorMap.Size = new System.Drawing.Size(343, 70);
@@ -1129,7 +1171,7 @@
             // 
             this.lblShrinkLast2CLine.BackColor = System.Drawing.Color.White;
             this.lblShrinkLast2CLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblShrinkLast2CLine.Location = new System.Drawing.Point(205, 261);
+            this.lblShrinkLast2CLine.Location = new System.Drawing.Point(205, 256);
             this.lblShrinkLast2CLine.Margin = new System.Windows.Forms.Padding(2);
             this.lblShrinkLast2CLine.Name = "lblShrinkLast2CLine";
             this.lblShrinkLast2CLine.Size = new System.Drawing.Size(70, 23);
@@ -1140,7 +1182,7 @@
             // 
             // label27
             // 
-            this.label27.Location = new System.Drawing.Point(5, 261);
+            this.label27.Location = new System.Drawing.Point(5, 256);
             this.label27.Margin = new System.Windows.Forms.Padding(2);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(225, 23);
@@ -1152,7 +1194,7 @@
             // 
             this.lblCLineSpeedRatio.BackColor = System.Drawing.Color.White;
             this.lblCLineSpeedRatio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCLineSpeedRatio.Location = new System.Drawing.Point(205, 315);
+            this.lblCLineSpeedRatio.Location = new System.Drawing.Point(205, 341);
             this.lblCLineSpeedRatio.Margin = new System.Windows.Forms.Padding(2);
             this.lblCLineSpeedRatio.Name = "lblCLineSpeedRatio";
             this.lblCLineSpeedRatio.Size = new System.Drawing.Size(70, 23);
@@ -1163,7 +1205,7 @@
             // 
             // label26
             // 
-            this.label26.Location = new System.Drawing.Point(5, 315);
+            this.label26.Location = new System.Drawing.Point(5, 341);
             this.label26.Margin = new System.Windows.Forms.Padding(2);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(225, 23);
@@ -1175,7 +1217,7 @@
             // 
             this.lblExtendLastCLine.BackColor = System.Drawing.Color.White;
             this.lblExtendLastCLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblExtendLastCLine.Location = new System.Drawing.Point(205, 288);
+            this.lblExtendLastCLine.Location = new System.Drawing.Point(205, 314);
             this.lblExtendLastCLine.Margin = new System.Windows.Forms.Padding(2);
             this.lblExtendLastCLine.Name = "lblExtendLastCLine";
             this.lblExtendLastCLine.Size = new System.Drawing.Size(70, 23);
@@ -1186,61 +1228,13 @@
             // 
             // label22
             // 
-            this.label22.Location = new System.Drawing.Point(5, 288);
+            this.label22.Location = new System.Drawing.Point(5, 314);
             this.label22.Margin = new System.Windows.Forms.Padding(2);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(225, 23);
             this.label22.TabIndex = 190;
             this.label22.Text = "Extend last CLine (mm)";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label24
-            // 
-            this.label24.AccessibleDescription = "";
-            this.label24.Location = new System.Drawing.Point(167, 221);
-            this.label24.Margin = new System.Windows.Forms.Padding(2);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(34, 23);
-            this.label24.TabIndex = 188;
-            this.label24.Text = "(s)";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblIntPulseOffDelay
-            // 
-            this.lblIntPulseOffDelay.BackColor = System.Drawing.Color.White;
-            this.lblIntPulseOffDelay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIntPulseOffDelay.Location = new System.Drawing.Point(205, 221);
-            this.lblIntPulseOffDelay.Margin = new System.Windows.Forms.Padding(2);
-            this.lblIntPulseOffDelay.Name = "lblIntPulseOffDelay";
-            this.lblIntPulseOffDelay.Size = new System.Drawing.Size(70, 23);
-            this.lblIntPulseOffDelay.TabIndex = 187;
-            this.lblIntPulseOffDelay.Text = "-999.999";
-            this.lblIntPulseOffDelay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblIntPulseOffDelay.Click += new System.EventHandler(this.lblIntPulseOffDelay_Click);
-            // 
-            // label21
-            // 
-            this.label21.AccessibleDescription = "";
-            this.label21.Location = new System.Drawing.Point(164, 194);
-            this.label21.Margin = new System.Windows.Forms.Padding(2);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(37, 23);
-            this.label21.TabIndex = 185;
-            this.label21.Text = "(s)";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblIntPulseOnDelay
-            // 
-            this.lblIntPulseOnDelay.BackColor = System.Drawing.Color.White;
-            this.lblIntPulseOnDelay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIntPulseOnDelay.Location = new System.Drawing.Point(205, 194);
-            this.lblIntPulseOnDelay.Margin = new System.Windows.Forms.Padding(2);
-            this.lblIntPulseOnDelay.Name = "lblIntPulseOnDelay";
-            this.lblIntPulseOnDelay.Size = new System.Drawing.Size(70, 23);
-            this.lblIntPulseOnDelay.TabIndex = 184;
-            this.lblIntPulseOnDelay.Text = "-999.999";
-            this.lblIntPulseOnDelay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblIntPulseOnDelay.Click += new System.EventHandler(this.lblIntPulseOnDelay_Click);
             // 
             // btnCalDefLaserValue
             // 
@@ -1345,26 +1339,6 @@
             this.lblDefZPos.Text = "-999.999";
             this.lblDefZPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblDefZPos.Click += new System.EventHandler(this.lbl_ZDefPos_Click);
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(5, 221);
-            this.label23.Margin = new System.Windows.Forms.Padding(2);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(225, 23);
-            this.label23.TabIndex = 189;
-            this.label23.Text = "Internal P Press Off Delay";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(5, 194);
-            this.label20.Margin = new System.Windows.Forms.Padding(2);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(225, 23);
-            this.label20.TabIndex = 186;
-            this.label20.Text = "Internal P Press On Delay";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tpAdvance
             // 
@@ -1586,12 +1560,6 @@
         private System.Windows.Forms.Label lbl_DispCounter;
         private System.Windows.Forms.Label lbl_FillCounterALimit;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label lblIntPulseOffDelay;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label lblIntPulseOnDelay;
         private System.Windows.Forms.Label lblExtendLastCLine;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label lblCLineSpeedRatio;
@@ -1602,5 +1570,9 @@
         private System.Windows.Forms.Button btnEditErrorMap;
         private System.Windows.Forms.Button btnCreateErrorMap;
         private System.Windows.Forms.Button btnClearErrorMap;
+        private System.Windows.Forms.Label lblLast2CLineEarlyOff;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label lblVacuumEarlyOff;
+        private System.Windows.Forms.Label label30;
     }
 }

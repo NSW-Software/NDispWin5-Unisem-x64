@@ -604,6 +604,7 @@ namespace NDispWin
         public static bool DispCtrl_ForceTimeMode = true;
         public static bool Options_EnableProcessLog = false;
 
+        public static double Options_CheckBoardInputYield = 0;
         public static double Options_CheckBoardYield = 0;
 
         public static bool EnableDnloadStripMapE142 = false;
@@ -746,8 +747,6 @@ namespace NDispWin
             public static double[] DispTime = new double[MAX_PUMP] { 10, 10 };
             public static double[] PulseOnDelay = new double[MAX_PUMP] { 0, 0 };//ms
             public static double[] PulseOffDelay = new double[MAX_PUMP] { 0, 0 };//ms
-            public static double[] IntPulseOnDelay = new double[MAX_PUMP] { 0, 0 };//s, incorrect unit but working. no change.
-            public static double[] IntPulseOffDelay = new double[MAX_PUMP] { 0, 0 };//s, incorrect unit but working. no change.
             public static int[] Pulse = new int[MAX_PUMP] { 1, 1 };
         }
 
@@ -1466,6 +1465,7 @@ namespace NDispWin
                 writer.WriteAttributeString("name", "Options");
 
                 WriteSubEntry(writer, "EnableProcessLog", Options_EnableProcessLog.ToString());
+                WriteSubEntry(writer, "CheckBoardInputYield", Options_CheckBoardInputYield.ToString());
                 WriteSubEntry(writer, "CheckBoardYield", Options_CheckBoardYield.ToString());
 
                 WriteSubEntry(writer, "EnableDnloadStripMapE142", DispProg.EnableDnloadStripMapE142.ToString());
@@ -1927,6 +1927,14 @@ namespace NDispWin
                                                             {
                                                                 reader.Read();
                                                                 Options_EnableProcessLog = Convert.ToBoolean(reader.Value);
+                                                            }
+                                                            catch { };
+                                                            break;
+                                                        case "CheckBoardInputYield":
+                                                            try
+                                                            {
+                                                                reader.Read();
+                                                                Options_CheckBoardInputYield = Convert.ToDouble(reader.Value);
                                                             }
                                                             catch { };
                                                             break;
@@ -7274,7 +7282,7 @@ namespace NDispWin
                                                 int iUColNo = 0; int iURowNo = 0; int iCColNo = 0; int iCRowNo = 0;
                                                 rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref iUColNo, ref iURowNo, ref iCColNo, ref iCRowNo);
 
-                                                if (iCColNo == ColNo && iURowNo == 0)
+                                                if (iCColNo == CColNo && iCRowNo == 0 && iURowNo == 0 && iUColNo == 0)
                                                 {
                                                     d_Height_Rel_X = rt_LayoutRelPos[i].X;
                                                     d_Height_Rel_Y = rt_LayoutRelPos[i].Y;
@@ -7291,7 +7299,7 @@ namespace NDispWin
                                                 int iUColNo = 0; int iURowNo = 0; int iCColNo = 0; int iCRowNo = 0;
                                                 rt_Layouts[rt_LayoutID].UnitNoGetRC(i, ref iUColNo, ref iURowNo, ref iCColNo, ref iCRowNo);
 
-                                                if (iUColNo == 0 && iCRowNo == RowNo)
+                                                if (iCRowNo == CRowNo && iCColNo == 0 && iURowNo == 0 && iUColNo == 0)
                                                 {
                                                     d_Height_Rel_X = rt_LayoutRelPos[i].X;
                                                     d_Height_Rel_Y = rt_LayoutRelPos[i].Y;
@@ -9009,6 +9017,15 @@ namespace NDispWin
                                             Line = Line--;
                                             goto _Pause;
                                         }
+
+                                        if (enableInputMap)
+                                        {
+                                            if (!CheckBoardInYieldPrompt())
+                                            {
+                                                Line = Line--;
+                                                goto _Pause;
+                                            }
+                                        }
                                     }
 
                                 _End:
@@ -9951,6 +9968,30 @@ namespace NDispWin
 
                 return false;
 
+                bool CheckBoardInYieldPrompt()
+                {
+                    if (Options_CheckBoardInputYield > 0)
+                    {
+                        int totalUnit = rt_Layouts[rt_LayoutID].TUCount;
+                        int toProcUnitCount = 0;
+                        for (int i = 0; i < totalUnit; i++)
+                        {
+                            if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
+                            {
+                                toProcUnitCount++;
+                            }
+                        }
+                        double yield = (double)toProcUnitCount / totalUnit;
+                        if (yield < Options_CheckBoardInputYield)
+                        {
+                            Msg MsgBox = new Msg();
+                            EMsgRes MsgRes = MsgBox.Show(ErrCode.CHECK_BOARD_YIELD, $"Low Input Board Yield Detected. Yield {yield * 100:f2}% Unit count {toProcUnitCount}/{totalUnit}.", EMcState.Notice, EMsgBtn.smbOK_Stop, false);
+                            if (MsgRes == EMsgRes.smrStop) return false;                    
+                        }
+                    }
+                    return true;
+                }
+
                 void CheckBoardYieldPrompt()
                 {
                     if (Options_CheckBoardYield > 0)
@@ -9961,7 +10002,7 @@ namespace NDispWin
                         if (yield < Options_CheckBoardYield)
                         {
                             Msg MsgBox = new Msg();
-                            EMsgRes MsgRes = MsgBox.Show(ErrCode.CHECK_BOARD_YIELD, $"Low board yield detected. Yield {yield * 100:f2}% Unit count {procUnitCount}/{totalUnit}.", EMcState.Notice, EMsgBtn.smbOK, false);
+                            EMsgRes MsgRes = MsgBox.Show(ErrCode.CHECK_BOARD_YIELD, $"Low Output Board Yield Detected. Yield {yield * 100:f2}% Unit count {procUnitCount}/{totalUnit}.", EMcState.Notice, EMsgBtn.smbOK, false);
                         }
                     }
                 }
@@ -15739,10 +15780,7 @@ namespace NDispWin
                             }
                             else
                             {
-                                if (DispProg.SP.IntPulseOffDelay[0] == 0)
-                                {//default execute, do not execute if != 0 to handle SMC valve diff.
-                                    TaskDisp.SP.SP_AddOffPaths(Axis);
-                                }
+                                TaskDisp.SP.SP_AddOffPaths(Axis);
                             }
                         }
                         break;
@@ -15858,14 +15896,13 @@ namespace NDispWin
                     {
                         case TaskDisp.EPumpType.SP:
                             #region
-                            if (DispProg.SP.IntPulseOffDelay[0] != 0 && CmdList.Line[LineNo + 1].Cmd == ECmd.LINE && CmdList.Line[LineNo + 1].IPara[2] == 0)
-                            {//special condition for SMC valve to cut P Press dynamically.
-                                double dist = Model.LineSpeed * Math.Abs(DispProg.SP.IntPulseOffDelay[0]);//dist to move IntPulseOffDelay
+                            if (TaskDisp.Option_VacuumEarlyOn > 0 && CmdList.Line[LineNo + 1].Cmd == ECmd.LINE && CmdList.Line[LineNo + 1].IPara[2] == 0)
+                            {//special condition for SMC valve to early on Vac dynamically.
+                                double dist = Model.LineSpeed * TaskDisp.Option_VacuumEarlyOn;//dist to move early vacuum
 
                                 Point2D Pt_End = new Point2D(dx, dy);
                                 Point2D Pt_End2 = new Point2D(0, 0);
 
-                                //Line L_Prev = new Line(Pt_Prev_Start, Pt_Prev_End);
                                 Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
                                 Line L2_Curr = new Line(Pt_Prev2_End, new Point2D(dx2, dy2));
                                 if (CmdList.Line[LineNo + 1].Cmd == ECmd.LINE)
@@ -15879,43 +15916,44 @@ namespace NDispWin
                                 CControl2.TOutput[] Vac = new CControl2.TOutput[] { TaskGantry._SvFVac1 };
                                 CControl2.TOutput[] PPress = new CControl2.TOutput[] { TaskGantry._SvPortC1 };
 
-                                if (DispProg.SP.IntPulseOffDelay[0] < 0)
+                                PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, Pt_End.X, Pt_End.Y, dz, Pt_End2.X, Pt_End2.Y);
+                                CommonControl.P1245.PathAddDO(Axis, Vac, true);
+                                PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
+                                CommonControl.P1245.PathAddDO(Axis, PPress, false);
+                                CommonControl.P1245.PathAddDO(Axis, FPress, false);
+                            }
+                            else
+                                if (Last2 && TaskDisp.Option_Last2CLineEarlyOff > 0)
+                            {
+                                double earlyOffTime = TaskDisp.Option_Last2CLineEarlyOff;
+                                double shrinkLen = Model.LineSpeed * earlyOffTime;
+
+                                double lineLength = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
+                                if (lineLength > shrinkLen)
                                 {
-                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, Pt_End.X, Pt_End.Y, dz, Pt_End2.X, Pt_End2.Y);
-                                    CommonControl.P1245.PathAddDO(Axis, PPress, false);
-                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
-                                    CommonControl.P1245.PathAddDO(Axis, FPress, false);
-                                    CommonControl.P1245.PathAddDO(Axis, Vac, true);
-                                }
-                                else
-                                {
-                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, Pt_End.X, Pt_End.Y, dz, Pt_End2.X, Pt_End2.Y);
-                                    CommonControl.P1245.PathAddDO(Axis, FPress, false);
-                                    CommonControl.P1245.PathAddDO(Axis, Vac, true);
-                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
-                                    CommonControl.P1245.PathAddDO(Axis, PPress, false);
+                                    Point2D relShrinkPos = new Point2D((dx - Pt_Prev_End.X) * (shrinkLen / lineLength), (dy - Pt_Prev_End.Y) * (shrinkLen / lineLength));
+                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx - relShrinkPos.X, dy - relShrinkPos.Y, dz, 0, 0);
                                 }
                             }
                             else
-                            {//no compensation
+                                if (Last2 && TaskDisp.Option_ShrinkLast2CLine > 0)//6.0.9 Option_Shrink2ndLastCLine
+                            {
                                 double shrinkLen = TaskDisp.Option_ShrinkLast2CLine;
-                                if (Last2 && shrinkLen > 0)//6.0.9 Option_Shrink2ndLastCLine
+                                //Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
+                                //double shrinkLen = TaskDisp.Option_ShrinkLast2CLine;
+                                //if (shrinkLen > 0)
+                                //{
+                                double lineLength = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
+                                if (lineLength > shrinkLen)
                                 {
-                                    //Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
-                                    //double shrinkLen = TaskDisp.Option_ShrinkLast2CLine;
-                                    //if (shrinkLen > 0)
-                                    //{
-                                        double lineLength = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
-                                        if (lineLength > shrinkLen)
-                                        {
-                                            Point2D relShrinkPos = new Point2D((dx - Pt_Prev_End.X) * (shrinkLen / lineLength), (dy - Pt_Prev_End.Y) * (shrinkLen / lineLength));
-                                            PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx - relShrinkPos.X, dy - relShrinkPos.Y, dz, 0, 0);
-                                        }
-                                    //}
+                                    Point2D relShrinkPos = new Point2D((dx - Pt_Prev_End.X) * (shrinkLen / lineLength), (dy - Pt_Prev_End.Y) * (shrinkLen / lineLength));
+                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx - relShrinkPos.X, dy - relShrinkPos.Y, dz, 0, 0);
                                 }
-                                else
-                                    PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
+                                //}
                             }
+                            else
+                                PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx, dy, dz, dx2, dy2);
+
                             break;
                         #endregion
                         default:
@@ -15925,13 +15963,16 @@ namespace NDispWin
 
                     if (Last)//5.2.97 Option_ExtendLastCLine
                     {
-                        Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
-                        double extLen = TaskDisp.Option_ExtendLastCLine;
-                        double len = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
-                        if (len > 0)
+                        if (TaskDisp.Option_ExtendLastCLine > 0)
                         {
-                            Point2D relExtPos = new Point2D((dx - Pt_Prev_End.X) * extLen / len, (dy - Pt_Prev_End.Y) * extLen / len);
-                            PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx + relExtPos.X, dy + relExtPos.Y, dz, 0, 0);
+                            //Line L_Curr = new Line(Pt_Prev_End, new Point2D(dx, dy));
+                            double extLen = TaskDisp.Option_ExtendLastCLine;
+                            double len = Math.Sqrt(Math.Pow(Pt_Prev_End.X - dx, 2) + Math.Pow(Pt_Prev_End.Y - dy, 2));
+                            if (len > 0)
+                            {
+                                Point2D relExtPos = new Point2D((dx - Pt_Prev_End.X) * extLen / len, (dy - Pt_Prev_End.Y) * extLen / len);
+                                PathAddLine(Line, HeadNo, rt_SyncHead2, RunMode, i_Blending, dx + relExtPos.X, dy + relExtPos.Y, dz, 0, 0);
+                            }
                         }
                     }
                 }
@@ -22640,255 +22681,7 @@ namespace NDispWin
             GDefine.Status = EStatus.Stop;
             return false;
         }
-        //public static bool DoRefEdge(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref float amplitude)
-        //{
-        //    string EMsg = Line.Cmd.ToString();
-        //    GDefine.Status = EStatus.Busy;
-
-        //    int id = Line.ID;
-
-        //    TaskVision.LightingOn(TaskVision.LightRGB[id]);
-
-        //    if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
-        //    if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
-
-        //    #region Move to XY
-        //    double StartV = Line.DPara[10];
-        //    if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
-        //    double DriveV = Line.DPara[11];
-        //    if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
-        //    double Accel = Line.DPara[12];
-        //    if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
-        //    if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
-        //    if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
-        //    #endregion
-
-        //    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
-        //    try
-        //    {
-        //        int i_Retry = 0;
-        //    _Retry:
-
-        //        #region Settle Time
-        //        int SettleTime = Line.IPara[4];
-        //        int t = GDefine.GetTickCount() + SettleTime;
-        //        while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-        //        #endregion
-
-        //        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-        //        {
-        //            TaskVision.genTLCamera[0].GrabOneImage();
-        //            img = TaskVision.genTLCamera[0].mImage.Clone();
-        //            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-        //        }
-        //        else
-        //            throw new Exception("Camera Type not Supported.");
-
-        //        List<PointF> pointX = new List<PointF>();
-        //        List<PointF> pointY = new List<PointF>();
-        //        PointF patOfst = new PointF(0, 0);
-
-        //        Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
-
-        //        TFVision.EArea area = refNo == 0 ? (TFVision.EArea)Line.IPara[14] : (TFVision.EArea)Line.IPara[15];
-        //        TFVision.EDirPair dirPair = refNo == 0 ? (TFVision.EDirPair)Line.IPara[10] : (TFVision.EDirPair)Line.IPara[11];
-        //        TFVision.ETransPair transPair = refNo == 0 ? (TFVision.ETransPair)Line.IPara[12] : (TFVision.ETransPair)Line.IPara[13]; TFVision.EDirection dir1 = TFVision.EDirection.PLUS;
-        //        TFVision.EDirection dir2 = TFVision.EDirection.PLUS;
-        //        TFVision.ETransition trans1 = TFVision.ETransition.BW;
-        //        TFVision.ETransition trans2 = TFVision.ETransition.WB;
-        //        switch (dirPair)
-        //        {
-        //            case TFVision.EDirPair.XRight_YDown:
-        //                dir1 = TFVision.EDirection.PLUS;
-        //                dir2 = TFVision.EDirection.PLUS;
-        //                break;
-        //            case TFVision.EDirPair.XRight_YUp:
-        //                dir1 = TFVision.EDirection.PLUS;
-        //                dir2 = TFVision.EDirection.MINUS;
-        //                break;
-        //            case TFVision.EDirPair.XLeft_YDown:
-        //                dir1 = TFVision.EDirection.MINUS;
-        //                dir2 = TFVision.EDirection.PLUS;
-        //                break;
-        //            case TFVision.EDirPair.XLeft_YUp:
-        //                dir1 = TFVision.EDirection.MINUS;
-        //                dir2 = TFVision.EDirection.MINUS;
-        //                break;
-        //        }
-
-        //        switch (transPair)
-        //        {
-        //            case TFVision.ETransPair.Auto:
-        //                trans1 = TFVision.ETransition.AUTO;
-        //                trans2 = TFVision.ETransition.AUTO;
-        //                break;
-        //            case TFVision.ETransPair.BW:
-        //                trans1 = TFVision.ETransition.BW;
-        //                trans2 = TFVision.ETransition.BW;
-        //                break;
-        //            case TFVision.ETransPair.WB:
-        //                trans1 = TFVision.ETransition.WB;
-        //                trans2 = TFVision.ETransition.WB;
-        //                break;
-        //            case TFVision.ETransPair.XBW_YWB:
-        //                trans1 = TFVision.ETransition.BW;
-        //                trans2 = TFVision.ETransition.WB;
-        //                break;
-        //            case TFVision.ETransPair.XWB_YBW:
-        //                trans1 = TFVision.ETransition.WB;
-        //                trans2 = TFVision.ETransition.BW;
-        //                break;
-        //        }
-
-
-        //        if (!TFVision.PatEdgeCorner(img, TaskVision.RefTemplate[id, refNo].Image, rects, ref pointX, ref pointY, ref patLoc, ref patOfst, ref amplitude,
-        //            area, dir1, dir2, trans1, trans2)) return false;
-
-        //        float n_ox = 0;
-        //        float n_oy = 0;
-        //        n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
-        //        n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
-        //        if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
-        //        {
-        //            n_oy = -n_oy;
-        //        }
-        //        ofst.X += n_ox;
-        //        ofst.Y += n_oy;
-
-        //        if (Line.DPara[6] > 0)
-        //        {
-        //            if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
-        //            {
-        //                i_Retry++;
-
-        //                if (i_Retry < 3)
-        //                {
-        //                    double nX = TaskGantry.GXPos();
-        //                    double nY = TaskGantry.GYPos();
-        //                    nX = nX + n_ox;
-        //                    nY = nY + n_oy;
-        //                    if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
-        //                    goto _Retry;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        GDefine.Status = EStatus.ErrorInit;
-        //        EMsg = EMsg + (char)13 + Ex.ToString();
-        //        throw new Exception(EMsg);
-        //    }
-        //    finally
-        //    {
-        //        if (img != null) img.Dispose();
-        //    }
-        //    GDefine.Status = EStatus.Ready;
-        //    return true;
-        //_Stop:
-        //    GDefine.Status = EStatus.Stop;
-        //    return false;
-        //}
-        //public static bool DoRefCircle(TLine Line, int refNo, double X, double Y, ref PointF patLoc, ref PointF ofst, ref int found, ref float roundness)
-        //{
-        //    string EMsg = Line.Cmd.ToString();
-        //    GDefine.Status = EStatus.Busy;
-
-        //    int id = Line.ID;
-
-        //    TaskVision.LightingOn(TaskVision.LightRGB[id]);
-
-        //    if (!TaskDisp.TaskMoveGZFocus(Line.IPara[21])) return false;
-        //    if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
-
-        //    #region Move to XY
-        //    double StartV = Line.DPara[10];
-        //    if (StartV == 0) StartV = TaskGantry.GXAxis.Para.StartV;
-        //    double DriveV = Line.DPara[11];
-        //    if (DriveV == 0) DriveV = TaskGantry.GXAxis.Para.FastV;
-        //    double Accel = Line.DPara[12];
-        //    if (Accel == 0) Accel = TaskGantry.GXAxis.Para.Accel;
-        //    if (!TaskGantry.SetMotionParamGXY(StartV, DriveV, Accel)) goto _Stop;
-        //    if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Stop;
-        //    #endregion
-
-        //    Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> img = null;
-        //    try
-        //    {
-        //        int i_Retry = 0;
-        //    _Retry:
-
-        //        #region Settle Time
-        //        int SettleTime = Line.IPara[4];
-        //        int t = GDefine.GetTickCount() + SettleTime;
-        //        while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-        //        #endregion
-
-        //        if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-        //        {
-        //            TaskVision.genTLCamera[0].GrabOneImage();
-        //            img = TaskVision.genTLCamera[0].mImage.Clone();
-        //            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-        //        }
-        //        else
-        //            throw new Exception("Camera Type not Supported.");
-
-        //        Rectangle[] rects = new Rectangle[2] { TaskVision.RefTemplate[id, refNo].SearchRoi, TaskVision.RefTemplate[id, refNo + 2].SearchRoi };
-
-        //        TFVision.EDetContrast detContrast = refNo == 0 ? (TFVision.EDetContrast)Line.IPara[16] : (TFVision.EDetContrast)Line.IPara[17];
-        //        int threshold = (int)Line.DPara[5];
-        //        float padRadius = 0;
-
-        //        PointF patOfst = new PointF(0, 0);
-        //        found = TFVision.PatCircle(img, TaskVision.RefTemplate[id, refNo].Image, threshold, rects, detContrast, ref patLoc, ref padRadius, ref patOfst, ref roundness);
-        //        if (found == 0) return true;
-
-        //        float n_ox = 0;
-        //        float n_oy = 0;
-        //        n_ox = (float)(patOfst.X * TaskVision.DistPerPixelX[0]);
-        //        n_oy = -(float)(patOfst.Y * TaskVision.DistPerPixelY[0]);
-        //        if (GDefine.GantryConfig == GDefine.EGantryConfig.XZ_YTABLE)
-        //        {
-        //            n_oy = -n_oy;
-        //        }
-        //        ofst.X += n_ox;
-        //        ofst.Y += n_oy;
-
-        //        if (Line.DPara[6] > 0)
-        //        {
-        //            if ((Math.Abs(n_ox) > Line.DPara[6]) || (Math.Abs(n_oy) > Line.DPara[6]))
-        //            {
-        //                i_Retry++;
-
-        //                if (i_Retry < 3)
-        //                {
-        //                    double nX = TaskGantry.GXPos();
-        //                    double nY = TaskGantry.GYPos();
-        //                    nX = nX + n_ox;
-        //                    nY = nY + n_oy;
-        //                    if (!TaskGantry.MoveAbsGXY(nX, nY, true)) goto _Stop;
-        //                    goto _Retry;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        GDefine.Status = EStatus.ErrorInit;
-        //        EMsg = EMsg + (char)13 + Ex.ToString();
-        //        throw new Exception(EMsg);
-        //    }
-        //    finally
-        //    {
-        //        if (img != null) img.Dispose();
-        //    }
-        //    GDefine.Status = EStatus.Ready;
-        //    return true;
-        //_Stop:
-        //    GDefine.Status = EStatus.Stop;
-        //    return false;
-        //}
-
+     
         public enum ERealTimeOp { Add, Minus };
         public static void RealTimeOffset(ERealTimeOp Op, ref double X, ref double Y)
         {

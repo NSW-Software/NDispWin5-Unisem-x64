@@ -22,11 +22,23 @@ Software Hang frequent
 Dispense Head Z Path
 
 
+[Changes] Minor UI Correction 
+Ver 6.1.5.2 20240815 - Release at YZ/WK for UnisemCD - Gitted
+[BugFix] Corrected DoHeight ClstrCol and ClstrRow4
+Ver 6.1.4 20240815 - Release at YZ/WK for UnisemCD
+[Changes] Update PurgeStage line to draw correct line length by apply models.
+[Feature] Added Low Input Board Yield to check during INPUTMAP.
+- [HseKeep] Removed PPressIntOnDelay and PPresIntOffDelay, not feasible and not used.
+Ver 6.1.3 20240815 - Release at YZ/WK for UnisemCD
+- [Feature] Added TaskDisp.Option_VacuumEarlyOn to decrease solder volume at end
+- [Feature] Added TaskDisp.Option_Last2CLineEarlyOff to decrease solder volume at end
+Ver 6.1.2 20240815 - Release at YZ/WK for UnisemCD - Gitted
 Ver 6.1.1.1 20240815 - Release at YZ/WK for UnisemCD
 [BugFix] Fix frm_Setup_SP timer display.
+- [BugFix] Fix frm_Setup_SP timer display.
 - [Improve] Totally remove all camera exceptions.
-[Enhance] Added CamReticle frmMVCGenTL to toggle CamReticle for setup use.
-[Improve] KickIn check Pre and Pro for frame presence.
+- [Enhance] Added CamReticle frmMVCGenTL to toggle CamReticle for setup use.
+- [Improve] KickIn check Pre and Pro for frame presence.
 [Addition] Add GZPos to TaskMoveGZUp() to monitor for GZ Abnormal Alarm.
 Ver 6.1.1.0 20240813 - Release to YZ/WK for UnisemCD - Gitted
 - [HseKeep] Remove Basler, PtGrey, Spinnaker and Spinnaker2 references and dependencies.

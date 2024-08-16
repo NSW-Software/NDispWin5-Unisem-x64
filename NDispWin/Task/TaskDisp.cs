@@ -305,6 +305,7 @@ namespace NDispWin
                                 }
                                 if (!TaskGantry.SetMotionParamEx(TaskGantry.GXAxis, Model.LineStartV, Model.LineSpeed, Model.LineAccel)) return false;
                                 if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
+                                if (!TaskGantry.WaitGXY()) return false;
 
                                 if (Model.EndDelay > 0)
                                 {
@@ -316,9 +317,8 @@ namespace NDispWin
                                 TaskGantry.BVac1 = true;
                                 TaskGantry.BPress1 = false;
 
-                                if (!TaskGantry.WaitGXY()) return false;
-                                if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
-                                if (!TaskGantry.WaitGXY()) return false;
+                                //if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
+                                //if (!TaskGantry.WaitGXY()) return false;
                             }
 
                             if (Model.PostWait > 0)
@@ -935,6 +935,8 @@ namespace NDispWin
         public static bool Option_EnableDualMaterial = false;
         public static bool MaterialLowForbidContinue = false;
 
+        public static double Option_VacuumEarlyOn = 0;
+        public static double Option_Last2CLineEarlyOff = 0;
         public static double Option_ShrinkLast2CLine = 0;
         public static double Option_ExtendLastCLine = 0;
         public static double Option_CLineSpeedRatio = 1;
@@ -1324,9 +1326,6 @@ namespace NDispWin
             Laser_CalValue = IniFile.ReadDouble("Laser", "CalValue", 0);
             #endregion
 
-            DispProg.SP.IntPulseOnDelay[0] = IniFile.ReadDouble("SP", "IntPulseOnDelay", 0);
-            DispProg.SP.IntPulseOffDelay[0] = IniFile.ReadDouble("SP", "IntPulseOffDelay", 0);
-
             TaskDisp.Vermes3200[0].Heater.SetTemp = (uint)IniFile.ReadInteger("Vermes_0", "TempOfst", 0);
             TaskDisp.Vermes3200[1].Heater.SetTemp = (uint)IniFile.ReadInteger("Vermes_1", "TempOfst", 0);
 
@@ -1489,6 +1488,9 @@ namespace NDispWin
             Option_EnableMaterialLow = IniFile.ReadBool("Option", "EnableMaterialLow", false);
             Option_EnableDualMaterial = IniFile.ReadBool("Option", "EnableDualMaterial", false);
             MaterialLowForbidContinue = IniFile.ReadBool("Option", "MaterialLowForbidContinue", false);
+
+            Option_VacuumEarlyOn = IniFile.ReadDouble("Option", "VacuumEarlyOn", 0);
+            Option_Last2CLineEarlyOff = IniFile.ReadDouble("Option", "Last2CLineEarlyOff", 0);
             Option_ShrinkLast2CLine = IniFile.ReadDouble("Option", "ShrinkLast2CLine", 0);
             Option_ExtendLastCLine = IniFile.ReadDouble("Option", "ExtendLastCLine", 0);
             Option_CLineSpeedRatio = IniFile.ReadDouble("Option", "CLineSpeedRatio", 1);
@@ -1640,9 +1642,6 @@ namespace NDispWin
             IniFile.WriteDouble("Laser", "RefPos_Z", Laser_RefPosZ);
             IniFile.WriteDouble("Laser", "CalValue", Laser_CalValue);
             #endregion
-
-            IniFile.WriteDouble("SP", "IntPulseOnDelay", DispProg.SP.IntPulseOnDelay[0]);
-            IniFile.WriteDouble("SP", "IntPulseOffDelay", DispProg.SP.IntPulseOffDelay[0]);
 
             IniFile.WriteInteger("Vermes_0", "TempOfst", TaskDisp.Vermes3200[0].Heater.SetTemp);
             IniFile.WriteInteger("Vermes_1", "TempOfst", TaskDisp.Vermes3200[1].Heater.SetTemp);
@@ -1806,6 +1805,9 @@ namespace NDispWin
             IniFile.WriteBool("Option", "EnableMaterialLow", Option_EnableMaterialLow);
             IniFile.WriteBool("Option", "EnableDualMaterial", Option_EnableDualMaterial);
             IniFile.WriteBool("Option", "MaterialExpiryForbidContinue", MaterialExpiryForbidContinue);
+
+            IniFile.WriteDouble("Option", "VacuumEarlyOn", Option_VacuumEarlyOn);
+            IniFile.WriteDouble("Option", "Last2CLineEarlyOff", Option_Last2CLineEarlyOff);
             IniFile.WriteDouble("Option", "ShrinkLast2CLine", Option_ShrinkLast2CLine);
             IniFile.WriteDouble("Option", "ExtendLastCLine", Option_ExtendLastCLine);
             IniFile.WriteDouble("Option", "CLineSpeedRatio", Option_CLineSpeedRatio);
@@ -9302,8 +9304,7 @@ namespace NDispWin
                 CControl2.TOutput[] Vac = new CControl2.TOutput[] { TaskGantry._SvFVac1 };
                 CControl2.TOutput[] PPress = new CControl2.TOutput[] { TaskGantry._SvPortC1 };
 
-                double totalPulseOnDelay = DispProg.SP.PulseOnDelay[0] + DispProg.SP.IntPulseOnDelay[0];
-
+                double totalPulseOnDelay = DispProg.SP.PulseOnDelay[0];
                 if (totalPulseOnDelay > 0)//PPress On Lagging
                 {
                     CommonControl.P1245.PathAddCmd(Axis, CControl2.EPath_MoveCmd.GPDELAY, false, 0, 0, null, null);
@@ -9336,7 +9337,7 @@ namespace NDispWin
                 CControl2.TOutput[] Vac = new CControl2.TOutput[] { TaskGantry._SvFVac1 };
                 CControl2.TOutput[] PPress = new CControl2.TOutput[] { TaskGantry._SvPortC1 };
 
-                double totalPulseOffDelay = DispProg.SP.PulseOffDelay[0] + DispProg.SP.IntPulseOffDelay[0];
+                double totalPulseOffDelay = DispProg.SP.PulseOffDelay[0];
 
                 if (totalPulseOffDelay > 0)//PPress Off Lagging
                 {

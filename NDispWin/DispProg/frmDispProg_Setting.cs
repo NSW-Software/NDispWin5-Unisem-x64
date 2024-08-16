@@ -138,6 +138,7 @@ namespace NDispWin
             lbl_DispCtrl_ForceTimeMode.Text = DispProg.DispCtrl_ForceTimeMode.ToString();
 
             cbEnableProcessLog.Checked = DispProg.Options_EnableProcessLog;
+            lblCheckBoardInputYield.Text = $"{DispProg.Options_CheckBoardInputYield * 100:f2}";
             lblCheckBoardYield.Text = $"{DispProg.Options_CheckBoardYield*100:f2}";
 
             lbl_PurgeStageCount.Text = DispProg.PurgeStage.Count.ToString();
@@ -583,10 +584,17 @@ namespace NDispWin
             Log.OnSet("EnableProcessLog", !DispProg.Options_EnableProcessLog, DispProg.Options_EnableProcessLog);
             UpdateDisplay();
         }
+        private void lblCheckBoardInYield_Click(object sender, EventArgs e)
+        {
+            double d = DispProg.Options_CheckBoardInputYield * 100;
+            UC.AdjustExec("Check Board In Yield (%)", ref d, 0, 100);
+            DispProg.Options_CheckBoardInputYield = d / 100;
+            UpdateDisplay();
+        }
         private void lblCheckBoardYield_Click(object sender, EventArgs e)
         {
             double d = DispProg.Options_CheckBoardYield * 100;
-            UC.AdjustExec("Check Board Yield (%)", ref d, 0, 100);
+            UC.AdjustExec("Check Board Out Yield (%)", ref d, 0, 100);
             DispProg.Options_CheckBoardYield = d / 100;
             UpdateDisplay();
         }
