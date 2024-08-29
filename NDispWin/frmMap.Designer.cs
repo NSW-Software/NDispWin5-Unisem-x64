@@ -229,7 +229,7 @@
             // 
             // lbl_MoveTo
             // 
-            this.lbl_MoveTo.AccessibleDescription = "UnitNo";
+            this.lbl_MoveTo.AccessibleDescription = "MoveTo";
             this.lbl_MoveTo.Dock = System.Windows.Forms.DockStyle.Right;
             this.lbl_MoveTo.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_MoveTo.ForeColor = System.Drawing.Color.Navy;

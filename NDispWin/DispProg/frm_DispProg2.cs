@@ -402,6 +402,16 @@ namespace NDispWin
                                 Para = $"Cond1,{CmdLine.Line[i].Cond[0]},{CmdLine.Line[i].Cond[1]} ";
                             if (CmdLine.Line[i].Cond[5] > 0)
                                 Para = Para + $"Cond2,{CmdLine.Line[i].Cond[5]},{CmdLine.Line[i].Cond[6]} ";
+
+                            string sSave = "";
+                            switch (CmdLine.Line[i].IPara[3])
+                            {
+                                case 1: sSave = "Save_NG"; break;
+                                case 2: sSave = "Save_OK"; break;
+                                case 3: sSave = "Save_All"; break;
+                            }
+
+                            Para = Para + $"{sSave} ";
                             break;
                         }
                     #endregion

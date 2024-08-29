@@ -22,7 +22,10 @@ Software Hang frequent
 Dispense Head Z Path
 
 
-[Changes] Minor UI Correction 
+Ver 6.1.5.3 20240828 - Release to LYL/YZ for UnisemCD - Gitted
+[Feature] 28/8 Added SaveImage selection for DO_VISION and DO_VIS_INSP
+[Changes] 17/8 frmMap remove Brush for MoveTo - YZ. 
+[Changes] 16/8 Minor UI Correction. 
 Ver 6.1.5.2 20240815 - Release at YZ/WK for UnisemCD - Gitted
 [BugFix] Corrected DoHeight ClstrCol and ClstrRow4
 Ver 6.1.4 20240815 - Release at YZ/WK for UnisemCD

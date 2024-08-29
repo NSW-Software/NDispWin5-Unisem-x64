@@ -396,7 +396,8 @@ namespace NDispWin
             DO_VIS_INSP = 226,
             /*Same as DO_VISION for unit level only. Not position correction.
             ID              VisionID
-            IPara[0..9]     [nil,CamID,TYPE,nil,SettleTime,SkipCount,FailAction,InspPrior,..]
+            IPara[0..9]     [nil,CamID,AlignType,SaveType,SettleTime,SkipCount,FailAction,InspPrior,..]
+            SaveType: 0=None,1=SaveNG, 2=SaveOK, 3=SaveAll
             IPara[10..19]   [..]
             IPara[20..29]   [nil,FocusNo,..]
             DPara[0..10]    [nil,XYTol,nil,nil,nil,nil,AcceptTol,..]
@@ -6429,6 +6430,8 @@ namespace NDispWin
 
                                     if (!OK)
                                     {
+                                        if ((ActiveLine.IPara[3] & 0x01) == 0x01) SaveImage("NG");
+
                                         #region
                                         i_DoRefSkipCntr++;
                                         EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
@@ -6503,8 +6506,8 @@ namespace NDispWin
                                     }
                                     else
                                     {
+                                        if ((ActiveLine.IPara[3] & 0x10) == 0x10) SaveImage("OK");
                                         if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr = 0;
-
                                         SetCameraLive();
                                     }
 
@@ -6697,6 +6700,38 @@ namespace NDispWin
                                 _End:
                                     break;
 
+                                    void SaveImage(string postFix)
+                                    {
+                                        string folder = rt_Read_IDs[0, 0];
+                                        string prefix = "";
+                                        if (folder.Length == 0)
+                                        {
+                                            folder = DateTime.Now.ToString("yyyyMMdd");
+                                            prefix = DateTime.Now.ToString("HHmmss") + "_";
+                                        }
+                                        string Dir = ActiveLine.String + @"\" + folder;
+                                        if (!Directory.Exists(Dir))
+                                            try
+                                            {
+                                                Directory.CreateDirectory(Dir);
+                                            }
+                                            catch
+                                            {
+                                                throw new Exception(EMsg + ", SaveImage");
+                                            }
+                                        TaskVision.Image.Save(Dir + @"\" + prefix + $"ID{ActiveLine.ID}_C{ColNo}_R{RowNo}_{postFix}" + ".jpg");
+
+                                        string s_InfoFile = Dir + @"\" + "Info.txt";
+                                        if (!File.Exists(s_InfoFile))
+                                        {
+                                            NUtils.IniFile IniFile = new NUtils.IniFile(s_InfoFile);
+
+                                            IniFile.WriteString("Program", "Name", GDefine.ProgRecipeName);
+                                            IniFile.WriteString("Info", "DateTime", DateTime.Now.ToString());
+                                            IniFile.WriteDouble("Vision", "DistPerPixelX_0", TaskVision.DistPerPixelX[0]);
+                                            IniFile.WriteDouble("Vision", "DistPerPixelY_0", TaskVision.DistPerPixelY[0]);
+                                        }
+                                    }
                                 }
                             #endregion
 
@@ -7030,46 +7065,17 @@ namespace NDispWin
                                         string data = "";
                                         TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref TaskVision.Image);
 
-                                        if (ActiveLine.IPara[3] > 0)//(SaveDoVisionImages)
-                                        {
-                                            //string Dir = ImageLocation + @"\" + GDefine.ProgRecipeName;
-                                            string folder = rt_Read_IDs[0, 0];
-                                            string prefix = "";
-                                            if (folder.Length == 0)
-                                            {
-                                                folder = DateTime.Now.ToString("yyyyMMdd");
-                                                prefix = DateTime.Now.ToString("HHmmss") + "_";
-                                            }
-                                            string Dir = ActiveLine.String + @"\" + folder;
-                                            if (!Directory.Exists(Dir))
-                                                try
-                                                {
-                                                    Directory.CreateDirectory(Dir);
-                                                }
-                                                catch
-                                                {
-                                                    throw new Exception(EMsg + ", SaveImage");
-                                                }
-                                            //TaskVision.Image.Save(Dir + @"\" + "C" + ColNo.ToString() + "_R" + RowNo.ToString() + ".jpg");
-                                            TaskVision.Image.Save(Dir + @"\" + prefix + $"ID{ActiveLine.ID}_C{ColNo}_R{RowNo}" + ".jpg");
-
-                                            string s_InfoFile = Dir + @"\" + "Info.txt";
-                                            if (!File.Exists(s_InfoFile))
-                                            {
-                                                NUtils.IniFile IniFile = new NUtils.IniFile(s_InfoFile);
-
-                                                IniFile.WriteString("Program", "Name", GDefine.ProgRecipeName);
-                                                IniFile.WriteString("Info", "DateTime", DateTime.Now.ToString());
-                                                IniFile.WriteDouble("Vision", "DistPerPixelX_0", TaskVision.DistPerPixelX[0]);
-                                                IniFile.WriteDouble("Vision", "DistPerPixelY_0", TaskVision.DistPerPixelY[0]);
-                                            }
-                                        }
-
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
 
+                                        if (v_OK)
+                                        {
+                                            if ((ActiveLine.IPara[3] & 0x10) == 0x10) SaveImage("OK");
+                                        }
+
                                         if (!v_OK)
                                         {
+                                            if ((ActiveLine.IPara[3] & 0x01) == 0x01) SaveImage("NG");
                                             #region
                                             DefineSafety.DoorLock = false;
 
@@ -7140,6 +7146,39 @@ namespace NDispWin
                                     }
                                 _End:;
                                     break;
+
+                                    void SaveImage(string postFix)
+                                    {
+                                        string folder = rt_Read_IDs[0, 0];
+                                        string prefix = "";
+                                        if (folder.Length == 0)
+                                        {
+                                            folder = DateTime.Now.ToString("yyyyMMdd");
+                                            prefix = DateTime.Now.ToString("HHmmss") + "_";
+                                        }
+                                        string Dir = ActiveLine.String + @"\" + folder;
+                                        if (!Directory.Exists(Dir))
+                                            try
+                                            {
+                                                Directory.CreateDirectory(Dir);
+                                            }
+                                            catch
+                                            {
+                                                throw new Exception(EMsg + ", SaveImage");
+                                            }
+                                        TaskVision.Image.Save(Dir + @"\" + prefix + $"ID{ActiveLine.ID}_C{ColNo}_R{RowNo}_{postFix}" + ".jpg");
+
+                                        string s_InfoFile = Dir + @"\" + "Info.txt";
+                                        if (!File.Exists(s_InfoFile))
+                                        {
+                                            NUtils.IniFile IniFile = new NUtils.IniFile(s_InfoFile);
+
+                                            IniFile.WriteString("Program", "Name", GDefine.ProgRecipeName);
+                                            IniFile.WriteString("Info", "DateTime", DateTime.Now.ToString());
+                                            IniFile.WriteDouble("Vision", "DistPerPixelX_0", TaskVision.DistPerPixelX[0]);
+                                            IniFile.WriteDouble("Vision", "DistPerPixelY_0", TaskVision.DistPerPixelY[0]);
+                                        }
+                                    }
                                 }
 
                             #region SINGULATED_ID

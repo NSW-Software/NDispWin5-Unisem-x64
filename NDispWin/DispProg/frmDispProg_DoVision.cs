@@ -27,6 +27,8 @@ namespace NDispWin
 
         NVision.frm_VisTools frm_VisionTools = new NVision.frm_VisTools();
 
+        enum ESaveType { None, NG_Only, OK_Only, All }
+
         public frm_DispCore_DispProg_DoVision()
         {
             InitializeComponent();
@@ -36,6 +38,8 @@ namespace NDispWin
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             TopMost = true;
             FormBorderStyle = FormBorderStyle.FixedDialog;
+
+            cbSaveImages.DataSource = Enum.GetNames(typeof(ESaveType));
         }
 
         private void UpdateDisplay()
@@ -52,12 +56,14 @@ namespace NDispWin
 
             lbl_FocusNo.Text = CmdLine.IPara[21].ToString();
 
-            //lbl_AlignType.Enabled = true;
             lbl_AlignType.Text = CmdLine.IPara[2].ToString() + " - " + Enum.GetName(typeof(EAlignType), CmdLine.IPara[2]);
 
-            //lbl_SaveImages.Text = DispProg.SaveDoVisionImages.ToString();
-            lbl_SaveImages.Text = (CmdLine.IPara[3] > 0).ToString();
-            //lbl_SaveDirectory.Text = DispProg.ImageLocation;
+            try
+            {
+                cbSaveImages.SelectedIndex = CmdLine.IPara[3];
+            }catch { cbSaveImages.SelectedIndex = 0; };
+
+            if (CmdLine.String.Length == 0) CmdLine.String = "c:\\Image";
             lbl_SaveDirectory.Text = CmdLine.String;
 
             lbl_X1Y1.Text = CmdLine.X[0].ToString("F3") + ", " + CmdLine.Y[0].ToString("F3");
@@ -495,15 +501,6 @@ namespace NDispWin
         }
         #endregion
 
-        private void lbl_SaveImages_Click(object sender, EventArgs e)
-        {
-            //UC.AdjustExec("DoVision, SaveImage", ref DispProg.SaveDoVisionImages);
-            bool b = CmdLine.IPara[3] > 0;
-            UC.AdjustExec("DoVision, SaveImage", ref b);
-            CmdLine.IPara[3] = b ? 1 : 0;
-            UpdateDisplay();
-        }
-
         private void btn_ClearImages_Click(object sender, EventArgs e)
         {
         }
@@ -545,6 +542,11 @@ namespace NDispWin
         {
             UC.AdjustExec(CmdName + ", Accept Tol (mm)", ref CmdLine.DPara[1], 0, 5);
             UpdateDisplay();
+        }
+
+        private void cbSaveImages_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CmdLine.IPara[3] = cbSaveImages.SelectedIndex;
         }
     }
 }

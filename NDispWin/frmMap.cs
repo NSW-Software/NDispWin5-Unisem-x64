@@ -178,6 +178,7 @@ namespace NDispWin
                 MapBin = (EMapBin[])DispProg.Map.CurrMap[LayoutNo].Bin.Clone();
 
             if (DispProg.rt_LayoutChanged)
+
             {
                 RefreshMapInfo();
                 DispProg.rt_LayoutChanged = false;
@@ -201,13 +202,16 @@ namespace NDispWin
                 int X = LayoutInfo[LayoutNo].UX[i];
                 int Y = LayoutInfo[LayoutNo].UY[i];
 
-                Pen Pen = new Pen(Color.Transparent);
+                //Pen Pen = new Pen(Color.Transparent);
+                Pen Pen = new Pen(Color.Black);
                 Pen = DispProg.MapColor.Pen[(byte)MapBin[i]];
+           
                 SBrush = DispProg.MapColor.SBrush[(byte)MapBin[i]];
 
                 if (b_MoveTo)
                 {
-                    SBrush = new SolidBrush(Color.Navy);
+                    //SBrush = new SolidBrush(Color.Navy);
+                    //Pen.Color = Color.Navy;
                 }
 
                 if (LocalLayout[LayoutNo].UnitNoIsNeedle2(i) && DispProg.Pump_Type == TaskDisp.EPumpType.PP2D)
@@ -406,8 +410,8 @@ namespace NDispWin
 
             if (MouseDn)
             {
-                Pen Pen = new Pen(Color.Black);
-                e.Graphics.DrawRectangle(Pen, SelectRect);
+                    Pen Pen = new Pen(Color.Black);
+                    e.Graphics.DrawRectangle(Pen, SelectRect);
             }
 
             Painting = false;

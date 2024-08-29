@@ -49,6 +49,8 @@
             this.tpage_Position = new System.Windows.Forms.TabPage();
             this.btn_GrabExec = new System.Windows.Forms.Button();
             this.ttPage_Settings = new System.Windows.Forms.TabPage();
+            this.lbllblInspectPrior = new System.Windows.Forms.Label();
+            this.lblInspPrior = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.lbl_SettleTime = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -67,18 +69,16 @@
             this.lbl_SkipCount = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tpage_Advance = new System.Windows.Forms.TabPage();
+            this.cbSaveImages = new System.Windows.Forms.ComboBox();
             this.lbl_SaveDirectory = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lbl_SaveImages = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lbox_Cond = new System.Windows.Forms.ListBox();
             this.btn_Cond = new System.Windows.Forms.Button();
             this.pnl_Tools = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
             this.lbl_FocusNo = new System.Windows.Forms.Label();
-            this.lbllblInspectPrior = new System.Windows.Forms.Label();
-            this.lblInspPrior = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpage_Position.SuspendLayout();
             this.ttPage_Settings.SuspendLayout();
@@ -236,17 +236,18 @@
             this.lbox_Info.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbox_Info.ForeColor = System.Drawing.Color.Navy;
             this.lbox_Info.FormattingEnabled = true;
+            this.lbox_Info.ItemHeight = 16;
             this.lbox_Info.Location = new System.Drawing.Point(6, 6);
             this.lbox_Info.Name = "lbox_Info";
-            this.lbox_Info.Size = new System.Drawing.Size(365, 56);
+            this.lbox_Info.Size = new System.Drawing.Size(365, 52);
             this.lbox_Info.TabIndex = 37;
             // 
-            // label2
+            // lbllblAlignType
             // 
             this.lbllblAlignType.AccessibleDescription = "Align Type";
             this.lbllblAlignType.Location = new System.Drawing.Point(231, 8);
             this.lbllblAlignType.Margin = new System.Windows.Forms.Padding(2);
-            this.lbllblAlignType.Name = "label2";
+            this.lbllblAlignType.Name = "lbllblAlignType";
             this.lbllblAlignType.Size = new System.Drawing.Size(82, 23);
             this.lbllblAlignType.TabIndex = 38;
             this.lbllblAlignType.Text = "Align Type";
@@ -353,6 +354,30 @@
             this.ttPage_Settings.TabIndex = 3;
             this.ttPage_Settings.Text = "Settings";
             this.ttPage_Settings.UseVisualStyleBackColor = true;
+            // 
+            // lbllblInspectPrior
+            // 
+            this.lbllblInspectPrior.AccessibleDescription = "";
+            this.lbllblInspectPrior.Location = new System.Drawing.Point(195, 32);
+            this.lbllblInspectPrior.Margin = new System.Windows.Forms.Padding(2);
+            this.lbllblInspectPrior.Name = "lbllblInspectPrior";
+            this.lbllblInspectPrior.Size = new System.Drawing.Size(120, 23);
+            this.lbllblInspectPrior.TabIndex = 161;
+            this.lbllblInspectPrior.Text = "Inspect Prior (units)";
+            this.lbllblInspectPrior.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblInspPrior
+            // 
+            this.lblInspPrior.BackColor = System.Drawing.SystemColors.Window;
+            this.lblInspPrior.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblInspPrior.Location = new System.Drawing.Point(322, 32);
+            this.lblInspPrior.Margin = new System.Windows.Forms.Padding(2);
+            this.lblInspPrior.Name = "lblInspPrior";
+            this.lblInspPrior.Size = new System.Drawing.Size(50, 23);
+            this.lblInspPrior.TabIndex = 162;
+            this.lblInspPrior.Text = "0";
+            this.lblInspPrior.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblInspPrior.Click += new System.EventHandler(this.lblInspPrior_Click);
             // 
             // label12
             // 
@@ -567,10 +592,10 @@
             // 
             // tpage_Advance
             // 
+            this.tpage_Advance.Controls.Add(this.cbSaveImages);
             this.tpage_Advance.Controls.Add(this.lbl_SaveDirectory);
             this.tpage_Advance.Controls.Add(this.label4);
             this.tpage_Advance.Controls.Add(this.label5);
-            this.tpage_Advance.Controls.Add(this.lbl_SaveImages);
             this.tpage_Advance.Location = new System.Drawing.Point(4, 29);
             this.tpage_Advance.Name = "tpage_Advance";
             this.tpage_Advance.Padding = new System.Windows.Forms.Padding(3);
@@ -580,11 +605,20 @@
             this.tpage_Advance.UseVisualStyleBackColor = true;
             this.tpage_Advance.Click += new System.EventHandler(this.tpage_Advance_Click);
             // 
+            // cbSaveImages
+            // 
+            this.cbSaveImages.FormattingEnabled = true;
+            this.cbSaveImages.Location = new System.Drawing.Point(127, 6);
+            this.cbSaveImages.Name = "cbSaveImages";
+            this.cbSaveImages.Size = new System.Drawing.Size(121, 26);
+            this.cbSaveImages.TabIndex = 0;
+            this.cbSaveImages.SelectionChangeCommitted += new System.EventHandler(this.cbSaveImages_SelectionChangeCommitted);
+            // 
             // lbl_SaveDirectory
             // 
             this.lbl_SaveDirectory.BackColor = System.Drawing.SystemColors.Window;
             this.lbl_SaveDirectory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_SaveDirectory.Location = new System.Drawing.Point(127, 33);
+            this.lbl_SaveDirectory.Location = new System.Drawing.Point(127, 37);
             this.lbl_SaveDirectory.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_SaveDirectory.Name = "lbl_SaveDirectory";
             this.lbl_SaveDirectory.Size = new System.Drawing.Size(245, 24);
@@ -596,7 +630,7 @@
             // label4
             // 
             this.label4.AccessibleDescription = "Save Location";
-            this.label4.Location = new System.Drawing.Point(6, 34);
+            this.label4.Location = new System.Drawing.Point(6, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 23);
             this.label4.TabIndex = 156;
@@ -606,25 +640,12 @@
             // label5
             // 
             this.label5.AccessibleDescription = "Save Images";
-            this.label5.Location = new System.Drawing.Point(6, 3);
+            this.label5.Location = new System.Drawing.Point(6, 7);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 23);
             this.label5.TabIndex = 153;
             this.label5.Text = "Save Images";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_SaveImages
-            // 
-            this.lbl_SaveImages.BackColor = System.Drawing.SystemColors.Window;
-            this.lbl_SaveImages.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_SaveImages.Location = new System.Drawing.Point(127, 5);
-            this.lbl_SaveImages.Margin = new System.Windows.Forms.Padding(2);
-            this.lbl_SaveImages.Name = "lbl_SaveImages";
-            this.lbl_SaveImages.Size = new System.Drawing.Size(75, 24);
-            this.lbl_SaveImages.TabIndex = 154;
-            this.lbl_SaveImages.Text = "False";
-            this.lbl_SaveImages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_SaveImages.Click += new System.EventHandler(this.lbl_SaveImages_Click);
             // 
             // tabPage1
             // 
@@ -640,10 +661,10 @@
             // lbox_Cond
             // 
             this.lbox_Cond.FormattingEnabled = true;
-            this.lbox_Cond.ItemHeight = 14;
+            this.lbox_Cond.ItemHeight = 18;
             this.lbox_Cond.Location = new System.Drawing.Point(8, 62);
             this.lbox_Cond.Name = "lbox_Cond";
-            this.lbox_Cond.Size = new System.Drawing.Size(326, 32);
+            this.lbox_Cond.Size = new System.Drawing.Size(326, 22);
             this.lbox_Cond.TabIndex = 168;
             // 
             // btn_Cond
@@ -688,30 +709,6 @@
             this.lbl_FocusNo.Text = "0";
             this.lbl_FocusNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbl_FocusNo.Click += new System.EventHandler(this.lbl_FocusNo_Click);
-            // 
-            // lbllblInspectPrior
-            // 
-            this.lbllblInspectPrior.AccessibleDescription = "";
-            this.lbllblInspectPrior.Location = new System.Drawing.Point(195, 32);
-            this.lbllblInspectPrior.Margin = new System.Windows.Forms.Padding(2);
-            this.lbllblInspectPrior.Name = "lbllblInspectPrior";
-            this.lbllblInspectPrior.Size = new System.Drawing.Size(120, 23);
-            this.lbllblInspectPrior.TabIndex = 161;
-            this.lbllblInspectPrior.Text = "Inspect Prior (units)";
-            this.lbllblInspectPrior.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblInspPrior
-            // 
-            this.lblInspPrior.BackColor = System.Drawing.SystemColors.Window;
-            this.lblInspPrior.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblInspPrior.Location = new System.Drawing.Point(322, 32);
-            this.lblInspPrior.Margin = new System.Windows.Forms.Padding(2);
-            this.lblInspPrior.Name = "lblInspPrior";
-            this.lblInspPrior.Size = new System.Drawing.Size(50, 23);
-            this.lblInspPrior.TabIndex = 162;
-            this.lblInspPrior.Text = "0";
-            this.lblInspPrior.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblInspPrior.Click += new System.EventHandler(this.lblInspPrior_Click);
             // 
             // frm_DispCore_DispProg_DoVision
             // 
@@ -792,7 +789,6 @@
         private System.Windows.Forms.Button btn_Load;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lbl_FocusNo;
-        private System.Windows.Forms.Label lbl_SaveImages;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tpage_Advance;
         private System.Windows.Forms.Label lbl_SaveDirectory;
@@ -807,5 +803,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label lbllblInspectPrior;
         private System.Windows.Forms.Label lblInspPrior;
+        private System.Windows.Forms.ComboBox cbSaveImages;
     }
 }
