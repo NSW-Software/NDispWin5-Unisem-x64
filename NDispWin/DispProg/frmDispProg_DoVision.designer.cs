@@ -236,10 +236,9 @@
             this.lbox_Info.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbox_Info.ForeColor = System.Drawing.Color.Navy;
             this.lbox_Info.FormattingEnabled = true;
-            this.lbox_Info.ItemHeight = 16;
             this.lbox_Info.Location = new System.Drawing.Point(6, 6);
             this.lbox_Info.Name = "lbox_Info";
-            this.lbox_Info.Size = new System.Drawing.Size(365, 52);
+            this.lbox_Info.Size = new System.Drawing.Size(365, 43);
             this.lbox_Info.TabIndex = 37;
             // 
             // lbllblAlignType
@@ -610,7 +609,7 @@
             this.cbSaveImages.FormattingEnabled = true;
             this.cbSaveImages.Location = new System.Drawing.Point(127, 6);
             this.cbSaveImages.Name = "cbSaveImages";
-            this.cbSaveImages.Size = new System.Drawing.Size(121, 26);
+            this.cbSaveImages.Size = new System.Drawing.Size(121, 22);
             this.cbSaveImages.TabIndex = 0;
             this.cbSaveImages.SelectionChangeCommitted += new System.EventHandler(this.cbSaveImages_SelectionChangeCommitted);
             // 
@@ -661,10 +660,10 @@
             // lbox_Cond
             // 
             this.lbox_Cond.FormattingEnabled = true;
-            this.lbox_Cond.ItemHeight = 18;
+            this.lbox_Cond.ItemHeight = 14;
             this.lbox_Cond.Location = new System.Drawing.Point(8, 62);
             this.lbox_Cond.Name = "lbox_Cond";
-            this.lbox_Cond.Size = new System.Drawing.Size(326, 22);
+            this.lbox_Cond.Size = new System.Drawing.Size(326, 32);
             this.lbox_Cond.TabIndex = 168;
             // 
             // btn_Cond

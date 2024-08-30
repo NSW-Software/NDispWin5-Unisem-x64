@@ -354,26 +354,14 @@ namespace NDispWin
         }
         private void tsbtnProgram_Click(object sender, EventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2 || GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
+            if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
             {
                 try
                 {
                     frm_DispProg2 frm = new frm_DispProg2();
-                frm.ShowDialog();
-                frm.Dispose();
+                    frm.ShowDialog();
+                    frm.Dispose();
 
-                GC.Collect();
-                }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.Message);
-                }
-            }
-            else
-            {
-                try
-                {
-                    NDispWin.frmLmdsWebServiceSetup.DispProg.ShowDialog();
                     GC.Collect();
                 }
                 catch (Exception Ex)

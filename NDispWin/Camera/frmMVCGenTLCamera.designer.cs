@@ -68,9 +68,7 @@
             this.tssl_FPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssl_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).BeginInit();
             this.pnl_Image.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.ss_Bottom.SuspendLayout();
             this.SuspendLayout();
@@ -446,9 +444,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMVCGenTLCamera_FormClosed);
             this.Load += new System.EventHandler(this.frmCamera_Load);
             this.Shown += new System.EventHandler(this.frmMVCGenTLCamera_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu)).EndInit();
             this.pnl_Image.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgBoxEmgu2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ss_Bottom.ResumeLayout(false);

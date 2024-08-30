@@ -72,8 +72,6 @@ namespace NDispWin
             MinScore = _MinScore * 100;
             MaxXYOffset = _MaxXYOffset;
             MaxAngle = _MaxAngle;
-            //this.TopMost = true;
-            //return DialogResult.None;// thisShowDialog();
             UpdateDisplay();
 
             return this.ShowDialog();
@@ -108,14 +106,12 @@ namespace NDispWin
             lbl_FoundAngle.Visible = !(FoundAngle == 0 && MaxAngle == 0);
             lbl_MaxAngle.Visible = !(FoundAngle == 0 && MaxAngle == 0);
 
-            //btn_Accept.Visible = FailAction != EFailAction.PromptReject;
             btn_Manual.Visible = FailAction != EFailAction.PromptReject;
             btn_Skip.Visible = FailAction != EFailAction.PromptReject;
         }
 
         private void btn_Retry_Click(object sender, EventArgs e)
         {
-            //IO.SetState(EMcState.Idle);
             IO.SetState(EMcState.Last);
 
             DialogResult = DialogResult.Retry;

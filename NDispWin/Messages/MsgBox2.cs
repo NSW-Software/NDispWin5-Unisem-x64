@@ -828,7 +828,6 @@ namespace NDispWin
         //    }
         //}
 
-
         static System.Windows.Forms.Timer timer500 = new System.Windows.Forms.Timer();
         internal static ETLState IntState = new ETLState();
         public static void SetState(EMcState State)
@@ -851,6 +850,14 @@ namespace NDispWin
             if (IntStates[(int)State].Yel != ERYG.DontCare) IntState.Yel = IntStates[(int)State].Yel;
             if (IntStates[(int)State].Grn != ERYG.DontCare) IntState.Grn = IntStates[(int)State].Grn;
             if (IntStates[(int)State].Buz != EBuzzer.DontCare) IntState.Buz = IntStates[(int)State].Buz;
+
+            if (DispProg.ProgramMode = State == EMcState.Last)
+            {
+                IntState.Red = ERYG.Off;
+                IntState.Yel = ERYG.On;
+                IntState.Grn = ERYG.Off;
+                IntState.Buz = EBuzzer.Off;
+            }
 
             if (!timer500.Enabled)
             {

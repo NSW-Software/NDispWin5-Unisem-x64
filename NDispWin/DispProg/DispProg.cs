@@ -258,7 +258,7 @@ namespace NDispWin
 
         public static bool Initialized = false;//master initialization flag
 
-        public static bool SetupMode = false;//in auto mode
+        public static bool ProgramMode = false;//in auto mode
 
         public static int LastTactTime = 0;
         static int LastStartTickCount = 0;

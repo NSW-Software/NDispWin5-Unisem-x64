@@ -396,7 +396,8 @@ namespace NDispWin
                             Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
                             Para = "[" + CmdLine.Line[i].ID.ToString() + "] ";
 
-                            Para = Para + Enum.GetName(typeof(EAlignType), CmdLine.Line[i].IPara[2]) + " ";
+                            if (CmdLine.Line[i].Cmd == DispProg.ECmd.DO_VISION)
+                                Para = Para + Enum.GetName(typeof(EAlignType), CmdLine.Line[i].IPara[2]) + " ";
 
                             if (CmdLine.Line[i].Cond[0] > 0)
                                 Para = $"Cond1,{CmdLine.Line[i].Cond[0]},{CmdLine.Line[i].Cond[1]} ";
@@ -927,7 +928,7 @@ namespace NDispWin
         {
             GControl.UpdateFormControl(this);
 
-            DispProg.SetupMode = true;
+            DispProg.ProgramMode = true;
 
             Done = true;
 
@@ -1028,7 +1029,7 @@ namespace NDispWin
 
             TaskDisp.TaskMoveGZZ2Up();
 
-            DispProg.SetupMode = false;
+            DispProg.ProgramMode = false;
 
             if (frm_Jog != null)
             {
@@ -3214,15 +3215,7 @@ namespace NDispWin
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            if (Modal)
-                Close();
-            else
-            {
-                InitFunction_tsmi();
-                if (!DispProg.Script[0].TaskCheckScript()) return;
-                Visible = false;
-                DispProg.SetupMode = false;
-            }
+            Close();
         }
 
         private void tmr15s_Tick(object sender, EventArgs e)

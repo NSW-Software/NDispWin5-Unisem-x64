@@ -124,7 +124,7 @@ namespace NDispWin
         {
             btn_Confirm.Visible = false;
             DialogResult = DialogResult.OK;
-            IO.SetState(EMcState.Last);
+            IO.SetState(EMcState.Idle);
         }
 
         private void btn_CamOfst_Click(object sender, EventArgs e)

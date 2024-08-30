@@ -71,7 +71,7 @@
             this.btn_Stop.BackColor = System.Drawing.SystemColors.Control;
             this.btn_Stop.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Stop.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btn_Stop.Location = new System.Drawing.Point(530, 3);
+            this.btn_Stop.Location = new System.Drawing.Point(522, 3);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(100, 41);
             this.btn_Stop.TabIndex = 17;
@@ -85,7 +85,7 @@
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.Control;
             this.btn_Cancel.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Cancel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Location = new System.Drawing.Point(830, 3);
+            this.btn_Cancel.Location = new System.Drawing.Point(822, 3);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(100, 41);
             this.btn_Cancel.TabIndex = 6;
@@ -99,7 +99,7 @@
             this.btn_OK.BackColor = System.Drawing.SystemColors.Control;
             this.btn_OK.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_OK.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btn_OK.Location = new System.Drawing.Point(130, 3);
+            this.btn_OK.Location = new System.Drawing.Point(122, 3);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(100, 41);
             this.btn_OK.TabIndex = 4;
@@ -113,7 +113,7 @@
             this.btn_Retry.BackColor = System.Drawing.SystemColors.Control;
             this.btn_Retry.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Retry.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btn_Retry.Location = new System.Drawing.Point(630, 3);
+            this.btn_Retry.Location = new System.Drawing.Point(622, 3);
             this.btn_Retry.Name = "btn_Retry";
             this.btn_Retry.Size = new System.Drawing.Size(100, 41);
             this.btn_Retry.TabIndex = 3;
@@ -162,7 +162,7 @@
             this.lbl_Desc.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbl_Desc.Location = new System.Drawing.Point(0, 0);
             this.lbl_Desc.Name = "lbl_Desc";
-            this.lbl_Desc.Size = new System.Drawing.Size(73, 21);
+            this.lbl_Desc.Size = new System.Drawing.Size(58, 17);
             this.lbl_Desc.TabIndex = 18;
             this.lbl_Desc.Text = "lbl_Desc";
             // 
@@ -184,7 +184,7 @@
             this.lbl_CAct.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbl_CAct.Location = new System.Drawing.Point(0, 0);
             this.lbl_CAct.Name = "lbl_CAct";
-            this.lbl_CAct.Size = new System.Drawing.Size(71, 21);
+            this.lbl_CAct.Size = new System.Drawing.Size(57, 17);
             this.lbl_CAct.TabIndex = 20;
             this.lbl_CAct.Text = "lbl_CAct";
             // 
@@ -193,10 +193,10 @@
             this.lbl_Desc_Alt.AutoSize = true;
             this.lbl_Desc_Alt.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbl_Desc_Alt.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_Desc_Alt.Location = new System.Drawing.Point(0, 21);
+            this.lbl_Desc_Alt.Location = new System.Drawing.Point(0, 17);
             this.lbl_Desc_Alt.Margin = new System.Windows.Forms.Padding(3, 0, 3, 8);
             this.lbl_Desc_Alt.Name = "lbl_Desc_Alt";
-            this.lbl_Desc_Alt.Size = new System.Drawing.Size(103, 21);
+            this.lbl_Desc_Alt.Size = new System.Drawing.Size(81, 17);
             this.lbl_Desc_Alt.TabIndex = 21;
             this.lbl_Desc_Alt.Text = "lbl_Desc_Alt";
             // 
@@ -205,10 +205,10 @@
             this.lbl_CAct_Alt.AutoSize = true;
             this.lbl_CAct_Alt.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbl_CAct_Alt.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_CAct_Alt.Location = new System.Drawing.Point(0, 21);
+            this.lbl_CAct_Alt.Location = new System.Drawing.Point(0, 17);
             this.lbl_CAct_Alt.Margin = new System.Windows.Forms.Padding(3, 0, 3, 8);
             this.lbl_CAct_Alt.Name = "lbl_CAct_Alt";
-            this.lbl_CAct_Alt.Size = new System.Drawing.Size(101, 21);
+            this.lbl_CAct_Alt.Size = new System.Drawing.Size(80, 17);
             this.lbl_CAct_Alt.TabIndex = 22;
             this.lbl_CAct_Alt.Text = "lbl_CAct_Alt";
             // 
@@ -279,10 +279,10 @@
             this.panel2.Controls.Add(this.btnContinue);
             this.panel2.Controls.Add(this.btn_Cancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(5, 418);
+            this.panel2.Location = new System.Drawing.Point(5, 420);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.panel2.Size = new System.Drawing.Size(933, 47);
+            this.panel2.Size = new System.Drawing.Size(925, 47);
             this.panel2.TabIndex = 30;
             // 
             // btnYes
@@ -291,7 +291,7 @@
             this.btnYes.BackColor = System.Drawing.SystemColors.Control;
             this.btnYes.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnYes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnYes.Location = new System.Drawing.Point(230, 3);
+            this.btnYes.Location = new System.Drawing.Point(222, 3);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(100, 41);
             this.btnYes.TabIndex = 18;
@@ -305,7 +305,7 @@
             this.btnNo.BackColor = System.Drawing.SystemColors.Control;
             this.btnNo.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnNo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnNo.Location = new System.Drawing.Point(330, 3);
+            this.btnNo.Location = new System.Drawing.Point(322, 3);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(100, 41);
             this.btnNo.TabIndex = 19;
@@ -319,7 +319,7 @@
             this.btnSkip.BackColor = System.Drawing.SystemColors.Control;
             this.btnSkip.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSkip.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnSkip.Location = new System.Drawing.Point(430, 3);
+            this.btnSkip.Location = new System.Drawing.Point(422, 3);
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Size = new System.Drawing.Size(100, 41);
             this.btnSkip.TabIndex = 21;
@@ -333,7 +333,7 @@
             this.btnContinue.BackColor = System.Drawing.SystemColors.Control;
             this.btnContinue.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnContinue.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnContinue.Location = new System.Drawing.Point(730, 3);
+            this.btnContinue.Location = new System.Drawing.Point(722, 3);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.Size = new System.Drawing.Size(100, 41);
             this.btnContinue.TabIndex = 20;
@@ -349,28 +349,28 @@
             this.tsslVersion,
             this.tsslQue,
             this.tsslDateTime});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 465);
+            this.statusStrip1.Location = new System.Drawing.Point(5, 467);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(933, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(925, 22);
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // tsslVersion
             // 
             this.tsslVersion.Name = "tsslVersion";
-            this.tsslVersion.Size = new System.Drawing.Size(78, 20);
+            this.tsslVersion.Size = new System.Drawing.Size(62, 17);
             this.tsslVersion.Text = "tsslVersion";
             // 
             // tsslQue
             // 
             this.tsslQue.Name = "tsslQue";
-            this.tsslQue.Size = new System.Drawing.Size(57, 20);
+            this.tsslQue.Size = new System.Drawing.Size(46, 17);
             this.tsslQue.Text = "tsslQue";
             // 
             // tsslDateTime
             // 
             this.tsslDateTime.Name = "tsslDateTime";
-            this.tsslDateTime.Size = new System.Drawing.Size(95, 20);
+            this.tsslDateTime.Size = new System.Drawing.Size(74, 17);
             this.tsslDateTime.Text = "tsslDateTime";
             // 
             // frm_MsgBox
@@ -379,7 +379,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Navy;
-            this.ClientSize = new System.Drawing.Size(943, 496);
+            this.ClientSize = new System.Drawing.Size(935, 494);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnl_Msg);
