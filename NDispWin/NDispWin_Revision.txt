@@ -21,7 +21,16 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
+Ver 6.1.6.0 20240924 - Release to LYL/YZ for UnisemCD - Gitted
+- [Improve] 23/9 DoHeight LST to support Cluster align modes
+[Improve] 23/9 Added frmJogControl async GZ MouseDn
+[Improve] 20/9 Fix frm_MHS2ConvCtrl btn_SkipDisp access control - YZ
+[Improve] 20/9 Added DisableAutoRunMapEdit, map status editable only when machine in STOP condition. - LRK
+[BugFix] 20/9 Corrected ElevControl number of level count display.
+[Request] 20/9 Move EnableProcessLog from Recipe to Options - Req: LYL
+[Improve] 20/9 UnloadOut retry to CheckMagPsnt(), prevent unload wo magazine - Req: LYL
+[Improve] 20/9 Move TowerLight IO.States to DispProg improve status handling - Req: LYL
+[BugFix] 4/9 Corrected DispProg_Setting display.
 Ver 6.1.5.4 20240830 - Release to LYL/YZ for UnisemCD - Gitted
 [Changes] 30/8 Bypass ProgramMode IOState(Last) as default Yellow.
 [Changes] Minor UI Correction. 

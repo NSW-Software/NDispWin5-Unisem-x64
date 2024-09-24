@@ -149,6 +149,7 @@ namespace NDispWin
                 if (TaskVision.PrevBoardImage_ID[0] != PrevBoardImageID) PaintImage(sender);
             }
 
+            lblState.Text = ViewOnly ? "(View Only)" : "";
             lbl_LayoutNo.Text = "ID " + LayoutNo.ToString();
         }
 
@@ -160,7 +161,7 @@ namespace NDispWin
         bool DrawRC = false;
         bool DrawUnitNo = false;
 
-        bool bMapEdit = true;
+        public bool bMapEdit = true;
         bool b_MoveTo = false;
 
         private void pbox_Map_Paint(object sender, PaintEventArgs e)
@@ -169,7 +170,7 @@ namespace NDispWin
 
             Painting = true;
 
-            lbl_ReadID.Text = DispProg.rt_Read_IDs[0, 0] + (DispProg.rt_Singulated?" Singulated":"");
+            lbl_ReadID.Text = DispProg.rt_Read_IDs[0, 0] + (DispProg.rt_Singulated ? " Singulated" : "") + (ViewOnly ? " View Only" : "");
 
             EMapBin[] MapBin = new EMapBin[TLayout.MAX_UNITS];
             if (Display == EDisplay.MapPrev)
@@ -711,6 +712,8 @@ namespace NDispWin
         }
         private void lbl_Clear_Click(object sender, EventArgs e)
         {
+            if (ViewOnly) return;
+
             SelectedIndex.Clear();
             for (int i = 0; i < LocalLayout[LayoutNo].TUCount; i++)
             {

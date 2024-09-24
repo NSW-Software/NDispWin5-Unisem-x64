@@ -233,7 +233,7 @@ namespace NDispWin
         }
         private async void lbl_LLvlNo_Click(object sender, EventArgs e)
         {
-            int i_Mag = TaskElev.Setups[(int)TaskElev.TElevator.Left].PsntMagz;
+            int i_Mag = Math.Max(1, TaskElev.Setups[(int)TaskElev.TElevator.Left].PsntMagz);
             int i_Lvl = TaskElev.Setups[(int)TaskElev.TElevator.Left].PsntLevel;
 
             int Max = TaskElev.Setups[(int)TaskElev.TElevator.Left].MagLevelCount[i_Mag];
@@ -316,7 +316,7 @@ namespace NDispWin
         }
         private async void lbl_RLvlNo_Click(object sender, EventArgs e)
         {
-            int i_Mag = TaskElev.Setups[(int)TaskElev.TElevator.Right].PsntMagz;
+            int i_Mag = Math.Max(1, TaskElev.Setups[(int)TaskElev.TElevator.Right].PsntMagz);
             int i_Lvl = TaskElev.Setups[(int)TaskElev.TElevator.Right].PsntLevel;
 
             int Max = TaskElev.Setups[(int)TaskElev.TElevator.Right].MagLevelCount[i_Mag];

@@ -31,6 +31,7 @@
             this.tpOptions = new System.Windows.Forms.TabControl();
             this.tpPreference = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cbDisableAutoRunMapEdit = new System.Windows.Forms.CheckBox();
             this.cbAutoPageShowImage = new System.Windows.Forms.CheckBox();
             this.cboxEnableMapEditLock = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -58,6 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbxLanguage = new System.Windows.Forms.ComboBox();
             this.tpProcess = new System.Windows.Forms.TabPage();
+            this.cbEnableProcessLog = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.lblMaterialExpiryPreAlertTime = new System.Windows.Forms.Label();
@@ -187,6 +189,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.cbDisableAutoRunMapEdit);
             this.groupBox8.Controls.Add(this.cbAutoPageShowImage);
             this.groupBox8.Controls.Add(this.cboxEnableMapEditLock);
             this.groupBox8.Location = new System.Drawing.Point(6, 434);
@@ -195,6 +198,17 @@
             this.groupBox8.TabIndex = 221;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "User Interface";
+            // 
+            // cbDisableAutoRunMapEdit
+            // 
+            this.cbDisableAutoRunMapEdit.AutoSize = true;
+            this.cbDisableAutoRunMapEdit.Location = new System.Drawing.Point(6, 49);
+            this.cbDisableAutoRunMapEdit.Name = "cbDisableAutoRunMapEdit";
+            this.cbDisableAutoRunMapEdit.Size = new System.Drawing.Size(189, 22);
+            this.cbDisableAutoRunMapEdit.TabIndex = 5;
+            this.cbDisableAutoRunMapEdit.Text = "Diable AutoRun Map Edit";
+            this.cbDisableAutoRunMapEdit.UseVisualStyleBackColor = true;
+            this.cbDisableAutoRunMapEdit.Click += new System.EventHandler(this.cbDisbleAutoRunMapEdit_Click);
             // 
             // cbAutoPageShowImage
             // 
@@ -487,6 +501,7 @@
             // tpProcess
             // 
             this.tpProcess.BackColor = System.Drawing.SystemColors.Control;
+            this.tpProcess.Controls.Add(this.cbEnableProcessLog);
             this.tpProcess.Controls.Add(this.groupBox7);
             this.tpProcess.Controls.Add(this.groupBox2);
             this.tpProcess.Location = new System.Drawing.Point(4, 34);
@@ -495,6 +510,17 @@
             this.tpProcess.Size = new System.Drawing.Size(764, 511);
             this.tpProcess.TabIndex = 1;
             this.tpProcess.Text = "Process";
+            // 
+            // cbEnableProcessLog
+            // 
+            this.cbEnableProcessLog.AutoSize = true;
+            this.cbEnableProcessLog.Location = new System.Drawing.Point(12, 366);
+            this.cbEnableProcessLog.Name = "cbEnableProcessLog";
+            this.cbEnableProcessLog.Size = new System.Drawing.Size(155, 22);
+            this.cbEnableProcessLog.TabIndex = 200;
+            this.cbEnableProcessLog.Text = "Enable Process Log";
+            this.cbEnableProcessLog.UseVisualStyleBackColor = true;
+            this.cbEnableProcessLog.Click += new System.EventHandler(this.cbEnableProcessLog_Click);
             // 
             // groupBox7
             // 
@@ -519,7 +545,7 @@
             this.groupBox7.Controls.Add(this.cbEnableMaterialCounter);
             this.groupBox7.Location = new System.Drawing.Point(6, 109);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(741, 339);
+            this.groupBox7.Size = new System.Drawing.Size(741, 251);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Material";
@@ -1574,5 +1600,7 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label lblVacuumEarlyOff;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.CheckBox cbEnableProcessLog;
+        private System.Windows.Forms.CheckBox cbDisableAutoRunMapEdit;
     }
 }

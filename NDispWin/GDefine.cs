@@ -146,6 +146,8 @@ namespace NDispWin
         public static bool Enable_Buzzer;
         
         public static bool EnableMapEditLock;
+        public static bool DisableAutoRunMapEdit;
+
         public static bool AutoPageShowImage;
         public static bool EnableEventDebugLog;
 
@@ -185,6 +187,7 @@ namespace NDispWin
             Enable_Buzzer = IniFile.ReadBool("CONFIG", "Enable_Buzzer", false);
 
             EnableMapEditLock = IniFile.ReadBool("ConfigUI", "EnableMapEditLock", true);
+            DisableAutoRunMapEdit = IniFile.ReadBool("ConfigUI", "DisableAutoRunMapEdit", true);
             AutoPageShowImage = IniFile.ReadBool("ConfigUI", "AutoPageShowImage", false);
 
             EnableDoorSens = IniFile.ReadBool("Safety", "EnableDoorSens", true);
@@ -206,6 +209,7 @@ namespace NDispWin
             IniFile.WriteBool("CONFIG", "Enable_Buzzer", Enable_Buzzer);
 
             IniFile.WriteBool("ConfigUI", "EnableMapEditLock", EnableMapEditLock);
+            IniFile.WriteBool("ConfigUI", "DisableAutoRunMapEdit", DisableAutoRunMapEdit);
             IniFile.WriteBool("ConfigUI", "AutoPageShowImage", AutoPageShowImage);
 
             IniFile.WriteBool("Safety", "EnableDoorSens", EnableDoorSens);

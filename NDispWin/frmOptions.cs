@@ -67,6 +67,8 @@ namespace NDispWin
             lblMaterialLifeTimeMultipler.Text = TaskDisp.Material_Life_Multiplier.ToString();
             lblMaterialExpiryPreAlertTime.Text = TaskDisp.Material_ExpiryPreAlertTime.ToString();
 
+            cbEnableProcessLog.Checked = DispProg.Options_EnableProcessLog;
+
             #region Maint Page
             lbl_DispCounter.Text = StrTools.GetKK(Maint.Disp.Count[0]) + " / " + StrTools.GetKK(Maint.Disp.CountLimit[0]);
             lbl_UnitCounterAStartDateTime.Text = "Reset Date: " + Maint.Disp.CountResetDateTime[0].ToString("g");
@@ -108,6 +110,7 @@ namespace NDispWin
 
             cbEnableDoorSensor.Enabled = TaskDisp.Preference != TaskDisp.EPreference.Lumileds;
             cboxEnableMapEditLock.Checked = GDefineN.EnableMapEditLock;
+            cbDisableAutoRunMapEdit.Checked = GDefineN.DisableAutoRunMapEdit;
             cbAutoPageShowImage.Checked = GDefineN.AutoPageShowImage;
 
             lblSECSGEMProtocol.Text = TaskDisp.SECSGEMProtocol.ToString();
@@ -165,6 +168,8 @@ namespace NDispWin
 
             GDefineN.EnableMapEditLock = cboxEnableMapEditLock.Checked;
             GDefineN.AutoPageShowImage = cbAutoPageShowImage.Checked;
+
+            GDefineN.DisableAutoRunMapEdit = cbDisableAutoRunMapEdit.Checked;
 
             bool.TryParse(lblUseRecipeFile.Text, out TaskDisp.EnableRecipeFile);
 
@@ -584,6 +589,18 @@ namespace NDispWin
             DispProg.ErrorMap.Save(DispProg.ErrorMapFile);
 
             MessageBox.Show("New Error Map Created.");
+        }
+
+        private void cbEnableProcessLog_Click(object sender, EventArgs e)
+        {
+            DispProg.Options_EnableProcessLog = !DispProg.Options_EnableProcessLog;
+            Log.OnSet("EnableProcessLog", !DispProg.Options_EnableProcessLog, DispProg.Options_EnableProcessLog);
+            UpdateDisplay();
+        }
+
+        private void cbDisbleAutoRunMapEdit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

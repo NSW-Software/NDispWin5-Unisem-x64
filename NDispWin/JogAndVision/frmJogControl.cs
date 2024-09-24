@@ -453,14 +453,14 @@ namespace NDispWin
         }
 
         bool bZ1Dn = false;
-        private void btn_ZM_MouseDown(object sender, MouseEventArgs e)
+        private async void btn_ZM_MouseDown(object sender, MouseEventArgs e)
         {
             bZ1Dn = true;
             if (e.Button != MouseButtons.Left) { return; }
             MouseDownEvent(sender, TaskGantry.GZAxis, false);
 
             //  Switch to slow speed if lower that set value
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 while (bZ1Dn)
                 {

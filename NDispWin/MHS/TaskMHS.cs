@@ -4517,6 +4517,11 @@ namespace NDispWin
 
                 Event.BOARD_SENT_OUT_TO_MAGAZINE.Set();
             _Retry:
+                if (!TaskElev.Right.CheckMagPsnt())
+                {
+                    goto _Stop;
+                }
+
                 #region Start SendOut
                 Conv.Fwd_SendOut();
                 int TOut = Environment.TickCount + Out.TimeOut;

@@ -354,7 +354,7 @@ namespace NDispWin
         }
         private void tsbtnProgram_Click(object sender, EventArgs e)
         {
-            if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
+            //if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
             {
                 try
                 {

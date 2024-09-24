@@ -48,6 +48,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.lblState = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Map)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Image)).BeginInit();
             this.pnl_Bottom.SuspendLayout();
@@ -95,7 +96,7 @@
             this.lbl_ReadID.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_ReadID.Location = new System.Drawing.Point(29, 9);
             this.lbl_ReadID.Name = "lbl_ReadID";
-            this.lbl_ReadID.Size = new System.Drawing.Size(57, 18);
+            this.lbl_ReadID.Size = new System.Drawing.Size(46, 14);
             this.lbl_ReadID.TabIndex = 9;
             this.lbl_ReadID.Text = "ReadID";
             // 
@@ -243,6 +244,7 @@
             // 
             // pnl_Bottom
             // 
+            this.pnl_Bottom.Controls.Add(this.lblState);
             this.pnl_Bottom.Controls.Add(this.lbl_MoveTo);
             this.pnl_Bottom.Controls.Add(this.lbl_LayoutNo);
             this.pnl_Bottom.Controls.Add(this.lbl_123);
@@ -300,6 +302,19 @@
             this.button4.Text = "button2";
             this.button4.UseVisualStyleBackColor = false;
             // 
+            // lblState
+            // 
+            this.lblState.AccessibleDescription = "MoveTo";
+            this.lblState.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblState.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblState.ForeColor = System.Drawing.Color.Navy;
+            this.lblState.Location = new System.Drawing.Point(0, 0);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(88, 22);
+            this.lblState.TabIndex = 13;
+            this.lblState.Text = "(View Only)";
+            this.lblState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frm_DispCore_Map
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -351,5 +366,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label lblState;
     }
 }

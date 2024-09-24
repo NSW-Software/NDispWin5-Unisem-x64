@@ -34,7 +34,6 @@ namespace NDispWin
             GControl.UpdateFormControl(this);
             AppLanguage.Func2.UpdateText(this);
 
-            Text = CmdName + " [" + GDefine.ProgRecipeName + "]";
             UpdateDisplay();
 
             cbEnableDnloadMap.Checked = GDefine.EnableDnloadStripMapE142;
@@ -46,6 +45,8 @@ namespace NDispWin
         int SelectedStation = 0;
         private void UpdateDisplay()
         {
+            Text = CmdName + " [" + GDefine.ProgRecipeName + "]";
+
             #region Station
             lbl_StationCount.Text = DispProg.StationCount.ToString();
             lbl_Station1Pos.Text = DispProg.Origin(ERunStationNo.Station1).X.ToString("F3") + ", " + DispProg.Origin(ERunStationNo.Station1).Y.ToString("F3") + ", " + DispProg.Origin(ERunStationNo.Station1).Z.ToString("F3");
@@ -137,7 +138,6 @@ namespace NDispWin
             #region Advance
             lbl_DispCtrl_ForceTimeMode.Text = DispProg.DispCtrl_ForceTimeMode.ToString();
 
-            cbEnableProcessLog.Checked = DispProg.Options_EnableProcessLog;
             lblCheckBoardInputYield.Text = $"{DispProg.Options_CheckBoardInputYield * 100:f2}";
             lblCheckBoardYield.Text = $"{DispProg.Options_CheckBoardYield*100:f2}";
 
@@ -578,12 +578,6 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void cbEnableProcessLog_Click(object sender, EventArgs e)
-        {
-            DispProg.Options_EnableProcessLog = !DispProg.Options_EnableProcessLog;
-            Log.OnSet("EnableProcessLog", !DispProg.Options_EnableProcessLog, DispProg.Options_EnableProcessLog);
-            UpdateDisplay();
-        }
         private void lblCheckBoardInYield_Click(object sender, EventArgs e)
         {
             double d = DispProg.Options_CheckBoardInputYield * 100;

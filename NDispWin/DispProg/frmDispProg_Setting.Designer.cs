@@ -45,7 +45,6 @@
             this.lblCheckBoardInputYield = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.lblCheckBoardYield = new System.Windows.Forms.Label();
-            this.cbEnableProcessLog = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_DispCtrl_ForceTimeMode = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -302,7 +301,6 @@
             this.groupBox7.Controls.Add(this.lblCheckBoardInputYield);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.lblCheckBoardYield);
-            this.groupBox7.Controls.Add(this.cbEnableProcessLog);
             this.groupBox7.Controls.Add(this.label3);
             this.groupBox7.Controls.Add(this.lbl_DispCtrl_ForceTimeMode);
             this.groupBox7.Location = new System.Drawing.Point(314, 6);
@@ -357,17 +355,6 @@
             this.lblCheckBoardYield.Text = "0";
             this.lblCheckBoardYield.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCheckBoardYield.Click += new System.EventHandler(this.lblCheckBoardYield_Click);
-            // 
-            // cbEnableProcessLog
-            // 
-            this.cbEnableProcessLog.AutoSize = true;
-            this.cbEnableProcessLog.Location = new System.Drawing.Point(6, 52);
-            this.cbEnableProcessLog.Name = "cbEnableProcessLog";
-            this.cbEnableProcessLog.Size = new System.Drawing.Size(155, 22);
-            this.cbEnableProcessLog.TabIndex = 149;
-            this.cbEnableProcessLog.Text = "Enable Process Log";
-            this.cbEnableProcessLog.UseVisualStyleBackColor = true;
-            this.cbEnableProcessLog.Click += new System.EventHandler(this.cbEnableProcessLog_Click);
             // 
             // label3
             // 
@@ -1857,7 +1844,6 @@
             this.gbxStripMap.ResumeLayout(false);
             this.gbxStripMap.PerformLayout();
             this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.gboxTempCtrl.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -1889,7 +1875,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lblCheckBoardYield;
-        private System.Windows.Forms.CheckBox cbEnableProcessLog;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_DispCtrl_ForceTimeMode;
         private System.Windows.Forms.GroupBox groupBox8;

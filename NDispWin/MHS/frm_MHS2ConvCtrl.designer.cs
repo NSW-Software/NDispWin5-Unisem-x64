@@ -33,6 +33,7 @@
             this.lbl_ProSt = new System.Windows.Forms.Label();
             this.lbl_ConvSt = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_Unload = new System.Windows.Forms.Button();
             this.gbox_Pro = new System.Windows.Forms.GroupBox();
             this.btn_LoadPro = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -41,7 +42,6 @@
             this.btn_DispEndStop = new System.Windows.Forms.Button();
             this.btn_UnloadStop = new System.Windows.Forms.Button();
             this.btn_LoadPre = new System.Windows.Forms.Button();
-            this.btn_Unload = new System.Windows.Forms.Button();
             this.btn_Return = new System.Windows.Forms.Button();
             this.tmr_Display = new System.Windows.Forms.Timer(this.components);
             this.gbox_Pre = new System.Windows.Forms.GroupBox();
@@ -133,10 +133,23 @@
             this.groupBox1.Location = new System.Drawing.Point(666, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox1.Size = new System.Drawing.Size(100, 105);
+            this.groupBox1.Size = new System.Drawing.Size(100, 109);
             this.groupBox1.TabIndex = 322;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Out";
+            // 
+            // btn_Unload
+            // 
+            this.btn_Unload.AccessibleDescription = "Unload";
+            this.btn_Unload.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_Unload.Location = new System.Drawing.Point(6, 55);
+            this.btn_Unload.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.btn_Unload.Name = "btn_Unload";
+            this.btn_Unload.Size = new System.Drawing.Size(88, 35);
+            this.btn_Unload.TabIndex = 331;
+            this.btn_Unload.Text = "Unload";
+            this.btn_Unload.UseVisualStyleBackColor = true;
+            this.btn_Unload.Click += new System.EventHandler(this.btn_Unload_Click);
             // 
             // gbox_Pro
             // 
@@ -149,7 +162,7 @@
             this.gbox_Pro.Location = new System.Drawing.Point(454, 76);
             this.gbox_Pro.Name = "gbox_Pro";
             this.gbox_Pro.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gbox_Pro.Size = new System.Drawing.Size(100, 105);
+            this.gbox_Pro.Size = new System.Drawing.Size(100, 109);
             this.gbox_Pro.TabIndex = 323;
             this.gbox_Pro.TabStop = false;
             this.gbox_Pro.Text = "Pro";
@@ -176,7 +189,7 @@
             this.groupBox4.Controls.Add(this.lbl_ConvSt);
             this.groupBox4.Location = new System.Drawing.Point(348, 8);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(100, 61);
+            this.groupBox4.Size = new System.Drawing.Size(100, 65);
             this.groupBox4.TabIndex = 324;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Conveyor";
@@ -242,19 +255,6 @@
             this.btn_LoadPre.UseVisualStyleBackColor = true;
             this.btn_LoadPre.Click += new System.EventHandler(this.btn_LoadPre_Click);
             // 
-            // btn_Unload
-            // 
-            this.btn_Unload.AccessibleDescription = "Unload";
-            this.btn_Unload.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_Unload.Location = new System.Drawing.Point(6, 55);
-            this.btn_Unload.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btn_Unload.Name = "btn_Unload";
-            this.btn_Unload.Size = new System.Drawing.Size(88, 35);
-            this.btn_Unload.TabIndex = 331;
-            this.btn_Unload.Text = "Unload";
-            this.btn_Unload.UseVisualStyleBackColor = true;
-            this.btn_Unload.Click += new System.EventHandler(this.btn_Unload_Click);
-            // 
             // btn_Return
             // 
             this.btn_Return.AccessibleDescription = "Return";
@@ -285,7 +285,7 @@
             this.gbox_Pre.Location = new System.Drawing.Point(348, 75);
             this.gbox_Pre.Name = "gbox_Pre";
             this.gbox_Pre.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gbox_Pre.Size = new System.Drawing.Size(100, 106);
+            this.gbox_Pre.Size = new System.Drawing.Size(100, 110);
             this.gbox_Pre.TabIndex = 334;
             this.gbox_Pre.TabStop = false;
             this.gbox_Pre.Text = "Pre";
@@ -338,7 +338,7 @@
             this.gbox_Buf2.Location = new System.Drawing.Point(242, 76);
             this.gbox_Buf2.Name = "gbox_Buf2";
             this.gbox_Buf2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gbox_Buf2.Size = new System.Drawing.Size(100, 105);
+            this.gbox_Buf2.Size = new System.Drawing.Size(100, 109);
             this.gbox_Buf2.TabIndex = 337;
             this.gbox_Buf2.TabStop = false;
             this.gbox_Buf2.Text = "Buf2";
@@ -364,7 +364,7 @@
             this.gbox_Buf1.Location = new System.Drawing.Point(136, 75);
             this.gbox_Buf1.Name = "gbox_Buf1";
             this.gbox_Buf1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gbox_Buf1.Size = new System.Drawing.Size(100, 106);
+            this.gbox_Buf1.Size = new System.Drawing.Size(100, 110);
             this.gbox_Buf1.TabIndex = 335;
             this.gbox_Buf1.TabStop = false;
             this.gbox_Buf1.Text = "Buf1";
@@ -389,7 +389,7 @@
             this.groupBox2.Location = new System.Drawing.Point(30, 75);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox2.Size = new System.Drawing.Size(100, 106);
+            this.groupBox2.Size = new System.Drawing.Size(100, 110);
             this.groupBox2.TabIndex = 323;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "In";
@@ -403,7 +403,6 @@
             this.lbl_InStatus.TabIndex = 318;
             this.lbl_InStatus.Text = "Status Status Status  ";
             this.lbl_InStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_InStatus.Click += new System.EventHandler(this.lbl_InStatus_Click);
             // 
             // groupBox3
             // 
@@ -513,7 +512,7 @@
             this.gboxSmemaRightOut.Location = new System.Drawing.Point(666, 188);
             this.gboxSmemaRightOut.Name = "gboxSmemaRightOut";
             this.gboxSmemaRightOut.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gboxSmemaRightOut.Size = new System.Drawing.Size(100, 134);
+            this.gboxSmemaRightOut.Size = new System.Drawing.Size(100, 138);
             this.gboxSmemaRightOut.TabIndex = 347;
             this.gboxSmemaRightOut.TabStop = false;
             this.gboxSmemaRightOut.Text = "Smema Right (Bd Out)";
@@ -619,7 +618,7 @@
             this.gboxSmemaRightIn.Location = new System.Drawing.Point(560, 188);
             this.gboxSmemaRightIn.Name = "gboxSmemaRightIn";
             this.gboxSmemaRightIn.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.gboxSmemaRightIn.Size = new System.Drawing.Size(100, 134);
+            this.gboxSmemaRightIn.Size = new System.Drawing.Size(100, 138);
             this.gboxSmemaRightIn.TabIndex = 356;
             this.gboxSmemaRightIn.TabStop = false;
             this.gboxSmemaRightIn.Text = "Smema Right (Bd In)";

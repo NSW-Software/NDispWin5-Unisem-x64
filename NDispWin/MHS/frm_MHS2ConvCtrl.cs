@@ -152,15 +152,11 @@ namespace NDispWin
             {
                 if (value)
                 {
-                    this.Enable(true);
+                    this.Enable(true, new List<string> { "btn_StopInput", "btn_SkipDisp", "btn_DispEndStop", "btn_UnloadStop" });
                 }
                 else
                 {
-                    this.Enable(false);
-                    btn_StopInput.Enable(true);
-                    btn_SkipDisp.Enable(true);
-                    btn_DispEndStop.Enable(true);
-                    btn_UnloadStop.Enable(true);
+                    this.Enable(false, new List<string> { "btn_StopInput", "btn_SkipDisp", "btn_DispEndStop", "btn_UnloadStop" });
 
                     btn_WaitReturn.Enable(true);
                     btnWaitReverseSend.Enable(true);
@@ -702,11 +698,6 @@ namespace NDispWin
         private void lblRightSmema2BdReady_MouseUp(object sender, MouseEventArgs e)
         {
             TaskConv.Out.Smema2_Emulate_DI_BdReady = false;
-        }
-
-        private void lbl_InStatus_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -266,7 +266,6 @@
             this.lbl_AppVersion.TabIndex = 10;
             this.lbl_AppVersion.Text = "NDispWin 1.0.0.x";
             this.lbl_AppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_AppVersion.Click += new System.EventHandler(this.lbl_AppVersion_Click);
             // 
             // pbox_Logo
             // 
@@ -525,7 +524,6 @@
             this.lbl_RunTime.TabIndex = 314;
             this.lbl_RunTime.Text = "---";
             this.lbl_RunTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_RunTime.Click += new System.EventHandler(this.lbl_RunTime_Click);
             // 
             // label3
             // 

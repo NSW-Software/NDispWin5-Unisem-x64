@@ -66,27 +66,23 @@ namespace NDispWin
         }
         private void btn_Retry_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
+            //IO.SetState(EMcState.Run);
             DialogResult = DialogResult.Retry;
         }
         private void btn_Skip_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Ignore;
         }
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Abort;
         }
         private void btn_Accept_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Yes;
         }
         private void btn_Reject_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Cancel;
         }
 

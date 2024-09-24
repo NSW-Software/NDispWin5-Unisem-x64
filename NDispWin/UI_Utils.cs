@@ -1130,7 +1130,7 @@ namespace NDispWin
 
     public static class GuiExtensionMethods
     {
-        public static void Enable(this Control con, bool enable)
+        public static void Enable(this Control con, bool enable, List<string> except = null)
         {
             if (con != null)
             {
@@ -1140,6 +1140,7 @@ namespace NDispWin
                     {
                         foreach (Control c2 in c.Controls)
                         {
+                            if (except != null && except.Contains(c2.Name)) continue;
                             c2.Enable(enable);
                         }
                     }
@@ -1150,6 +1151,8 @@ namespace NDispWin
                             tsi.Enabled = enable;
                         }
                     }
+
+                    if (except != null && except.Contains(c.Name)) continue;
                     c.Enable(enable);
                 }
 

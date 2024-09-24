@@ -118,13 +118,13 @@ namespace NDispWin
         private void btn_Close_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-            IO.SetState(EMcState.Idle);
+            //IO.SetState(EMcState.Idle);
         }
         private void btn_Confirm_Click(object sender, EventArgs e)
         {
             btn_Confirm.Visible = false;
             DialogResult = DialogResult.OK;
-            IO.SetState(EMcState.Idle);
+            //IO.SetState(EMcState.Idle);
         }
 
         private void btn_CamOfst_Click(object sender, EventArgs e)

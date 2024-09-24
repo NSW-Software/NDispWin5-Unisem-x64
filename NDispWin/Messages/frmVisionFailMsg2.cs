@@ -62,7 +62,6 @@ namespace NDispWin
                 TaskVisionfrmMVCGenTLCamera.ShowCamReticles = true;
                 TaskVision.genTLCamera[0].StartGrab();
             }
-
             IO.SetState(EMcState.Error);
         }
         private void frmVisionFailMsg2_FormClosing(object sender, FormClosingEventArgs e)
@@ -102,34 +101,28 @@ namespace NDispWin
 
         private void btn_Accept_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Yes;
         }
 
         private void btn_Retry_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Retry;
         }
 
         private void btn_Skip_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.Cancel;
         }
 
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Idle);
             DialogResult = DialogResult.Abort;
         }
 
         private void btn_Manual_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
             DialogResult = DialogResult.OK;
         }
-
 
         private void pbox_Image_Click(object sender, EventArgs e)
         {

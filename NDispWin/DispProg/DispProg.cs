@@ -5349,17 +5349,20 @@ namespace NDispWin
                                                 {
                                                     #region
                                                     case DialogResult.Retry:
+                                                        IO.SetState(EMcState.Run);
                                                         Log.AddToLog("0" + (char)9 + "Retry");
                                                         DefineSafety.DoorLock = true;
                                                         Thread.Sleep(100);
                                                         goto _RetryRef1;
                                                     case DialogResult.Cancel://Skip
+                                                        IO.SetState(EMcState.Run);
                                                         Log.AddToLog("0" + (char)9 + "Skip");
                                                         OK1 = false;
                                                         DefineSafety.DoorLock = true;
                                                         Thread.Sleep(100);
                                                         break;
                                                     case DialogResult.OK://Manual Adjust
+                                                        IO.SetState(EMcState.Idle);
                                                         Log.AddToLog("0" + (char)9 + "Manual");
 
                                                         DialogResult dr2 = DialogResult.None;
@@ -5371,6 +5374,7 @@ namespace NDispWin
                                                         SetCameraLive();
                                                         if (dr2 == DialogResult.OK)
                                                         {
+                                                            IO.SetState(EMcState.Run);
                                                             v_ox1 = TaskGantry.GXPos() - dx1;
                                                             v_oy1 = TaskGantry.GYPos() - dy1;
                                                             Log.AddToLog("0" + (char)9 + v_ox1.ToString("f3") + "," + v_oy1.ToString("f3"));
@@ -5381,6 +5385,7 @@ namespace NDispWin
                                                         Thread.Sleep(100);
                                                         break;
                                                     default://Stop
+                                                        IO.SetState(EMcState.Idle);
                                                         Log.AddToLog("0" + (char)9 + "Stop");
                                                         for (int L = Line; L >= 0; L--)
                                                         {
@@ -5594,17 +5599,20 @@ namespace NDispWin
                                                 {
                                                     #region
                                                     case DialogResult.Retry:
+                                                        IO.SetState(EMcState.Run);
                                                         Log.AddToLog("0" + (char)9 + "Retry");
                                                         DefineSafety.DoorLock = true;
                                                         Thread.Sleep(100);
                                                         goto _RetryRef1;
                                                     case DialogResult.Cancel://Skip
+                                                        IO.SetState(EMcState.Run);
                                                         Log.AddToLog("0" + (char)9 + "Skip");
                                                         OK2 = false;
                                                         DefineSafety.DoorLock = true;
                                                         Thread.Sleep(100);
                                                         break;
                                                     case DialogResult.OK://Manual Adjust
+                                                        IO.SetState(EMcState.Idle);
                                                         Log.AddToLog("0" + (char)9 + "Manual");
 
                                                         DialogResult dr2 = DialogResult.None;
@@ -5616,6 +5624,7 @@ namespace NDispWin
                                                         SetCameraLive();
                                                         if (dr2 == DialogResult.OK)
                                                         {
+                                                            IO.SetState(EMcState.Run);
                                                             v_ox2 = TaskGantry.GXPos() - dx2;
                                                             v_oy2 = TaskGantry.GYPos() - dy2;
                                                             Log.AddToLog("0" + (char)9 + v_ox2.ToString("f3") + "," + v_oy2.ToString("f3"));
@@ -5633,6 +5642,7 @@ namespace NDispWin
                                                         Thread.Sleep(100);
                                                         break;
                                                     default://Stop
+                                                        IO.SetState(EMcState.Idle);
                                                         Log.AddToLog("0" + (char)9 + "Stop");
                                                         for (int L = Line; L >= 0; L--)
                                                         {
@@ -6170,29 +6180,34 @@ namespace NDispWin
                                         {
                                             #region
                                             case DialogResult.Retry://Retry Button
+                                                IO.SetState(EMcState.Run);
                                                 Log.Vision.WriteByMonthDay($"UnitNo\tRetry");
                                                 DefineSafety.DoorLock = true;
                                                 Thread.Sleep(100);
                                                 goto _Retry;
                                             case DialogResult.Cancel://Skip Button
+                                                IO.SetState(EMcState.Run);
                                                 Log.Vision.WriteByMonthDay($"UnitNo\tSkip");
                                                 OK = false;
                                                 DefineSafety.DoorLock = true;
                                                 Thread.Sleep(100);
                                                 break;
                                             case DialogResult.Yes://Accept Button
+                                                IO.SetState(EMcState.Run);
                                                 Log.Vision.WriteByMonthDay($"UnitNo\tAccept");
                                                 OK = true;
                                                 DefineSafety.DoorLock = true;
                                                 Thread.Sleep(100);
                                                 break;
                                             case DialogResult.Abort://Stop Button
+                                                IO.SetState(EMcState.Idle);
                                                 Log.Vision.WriteByMonthDay($"UnitNo\tStop");
                                                 LastLine++;
                                                 DefineSafety.DoorLock = true;
                                                 Thread.Sleep(100);
                                                 goto _Pause;
                                             default:
+                                                IO.SetState(EMcState.Idle);
                                                 Log.Vision.WriteByMonthDay($"UnitNo\tDefault");
                                                 for (int L = Line; L >= 0; L--)
                                                 {
@@ -6460,22 +6475,26 @@ namespace NDispWin
                                             {
                                                 #region
                                                 case DialogResult.Retry:
+                                                    IO.SetState(EMcState.Run);
                                                     Log.AddToLog("0" + (char)9 + "Retry");
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     goto _RetryRef1;
                                                 case DialogResult.Cancel://Skip
+                                                    IO.SetState(EMcState.Run);
                                                     Log.AddToLog("0" + (char)9 + "Skip");
                                                     OK = false;
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     break;
                                                 case DialogResult.OK://Manual Adjust
+                                                    IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Manual");
                                                     frm_DispProg_View frm = new frm_DispProg_View();
 
                                                     if (frm.ShowDialog() == DialogResult.OK)
                                                     {
+                                                        IO.SetState(EMcState.Run);
                                                         SetCameraLive();
                                                         v_ox = TaskGantry.GXPos() - dx;
                                                         v_oy = TaskGantry.GYPos() - dy;
@@ -6487,6 +6506,7 @@ namespace NDispWin
                                                     Thread.Sleep(100);
                                                     break;
                                                 default://Stop
+                                                    IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Stop");
                                                     for (int L = Line; L >= 0; L--)
                                                     {
@@ -6783,25 +6803,31 @@ namespace NDispWin
                                         switch (dr)
                                         {
                                             case DialogResult.Retry:
+                                                IO.SetState(EMcState.Run);
                                                 DefineSafety.DoorLock = true;
                                                 goto _Retry;
                                             case DialogResult.Ignore://Skip
+                                                IO.SetState(EMcState.Run);
                                                 BdStatus = EBoardStatus.Reject;
                                                 DefineSafety.DoorLock = true;
                                                 goto _EndBoard;
                                             case DialogResult.OK://Manual
+                                                IO.SetState(EMcState.Run);
                                                 v_ox = TaskGantry.GXPos() - dx;
                                                 v_oy = TaskGantry.GYPos() - dy;
                                                 DefineSafety.DoorLock = true;
                                                 break;
                                             case DialogResult.Yes://Accept
+                                                IO.SetState(EMcState.Run);
                                                 DefineSafety.DoorLock = true;
                                                 break;
                                             case DialogResult.Cancel://Reject
+                                                IO.SetState(EMcState.Run);
                                                 BdStatus = EBoardStatus.Reject;
                                                 DefineSafety.DoorLock = true;
                                                 goto _EndBoard;
                                             default://DialogResult.Abort - Stop
+                                                IO.SetState(EMcState.Idle);
                                                 Line = Line--;
                                                 BdStatus = EBoardStatus.Stop;
                                                 GDefine.Status = EStatus.Stop;
@@ -6925,21 +6951,26 @@ namespace NDispWin
                                             switch (dr)
                                             {
                                                 case DialogResult.Retry:
+                                                    IO.SetState(EMcState.Run);
                                                     DefineSafety.DoorLock = true;
                                                     goto _Retry;
                                                 case DialogResult.Ignore:
+                                                    IO.SetState(EMcState.Run);
                                                     OK = false;
                                                     DefineSafety.DoorLock = true;
                                                     break;
                                                 case DialogResult.OK:
+                                                    IO.SetState(EMcState.Run);
                                                     OK = true;
                                                     DefineSafety.DoorLock = true;
                                                     break;
                                                 case DialogResult.Yes:
+                                                    IO.SetState(EMcState.Run);
                                                     OK = true;
                                                     DefineSafety.DoorLock = true;
                                                     break;
                                                 default://DialogResult.Abort - Stop
+                                                    IO.SetState(EMcState.Idle);
                                                     Line = Line--;
                                                     BdStatus = EBoardStatus.Stop;
                                                     GDefine.Status = EStatus.Stop;
@@ -7093,29 +7124,34 @@ namespace NDispWin
                                             {
                                                 #region
                                                 case DialogResult.Retry://Retry Button
+                                                    IO.SetState(EMcState.Run);
                                                     Log.AddToLog("0" + (char)9 + "Retry");
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     goto _Retry;
                                                 case DialogResult.Cancel://Skip Button
+                                                    IO.SetState(EMcState.Run);
                                                     Log.AddToLog("0" + (char)9 + "Skip");
                                                     v_OK = false;
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     break;
                                                 case DialogResult.Yes://Accept Button
+                                                    IO.SetState(EMcState.Run);
                                                     Log.AddToLog("0" + (char)9 + "Accept");
                                                     v_OK = true;
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     break;
                                                 case DialogResult.Abort://Stop Button
+                                                    IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Stop");
                                                     LastLine++;
                                                     DefineSafety.DoorLock = true;
                                                     Thread.Sleep(100);
                                                     goto _Pause;
                                                 default:
+                                                    IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Default");
                                                     for (int L = Line; L >= 0; L--)
                                                     {
@@ -23072,11 +23108,14 @@ namespace NDispWin
                         switch (dr)
                         {
                             case DialogResult.Retry:
+                                IO.SetState(EMcState.Run);
                                 DefineSafety.DoorLock = true;
                                 goto _RetryHeight;
                             case DialogResult.Abort://Stop
+                                IO.SetState(EMcState.Idle);
                                 return EExecuteDoHeight.Pause;
                             case DialogResult.Ignore://Skip
+                                IO.SetState(EMcState.Run);
                                 OK = 4;// false;
                                 i_DoHeightSkipCntr++;
                                 DefineSafety.DoorLock = true;

@@ -112,15 +112,10 @@ namespace NDispWin
 
         private void btn_Retry_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Last);
-
             DialogResult = DialogResult.Retry;
         }
         private void btn_Skip_Click(object sender, EventArgs e)
         {
-            //IO.SetState(EMcState.Idle);
-            IO.SetState(EMcState.Last);
-
             DialogResult = DialogResult.Ignore;
         }
 
@@ -129,7 +124,6 @@ namespace NDispWin
         {
             Action action = () =>
             {
-                //IO.SetState(EMcState.Idle);
                 frm = new frm_DispCore_JogGantryVision();
                 frm.Inst = "Position Crosshair to Ref";
                 frm.ShowVision = true;
@@ -155,33 +149,21 @@ namespace NDispWin
 
                 if (dr == DialogResult.OK)
                 {
-                    IO.SetState(EMcState.Last);
-                    //IO.SetState(EMcState.Idle);
-
                     DialogResult = DialogResult.OK;
                 }
             };
-                        Invoke(action);
+            Invoke(action);
         }
         private void btn_Accept_Click(object sender, EventArgs e)
         {
-            //IO.SetState(EMcState.Idle);
-            IO.SetState(EMcState.Last);
-
             DialogResult = DialogResult.Yes;
         }
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            IO.SetState(EMcState.Idle);
-            //IO.SetState(EMcState.Last);
-
             DialogResult = DialogResult.Abort;
         }
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            //IO.SetState(EMcState.Last);
-            IO.SetState(EMcState.Idle);
-
             DialogResult = DialogResult.Cancel;
         }
         private void btn_AlmClr_Click(object sender, EventArgs e)

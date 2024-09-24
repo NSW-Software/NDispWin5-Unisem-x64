@@ -208,15 +208,15 @@ namespace NDispWin
         }
         private void btnLeastSquare_Click(object sender, EventArgs e)
         {
-            if (CmdLine.IPara[2] != (int)EAlignType.Board)
-            {
-                if (MessageBox.Show($"Set Align Type = Board?", "Action", MessageBoxButtons.YesNo) == DialogResult.No) return;
-                {
-                    int oldAlignType = CmdLine.IPara[2];
-                    CmdLine.IPara[2] = (int)EAlignType.Board;
-                    Log.OnSet(CmdName + ", Align Type", oldAlignType, CmdLine.IPara[2]);
-                }
-            }
+            //if (CmdLine.IPara[2] != (int)EAlignType.Board)
+            //{
+            //    if (MessageBox.Show($"Set Align Type = Board?", "Action", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            //    {
+            //        int oldAlignType = CmdLine.IPara[2];
+            //        CmdLine.IPara[2] = (int)EAlignType.Board;
+            //        Log.OnSet(CmdName + ", Align Type", oldAlignType, CmdLine.IPara[2]);
+            //    }
+            //}
 
             int Old = CmdLine.IPara[0];
             CmdLine.IPara[0] = 4;
@@ -664,8 +664,7 @@ namespace NDispWin
             frm.MaximizeBox = false;
             frm.Message.Add("Edit buttons access.");
             frm.ShowDialog();
-            //TCTwrLight.SetStatus(TwrLight.Idle);//
-            IO.SetState(EMcState.Last);
+            IO.SetState(EMcState.Idle);
         }
 
         Point selectClstr = new Point(0, 0);

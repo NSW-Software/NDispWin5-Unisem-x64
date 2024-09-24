@@ -363,6 +363,8 @@ namespace NDispWin
             lbl_DateTime.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss tt");
             lbl_AccessUser.Text = "Login[" + NUtils.UserAcc.Active.GroupName + "/" + NUtils.UserAcc.Active.UserName + "]";
 
+            frm_Map.ViewOnly = Define_Run.TR_IsRunning && GDefineN.DisableAutoRunMapEdit;
+
             UpdateDisplay();
             UpdateStatus();
             UpdateWaitMagStatus();
@@ -999,21 +1001,6 @@ namespace NDispWin
             {
                 Stats.Reset();
             }
-        }
-
-        private void lbl_AppVersion_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_RunTime_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label33_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnRunInfoDispCountReset_Click(object sender, EventArgs e)
