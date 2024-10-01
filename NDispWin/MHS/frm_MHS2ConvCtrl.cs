@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace NDispWin
 {
@@ -180,6 +176,8 @@ namespace NDispWin
             EnableParent(false);
             try
             {
+                if (!TaskConv.CheckPressureSource()) return;
+
                 TaskConv.Manual_Return();
 
                 //Cancel Disp if Pro is returned
@@ -274,6 +272,8 @@ namespace NDispWin
                     TaskConv.Status = TaskConv.EConvStatus.Stop;
                 }
 
+                if (!TaskConv.CheckPressureSource()) return;
+
                 TaskConv.Manual_LoadPre();
             }
             catch (Exception ex)
@@ -309,6 +309,8 @@ namespace NDispWin
                     TaskConv.Status = TaskConv.EConvStatus.Stop;
                 }
 
+                if (!TaskConv.CheckPressureSource()) return;
+
                 TaskConv.Manual_LoadPro();
             }
             catch (Exception ex)
@@ -326,6 +328,8 @@ namespace NDispWin
             EnableParent(false);
             try
             {
+                if (!TaskConv.CheckPressureSource()) return;
+
                 TaskConv.Manual_Unload();
                 DispProg.TR_Cancel();
             }

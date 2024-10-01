@@ -216,8 +216,6 @@ namespace NDispWin
                 InfoPanel_Map.Close();
                 InfoPanel_Map.Dispose();
             }
-
-            GC.Collect();
         }
 
         private void frm_Auto_KeyDown(object sender, KeyEventArgs e)
@@ -836,6 +834,7 @@ namespace NDispWin
                     {
                         GDefine.Status = EStatus.Stop;
                         Define_Run.TR_StopRun();
+
                         Msg MsgBox = new Msg();
                         MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
                     }

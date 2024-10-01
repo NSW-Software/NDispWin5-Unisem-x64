@@ -354,20 +354,15 @@ namespace NDispWin
         }
         private void tsbtnProgram_Click(object sender, EventArgs e)
         {
-            //if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
+            try
             {
-                try
-                {
-                    frm_DispProg2 frm = new frm_DispProg2();
-                    frm.ShowDialog();
-                    frm.Dispose();
-
-                    GC.Collect();
-                }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.Message);
-                }
+                frm_DispProg2 frm = new frm_DispProg2();
+                frm.ShowDialog();
+                frm.Dispose();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
             }
         }
         private void tsbtnMHS_Click(object sender, EventArgs e)

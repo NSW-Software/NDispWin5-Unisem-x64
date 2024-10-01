@@ -2510,6 +2510,7 @@ namespace NDispWin
                     DispProg.TR_Pause();
                     bCycle = false;
                     this.Enable(true);
+
                     Msg MsgBox = new Msg();
                     MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
                 }

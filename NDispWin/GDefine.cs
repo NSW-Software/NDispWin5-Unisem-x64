@@ -271,7 +271,7 @@ namespace NDispWin
         {
             get
             {
-                    return TaskConv.LowPressure;
+                    return TaskConv.PressureSource;
             }
         }
 
@@ -879,14 +879,11 @@ namespace NDispWin
         {
             if (GDefine.ConveyorType != GDefine.EConveyorType.CONVEYOR) { return true; }
 
-            if (GDefineN.LowPressureValid())
+            if (GDefineN.LowPressureValid() && !GDefineN.DI_InPressureInRange)
             {
-                if (!GDefineN.DI_InPressureInRange)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
-                    return false;
-                }
+                Msg MsgBox = new Msg();
+                MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
+                return false;
             }
 
             return true;

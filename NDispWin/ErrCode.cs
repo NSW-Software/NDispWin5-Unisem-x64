@@ -449,6 +449,7 @@ namespace NDispWin
         public const int PROGRAM_HEAD_ERROR = PROGRAM_ERR + 3;
         public const int PROGRAM_DRAW_OFFSET_UPDATE = PROGRAM_ERR + 10;
         public const int PROGRAM_ACTIVE_PROGRAM_COMMAND_MODIFICATION = PROGRAM_ERR + 11;
+        public const int PROGRAM_VISION_DATA_NOT_READY = PROGRAM_ERR + 12;
 
         public const int VOLUME_OFST_PATH_NOT_FOUND = PROGRAM_ERR + 50;
         public const int VOLUME_OFST_ERROR = PROGRAM_ERR + 51;

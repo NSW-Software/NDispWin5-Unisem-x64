@@ -77,7 +77,7 @@ namespace NDispWin
                 GDefineMHS.RefreshInput(lbl_Pre_HeaterAlm, TaskConv.Pre.HeaterAlarm);
                 GDefineMHS.RefreshInput(lbl_Pro_HeaterAlm, TaskConv.Pro.HeaterAlarm);
 
-                GDefineMHS.RefreshInput(lbl_MainPressure, TaskConv.LowPressure);
+                GDefineMHS.RefreshInput(lbl_MainPressure, TaskConv.PressureSource);
                 GDefineMHS.RefreshOutput(btn_VacPump, TaskConv.VacPump);
                 GDefineMHS.RefreshOutput(btn_Conv_MotorOn, TaskConv.Conv.MtrEnable);
 

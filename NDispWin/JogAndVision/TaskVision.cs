@@ -1145,7 +1145,6 @@ namespace NDispWin
                 CloseCamera(i);
             }
         }
-
         public static bool CameraOpened(int CamNo)
         {
             if (GDefine.CameraType[CamNo] == GDefine.ECameraType.MVSGenTL)
@@ -1155,7 +1154,6 @@ namespace NDispWin
 
             return false;
         }
-        public static bool CameraRun = true;
 
         static Mutex MutexGrab = new Mutex();
         public static int[] ImgWN = new int[MAX_CAMERA];

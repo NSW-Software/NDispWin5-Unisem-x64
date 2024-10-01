@@ -4220,12 +4220,6 @@ namespace NDispWin
 
                 b_TempCtrlChecked = false;
 
-                TaskVision.CameraRun = true;
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                {
-                    //TaskVision.frmGenImageView.Grab();
-                }
-
                 IsBusy = true;
                 Running = true;
 
@@ -6041,8 +6035,9 @@ namespace NDispWin
                                     if ((Map.CurrMap[rt_LayoutID].Bin[RunTime.UIndex] < EMapBin.BinNG) && !rt_RefDatas[RefID].Data[RunTime.UIndex].Ready)
                                     {
                                         Msg MsgBox = new Msg();
-                                        EMsgRes MsgRes = MsgBox.Show($"Unit {RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y} Vision data is not ready. Abort Program.");
+                                        EMsgRes MsgRes = MsgBox.Show(ErrCode.PROGRAM_VISION_DATA_NOT_READY, $"Unit {RunTime.Head_CR[1].X},{RunTime.Head_CR[1].Y} Vision data is not ready. Abort Program.");
                                         Running = false;
+                                        goto _Pause;
                                         break;
                                     }
 
@@ -6400,6 +6395,22 @@ namespace NDispWin
                                     Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
                                     string data = "";
                                     TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref Image);
+
+                                    if (GDefineN.EnableEventDebugLog)
+                                    {
+                                        var tpm = 0.0;
+                                        var ppm = 0.0;
+                                        var pmu = 0.0;
+                                        using (System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess())
+                                        {
+                                            tpm = currentProcess.WorkingSet64 / (1024 * 1024);
+                                            ppm = currentProcess.PeakWorkingSet64 / (1024 * 1024);
+                                            pmu = currentProcess.PrivateMemorySize64 / (1024 * 1024);
+                                        }
+                                        System.Diagnostics.PerformanceCounter tm = new System.Diagnostics.PerformanceCounter("Memory", "Committed Bytes");
+                                        System.Diagnostics.PerformanceCounter am = new System.Diagnostics.PerformanceCounter("Memory", "Available MBytes");
+                                        Event.DEBUG_INFO.Set("Memory Total, Avail, Process Total Physical,Peak Physical, Private", $"{tm.NextValue() / (1024 * 1024)},{am.NextValue()},{tpm},{ppm},{pmu} MB");
+                                    }
 
                                     if (ActiveLine.IPara[3] > 0)//(SaveDoVisionImages)
                                     {
@@ -7095,9 +7106,24 @@ namespace NDispWin
                                     {
                                         string data = "";
                                         TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref TaskVision.Image);
-
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
+
+                                        if (GDefineN.EnableEventDebugLog)
+                                        {
+                                            var tpm = 0.0;
+                                            var ppm = 0.0;
+                                            var pmu = 0.0;
+                                            using (System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess())
+                                            {
+                                                tpm = currentProcess.WorkingSet64 / (1024 * 1024);
+                                                ppm = currentProcess.PeakWorkingSet64 / (1024 * 1024);
+                                                pmu = currentProcess.PrivateMemorySize64 / (1024 * 1024);
+                                            }
+                                            System.Diagnostics.PerformanceCounter tm = new System.Diagnostics.PerformanceCounter("Memory", "Committed Bytes");
+                                            System.Diagnostics.PerformanceCounter am = new System.Diagnostics.PerformanceCounter("Memory", "Available MBytes");
+                                            Event.DEBUG_INFO.Set("Memory Total, Avail, Process Total Physical,Peak Physical, Private", $"{tm.NextValue() / (1024 * 1024)},{am.NextValue()},{tpm},{ppm},{pmu} MB");
+                                        }
 
                                         if (v_OK)
                                         {
@@ -9845,14 +9871,6 @@ namespace NDispWin
                 _EndBoard:
                     if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
 
-                    TaskVision.CameraRun = true;
-
-                    if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.PtGrey)
-                    {
-                        //TaskVision.PtGrey_CamLive((int)TaskVision.SelectedCam);
-                    }
-
-
                     if (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.Lextar_FrontTestCloseLoop)
                     {
                         if (Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Auto)
@@ -9952,12 +9970,6 @@ namespace NDispWin
                 }
                 catch (Exception Ex)
                 {
-                    TaskVision.CameraRun = true;
-                    if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.PtGrey)
-                    {
-                        //TaskVision.PtGrey_CamLive((int)TaskVision.SelectedCam);
-                    }
-
                     GDefine.OperationSpeed = EOperationSpeed.Safe;
                     GDefine.Status = EStatus.ErrorInit;
 
@@ -9988,9 +10000,6 @@ namespace NDispWin
                             }
                         }
                     }
-
-                TaskVision.CameraRun = true;
-                //SetCameraLive();
 
                 GDefine.WriteRegStat(GDefine.REG_KEY_STAT_UNIT_COUNT, Stats.TotalUnitCount);
 
@@ -10024,12 +10033,6 @@ namespace NDispWin
                             }
                         }
                     }
-
-                TaskVision.CameraRun = true;
-                if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.PtGrey)
-                {
-                    //TaskVision.PtGrey_CamLive((int)TaskVision.SelectedCam);
-                }
 
                 GDefine.OperationSpeed = EOperationSpeed.Safe;
                 GDefine.Status = EStatus.ErrorInit;
@@ -23108,14 +23111,14 @@ namespace NDispWin
                         switch (dr)
                         {
                             case DialogResult.Retry:
-                                IO.SetState(EMcState.Run);
+                                IO.SetState(EMcState.Run, DispProg.ProgramMode);
                                 DefineSafety.DoorLock = true;
                                 goto _RetryHeight;
                             case DialogResult.Abort://Stop
-                                IO.SetState(EMcState.Idle);
+                                IO.SetState(EMcState.Idle, DispProg.ProgramMode);
                                 return EExecuteDoHeight.Pause;
                             case DialogResult.Ignore://Skip
-                                IO.SetState(EMcState.Run);
+                                IO.SetState(EMcState.Run, DispProg.ProgramMode);
                                 OK = 4;// false;
                                 i_DoHeightSkipCntr++;
                                 DefineSafety.DoorLock = true;
@@ -23169,21 +23172,25 @@ namespace NDispWin
                 switch (dr)
                 {
                     case DialogResult.Retry://Retry
+                        IO.SetState(EMcState.Run, DispProg.ProgramMode);
                         DefineSafety.DoorLock = true;
                         goto _RetryHeight;
                     case DialogResult.Ignore://Skip
-                                             //OK = false;
+                        IO.SetState(EMcState.Run, DispProg.ProgramMode);
                         DefineSafety.DoorLock = true;
                         break;
                     case DialogResult.Yes://Accept
+                        IO.SetState(EMcState.Run, DispProg.ProgramMode);
                         OK = 0;
                         DefineSafety.DoorLock = true;
                         break;
                     case DialogResult.Cancel://Reject
+                        IO.SetState(EMcState.Run, DispProg.ProgramMode);
                         BdStatus = EBoardStatus.Reject;
                         DefineSafety.DoorLock = true;
                         return EExecuteDoHeight.EndBoard;
                     default://Stop
+                        IO.SetState(EMcState.Idle, DispProg.ProgramMode);
                         return EExecuteDoHeight.Pause;
                 }
                 #endregion

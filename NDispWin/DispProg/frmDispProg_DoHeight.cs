@@ -485,15 +485,11 @@ namespace NDispWin
                                         break;
                                         #endregion
                                 }
-
                             }
                             catch (Exception ex)
                             {
-                                TaskVision.CameraRun = true;
                                 MessageBox.Show(ex.Message.ToString());
                             }
-
-                            TaskVision.CameraRun = true;
                             break;
                         }
                     case DispProg.ECmd.HEIGHT_SET:
@@ -539,7 +535,6 @@ namespace NDispWin
                             }
                             finally
                             {
-                                TaskVision.CameraRun = true;
                             }
 
                             break;

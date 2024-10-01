@@ -21,6 +21,15 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
+
+
+Ver 6.1.6.1 20240930 - Release to LYL/YZ for UnisemCD - Gitted
+- [Feature] 30/9 Added Conv.Stop tp Pre and Pro.StopperUp to prevent frame flow through.
+- [Feature] 30/9 Added Auto Conv Pressure check for MHS Manual operation.
+- [Improve] 30/9 Added ProgramMode for IO.SetState and corrected DO_Height to update correct Tower Light Status.
+- [DebugInfo] 26/9 Added EnableEventDebugLog to log Memory Usage
+- [Improve] 26/9 Added ErrCode.PROGRAM_VISION_DATA_NOT_READY and stop mc
+- [HseKeep] 26/9 Remove unused variables
 Ver 6.1.6.0 20240924 - Release to LYL/YZ for UnisemCD - Gitted
 - [Improve] 23/9 DoHeight LST to support Cluster align modes
 [Improve] 23/9 Added frmJogControl async GZ MouseDn

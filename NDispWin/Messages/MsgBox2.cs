@@ -830,7 +830,7 @@ namespace NDispWin
 
         static System.Windows.Forms.Timer timer500 = new System.Windows.Forms.Timer();
         internal static ETLState IntState = new ETLState();
-        public static void SetState(EMcState State)
+        public static void SetState(EMcState State, bool progMode = false)//if progMode, set Idle.
         {
             NUtils.RegistryWR Reg = new NUtils.RegistryWR("SOFTWARE");
             Reg.WriteKey("NSWAUTOMATION_STATE", "DATETIME", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -851,7 +851,7 @@ namespace NDispWin
             if (IntStates[(int)State].Grn != ERYG.DontCare) IntState.Grn = IntStates[(int)State].Grn;
             if (IntStates[(int)State].Buz != EBuzzer.DontCare) IntState.Buz = IntStates[(int)State].Buz;
 
-            if (DispProg.ProgramMode = State == EMcState.Last)
+            if (DispProg.ProgramMode)// = State == EMcState.Last)
             {
                 IntState.Red = ERYG.Off;
                 IntState.Yel = ERYG.On;

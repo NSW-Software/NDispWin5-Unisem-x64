@@ -1018,7 +1018,7 @@ namespace NDispWin
             }
         }
 
-        public static bool LowPressure
+        public static bool PressureSource//Normal Pressure
         {
             get
             {
@@ -1060,6 +1060,24 @@ namespace NDispWin
             {
                 return ConvIO.VacPump.Status;
             }
+        }
+
+        public static bool CheckPressureSource()
+        {
+            if (GDefineN.LowPressureValid() && !PressureSource)
+            {
+            _Retry:
+                Msg MsgBox = new Msg();
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.LOW_AIR_PRESSURE, "", EMcState.Error, EMsgBtn.smbRetry_Stop, false);
+                switch (MsgRes)
+                {
+                    case EMsgRes.smrRetry: goto _Retry;
+                    default:
+                    case EMsgRes.smrStop:
+                        return false;
+                }
+            }
+            return true;
         }
 
         public class Conv
@@ -1155,14 +1173,12 @@ namespace NDispWin
             {
                 int Speed = Setup.ConvPara[(int)EConvPara.RunSpeed_Slow];
                 ConvRun(Speed, true);
-
                 return true;
             }
             internal static bool Fwd_SendOut()
             {
                 int Speed = Setup.ConvPara[(int)EConvPara.RunSpeed_SendOut];
                 ConvRun(Speed, true);
-
                 return true;
             }
             internal static bool Rev_Fast()
@@ -1721,6 +1737,7 @@ namespace NDispWin
 
                 if (Pre.SensStopperUp) return true;
 
+                TaskConv.Stop();
                 SvStopperUp = false;
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
@@ -2229,8 +2246,8 @@ namespace NDispWin
                     return true;
                 }
 
+                TaskConv.Stop();
                 SvStopperUp = false;
-
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRO", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
                 switch (MsgRes)
