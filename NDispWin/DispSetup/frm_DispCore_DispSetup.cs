@@ -78,6 +78,7 @@ namespace NDispWin
         private void btn_HeadOfstTouchDotSet_Click(object sender, EventArgs e)
         {
             b_HeadOfstCalibrated = TaskDisp.TeachNeedleOfst_Touch_Dot_Set();
+            b_ZSensorCalibrated = b_HeadOfstCalibrated;//Touch_Dot_Set includes Z Touch.
             TaskDisp.TeachNeedle_Completed = b_HeadOfstCalibrated && b_ZSensorCalibrated;
             UpdateDisplay();
         }

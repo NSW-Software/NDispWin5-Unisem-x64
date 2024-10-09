@@ -856,7 +856,6 @@ namespace NDispWin
                 IntState.Red = ERYG.Off;
                 IntState.Yel = ERYG.On;
                 IntState.Grn = ERYG.Off;
-                IntState.Buz = EBuzzer.Off;
             }
 
             if (!timer500.Enabled)

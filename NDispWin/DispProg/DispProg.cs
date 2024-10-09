@@ -6396,7 +6396,7 @@ namespace NDispWin
                                     string data = "";
                                     TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref Image);
 
-                                    if (GDefineN.EnableEventDebugLog)
+                                    //if (GDefineN.EnableEventDebugLog)
                                     {
                                         var tpm = 0.0;
                                         var ppm = 0.0;
@@ -7109,7 +7109,7 @@ namespace NDispWin
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
 
-                                        if (GDefineN.EnableEventDebugLog)
+                                        //if (GDefineN.EnableEventDebugLog)
                                         {
                                             var tpm = 0.0;
                                             var ppm = 0.0;

@@ -3644,6 +3644,7 @@ namespace NDispWin
             try
             {
             _Retry:
+                Event.DEBUG_INFO.Set("Move to Out Conv.Fwd_Fast()","");
                 if (!Conv.Fwd_Fast()) goto _Error;
 
                 #region Wait Out.SensPsnt
@@ -3657,9 +3658,10 @@ namespace NDispWin
                         if (!Conv.Stop()) goto _Error;
                         break;
                     }
-                    Thread.Sleep(5);
+                    //Thread.Sleep(5);
                     if (Environment.TickCount >= TOut)
                     {
+                        Event.DEBUG_INFO.Set("Move to Out TimeOut Conv.Stop()", $"{Out.TimeOut}");
                         if (!Conv.Stop()) goto _Error;
 
                         Msg MsgBox = new Msg();

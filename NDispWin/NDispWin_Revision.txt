@@ -22,7 +22,10 @@ Software Hang frequent
 Dispense Head Z Path
 
 
-
+Ver 6.1.6.2 20241009 - Release to MOWong for UnisemIpoh, LYL/YZ for UnisemCD - Gitted
+- [BugFix] Remove IOState buzzer ignore, allow buzzer to function for alarm message. - YZ.
+- [BugFix] Corrected btn_HeadOfstTouchDotSet_Click to update TaskDisp. TeachNeedle_Completed. - MO Wong.
+- [Improve] Added debung info to MoveToOut and remove Thread.Sleep(5). Need monitor for conv not moving. -  YZ.
 Ver 6.1.6.1 20240930 - Release to LYL/YZ for UnisemCD - Gitted
 - [Feature] 30/9 Added Conv.Stop tp Pre and Pro.StopperUp to prevent frame flow through.
 - [Feature] 30/9 Added Auto Conv Pressure check for MHS Manual operation.
