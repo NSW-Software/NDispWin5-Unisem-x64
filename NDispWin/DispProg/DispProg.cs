@@ -874,7 +874,6 @@ namespace NDispWin
             IniFile.WriteFloat("Head", "NeedlePitchY", Head_NeedlePitchY);
 
             IniFile.WriteBool("DispCtrl", "ForceTimeMode", DispCtrl_ForceTimeMode);
-            IniFile.WriteBool("Options", "EnableProcessLog", Options_EnableProcessLog);
 
             IniFile.WriteFloat("PP", "HeadA_DispBaseVol", PP_HeadA_DispBaseVol);
             IniFile.WriteFloat("PP", "HeadB_DispBaseVol", PP_HeadB_DispBaseVol);
@@ -1042,7 +1041,6 @@ namespace NDispWin
             Head_NeedlePitchY = IniFile.ReadFloat("Head", "NeedlePitchY", 0);
 
             DispCtrl_ForceTimeMode = IniFile.ReadBool("DispCtrl", "ForceTimeMode", true);
-            Options_EnableProcessLog = IniFile.ReadBool("Options", "EnableProcessLog", false);
 
             if (UpdateDispVol)
             {
@@ -1465,7 +1463,6 @@ namespace NDispWin
                 writer.WriteStartElement("entry");
                 writer.WriteAttributeString("name", "Options");
 
-                WriteSubEntry(writer, "EnableProcessLog", Options_EnableProcessLog.ToString());
                 WriteSubEntry(writer, "CheckBoardInputYield", Options_CheckBoardInputYield.ToString());
                 WriteSubEntry(writer, "CheckBoardYield", Options_CheckBoardYield.ToString());
 
@@ -1923,14 +1920,6 @@ namespace NDispWin
 
                                                     switch (attName)
                                                     {
-                                                        case "EnableProcessLog":
-                                                            try
-                                                            {
-                                                                reader.Read();
-                                                                Options_EnableProcessLog = Convert.ToBoolean(reader.Value);
-                                                            }
-                                                            catch { };
-                                                            break;
                                                         case "CheckBoardInputYield":
                                                             try
                                                             {
@@ -6396,7 +6385,7 @@ namespace NDispWin
                                     string data = "";
                                     TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref Image);
 
-                                    //if (GDefineN.EnableEventDebugLog)
+                                    if (GDefineN.EnableEventDebugLog)
                                     {
                                         var tpm = 0.0;
                                         var ppm = 0.0;
@@ -7109,7 +7098,7 @@ namespace NDispWin
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
 
-                                        //if (GDefineN.EnableEventDebugLog)
+                                        if (GDefineN.EnableEventDebugLog)
                                         {
                                             var tpm = 0.0;
                                             var ppm = 0.0;

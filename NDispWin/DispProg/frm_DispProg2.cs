@@ -1188,8 +1188,13 @@ namespace NDispWin
 
                     frm1.Done = true;
                 });
+
+                DispProg.TR_Cancel();
+                tsbtn_Cancel.Enabled = (DispProg.LastLine > 0);
+                Msg MsgBox = new Msg();
+                EMsgRes res = MsgBox.Show("All run state and maps are cleared.");
             }
-            
+
             DispProg.RunTime.UIndex = 0;
         }
         private void tsbtn_CamGoOrigin_Click(object sender, EventArgs e)

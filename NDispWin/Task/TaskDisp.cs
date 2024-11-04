@@ -1499,6 +1499,8 @@ namespace NDispWin
             Material.Unit.Limit[0] = IniFile.ReadInteger("Material", "UnitLimit0", 0);
             Material.Unit.Limit[1] = IniFile.ReadInteger("Material", "UnitLimit1", 0);
 
+            DispProg.Options_EnableProcessLog = IniFile.ReadBool("Option", "EnableProcessLog", true);
+
             CopyLogToServer = IniFile.ReadBool("Log", "CopyToServer", false);
             LogServerPath = IniFile.ReadString("Log", "ServerPath", LogServerPath);
 
@@ -1815,6 +1817,8 @@ namespace NDispWin
             IniFile.WriteBool("Material", "EnableUnitCounter", Material.EnableUnitCounter);
             IniFile.WriteInteger("Material", "UnitLimit0", Material.Unit.Limit[0]);
             IniFile.WriteInteger("Material", "UnitLimit1", Material.Unit.Limit[1]);
+
+            IniFile.WriteBool("Option", "EnableProcessLog", DispProg.Options_EnableProcessLog);
 
             IniFile.WriteBool("Log", "CopyToServer", CopyLogToServer);
             IniFile.WriteString("Log", "ServerPath", LogServerPath);

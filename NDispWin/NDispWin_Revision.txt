@@ -22,6 +22,12 @@ Software Hang frequent
 Dispense Head Z Path
 
 
+
+- [Improve] Added if (GDefineN.EnableEventDebugLog) to prevent calling Perfromance Counter methods, on possible OS corrupt system.
+Ver 6.1.6.3 20241026 - Release to LYL/YZ for UnisemCD - Gitted
+- [Request] Option_EnableProcessLog save as Setup. Default to true. Remove saving from recipe. - LYL
+- [Request] Set Origin clear map and run state. - LYL
+- [Improve] DispProg.ProgramMode, execute Yellow, Red and Buzzer, suppress Green Light to Yellow Light. - LYL
 Ver 6.1.6.2 20241009 - Release to MOWong for UnisemIpoh, LYL/YZ for UnisemCD - Gitted
 - [BugFix] Remove IOState buzzer ignore, allow buzzer to function for alarm message. - YZ.
 - [BugFix] Corrected btn_HeadOfstTouchDotSet_Click to update TaskDisp. TeachNeedle_Completed. - MO Wong.

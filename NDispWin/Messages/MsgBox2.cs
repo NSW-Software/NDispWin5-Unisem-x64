@@ -853,9 +853,14 @@ namespace NDispWin
 
             if (DispProg.ProgramMode)// = State == EMcState.Last)
             {
-                IntState.Red = ERYG.Off;
-                IntState.Yel = ERYG.On;
-                IntState.Grn = ERYG.Off;
+                //IntState.Red = ERYG.Off;
+                //IntState.Yel = ERYG.On;
+                //IntState.Grn = ERYG.Off;
+                if (IntState.Grn == ERYG.On)
+                {
+                    IntState.Yel = ERYG.On;
+                    IntState.Grn = ERYG.Off;
+                }
             }
 
             if (!timer500.Enabled)
