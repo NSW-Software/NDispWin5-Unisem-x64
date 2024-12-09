@@ -136,7 +136,8 @@ namespace NDispWin
             #endregion
 
             #region Advance
-            lbl_DispCtrl_ForceTimeMode.Text = DispProg.DispCtrl_ForceTimeMode.ToString();
+            lblPP_HPC15CtrlDefaultMode.Text = DispProg.PP_HPC15CtrlDefaultMode.ToString();
+            lblHM_HPC15CtrlDefaultMode.Text = DispProg.HM_HPC15CtrlDefaultMode.ToString();
 
             lblCheckBoardInputYield.Text = $"{DispProg.Options_CheckBoardInputYield * 100:f2}";
             lblCheckBoardYield.Text = $"{DispProg.Options_CheckBoardYield*100:f2}";
@@ -446,7 +447,20 @@ namespace NDispWin
         #region Advance
         private void lbl_ForceTimeMode_Click(object sender, EventArgs e)
         {
-            DispProg.DispCtrl_ForceTimeMode = !DispProg.DispCtrl_ForceTimeMode;
+            int i = (int)DispProg.PP_HPC15CtrlDefaultMode;
+            if (UC.AdjustExec("Disp Prog.PP_HPC15CtrlDefaultMode", ref i, DispProg.PP_HPC15CtrlDefaultMode))
+            {
+                DispProg.PP_HPC15CtrlDefaultMode = (TaskDisp.EHPC15Mode)i;
+            }
+            UpdateDisplay();
+        }
+        private void lblHM_HPC15CtrlDefaultMode_Click(object sender, EventArgs e)
+        {
+            int i = (int)DispProg.HM_HPC15CtrlDefaultMode;
+            if (UC.AdjustExec("Disp Prog.HM_HPC15CtrlDefaultMode", ref i, DispProg.HM_HPC15CtrlDefaultMode))
+            {
+                DispProg.HM_HPC15CtrlDefaultMode = (TaskDisp.EHPC15Mode)i;
+            }
             UpdateDisplay();
         }
 
@@ -612,5 +626,7 @@ namespace NDispWin
             GDefine.StripMapUploadFlip = cbxStripMapUploadFlip.SelectedIndex;
         }
         #endregion
+
+
     }
 }

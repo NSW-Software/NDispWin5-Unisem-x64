@@ -21,6 +21,7 @@ namespace NDispWin
         public frm_Message()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             this.Text = "Message";
 

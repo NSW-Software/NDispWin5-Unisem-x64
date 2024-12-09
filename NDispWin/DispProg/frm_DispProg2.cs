@@ -837,7 +837,6 @@ namespace NDispWin
                         Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
                         ID = "[" + CmdLine.Line[i].ID.ToString() + "] ";
                         Para = Para + (CmdLine.Line[i].IPara[0] > 0 ? "" : "[Disabled] ");
-                        Para = Para + ID + TaskDisp.InputMap_Protocol.ToString();
                         break;
                     #endregion
                     case DispProg.ECmd.LAYOUT_PREMAP:
@@ -846,16 +845,6 @@ namespace NDispWin
                         ID = "[" + CmdLine.Line[i].ID.ToString() + "]";
                         Para = ID;
                         break;
-                    #endregion
-                    case DispProg.ECmd.VOLUME_OFST:
-                        #region
-                        {
-                            Cmd = Indent + Enum.GetName(typeof(DispProg.ECmd), CmdLine.Line[i].Cmd);
-                            ID = "";
-                            string Mode = Enum.GetName(typeof(EVolumeOfstMode), CmdLine.Line[i].IPara[0]);
-                            Para = ID + "" + Mode + " (" + CmdLine.Line[i].String + ")";
-                            break;
-                        }
                     #endregion
                     case DispProg.ECmd.MEAS_MENISCUS:
                     case DispProg.ECmd.CHECK_MENISCUS:
@@ -1309,7 +1298,7 @@ namespace NDispWin
             string fileName = GDefine.ProgPath + "\\" + GDefine.ProgRecipeName + "." + GDefine.ProgExt;
             if (TaskDisp.EnableRecipeFile) fileName = GDefine.RecipeDir.FullName + GDefine.ProgRecipeName + GDefine.RecipeExt;
             DispProg.Save(fileName);
-            UpdateDisplay();
+            //UpdateDisplay();
         }
         private async void ts_ProgSave_Click(object sender, EventArgs e)
         {
@@ -1337,6 +1326,7 @@ namespace NDispWin
                 {
                     frm1.Close();
                 }
+                UpdateDisplay();
             }
         }
         private async void SaveAs()
@@ -2192,21 +2182,6 @@ namespace NDispWin
                                     #region
                                     {
                                         frm_DispCore_DispProg_VolumeMap frm = new frm_DispCore_DispProg_VolumeMap();
-                                        frm.TopLevel = false;
-                                        frm.Parent = this;
-                                        frm.ProgNo = SelProg;
-                                        frm.LineNo = ProgLine;
-                                        frm.BringToFront();
-                                        Dirty = true;
-                                        Done = false;
-                                        frm.Show();
-                                        break;
-                                    }
-                                #endregion
-                                case DispProg.ECmd.VOLUME_OFST:
-                                    #region
-                                    {
-                                        frm_DispCore_DispProg_VolumeOfst frm = new frm_DispCore_DispProg_VolumeOfst();
                                         frm.TopLevel = false;
                                         frm.Parent = this;
                                         frm.ProgNo = SelProg;
@@ -3105,7 +3080,7 @@ namespace NDispWin
                     }
                 case TaskDisp.EPumpType.HM:
                     {
-                        frm_DispTool_SpeedAdjust frm = new frm_DispTool_SpeedAdjust();
+                        frmSetupHM frm = new frmSetupHM();
                         frm.SettingMode = true;
                         frm.TopMost = true;
                         frm.ShowDialog();
@@ -3222,11 +3197,6 @@ namespace NDispWin
         private void btn_Close_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void tmr15s_Tick(object sender, EventArgs e)
-        {
-            Task.Run(() => { Task_InputMap.OsramEMos.PurgeETVFiles(); });
         }
     }
 }

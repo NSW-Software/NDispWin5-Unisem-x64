@@ -15,6 +15,7 @@ namespace NDispWin
         public frmDevice()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             this.StartPosition = FormStartPosition.CenterScreen;
             

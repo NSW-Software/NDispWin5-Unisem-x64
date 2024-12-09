@@ -23,6 +23,7 @@ namespace NDispWin
         public frm_MHS2ConvPara()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             combox_PreStType.Items.Clear();
             for (int i = 0; i < Enum.GetNames(typeof(TaskConv.EPreStType)).Length; i++)

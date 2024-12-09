@@ -16,10 +16,10 @@ namespace NDispWin
         public frm_DispProg_PurgeStage()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             cbxPType.DataSource = Enum.GetValues(typeof(FuncPurgeStage.EPattern));
             cbxPType.SelectedIndex = (int)TaskDisp.PurgeStage.Pattern;
-
-            GControl.LogForm(this);
         }
 
         private void frm_DispProg_PurgeStage_Load(object sender, EventArgs e)

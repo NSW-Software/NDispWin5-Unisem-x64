@@ -26,7 +26,7 @@ namespace NDispWin
         public frm_ProgressReport()
         {
             InitializeComponent();
-
+            GControl.LogForm(this);
         }
 
         private void frm_ProgressReport_Load(object sender, EventArgs e)

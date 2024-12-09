@@ -86,12 +86,7 @@
             this.btn_Reset = new System.Windows.Forms.Button();
             this.lbl_FrameCount = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btn_Update = new System.Windows.Forms.Button();
             this.tmr_Display = new System.Windows.Forms.Timer(this.components);
-            this.lbl_Mode = new System.Windows.Forms.Label();
-            this.lbl_Online = new System.Windows.Forms.Label();
-            this.gbox_VolumeOfst = new System.Windows.Forms.GroupBox();
-            this.btn_Info = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.tmr_Second = new System.Windows.Forms.Timer(this.components);
@@ -103,7 +98,6 @@
             this.pnl_FPress.SuspendLayout();
             this.pnl_VolCompA.SuspendLayout();
             this.gbox_Settings.SuspendLayout();
-            this.gbox_VolumeOfst.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -826,76 +820,11 @@
             this.label12.Text = "Frame";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btn_Update
-            // 
-            this.btn_Update.AccessibleDescription = "Update";
-            this.btn_Update.Location = new System.Drawing.Point(82, 21);
-            this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(70, 40);
-            this.btn_Update.TabIndex = 43;
-            this.btn_Update.Text = "Update";
-            this.btn_Update.UseVisualStyleBackColor = true;
-            this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
-            // 
             // tmr_Display
             // 
             this.tmr_Display.Enabled = true;
             this.tmr_Display.Interval = 250;
             this.tmr_Display.Tick += new System.EventHandler(this.tmr_Display_Tick);
-            // 
-            // lbl_Mode
-            // 
-            this.lbl_Mode.AccessibleDescription = "Mode";
-            this.lbl_Mode.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_Mode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Mode.Location = new System.Drawing.Point(6, 42);
-            this.lbl_Mode.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.lbl_Mode.Name = "lbl_Mode";
-            this.lbl_Mode.Size = new System.Drawing.Size(70, 20);
-            this.lbl_Mode.TabIndex = 45;
-            this.lbl_Mode.Text = "Mode";
-            this.lbl_Mode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_Online
-            // 
-            this.lbl_Online.AccessibleDescription = "Online";
-            this.lbl_Online.BackColor = System.Drawing.SystemColors.Control;
-            this.lbl_Online.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Online.Location = new System.Drawing.Point(6, 21);
-            this.lbl_Online.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.lbl_Online.Name = "lbl_Online";
-            this.lbl_Online.Size = new System.Drawing.Size(70, 19);
-            this.lbl_Online.TabIndex = 44;
-            this.lbl_Online.Text = "Online";
-            this.lbl_Online.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gbox_VolumeOfst
-            // 
-            this.gbox_VolumeOfst.AutoSize = true;
-            this.gbox_VolumeOfst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.gbox_VolumeOfst.Controls.Add(this.btn_Info);
-            this.gbox_VolumeOfst.Controls.Add(this.lbl_Mode);
-            this.gbox_VolumeOfst.Controls.Add(this.lbl_Online);
-            this.gbox_VolumeOfst.Controls.Add(this.btn_Update);
-            this.gbox_VolumeOfst.Location = new System.Drawing.Point(148, 4);
-            this.gbox_VolumeOfst.Margin = new System.Windows.Forms.Padding(2);
-            this.gbox_VolumeOfst.Name = "gbox_VolumeOfst";
-            this.gbox_VolumeOfst.Padding = new System.Windows.Forms.Padding(3, 3, 3, 1);
-            this.gbox_VolumeOfst.Size = new System.Drawing.Size(234, 80);
-            this.gbox_VolumeOfst.TabIndex = 46;
-            this.gbox_VolumeOfst.TabStop = false;
-            this.gbox_VolumeOfst.Text = "Offset";
-            // 
-            // btn_Info
-            // 
-            this.btn_Info.AccessibleDescription = "Info";
-            this.btn_Info.Location = new System.Drawing.Point(158, 21);
-            this.btn_Info.Name = "btn_Info";
-            this.btn_Info.Size = new System.Drawing.Size(70, 40);
-            this.btn_Info.TabIndex = 46;
-            this.btn_Info.Text = "Info";
-            this.btn_Info.UseVisualStyleBackColor = true;
-            this.btn_Info.Click += new System.EventHandler(this.btn_Info_Click);
             // 
             // label15
             // 
@@ -1009,7 +938,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbl_RefType);
-            this.Controls.Add(this.gbox_VolumeOfst);
             this.Controls.Add(this.btn_Reset);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.gbox_Settings);
@@ -1031,7 +959,6 @@
             this.pnl_FPress.ResumeLayout(false);
             this.pnl_VolCompA.ResumeLayout(false);
             this.gbox_Settings.ResumeLayout(false);
-            this.gbox_VolumeOfst.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1077,11 +1004,7 @@
         private System.Windows.Forms.Label lbl_AdjustReso;
         private System.Windows.Forms.Label lbl_FrameCount;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Timer tmr_Display;
-        private System.Windows.Forms.Label lbl_Mode;
-        private System.Windows.Forms.Label lbl_Online;
-        private System.Windows.Forms.GroupBox gbox_VolumeOfst;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label15;
@@ -1092,7 +1015,6 @@
         private System.Windows.Forms.Label lbl_l_HeadAVolCompUnit;
         private System.Windows.Forms.Label lbl_HeadB_VolComp;
         private System.Windows.Forms.Timer tmr_Second;
-        private System.Windows.Forms.Button btn_Info;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label29;

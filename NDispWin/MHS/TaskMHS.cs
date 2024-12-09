@@ -4989,10 +4989,6 @@ namespace NDispWin
 
             if (TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
             {
-                if (DispProg.rt_Read_IDs[0, 0].Length > 0 && TaskDisp.InputMap_Protocol == TaskDisp.EInputMapProtocol.OSRAM_eMos)
-                {
-                    DispProg.TOutputMap.Execute("", DispProg.rt_Read_IDs[0, 0], ref DispProg.Map.CurrMap[0], TaskDisp.InputMap_Enabled);
-                }
                 TaskConv.MoveProToIn();
                 return true;
             }
@@ -5214,11 +5210,6 @@ namespace NDispWin
                 if (TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
                 {
                     if (TaskConv.In.SensPsnt) goto _End;
-
-                    if (DispProg.rt_Read_IDs[0, 0].Length > 0 && TaskDisp.InputMap_Protocol == TaskDisp.EInputMapProtocol.OSRAM_eMos)
-                    {
-                        DispProg.TOutputMap.Execute("", DispProg.rt_Read_IDs[0, 0], ref DispProg.Map.CurrMap[0], TaskDisp.InputMap_Enabled);
-                    }
 
                     if (TaskConv.OutLevelFollowInLevel && LeftMode == ELeftMode.ElevatorZ && RightMode == ERightMode.ElevatorZ)
                         if (TaskConv.Pro.InLevel > 0)

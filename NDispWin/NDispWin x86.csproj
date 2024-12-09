@@ -190,6 +190,12 @@
     <Compile Include="frmDispProg_NeedleInsp.Designer.cs">
       <DependentUpon>frmDispProg_NeedleInsp.cs</DependentUpon>
     </Compile>
+    <Compile Include="PumpSetup\frmSetupHM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PumpSetup\frmSetupHM.Designer.cs">
+      <DependentUpon>frmSetupHM.cs</DependentUpon>
+    </Compile>
     <Compile Include="JogAndVision\frmJogControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,12 +213,6 @@
     </Compile>
     <Compile Include="frmProcessing.designer.cs">
       <DependentUpon>frmProcessing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.designer.cs">
-      <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
     </Compile>
     <Compile Include="JogAndVision\frm_DispCore_JogGantry2.cs">
       <SubType>Form</SubType>
@@ -234,24 +234,6 @@
       <DependentUpon>frm_Weighting.cs</DependentUpon>
     </Compile>
     <Compile Include="GControl.cs" />
-    <Compile Include="LotCtrl\frmLotEntryAnalogPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalogPrompt.Designer.cs">
-      <DependentUpon>frmLotEntryAnalogPrompt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalogSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalogSetup.Designer.cs">
-      <DependentUpon>frmLotEntryAnalogSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalog.Designer.cs">
-      <DependentUpon>frmLotEntryAnalog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Settings\frmCameraSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,12 +267,6 @@
     </Compile>
     <Compile Include="DispProg\frmDispProgGroupDisp.Designer.cs">
       <DependentUpon>frmDispProgGroupDisp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frm_LotEntryOsramEMos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LotCtrl\frm_LotEntryOsramEMos.designer.cs">
-      <DependentUpon>frm_LotEntryOsramEMos.cs</DependentUpon>
     </Compile>
     <Compile Include="LotCtrl\TELotInfo.cs" />
     <Compile Include="Vermes\TEVermesMDS3200.cs" />
@@ -584,12 +560,6 @@
     <Compile Include="DispProg\frmDispProg_VolumeMap.Designer.cs">
       <DependentUpon>frmDispProg_VolumeMap.cs</DependentUpon>
     </Compile>
-    <Compile Include="DispProg\frmDispProg_VolumeOfst.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DispProg\frmDispProg_VolumeOfst.Designer.cs">
-      <DependentUpon>frmDispProg_VolumeOfst.cs</DependentUpon>
-    </Compile>
     <Compile Include="DispProg\frmDispProg_PPVolComp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -680,18 +650,6 @@
     </Compile>
     <Compile Include="DispSetup\frm_DispCore_DispSetup_Options.Designer.cs">
       <DependentUpon>frm_DispCore_DispSetup_Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DispSetup\frm_DispCore_DispSetup_HM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DispSetup\frm_DispCore_DispSetup_HM.Designer.cs">
-      <DependentUpon>frm_DispCore_DispSetup_HM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.Designer.cs">
-      <DependentUpon>frm_AOT_TestCloseLoop.cs</DependentUpon>
     </Compile>
     <Compile Include="JogAndVision\frmReticleSetup2.cs">
       <SubType>Form</SubType>
@@ -818,18 +776,6 @@
     </Compile>
     <Compile Include="JogAndVision\frm_DispProg_View.Designer.cs">
       <DependentUpon>frm_DispProg_View.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.Designer.cs">
-      <DependentUpon>frm_Lextar_TestCloseLoop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frm_DispTool_SpeedAdjust.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_DispTool_SpeedAdjust.Designer.cs">
-      <DependentUpon>frm_DispTool_SpeedAdjust.cs</DependentUpon>
     </Compile>
     <Compile Include="Messages\frm_Message.cs">
       <SubType>Form</SubType>
@@ -1037,6 +983,10 @@
     <EmbeddedResource Include="frmDispProg_NeedleInsp.resx">
       <DependentUpon>frmDispProg_NeedleInsp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PumpSetup\frmSetupHM.resx">
+      <DependentUpon>frmSetupHM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="JogAndVision\frmJogControl.resx">
       <DependentUpon>frmJogControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -1045,9 +995,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProcessing.resx">
       <DependentUpon>frmProcessing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.resx">
-      <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JogAndVision\frm_DispCore_JogGantry2.resx">
       <DependentUpon>frm_DispCore_JogGantry2.cs</DependentUpon>
@@ -1065,10 +1012,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings\frmDeviceIOConfigEditor.resx">
       <DependentUpon>frmDeviceIOConfigEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Custom_VolumeAdjust\frm_Lextar_TestCloseLoop.resx">
-      <DependentUpon>frm_Lextar_TestCloseLoop.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProg_DotAngArr.resx">
@@ -1207,10 +1150,6 @@
       <DependentUpon>frmDispProg_VolumeMap.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DispProg\frmDispProg_VolumeOfst.resx">
-      <DependentUpon>frmDispProg_VolumeOfst.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProg_PPVolComp.resx">
       <DependentUpon>frmDispProg_PPVolComp.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1225,10 +1164,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProg_GoPos.resx">
       <DependentUpon>frmDispProg_GoPos.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Custom_VolumeAdjust\frm_AOT_TestCloseLoop.resx">
-      <DependentUpon>frm_AOT_TestCloseLoop.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProg_ReadID_ManualEntry.resx">
@@ -1271,15 +1206,6 @@
     <EmbeddedResource Include="frm_Weighting.resx">
       <DependentUpon>frm_Weighting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalogPrompt.resx">
-      <DependentUpon>frmLotEntryAnalogPrompt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalogSetup.resx">
-      <DependentUpon>frmLotEntryAnalogSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalog.resx">
-      <DependentUpon>frmLotEntryAnalog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Settings\frmCameraSetting.resx">
       <DependentUpon>frmCameraSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1296,9 +1222,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProgGroupDisp.resx">
       <DependentUpon>frmDispProgGroupDisp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frm_LotEntryOsramEMos.resx">
-      <DependentUpon>frm_LotEntryOsramEMos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Weight\frmWeightMeasure.resx">
       <DependentUpon>frmWeightMeasure.cs</DependentUpon>
@@ -1410,10 +1333,6 @@
       <DependentUpon>frm_DispCore_DispSetup_Options.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_HM.resx">
-      <DependentUpon>frm_DispCore_DispSetup_HM.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DispSetup\frm_DispCore_DispSetup_PurgeStage.resx">
       <DependentUpon>frm_DispCore_DispSetup_PurgeStage.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1480,10 +1399,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JogAndVision\frm_DispProg_View.resx">
       <DependentUpon>frm_DispProg_View.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_DispTool_SpeedAdjust.resx">
-      <DependentUpon>frm_DispTool_SpeedAdjust.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Messages\frm_Message.resx">

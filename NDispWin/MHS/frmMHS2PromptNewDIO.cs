@@ -15,6 +15,7 @@ namespace NDispWin
         public frmMHS2PromptNewDIO()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             combox_McModel.Items.Clear();
             for (int i = 0; i < Enum.GetNames(typeof(ConvIO.EMHS2McModel)).Length; i++)

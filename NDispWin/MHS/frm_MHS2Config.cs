@@ -15,6 +15,7 @@ namespace NDispWin
         public frm_MHS2Config()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             combox_LeftLineMode.Items.Clear();
             for (int i = 0; i < Enum.GetNames(typeof(TaskConv.ELeftMode)).Count(); i++)

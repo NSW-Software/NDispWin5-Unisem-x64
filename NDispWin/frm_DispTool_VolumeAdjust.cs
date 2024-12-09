@@ -35,24 +35,6 @@ namespace NDispWin
 
             Text = "Dispense Parameters";
 
-            #region Lextar customized
-            if (!SettingMode && TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.Lextar_FrontTestCloseLoop)
-            {
-                bool b_Lextar_AutoMode = Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Auto;
-
-                lbl_HeadA_AdjVal.Enabled = !b_Lextar_AutoMode;
-                btn_HeadA_M.Enabled = !b_Lextar_AutoMode;
-                btn_HeadA_P.Enabled = !b_Lextar_AutoMode;
-                lbl_HeadA_AdjPcnt.Enabled = !b_Lextar_AutoMode;
-                lbl_HeadB_AdjVal.Enabled = !b_Lextar_AutoMode;
-                btn_HeadB_M.Enabled = !b_Lextar_AutoMode;
-                btn_HeadB_P.Enabled = !b_Lextar_AutoMode;
-                lbl_HeadB_AdjPcnt.Enabled = !b_Lextar_AutoMode;
-
-                btn_CopyA.Enabled = !b_Lextar_AutoMode;
-            }
-            #endregion
-
             UpdateDisplay();
         }
 
@@ -142,35 +124,6 @@ namespace NDispWin
         private void tmr_Display_Tick(object sender, EventArgs e)
         {
             if (!Visible) return;
-
-            gbox_VolumeOfst.Visible = DispProg.rt_VolumeOfst || (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.Lextar_FrontTestCloseLoop);
-            int VolumeOfstFileCount = -1;
-            try
-            {
-                VolumeOfstFileCount = DispProg.DoVolumeOfst_FileCount();
-            }
-            catch { }
-
-            if (VolumeOfstFileCount >= 0)
-            {
-                lbl_Online.Text = "Online";
-                lbl_Online.BackColor = Color.Lime;
-            }
-            else
-            {
-                lbl_Online.Text = "Offline";
-                lbl_Online.BackColor = Color.Red;
-            }
-
-            lbl_Mode.Text = DispProg.rt_VolumeOfst_Mode.ToString();
-
-            if (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.AOT_HeightCloseLoop)
-            {
-                if (VolumeOfstFileCount > 0)
-                    btn_Update.BackColor = Color.Lime;
-                else
-                    btn_Update.BackColor = this.BackColor;
-            }
         }
 
         #region HeadA and HeadB
@@ -403,27 +356,6 @@ namespace NDispWin
         }
         #endregion
 
-        //bool Updating = false;
-        private void btn_Update_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                double Ofst1 = 0;
-                double Ofst2 = 0;
-
-                DispProg.DoVolumeOfst(ref Ofst1, ref Ofst2);
-
-                double headA_Vol = DispProg.PP_HeadA_DispBaseVol + DispProg.PP_HeadA_DispVol_Adj + DispProg.rt_Head1VolumeOfst;
-                double headB_Vol = DispProg.PP_HeadB_DispBaseVol + DispProg.PP_HeadB_DispVol_Adj + DispProg.rt_Head2VolumeOfst;
-                TaskDisp.SetDispVolume(true, true, headA_Vol, headB_Vol);
-            }
-            catch (Exception Ex)
-            {
-                MessageBox.Show(Ex.Message.ToString());
-            }
-            UpdateDisplay();
-        }
-
         private void btn_Reset_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Reset Volume Offset?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -444,11 +376,6 @@ namespace NDispWin
 
         private void tmr_Second_Tick(object sender, EventArgs e)
         {
-        }
-
-        private void btn_Info_Click(object sender, EventArgs e)
-        {
-            DispProg.DoVolumeOfst_ShowInfo();
         }
 
         private void uctrl_FPressB_Load(object sender, EventArgs e)

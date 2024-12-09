@@ -767,6 +767,9 @@ namespace NDispWin
                 return false;
             }
 
+            //Remove unknown space in filename prior extension. Suspect from Server.
+            fileName = fileName.Replace(" .", ".");
+
             if (!DispProg.loadXML2(fileName, true))
             {
                 AddLog("Load recipe fail.");

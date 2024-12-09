@@ -19,7 +19,7 @@ namespace NDispWin
         public frmJogGantry()
         {
             InitializeComponent();
-
+            GControl.LogForm(this);
         }
 
         private void uctrl_JogGantry1_Load(object sender, EventArgs e)

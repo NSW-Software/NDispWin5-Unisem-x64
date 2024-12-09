@@ -466,7 +466,7 @@ namespace NDispWin
                 {
                     case Button btn:
                         {
-                            btn.MouseDown += (a, b) => Event.CTRL.Set($"{frm.Name},{btn.Name}", "");
+                            btn.MouseDown += (a, b) => Event.CTRL.Set($"{frm.Name},{btn.Name},Clicked", "");
                         }
                         break;
                     case ComboBox combo:
@@ -474,7 +474,7 @@ namespace NDispWin
                             combo.MouseDown += (a, b) => combo.Tag = combo.Text;
                             combo.SelectionChangeCommitted += (a, b) =>
                             {
-                                Event.CTRL.Set($"{frm.Name},{combo.Name}_{combo.Tag.ToString()}_>_{combo.SelectedItem.ToString()}", "");
+                                Event.CTRL.Set($"{frm.Name},{combo.Name},{combo.Tag.ToString()} > {combo.SelectedItem.ToString()}", "");
                             };
                         }
                         break;
@@ -485,7 +485,7 @@ namespace NDispWin
                         break;
                     case CheckBox checkBox:
                         {
-                            checkBox.Click += (a, b) => Event.CTRL.Set($"{frm.Name},{checkBox.Name}_{checkBox.Checked}", "");
+                            checkBox.Click += (a, b) => Event.CTRL.Set($"{frm.Name},{checkBox.Name},{!checkBox.Checked} > {checkBox.Checked}", "");
                         }
                         break;
                     case ToolStrip toolStrip:

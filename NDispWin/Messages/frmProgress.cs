@@ -18,6 +18,8 @@ namespace NDispWin
         public frm_DispCore_Progress()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             TopMost = true;
 
             tmr_Display.Interval = 250;

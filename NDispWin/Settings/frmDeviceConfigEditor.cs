@@ -23,6 +23,7 @@ namespace NDispWin
         public frmDeviceConfigEditor(CControl2.TDevice _Device, string Title)
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             Text = "Device Config Editor [" + Title + "]";
 

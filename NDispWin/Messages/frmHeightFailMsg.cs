@@ -23,6 +23,8 @@ namespace NDispWin
         public frm_DispCore_HeightFailMsg()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             TopMost = true;
         }
 

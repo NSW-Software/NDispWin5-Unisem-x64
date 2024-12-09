@@ -33,6 +33,7 @@ namespace NDispWin
         public frm_DispCore_VisionSelectBox()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             pbox_Image.Width = TaskVision.ImgWN[0];
             pbox_Image.Height = TaskVision.ImgHN[0];

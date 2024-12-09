@@ -24,8 +24,8 @@ namespace NDispWin
             OsramDisp,
             OsramConfocal,
             NXPDisp,
-            OsramEMos,
-            Analog,
+            /*OsramEMos*/Reserved_6,
+            /*Analog*/Reserved_7,
         }
         public static ECustomer Customer = ECustomer.None;
 
@@ -671,41 +671,5 @@ namespace NDispWin
                 Log.LotEntry.WriteByMonthDay("End Lot, " + S);
             }
         }
-
-        //public static void WriteRegStat()
-        //{
-        //    NSW.Net.RegistryUtils Reg = new NSW.Net.RegistryUtils();
-
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Lot Status", LotStatus.ToString());
-
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Lot Number", LotNumber);
-
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Operator ID", sOperatorID);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Shift", sShift);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Start Time", sStartTime);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "End Time", sEndTime);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "Machine ID", sMachineID);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "CatridgeAID", sCatridgeAID);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "CatridgeBID", sCatridgeBID);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "CatridgeCID", sCatridgeCID);
-        //    Reg.WriteKey("NSWAUTOMATION_LotInfo", "CatridgeDID", sCatridgeDID);
-
-        //    switch (Customer)
-        //    {
-        //        case ECustomer.LUMDisp:
-        //        case ECustomer.LUMConfocal:
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "MES Product", Lmds.sMesProduct);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "CAT Code", Lmds.sCatCode);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "MES Lot", Lmds.sMesLot);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "MES Lot" + "_Last", Lmds.sMesLot_Last);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "SAP WO", Lmds.sSapWo);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "Market Target", Lmds.sMarketTarget);
-        //            break;
-        //        case ECustomer.OsramEMos:
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "11Series", Osram.ElevenSeries);
-        //            Reg.WriteKey("NSWAUTOMATION_LotInfo", "DA Start Number", Osram.DAStartNumber);
-        //            break;
-        //    }
-        //}
     }
 }

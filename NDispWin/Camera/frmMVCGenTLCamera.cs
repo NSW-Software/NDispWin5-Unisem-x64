@@ -31,6 +31,7 @@ namespace NDispWin
         public frmMVCGenTLCamera(TReticles reticles, bool show)
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             pnl_Image.Dock = DockStyle.Fill;
             imgBoxEmgu.Dock = DockStyle.Fill;

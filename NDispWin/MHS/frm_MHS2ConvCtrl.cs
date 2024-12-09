@@ -14,6 +14,7 @@ namespace NDispWin
         public frm_MHS2ConvCtrl()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             gbox_Buf1.Visible = TaskConv.Buf1.StType == TaskConv.EBufStType.Buffer;
             gbox_Buf2.Visible = TaskConv.Buf2.StType == TaskConv.EBufStType.Buffer;

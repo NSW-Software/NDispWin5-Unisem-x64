@@ -21,8 +21,12 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
-
+Ver 6.1.7.1 20241209 - Remote Release to LYL/YZ/WZM for UnisemCD - Gitted
+- [Refactor] Removed unused frm_LotEntryOsramEMos, frm_LotEntryAnalog, frm_LotEntryAnalogPrompt, frm_LotEntryAnalogSeutp and dependencies
+- [Refactor] Removed unused frm_AOT_TestCloseLoop, frm_Lextart_TestCloseLoop, frm_Osram_eMos_Setup, frmDispProg_VolumeOfst and dependencies
+- [Improve] Added GControl.LogForm(this) the frmMVGenTLCamera
+- [Feature] Renamed frm_DispCore_DispSetup to frmSetupHM
+- [Enhance] Remove additonal space in filename for PPSelect. Suspect space from server.
 - [Improve] Added if (GDefineN.EnableEventDebugLog) to prevent calling Perfromance Counter methods, on possible OS corrupt system.
 Ver 6.1.6.3 20241026 - Release to LYL/YZ for UnisemCD - Gitted
 - [Request] Option_EnableProcessLog save as Setup. Default to true. Remove saving from recipe. - LYL

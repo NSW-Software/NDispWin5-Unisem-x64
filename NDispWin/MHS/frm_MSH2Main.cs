@@ -18,6 +18,8 @@ namespace NDispWin
         public frmMHS2Main()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             AppLanguage.Func2.WriteLangFile(this);
         }
 

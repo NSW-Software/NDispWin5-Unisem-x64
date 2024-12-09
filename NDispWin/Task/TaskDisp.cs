@@ -839,6 +839,7 @@ namespace NDispWin
         public enum EPumpType { /*Auto*/None, Single, PP, PPD, HM, PP2D, Vermes, TP, TPRV, PJ, SP, Vermes1560 };
         public static double Head_LastPitchX = 0;
         public static double Head_LastNeedlePitchY = 0;
+        public enum EHPC15Mode { Timed, Continuous };
 
         public static int Head1_CtrlNo = 1;
         public static int Head1_CtrlHeadNo = 1;
@@ -972,7 +973,7 @@ namespace NDispWin
 
         public static double FlowRateOld = 18;
 
-        public enum EVolumeOfstProtocol { None, AOT_HeightCloseLoop, AOT_FrontTestCloseLoop, DoNotUse_3, Lextar_FrontTestCloseLoop, DoNotUse_5, DoNotUse_6 };
+        public enum EVolumeOfstProtocol { None, /*AOT_HeightCloseLoop*/Reserved_1, /*AOT_FrontTestCloseLoop*/Reserved_2, DoNotUse_3, /*Lextar_FrontTestCloseLoop*/Reserved_4, DoNotUse_5, DoNotUse_6 };
         public static EVolumeOfstProtocol VolumeOfst_Protocol = EVolumeOfstProtocol.None;
         
         public static string VolumeOfst_EqID = "EqID";
@@ -1058,8 +1059,6 @@ namespace NDispWin
             Lmds_WriteLotFile(s);
         }
 
-        public enum EInputMapProtocol { None, Lumileds_EMap, TD_COB, OSRAM_eMos };
-        public static EInputMapProtocol InputMap_Protocol = EInputMapProtocol.None;
         public static bool InputMap_Enabled;
 
         public static void LoadSetup_IOHandShake()
@@ -1510,14 +1509,6 @@ namespace NDispWin
             VolumeOfst_DataPath = IniFile.ReadString("VolumeOfst", "DataPath", "c:\\VolumeOfst\\DataPath");
             VolumeOfst_DataPath2 = IniFile.ReadString("VolumeOfst", "DataPath2", "c:\\VolumeOfst\\DataPath2");
 
-            InputMap_Protocol = (EInputMapProtocol)IniFile.ReadInteger("InputMap", "Protocol", 0);
-
-            if (InputMap_Protocol == EInputMapProtocol.Lumileds_EMap)
-            {
-                Task_InputMap.Lumileds_SS_EMap.LoadSetup();
-            }
-            if (InputMap_Protocol == EInputMapProtocol.OSRAM_eMos) Task_InputMap.OsramEMos.LoadSetup();
-
             Preference = EPreference.None;
             try { Preference = (EPreference)IniFile.ReadInteger("Setting", "Preference", 0); } catch { };
             CustomPath = IniFile.ReadString("Setting", "CustomPath", "");
@@ -1828,13 +1819,6 @@ namespace NDispWin
             IniFile.WriteString("VolumeOfst", "LocalPath", VolumeOfst_LocalPath);
             IniFile.WriteString("VolumeOfst", "DataPath", VolumeOfst_DataPath);
             IniFile.WriteString("VolumeOfst", "DataPath2", VolumeOfst_DataPath2);
-
-            IniFile.WriteInteger("InputMap", "Protocol", (int)InputMap_Protocol);
-
-            if (InputMap_Protocol == EInputMapProtocol.Lumileds_EMap)
-            {
-                Task_InputMap.Lumileds_SS_EMap.SaveSetup();
-            }
 
             IniFile.WriteInteger("Setting", "Preference", (int)Preference);
             IniFile.WriteString("Setting", "CustomPath", CustomPath);
@@ -6396,14 +6380,32 @@ namespace NDispWin
                     if (!TaskMoveGZZ2Up()) return false;
                 }
 
-                if (DispProg.DispCtrl_ForceTimeMode)
+                //if (DispProg.DispCtrl_ForceTimeMode)
+                //{
+                //    SetDispCtrlTimedMode(DispA, DispB);
+                //}
+                //else
+                //{
+                //    if (!IsDispAPurgeMode)
+                //        SetDispCtrlTimedMode(DispA, DispB);
+                //}
+
+                switch (DispProg.Pump_Type)
                 {
-                    SetDispCtrlTimedMode(DispA, DispB);
-                }
-                else
-                {
-                    if (!IsDispAPurgeMode)
-                        SetDispCtrlTimedMode(DispA, DispB);
+                    case EPumpType.HM:
+                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
+                            SetDispCtrlTimedMode(DispA, DispB);
+                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
+                            SetDispCtrlPurgeMode(DispA, DispB);
+                        break;
+                    case EPumpType.PP:
+                    case EPumpType.PPD:
+                    case EPumpType.PP2D:
+                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
+                            SetDispCtrlTimedMode(DispA, DispB);
+                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
+                            SetDispCtrlPurgeMode(DispA, DispB);
+                        break;
                 }
 
                 switch (DispProg.Pump_Type)
@@ -9179,14 +9181,31 @@ namespace NDispWin
 
                 if (!TaskDisp.TaskMoveGZZ2Up()) return false;
 
-                if (DispProg.DispCtrl_ForceTimeMode)
+                //if (DispProg.DispCtrl_ForceTimeMode)
+                //{
+                //    TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
+                //}
+                //else
+                //{
+                //    if (!IsDispAPurgeMode)
+                //        TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
+                //}
+                switch (DispProg.Pump_Type)
                 {
-                    TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
-                }
-                else
-                {
-                    if (!IsDispAPurgeMode)
-                        TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
+                    case EPumpType.HM:
+                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
+                            SetDispCtrlTimedMode(DispA, DispB);
+                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
+                            SetDispCtrlPurgeMode(DispA, DispB);
+                        break;
+                    case EPumpType.PP:
+                    case EPumpType.PPD:
+                    case EPumpType.PP2D:
+                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
+                            SetDispCtrlTimedMode(DispA, DispB);
+                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
+                            SetDispCtrlPurgeMode(DispA, DispB);
+                        break;
                 }
 
                 if (Idle_PostVacTime > 0)

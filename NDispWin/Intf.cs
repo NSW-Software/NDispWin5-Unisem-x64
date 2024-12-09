@@ -218,7 +218,6 @@ namespace NDispWin
             AppLanguage.Func2.UpdateText(new frm_DispCore_DispProg_UseHeight());
             AppLanguage.Func2.UpdateText(new frm_DispCore_DispProg_UseRef());
             AppLanguage.Func2.UpdateText(new frm_DispCore_DispProg_VolumeMap());
-            AppLanguage.Func2.UpdateText(new frm_DispCore_DispProg_VolumeOfst());
             #endregion
 
             #region DispSetup
@@ -227,7 +226,6 @@ namespace NDispWin
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_Custom());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_DispControl());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_HeadCal());
-            AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_HM());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_Maint());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_Options());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispSetup_PP());
@@ -254,7 +252,7 @@ namespace NDispWin
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_IdlePurge());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispCtrl_FuncSetup());
 
-            AppLanguage.Func2.WriteLangFile(new frm_DispTool_SpeedAdjust());
+            AppLanguage.Func2.WriteLangFile(new frmSetupHM());
             AppLanguage.Func2.WriteLangFile(new frm_DispTool_VolumeAdjust());
 
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_JogGantryVision());

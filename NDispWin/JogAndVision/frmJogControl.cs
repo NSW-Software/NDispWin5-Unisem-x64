@@ -22,6 +22,7 @@ namespace NDispWin
         public frmJogControl()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             if (GDefine.GantryConfig != GDefine.EGantryConfig.XY_ZX2Y2_Z2)
             {

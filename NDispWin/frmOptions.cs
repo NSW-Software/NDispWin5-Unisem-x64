@@ -52,8 +52,6 @@ namespace NDispWin
         {
             tboxCustomPath.Text = TaskDisp.CustomPath;
 
-            btnEditDataTable.Enabled = LotInfo2.Customer != LotInfo2.ECustomer.LUMDisp || LotInfo2.Customer != LotInfo2.ECustomer.LUMConfocal;
-
             cbEnableMaterialCounter.Checked = Material.EnableUnitCounter;
             lblMaterialUnitCounterALimit.Text = UI_Utils.GetKK(Material.Unit.Count[0]) + " / " + UI_Utils.GetKK(Material.Unit.Limit[0]);
             lblMaterialUnitCounterBLimit.Text = UI_Utils.GetKK(Material.Unit.Count[1]) + " / " + UI_Utils.GetKK(Material.Unit.Limit[1]);
@@ -137,42 +135,9 @@ namespace NDispWin
         {
             LotInfo2.Customer = (LotInfo2.ECustomer)cbxCustomerList.SelectedIndex;
         }
-        private void btnEditDataTable_Click(object sender, EventArgs e)
-        {
-            //LotCtrl.frmData fData = new LotCtrl.frmData();
-            //fData.ShowDialog();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-
-            GDefineN.Language1 = cbxLanguage.SelectedIndex;
-            GDefineN.Language2 = cbxLanguage2.SelectedIndex;
-
-            GDefine.EnableLotEntry = cbEnableLotEntry.Checked;
-            GDefineN.Enabled_BtnStart = cbEnableStartButton.Checked;
-
-            GDefineN.Enabled_BtnStop = cbEnableStopButton.Checked;
-            GDefineN.Enabled_BtnReset = cbEnableResetButton.Checked;
-
-            GDefineN.Enabled_LowPressure = cbEnableLowPressure.Checked;
-            GDefineN.Enable_Buzzer = cbEnableBuzzer.Checked;
-
-            GDefineN.EnableDoorSens = cbEnableDoorSensor.Checked;
-            GDefineN.EnableDoorLock = cbEnableDoorLock.Checked;
-
-            GDefineN.EnableMapEditLock = cboxEnableMapEditLock.Checked;
-            GDefineN.AutoPageShowImage = cbAutoPageShowImage.Checked;
-
-            GDefineN.DisableAutoRunMapEdit = cbDisableAutoRunMapEdit.Checked;
-
-            bool.TryParse(lblUseRecipeFile.Text, out TaskDisp.EnableRecipeFile);
-
             Close();
         }
 
@@ -196,8 +161,6 @@ namespace NDispWin
             bool b = (bool)TaskDisp.EnableRecipeFile;
             if (!UC.AdjustExec("Options, Enable Recipe File", ref b)) return;
             TaskDisp.EnableRecipeFile = b;
-            lblUseRecipeFile.Text = b.ToString();
-
             UpdateDisplay();
         }
 
@@ -600,7 +563,79 @@ namespace NDispWin
 
         private void cbDisbleAutoRunMapEdit_Click(object sender, EventArgs e)
         {
+            GDefineN.DisableAutoRunMapEdit = cbDisableAutoRunMapEdit.Checked;
+            UpdateDisplay();
+        }
 
+        private void cbxLanguage_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefineN.Language1 = cbxLanguage.SelectedIndex;
+            UpdateDisplay();
+        }
+
+        private void cbxLanguage2_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GDefineN.Language2 = cbxLanguage2.SelectedIndex;
+            UpdateDisplay();
+        }
+
+        private void cbEnableStartButton_Click(object sender, EventArgs e)
+        {
+            GDefineN.Enabled_BtnStart = cbEnableStartButton.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableStopButton_Click(object sender, EventArgs e)
+        {
+            GDefineN.Enabled_BtnStop = cbEnableStopButton.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableResetButton_Click(object sender, EventArgs e)
+        {
+            GDefineN.Enabled_BtnReset = cbEnableResetButton.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableLowPressure_Click(object sender, EventArgs e)
+        {
+            GDefineN.Enabled_LowPressure = cbEnableLowPressure.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableBuzzer_Click(object sender, EventArgs e)
+        {
+            GDefineN.Enable_Buzzer = cbEnableBuzzer.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableDoorSensor_Click(object sender, EventArgs e)
+        {
+            GDefineN.EnableDoorSens = cbEnableDoorSensor.Checked;
+            UpdateDisplay();
+        }
+        private void cbEnableDoorLock_Click(object sender, EventArgs e)
+        {
+            GDefineN.EnableDoorLock = cbEnableDoorLock.Checked;
+            UpdateDisplay();
+        }
+
+        private void cboxEnableMapEditLock_Click(object sender, EventArgs e)
+        {
+            GDefineN.EnableMapEditLock = cboxEnableMapEditLock.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbAutoPageShowImage_Click(object sender, EventArgs e)
+        {
+            GDefineN.AutoPageShowImage = cbAutoPageShowImage.Checked;
+            UpdateDisplay();
+        }
+
+        private void cbEnableLotEntry_Click(object sender, EventArgs e)
+        {
+            GDefine.EnableLotEntry = cbEnableLotEntry.Checked;
+            UpdateDisplay();
         }
     }
 }

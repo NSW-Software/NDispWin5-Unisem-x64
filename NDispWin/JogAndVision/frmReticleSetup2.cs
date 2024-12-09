@@ -20,6 +20,8 @@ namespace NDispWin
         public frm_ReticleSetup2()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             Text = "Reticle Setup";
 
             combox_ReticleType.Items.Clear();

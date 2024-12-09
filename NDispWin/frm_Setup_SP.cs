@@ -22,7 +22,7 @@ namespace NDispWin
         private void frmSetup_SP_Load(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
-            this.Text = "SynchroPulse (PS) Pump Setup";
+            this.Text = "Setup SP";
 
             tmr500ms.Enabled = true;
             

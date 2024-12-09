@@ -14,7 +14,8 @@ namespace NDispWin
         public frm_DispCore_VisionFailMsg()
         {
             InitializeComponent();
-            
+            GControl.LogForm(this);
+
             TopMost = true;
         }
 

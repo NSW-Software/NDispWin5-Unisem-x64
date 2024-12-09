@@ -61,19 +61,7 @@
             this.btn_CPF_Purge = new System.Windows.Forms.Button();
             this.btn_CPF_Clean = new System.Windows.Forms.Button();
             this.btn_CPF = new System.Windows.Forms.Button();
-            this.gbox_VolumeOfst = new System.Windows.Forms.GroupBox();
-            this.btn_VolOfstModeManual = new System.Windows.Forms.Button();
-            this.btn_VolOfstModeAuto = new System.Windows.Forms.Button();
-            this.lbl_WaitTimer = new System.Windows.Forms.Label();
-            this.btn_VolOfstReset = new System.Windows.Forms.Button();
-            this.btn_VolOfstClose = new System.Windows.Forms.Button();
-            this.btn_VolOfstModeNone = new System.Windows.Forms.Button();
-            this.btn_VolumeOffset = new System.Windows.Forms.Button();
             this.btn_StartIdle = new System.Windows.Forms.Button();
-            this.btn_UploadData = new System.Windows.Forms.Button();
-            this.pnl_LextarFrontTest = new System.Windows.Forms.Panel();
-            this.lbl_WaitData = new System.Windows.Forms.Label();
-            this.lbl_Connection = new System.Windows.Forms.Label();
             this.btn_WeightAdjust = new System.Windows.Forms.Button();
             this.gbox_Weight = new System.Windows.Forms.GroupBox();
             this.btn_WeightCancel = new System.Windows.Forms.Button();
@@ -94,8 +82,6 @@
             this.btnMaterialChange = new System.Windows.Forms.Button();
             this.gbox_PumpAction.SuspendLayout();
             this.gbox_CPF.SuspendLayout();
-            this.gbox_VolumeOfst.SuspendLayout();
-            this.pnl_LextarFrontTest.SuspendLayout();
             this.gbox_Weight.SuspendLayout();
             this.gbox_DateTime.SuspendLayout();
             this.SuspendLayout();
@@ -322,7 +308,7 @@
             this.gbox_PumpAction.Location = new System.Drawing.Point(658, 50);
             this.gbox_PumpAction.Name = "gbox_PumpAction";
             this.gbox_PumpAction.Padding = new System.Windows.Forms.Padding(5);
-            this.gbox_PumpAction.Size = new System.Drawing.Size(286, 194);
+            this.gbox_PumpAction.Size = new System.Drawing.Size(286, 190);
             this.gbox_PumpAction.TabIndex = 0;
             this.gbox_PumpAction.TabStop = false;
             this.gbox_PumpAction.Text = "Pump Action";
@@ -412,7 +398,7 @@
             this.gbox_CPF.Location = new System.Drawing.Point(658, 246);
             this.gbox_CPF.Name = "gbox_CPF";
             this.gbox_CPF.Padding = new System.Windows.Forms.Padding(5);
-            this.gbox_CPF.Size = new System.Drawing.Size(140, 244);
+            this.gbox_CPF.Size = new System.Drawing.Size(140, 240);
             this.gbox_CPF.TabIndex = 73;
             this.gbox_CPF.TabStop = false;
             this.gbox_CPF.Text = "Clean Purge";
@@ -477,110 +463,6 @@
             this.btn_CPF.UseVisualStyleBackColor = true;
             this.btn_CPF.Click += new System.EventHandler(this.btn_CPF_Click);
             // 
-            // gbox_VolumeOfst
-            // 
-            this.gbox_VolumeOfst.AutoSize = true;
-            this.gbox_VolumeOfst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.gbox_VolumeOfst.Controls.Add(this.btn_VolOfstModeManual);
-            this.gbox_VolumeOfst.Controls.Add(this.btn_VolOfstModeAuto);
-            this.gbox_VolumeOfst.Controls.Add(this.lbl_WaitTimer);
-            this.gbox_VolumeOfst.Controls.Add(this.btn_VolOfstReset);
-            this.gbox_VolumeOfst.Controls.Add(this.btn_VolOfstClose);
-            this.gbox_VolumeOfst.Controls.Add(this.btn_VolOfstModeNone);
-            this.gbox_VolumeOfst.Location = new System.Drawing.Point(821, 407);
-            this.gbox_VolumeOfst.Name = "gbox_VolumeOfst";
-            this.gbox_VolumeOfst.Padding = new System.Windows.Forms.Padding(5);
-            this.gbox_VolumeOfst.Size = new System.Drawing.Size(400, 244);
-            this.gbox_VolumeOfst.TabIndex = 75;
-            this.gbox_VolumeOfst.TabStop = false;
-            this.gbox_VolumeOfst.Text = "Volume Offset";
-            this.gbox_VolumeOfst.Visible = false;
-            // 
-            // btn_VolOfstModeManual
-            // 
-            this.btn_VolOfstModeManual.AccessibleDescription = "Manual";
-            this.btn_VolOfstModeManual.Location = new System.Drawing.Point(270, 25);
-            this.btn_VolOfstModeManual.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_VolOfstModeManual.Name = "btn_VolOfstModeManual";
-            this.btn_VolOfstModeManual.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolOfstModeManual.TabIndex = 85;
-            this.btn_VolOfstModeManual.Text = "Manual";
-            this.btn_VolOfstModeManual.UseVisualStyleBackColor = true;
-            this.btn_VolOfstModeManual.Click += new System.EventHandler(this.btn_VolOfstModeManual_Click);
-            // 
-            // btn_VolOfstModeAuto
-            // 
-            this.btn_VolOfstModeAuto.AccessibleDescription = "Auto";
-            this.btn_VolOfstModeAuto.Location = new System.Drawing.Point(140, 25);
-            this.btn_VolOfstModeAuto.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_VolOfstModeAuto.Name = "btn_VolOfstModeAuto";
-            this.btn_VolOfstModeAuto.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolOfstModeAuto.TabIndex = 84;
-            this.btn_VolOfstModeAuto.Text = "Auto";
-            this.btn_VolOfstModeAuto.UseVisualStyleBackColor = true;
-            this.btn_VolOfstModeAuto.Click += new System.EventHandler(this.btn_VolOfstModeAuto_Click);
-            // 
-            // lbl_WaitTimer
-            // 
-            this.lbl_WaitTimer.AccessibleDescription = "";
-            this.lbl_WaitTimer.BackColor = System.Drawing.Color.White;
-            this.lbl_WaitTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_WaitTimer.Location = new System.Drawing.Point(10, 125);
-            this.lbl_WaitTimer.Margin = new System.Windows.Forms.Padding(5);
-            this.lbl_WaitTimer.Name = "lbl_WaitTimer";
-            this.lbl_WaitTimer.Size = new System.Drawing.Size(120, 40);
-            this.lbl_WaitTimer.TabIndex = 81;
-            this.lbl_WaitTimer.Text = "Wait Timer";
-            this.lbl_WaitTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_WaitTimer.Click += new System.EventHandler(this.lbl_WaitTimer_Click);
-            // 
-            // btn_VolOfstReset
-            // 
-            this.btn_VolOfstReset.AccessibleDescription = "Reset";
-            this.btn_VolOfstReset.Location = new System.Drawing.Point(10, 75);
-            this.btn_VolOfstReset.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_VolOfstReset.Name = "btn_VolOfstReset";
-            this.btn_VolOfstReset.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolOfstReset.TabIndex = 80;
-            this.btn_VolOfstReset.Text = "Reset";
-            this.btn_VolOfstReset.UseVisualStyleBackColor = true;
-            this.btn_VolOfstReset.Click += new System.EventHandler(this.btn_VolOfstReset_Click);
-            // 
-            // btn_VolOfstClose
-            // 
-            this.btn_VolOfstClose.AccessibleDescription = "Close";
-            this.btn_VolOfstClose.Location = new System.Drawing.Point(10, 175);
-            this.btn_VolOfstClose.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_VolOfstClose.Name = "btn_VolOfstClose";
-            this.btn_VolOfstClose.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolOfstClose.TabIndex = 79;
-            this.btn_VolOfstClose.Text = "Close";
-            this.btn_VolOfstClose.UseVisualStyleBackColor = true;
-            this.btn_VolOfstClose.Click += new System.EventHandler(this.btn_VolOfstClose_Click);
-            // 
-            // btn_VolOfstModeNone
-            // 
-            this.btn_VolOfstModeNone.AccessibleDescription = "None";
-            this.btn_VolOfstModeNone.Location = new System.Drawing.Point(10, 25);
-            this.btn_VolOfstModeNone.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_VolOfstModeNone.Name = "btn_VolOfstModeNone";
-            this.btn_VolOfstModeNone.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolOfstModeNone.TabIndex = 74;
-            this.btn_VolOfstModeNone.Text = "None";
-            this.btn_VolOfstModeNone.UseVisualStyleBackColor = true;
-            this.btn_VolOfstModeNone.Click += new System.EventHandler(this.btn_VolOfstMode_Click);
-            // 
-            // btn_VolumeOffset
-            // 
-            this.btn_VolumeOffset.AccessibleDescription = "Volume Offset";
-            this.btn_VolumeOffset.Location = new System.Drawing.Point(0, 46);
-            this.btn_VolumeOffset.Name = "btn_VolumeOffset";
-            this.btn_VolumeOffset.Size = new System.Drawing.Size(120, 40);
-            this.btn_VolumeOffset.TabIndex = 76;
-            this.btn_VolumeOffset.Text = "Volume Offset (Manual)";
-            this.btn_VolumeOffset.UseVisualStyleBackColor = true;
-            this.btn_VolumeOffset.Click += new System.EventHandler(this.btn_VolumeOffset_Click);
-            // 
             // btn_StartIdle
             // 
             this.btn_StartIdle.AccessibleDescription = "Start Idle";
@@ -591,53 +473,6 @@
             this.btn_StartIdle.Text = "Start Idle";
             this.btn_StartIdle.UseVisualStyleBackColor = true;
             this.btn_StartIdle.Click += new System.EventHandler(this.btn_StartIdle_Click);
-            // 
-            // btn_UploadData
-            // 
-            this.btn_UploadData.AccessibleDescription = "Upload Data";
-            this.btn_UploadData.Location = new System.Drawing.Point(0, 92);
-            this.btn_UploadData.Name = "btn_UploadData";
-            this.btn_UploadData.Size = new System.Drawing.Size(120, 40);
-            this.btn_UploadData.TabIndex = 78;
-            this.btn_UploadData.Text = "Upload Data";
-            this.btn_UploadData.UseVisualStyleBackColor = true;
-            this.btn_UploadData.Click += new System.EventHandler(this.btn_UploadData_Click);
-            // 
-            // pnl_LextarFrontTest
-            // 
-            this.pnl_LextarFrontTest.AutoSize = true;
-            this.pnl_LextarFrontTest.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnl_LextarFrontTest.Controls.Add(this.lbl_WaitData);
-            this.pnl_LextarFrontTest.Controls.Add(this.lbl_Connection);
-            this.pnl_LextarFrontTest.Controls.Add(this.btn_VolumeOffset);
-            this.pnl_LextarFrontTest.Controls.Add(this.btn_UploadData);
-            this.pnl_LextarFrontTest.Location = new System.Drawing.Point(950, 13);
-            this.pnl_LextarFrontTest.Name = "pnl_LextarFrontTest";
-            this.pnl_LextarFrontTest.Size = new System.Drawing.Size(123, 181);
-            this.pnl_LextarFrontTest.TabIndex = 79;
-            // 
-            // lbl_WaitData
-            // 
-            this.lbl_WaitData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_WaitData.Location = new System.Drawing.Point(0, 138);
-            this.lbl_WaitData.Margin = new System.Windows.Forms.Padding(3);
-            this.lbl_WaitData.Name = "lbl_WaitData";
-            this.lbl_WaitData.Size = new System.Drawing.Size(120, 40);
-            this.lbl_WaitData.TabIndex = 80;
-            this.lbl_WaitData.Text = "Waiting Data";
-            this.lbl_WaitData.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_Connection
-            // 
-            this.lbl_Connection.AccessibleDescription = "Connection";
-            this.lbl_Connection.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Connection.Location = new System.Drawing.Point(0, 0);
-            this.lbl_Connection.Margin = new System.Windows.Forms.Padding(3);
-            this.lbl_Connection.Name = "lbl_Connection";
-            this.lbl_Connection.Size = new System.Drawing.Size(120, 40);
-            this.lbl_Connection.TabIndex = 79;
-            this.lbl_Connection.Text = "Connection";
-            this.lbl_Connection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_WeightAdjust
             // 
@@ -661,7 +496,7 @@
             this.gbox_Weight.Location = new System.Drawing.Point(950, 200);
             this.gbox_Weight.Name = "gbox_Weight";
             this.gbox_Weight.Padding = new System.Windows.Forms.Padding(5);
-            this.gbox_Weight.Size = new System.Drawing.Size(136, 228);
+            this.gbox_Weight.Size = new System.Drawing.Size(136, 224);
             this.gbox_Weight.TabIndex = 82;
             this.gbox_Weight.TabStop = false;
             this.gbox_Weight.Text = "Weight";
@@ -760,7 +595,7 @@
             this.dtp_ExpiryDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtp_ExpiryDate.Location = new System.Drawing.Point(8, 21);
             this.dtp_ExpiryDate.Name = "dtp_ExpiryDate";
-            this.dtp_ExpiryDate.Size = new System.Drawing.Size(120, 26);
+            this.dtp_ExpiryDate.Size = new System.Drawing.Size(120, 22);
             this.dtp_ExpiryDate.TabIndex = 90;
             this.dtp_ExpiryDate.ValueChanged += new System.EventHandler(this.dtp_ExpiryDate_ValueChanged);
             // 
@@ -771,7 +606,7 @@
             this.dtp_ExpiryTime.Location = new System.Drawing.Point(8, 49);
             this.dtp_ExpiryTime.Name = "dtp_ExpiryTime";
             this.dtp_ExpiryTime.ShowUpDown = true;
-            this.dtp_ExpiryTime.Size = new System.Drawing.Size(120, 26);
+            this.dtp_ExpiryTime.Size = new System.Drawing.Size(120, 22);
             this.dtp_ExpiryTime.TabIndex = 91;
             this.dtp_ExpiryTime.ValueChanged += new System.EventHandler(this.dtp_ExpiryTime_ValueChanged);
             // 
@@ -786,7 +621,7 @@
             this.gbox_DateTime.Controls.Add(this.dtp_ScanEntry);
             this.gbox_DateTime.Location = new System.Drawing.Point(1079, 13);
             this.gbox_DateTime.Name = "gbox_DateTime";
-            this.gbox_DateTime.Size = new System.Drawing.Size(134, 188);
+            this.gbox_DateTime.Size = new System.Drawing.Size(134, 184);
             this.gbox_DateTime.TabIndex = 91;
             this.gbox_DateTime.TabStop = false;
             this.gbox_DateTime.Text = "Date Time";
@@ -818,7 +653,7 @@
             // 
             this.dtp_ScanEntry.Location = new System.Drawing.Point(19, 84);
             this.dtp_ScanEntry.Name = "dtp_ScanEntry";
-            this.dtp_ScanEntry.Size = new System.Drawing.Size(100, 26);
+            this.dtp_ScanEntry.Size = new System.Drawing.Size(100, 22);
             this.dtp_ScanEntry.TabIndex = 93;
             this.dtp_ScanEntry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtp_ScanEntry_KeyDown);
             this.dtp_ScanEntry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtp_ScanEntry_KeyPress);
@@ -857,7 +692,6 @@
             this.ClientSize = new System.Drawing.Size(1284, 571);
             this.ControlBox = false;
             this.Controls.Add(this.btnMaterialChange);
-            this.Controls.Add(this.gbox_VolumeOfst);
             this.Controls.Add(this.btn_View);
             this.Controls.Add(this.gbox_DateTime);
             this.Controls.Add(this.lbl_SensMat2Low);
@@ -866,7 +700,6 @@
             this.Controls.Add(this.btn_PurgeStage);
             this.Controls.Add(this.btn_Weight);
             this.Controls.Add(this.gbox_Weight);
-            this.Controls.Add(this.pnl_LextarFrontTest);
             this.Controls.Add(this.btn_StartIdle);
             this.Controls.Add(this.btn_CPF);
             this.Controls.Add(this.gbox_CPF);
@@ -900,8 +733,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDispTools_KeyDown);
             this.gbox_PumpAction.ResumeLayout(false);
             this.gbox_CPF.ResumeLayout(false);
-            this.gbox_VolumeOfst.ResumeLayout(false);
-            this.pnl_LextarFrontTest.ResumeLayout(false);
             this.gbox_Weight.ResumeLayout(false);
             this.gbox_DateTime.ResumeLayout(false);
             this.gbox_DateTime.PerformLayout();
@@ -945,17 +776,7 @@
         private System.Windows.Forms.Button btn_CPF_Purge;
         private System.Windows.Forms.Button btn_CPF_Clean;
         private System.Windows.Forms.Button btn_CPF;
-        private System.Windows.Forms.GroupBox gbox_VolumeOfst;
-        private System.Windows.Forms.Button btn_VolOfstModeNone;
-        private System.Windows.Forms.Button btn_VolumeOffset;
-        private System.Windows.Forms.Button btn_VolOfstClose;
-        private System.Windows.Forms.Button btn_VolOfstReset;
         private System.Windows.Forms.Button btn_StartIdle;
-        private System.Windows.Forms.Button btn_UploadData;
-        private System.Windows.Forms.Panel pnl_LextarFrontTest;
-        private System.Windows.Forms.Label lbl_Connection;
-        private System.Windows.Forms.Label lbl_WaitData;
-        private System.Windows.Forms.Label lbl_WaitTimer;
         private System.Windows.Forms.Button btn_WeightAdjust;
         private System.Windows.Forms.GroupBox gbox_Weight;
         private System.Windows.Forms.Button btn_Weight;
@@ -973,8 +794,6 @@
         private System.Windows.Forms.Button btn_View;
         private System.Windows.Forms.TextBox dtp_ScanEntry;
         private System.Windows.Forms.Button btn_dtpCancel;
-        private System.Windows.Forms.Button btn_VolOfstModeManual;
-        private System.Windows.Forms.Button btn_VolOfstModeAuto;
         private System.Windows.Forms.Button btnMaterialChange;
     }
 }

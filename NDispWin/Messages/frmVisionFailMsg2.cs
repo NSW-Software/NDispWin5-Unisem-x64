@@ -21,6 +21,7 @@ namespace NDispWin
         public frmVisionFailMsg2()
         {
             InitializeComponent();
+            GControl.LogForm(this);
         } 
 
         Size s_Form = new Size(0,0);

@@ -17,6 +17,7 @@ namespace NDispWin
         public frm_Auto()
         {
             InitializeComponent();
+            GControl.LogForm(this);
 
             this.WindowState = FormWindowState.Maximized;
             this.ControlBox = false;
@@ -670,27 +671,6 @@ namespace NDispWin
         {
             switch (LotInfo2.Customer)
             {
-                case LotInfo2.ECustomer.OsramEMos:
-                    {
-                        frm_LotEntryOsramEMos frm = new frm_LotEntryOsramEMos();
-                        frm.ShowDialog();
-                        break;
-                    }
-                case LotInfo2.ECustomer.Analog:
-                    {
-                        frmLotEntryAnalog frm = new frmLotEntryAnalog();
-                        frm.ShowDialog();
-
-                        if (LotInfo2.LotStatus == LotInfo2.ELotStatus.Activated)
-                        {
-                            btn_LotInfo.ForeColor = Color.Green;
-                        }
-                        else
-                        {
-                            btn_LotInfo.ForeColor = Color.Red;
-                        }
-                        break;
-                    }
                 default:
                     {
                         Msg MsgBox = new Msg();
@@ -701,61 +681,6 @@ namespace NDispWin
         
             if (LotInfo2.LoadRecipe)
             {
-                switch (LotInfo2.Customer)
-                {
-                    case LotInfo2.ECustomer.OsramEMos:
-                        {
-                            Enabled = false;
-
-                            GDefineN.PerformanceReset();
-                            Stats.Reset();
-
-                            btn_LotInfo.Text = "Loading Recipe";
-                            btn_LotInfo.ForeColor = Color.Lime;
-                            LotInfo2.LoadRecipe = false;
-
-                            string RecipeName = LotInfo2._SProgramRecipe;
-                            if (RecipeName.Length == 0)
-                            {
-                                Event.OP_DISP_AUTO_LOAD_DEVICE_INVALID.Set();
-                                Msg MsgBox = new Msg();
-                                MsgBox.Show("Auto Load - Invalid Recipe.");
-                            }
-                            else
-                            if (RecipeName.Length >= 0)
-                            {
-                                string Filename = GDefine.DevicePath + RecipeName + "." + GDefine.DeviceRecipeExt;
-
-                                if (!File.Exists(Filename))
-                                {
-                                    Event.OP_DISP_AUTO_LOAD_DEVICE_NO_FOUND.Set("Name", Filename);
-                                    Msg MsgBox = new Msg();
-                                    MsgBox.Show("Auto Load - Recipe not found.");
-                                }
-                                else
-                                {
-                                    GDefine.DeviceRecipe = RecipeName;
-                                    GDefine.LoadDevice(GDefine.DeviceRecipe);
-                                }
-                            }
-
-                            if (LotInfo2.MatLife > 0)
-                            {
-                                TaskDisp.Material_EnableTimer = LotInfo2.MatLife > 0;
-                                if (LotInfo2.MatLife > 0)
-                                {
-                                    TaskDisp.Material_Life_EndTime = DateTime.Now.AddMinutes(LotInfo2.MatLife);
-                                    TaskDisp.Material_LifePreAlert_Time = TaskDisp.Material_Life_EndTime.AddMinutes((double)-TaskDisp.Material_ExpiryPreAlertTime);
-                                }
-                            }
-
-                            btn_LotInfo.Text = "Lot Info";
-                            btn_LotInfo.ForeColor = Color.Blue;
-
-                            Enabled = true;
-                        }
-                        break;
-                }
             }
 
             switch (LotInfo2.LotEvent)

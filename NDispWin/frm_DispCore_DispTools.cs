@@ -14,7 +14,6 @@ namespace NDispWin
     public partial class frm_DispCore_DispTools : Form
     {
         frm_DispCore_DispSetup_PP frm_PP = new frm_DispCore_DispSetup_PP();
-        frm_DispCore_DispSetup_HM frm_HM = new frm_DispCore_DispSetup_HM();
         frm_Setup_PJ frm_PJ = new frm_Setup_PJ();
 
         public frm_DispCore_DispTools()
@@ -25,9 +24,6 @@ namespace NDispWin
             StartPosition = FormStartPosition.CenterScreen;
 
             Label Txt_MaterialTimer = new Label(); Txt_MaterialTimer.AccessibleDescription = "Material Timer"; Txt_MaterialTimer.Visible = false; this.Controls.Add(Txt_MaterialTimer);
-
-            pnl_LextarFrontTest.Location = new Point(4, 4);
-            pnl_LextarFrontTest.Visible = (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.Lextar_FrontTestCloseLoop);
         }
 
         private void EnableControls(bool Enable, Button Button1, Button Button2)
@@ -83,95 +79,6 @@ namespace NDispWin
 
         private void UpdateDisplay()
         {
-            if (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.Lextar_FrontTestCloseLoop)
-            {
-                #region
-                lbl_WaitTimer.Enabled = true;
-
-                switch (Lextar_FrontTestCloseLoop.Mode)
-                {
-                    case Lextar_FrontTestCloseLoop.EMode.Auto:
-                    case Lextar_FrontTestCloseLoop.EMode.Manual:
-                        bool b_DPConnected = false;
-                        try
-                        {
-                            b_DPConnected = Directory.Exists(TaskDisp.VolumeOfst_DataPath);
-                            if (b_DPConnected)
-                                b_DPConnected = Directory.Exists(TaskDisp.VolumeOfst_DataPath2);
-                        }
-                        catch
-                        { }
-                        if (b_DPConnected)
-                            lbl_Connection.BackColor = Color.Lime;
-                        else
-                            lbl_Connection.BackColor = Color.Red;
-
-                        switch (Lextar_FrontTestCloseLoop.Status)
-                        {
-                            case Lextar_FrontTestCloseLoop.EStatus.None:
-                                lbl_WaitData.Text = "Idle";
-                                lbl_WaitData.BackColor = this.BackColor;
-                                break;
-                            case Lextar_FrontTestCloseLoop.EStatus.Waiting:
-                                TimeSpan dt = DateTime.Now - Lextar_FrontTestCloseLoop.dt_LastDataUpdate;
-                                string s_Elapse = "";
-                                if (dt.Minutes > 0) s_Elapse = dt.Minutes.ToString() + " m ";
-                                s_Elapse = s_Elapse + dt.Seconds.ToString() + " s";
-                                lbl_WaitData.Text = "Waiting Data..." + (char)13 + s_Elapse;
-
-                                if (dt.Minutes >= Lextar_FrontTestCloseLoop.WaitTimer_m)
-                                    lbl_WaitData.BackColor = Color.Red;
-                                else
-                                    lbl_WaitData.BackColor = this.BackColor;
-                                break;
-                            case Lextar_FrontTestCloseLoop.EStatus.Updated:
-                                lbl_WaitData.Text = "Updated";
-                                lbl_WaitData.BackColor = Color.Lime;
-                                break;
-                        }
-                        break;
-                    case Lextar_FrontTestCloseLoop.EMode.Disable:
-                    default:
-                        lbl_Connection.BackColor = Color.Orange;
-
-                        lbl_WaitData.Text = "-";
-                        lbl_WaitData.BackColor = this.BackColor;
-                        break;
-                }
-                NUtils.RegistryWR RegRW = new NUtils.RegistryWR("Software");
-                int OutMagNo = RegRW.ReadKey("MHS\\Elev\\Out", "LevelNo", 0);
-
-                btn_UploadData.Visible = NDispWin.Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Manual;
-                btn_UploadData.Text = "Upload Data" + (char)13 + "[" + OutMagNo.ToString() + "]";
-                btn_VolumeOffset.Text = "Volume Offset" + (char)13 + "[" + Lextar_FrontTestCloseLoop.Mode.ToString() + "]";
-                //btn_VolOfstModeNone.Text = "Mode: " + Lextar_FrontTestCloseLoop.Mode.ToString();
-
-                lbl_WaitTimer.Text = "Wait Timer" + (char)13 + Lextar_FrontTestCloseLoop.WaitTimer_m.ToString() + " m";
-
-                switch (NDispWin.Lextar_FrontTestCloseLoop.Mode)
-                {
-                    case Lextar_FrontTestCloseLoop.EMode.Disable:
-                        btn_VolOfstModeNone.BackColor = Color.Lime;
-                        btn_VolOfstModeAuto.BackColor = this.BackColor;
-                        btn_VolOfstModeManual.BackColor = this.BackColor;
-                        btn_VolumeOffset.BackColor = Color.Orange;
-                        break;
-                    case Lextar_FrontTestCloseLoop.EMode.Auto:
-                        btn_VolOfstModeNone.BackColor = this.BackColor;
-                        btn_VolOfstModeAuto.BackColor = Color.Lime;
-                        btn_VolOfstModeManual.BackColor = this.BackColor;
-                        btn_VolumeOffset.BackColor = Color.Lime;
-                        break;
-                    case Lextar_FrontTestCloseLoop.EMode.Manual:
-                        btn_VolOfstModeNone.BackColor = this.BackColor;
-                        btn_VolOfstModeAuto.BackColor = this.BackColor;
-                        btn_VolOfstModeManual.BackColor = Color.Lime;
-                        btn_VolumeOffset.BackColor = Color.Yellow;
-                        break;
-                }
-                #endregion
-            }
-
             btn_ForceSingle.Visible = TaskDisp.Option_EnableRunSingleHead && GDefine.HeadConfig == GDefine.EHeadConfig.Dual;
             UI_Utils.SetControlSelected(btn_ForceSingle, TaskDisp.ForceSingle);
 
@@ -248,19 +155,6 @@ namespace NDispWin
             else
                 frm_PP.Visible = false;
 
-            if (DispProg.Pump_Type == TaskDisp.EPumpType.HM)
-            {
-                frm_HM.TopLevel = false;
-                frm_HM.Parent = pnl_DispTool_PumpTool;
-                frm_HM.FormBorderStyle = FormBorderStyle.None;
-                frm_HM.AutoSize = false;
-                frm_HM.Dock = DockStyle.Fill;
-                frm_HM.BringToFront();
-                frm_HM.Show();
-            }
-            else
-                frm_HM.Visible = false;
-
             if (DispProg.Pump_Type == TaskDisp.EPumpType.PJ)
             {
                 frm_PJ.TopLevel = false;
@@ -314,7 +208,6 @@ namespace NDispWin
         {
             EnableControls(Enable);
             pnl_DispTool_PumpTool.Enabled = Enable;
-            btn_UploadData.Enabled = true;
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -989,7 +882,7 @@ namespace NDispWin
                     }
                 case TaskDisp.EPumpType.HM:
                     {
-                        frm_DispTool_SpeedAdjust frm = new frm_DispTool_SpeedAdjust();
+                        frmSetupHM frm = new frmSetupHM();
                         frm.SettingMode = false;
                         frm.ShowDialog();
                         break;
@@ -1022,41 +915,6 @@ namespace NDispWin
             }
         }
 
-
-        private void btn_UploadData_Click(object sender, EventArgs e)
-        {
-            this.Enabled = false;
-
-            double[] Base = new double[2] { DispProg.PP_HeadA_DispBaseVol, DispProg.PP_HeadB_DispBaseVol };
-            double[] Adjust = new double[2] { DispProg.PP_HeadA_DispVol_Adj, DispProg.PP_HeadB_DispVol_Adj };
-            double[] Offset = new double[2] { DispProg.rt_Head1VolumeOfst, DispProg.rt_Head2VolumeOfst };
-            double[] Backsuck = new double[2] { DispProg.PP_HeadA_BackSuckVol, DispProg.PP_HeadB_BackSuckVol };
-
-            //send the previous level no starting from 1
-            NUtils.RegistryWR RegRW = new NUtils.RegistryWR("Software");
-            int OutLevel = RegRW.ReadKey("MHS\\Elev\\Out", "LevelNo", 0);
-            int OutTLevel = RegRW.ReadKey("MHS\\Elev\\Out", "TLevel", 0);
-            if (OutLevel == 0) OutLevel = OutTLevel;
-
-            try
-            {
-                NDispWin.Lextar_FrontTestCloseLoop.EquipmentID = TaskDisp.VolumeOfst_EqID;
-                NDispWin.Lextar_FrontTestCloseLoop.LocalPath = TaskDisp.VolumeOfst_LocalPath;
-                NDispWin.Lextar_FrontTestCloseLoop.DataFilePath = TaskDisp.VolumeOfst_DataPath;
-                NDispWin.Lextar_FrontTestCloseLoop.DataFilePath2 = TaskDisp.VolumeOfst_DataPath2;
-                Lextar_FrontTestCloseLoop.UploadDataFile(OutLevel, Base, Adjust, Offset, Backsuck);
-                Lextar_FrontTestCloseLoop.dt_LastDataUpdate = DateTime.Now;
-                Lextar_FrontTestCloseLoop.Status = Lextar_FrontTestCloseLoop.EStatus.Waiting;
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                this.Enabled = true;
-            }
-        }
         private void lbl_FrameNo_Click(object sender, EventArgs e)
         {
             NUtils.RegistryWR RegRW = new NUtils.RegistryWR("Software");
@@ -1069,104 +927,6 @@ namespace NDispWin
                 UpdateDisplay();
             } 
             EnableControls();
-        }
-        private void btn_VolumeOffset_Click(object sender, EventArgs e)
-        {
-            gbox_VolumeOfst.Location = (sender as Button).Location;
-
-            EnableControls(false, btn_Close, btn_VolOfstClose);
-
-            btn_VolOfstModeNone.Enabled = true;
-            btn_VolOfstModeAuto.Enabled = true;
-            btn_VolOfstModeManual.Enabled = true;
-
-            btn_UploadData.Enabled = true;
-            btn_VolOfstReset.Enabled = true;
-            btn_VolOfstClose.Enabled = true;
-
-            gbox_VolumeOfst.BringToFront();
-            gbox_VolumeOfst.Visible = true;
-        }
-        private void btn_VolOfstMode_Click(object sender, EventArgs e)
-        {
-            if (Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Disable) return;
-
-            if (NUtils.UserAcc.Active.GroupID < 2)
-            {
-                int i_UserIdx = NUtils.UserAcc.Active.UserIndex;
-                NUtils.UserAcc.Users.LoginDlg();
-                if (NUtils.UserAcc.Active.GroupID < 2) goto _End;
-                NUtils.UserAcc.Active.UserIndex = i_UserIdx;
-            }
-
-            Lextar_FrontTestCloseLoop.Mode = Lextar_FrontTestCloseLoop.EMode.Disable;
-            UpdateDisplay();
-
-            _End:
-            gbox_VolumeOfst.Visible = false;
-            EnableControls();
-        }
-        private void btn_VolOfstModeAuto_Click(object sender, EventArgs e)
-        {
-            if (Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Auto) return;
-
-            if (NUtils.UserAcc.Active.GroupID < 2)
-            {
-                int i_UserIdx = NUtils.UserAcc.Active.UserIndex;
-                NUtils.UserAcc.Users.LoginDlg();
-                if (NUtils.UserAcc.Active.GroupID < 2) goto _End;
-                NUtils.UserAcc.Active.UserIndex = i_UserIdx;
-            }
-
-            Lextar_FrontTestCloseLoop.Mode = Lextar_FrontTestCloseLoop.EMode.Auto;
-            UpdateDisplay();
-
-            _End:
-            gbox_VolumeOfst.Visible = false;
-            EnableControls();
-        }
-        private void btn_VolOfstModeManual_Click(object sender, EventArgs e)
-        {
-            if (Lextar_FrontTestCloseLoop.Mode == Lextar_FrontTestCloseLoop.EMode.Manual) return;
-
-            if (NUtils.UserAcc.Active.GroupID < 2)
-            {
-                int i_UserIdx = NUtils.UserAcc.Active.UserIndex;
-                NUtils.UserAcc.Users.LoginDlg();
-                if (NUtils.UserAcc.Active.GroupID < 2) goto _End;
-                NUtils.UserAcc.Active.UserIndex = i_UserIdx;
-            }
-
-            Lextar_FrontTestCloseLoop.Mode = Lextar_FrontTestCloseLoop.EMode.Manual;
-            UpdateDisplay();
-
-            _End:
-            gbox_VolumeOfst.Visible = false;
-            EnableControls();
-        }
-        private void btn_VolOfstClose_Click(object sender, EventArgs e)
-        {
-            gbox_VolumeOfst.Visible = false;
-            EnableControls();
-        }
-        private void btn_VolOfstReset_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Reset Volume Offset?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                DispProg.ClearVolumeOffset();
-                Stats.BoardCount = 0;
-                Lextar_FrontTestCloseLoop.dt_LastDataUpdate = DateTime.Now;
-                Lextar_FrontTestCloseLoop.Status = Lextar_FrontTestCloseLoop.EStatus.None;
-            }
-            UpdateDisplay();
-
-            gbox_VolumeOfst.Visible = false;
-            EnableControls();
-        }
-        private void lbl_WaitTimer_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Wait Timer (m)", ref Lextar_FrontTestCloseLoop.WaitTimer_m, 1, 720);
-            UpdateDisplay();
         }
 
         private void btnMaterialChange_Click(object sender, EventArgs e)

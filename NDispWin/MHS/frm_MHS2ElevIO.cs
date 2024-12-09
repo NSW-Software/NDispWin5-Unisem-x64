@@ -14,6 +14,8 @@ namespace NDispWin
         public frm_MHS2ElevIO()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             AppLanguage.Func2.WriteLangFile(this);
         }
 

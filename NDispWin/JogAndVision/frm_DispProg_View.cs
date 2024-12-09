@@ -21,6 +21,8 @@ namespace NDispWin
         public frm_DispProg_View()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             WindowState = FormWindowState.Maximized;
 
             this.Text = "Image View";

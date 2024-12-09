@@ -28,7 +28,8 @@ namespace NDispWin
         public frm_MsgBox()
         {
             InitializeComponent();
-            //FormBorderStyle = FormBorderStyle.None;
+            GControl.LogForm(this);
+
             StartPosition = FormStartPosition.CenterScreen;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             TopMost = true;

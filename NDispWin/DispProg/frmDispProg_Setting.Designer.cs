@@ -41,12 +41,14 @@
             this.label32 = new System.Windows.Forms.Label();
             this.cbxStripMapDnloadFlip = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lblHM_HPC15CtrlDefaultMode = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.lblCheckBoardInputYield = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.lblCheckBoardYield = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbl_DispCtrl_ForceTimeMode = new System.Windows.Forms.Label();
+            this.lblPP_HPC15CtrlDefaultMode = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btn_View = new System.Windows.Forms.Button();
             this.label61 = new System.Windows.Forms.Label();
@@ -228,7 +230,7 @@
             this.gbxStripMap.Controls.Add(this.cbxStripMapDnloadFlip);
             this.gbxStripMap.Location = new System.Drawing.Point(314, 274);
             this.gbxStripMap.Name = "gbxStripMap";
-            this.gbxStripMap.Size = new System.Drawing.Size(303, 175);
+            this.gbxStripMap.Size = new System.Drawing.Size(303, 167);
             this.gbxStripMap.TabIndex = 66;
             this.gbxStripMap.TabStop = false;
             this.gbxStripMap.Text = "StripMap";
@@ -238,7 +240,7 @@
             this.cbEnableDnloadMap.AutoSize = true;
             this.cbEnableDnloadMap.Location = new System.Drawing.Point(6, 25);
             this.cbEnableDnloadMap.Name = "cbEnableDnloadMap";
-            this.cbEnableDnloadMap.Size = new System.Drawing.Size(172, 22);
+            this.cbEnableDnloadMap.Size = new System.Drawing.Size(146, 18);
             this.cbEnableDnloadMap.TabIndex = 63;
             this.cbEnableDnloadMap.Text = "Dnload StripMap E142";
             this.cbEnableDnloadMap.UseVisualStyleBackColor = true;
@@ -250,7 +252,7 @@
             this.label30.Location = new System.Drawing.Point(25, 127);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(89, 18);
+            this.label30.Size = new System.Drawing.Size(75, 14);
             this.label30.TabIndex = 58;
             this.label30.Text = "StripMap Flip";
             // 
@@ -259,7 +261,7 @@
             this.cbxStripMapUploadFlip.FormattingEnabled = true;
             this.cbxStripMapUploadFlip.Location = new System.Drawing.Point(164, 124);
             this.cbxStripMapUploadFlip.Name = "cbxStripMapUploadFlip";
-            this.cbxStripMapUploadFlip.Size = new System.Drawing.Size(133, 26);
+            this.cbxStripMapUploadFlip.Size = new System.Drawing.Size(133, 22);
             this.cbxStripMapUploadFlip.TabIndex = 59;
             this.cbxStripMapUploadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapUploadFlip_SelectionChangeCommitted);
             // 
@@ -268,7 +270,7 @@
             this.cbEnableUploadMap.AutoSize = true;
             this.cbEnableUploadMap.Location = new System.Drawing.Point(6, 102);
             this.cbEnableUploadMap.Name = "cbEnableUploadMap";
-            this.cbEnableUploadMap.Size = new System.Drawing.Size(172, 22);
+            this.cbEnableUploadMap.Size = new System.Drawing.Size(146, 18);
             this.cbEnableUploadMap.TabIndex = 62;
             this.cbEnableUploadMap.Text = "Upload StripMap E142";
             this.cbEnableUploadMap.UseVisualStyleBackColor = true;
@@ -280,7 +282,7 @@
             this.label32.Location = new System.Drawing.Point(25, 53);
             this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(89, 18);
+            this.label32.Size = new System.Drawing.Size(75, 14);
             this.label32.TabIndex = 60;
             this.label32.Text = "StripMap Flip";
             // 
@@ -289,7 +291,7 @@
             this.cbxStripMapDnloadFlip.FormattingEnabled = true;
             this.cbxStripMapDnloadFlip.Location = new System.Drawing.Point(164, 50);
             this.cbxStripMapDnloadFlip.Name = "cbxStripMapDnloadFlip";
-            this.cbxStripMapDnloadFlip.Size = new System.Drawing.Size(133, 26);
+            this.cbxStripMapDnloadFlip.Size = new System.Drawing.Size(133, 22);
             this.cbxStripMapDnloadFlip.TabIndex = 61;
             this.cbxStripMapDnloadFlip.SelectionChangeCommitted += new System.EventHandler(this.cbxStripMapDnloadFlip_SelectionChangeCommitted);
             // 
@@ -297,18 +299,43 @@
             // 
             this.groupBox7.AutoSize = true;
             this.groupBox7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox7.Controls.Add(this.lblHM_HPC15CtrlDefaultMode);
+            this.groupBox7.Controls.Add(this.label34);
             this.groupBox7.Controls.Add(this.label31);
             this.groupBox7.Controls.Add(this.lblCheckBoardInputYield);
             this.groupBox7.Controls.Add(this.label26);
             this.groupBox7.Controls.Add(this.lblCheckBoardYield);
             this.groupBox7.Controls.Add(this.label3);
-            this.groupBox7.Controls.Add(this.lbl_DispCtrl_ForceTimeMode);
+            this.groupBox7.Controls.Add(this.lblPP_HPC15CtrlDefaultMode);
             this.groupBox7.Location = new System.Drawing.Point(314, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(302, 228);
+            this.groupBox7.Size = new System.Drawing.Size(302, 224);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Options";
+            // 
+            // lblHM_HPC15CtrlDefaultMode
+            // 
+            this.lblHM_HPC15CtrlDefaultMode.BackColor = System.Drawing.Color.White;
+            this.lblHM_HPC15CtrlDefaultMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblHM_HPC15CtrlDefaultMode.Location = new System.Drawing.Point(227, 51);
+            this.lblHM_HPC15CtrlDefaultMode.Margin = new System.Windows.Forms.Padding(2);
+            this.lblHM_HPC15CtrlDefaultMode.Name = "lblHM_HPC15CtrlDefaultMode";
+            this.lblHM_HPC15CtrlDefaultMode.Size = new System.Drawing.Size(70, 23);
+            this.lblHM_HPC15CtrlDefaultMode.TabIndex = 156;
+            this.lblHM_HPC15CtrlDefaultMode.Text = "True";
+            this.lblHM_HPC15CtrlDefaultMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHM_HPC15CtrlDefaultMode.Click += new System.EventHandler(this.lblHM_HPC15CtrlDefaultMode_Click);
+            // 
+            // label34
+            // 
+            this.label34.Location = new System.Drawing.Point(5, 51);
+            this.label34.Margin = new System.Windows.Forms.Padding(2);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(218, 23);
+            this.label34.TabIndex = 155;
+            this.label34.Text = "HM Ctrl Default Mode";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label31
             // 
@@ -363,21 +390,21 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(218, 23);
             this.label3.TabIndex = 145;
-            this.label3.Text = "Disp Ctrl Force Time Mode";
+            this.label3.Text = "PP Ctrl Default Mode";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lbl_DispCtrl_ForceTimeMode
+            // lblPP_HPC15CtrlDefaultMode
             // 
-            this.lbl_DispCtrl_ForceTimeMode.BackColor = System.Drawing.Color.White;
-            this.lbl_DispCtrl_ForceTimeMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_DispCtrl_ForceTimeMode.Location = new System.Drawing.Point(227, 24);
-            this.lbl_DispCtrl_ForceTimeMode.Margin = new System.Windows.Forms.Padding(2);
-            this.lbl_DispCtrl_ForceTimeMode.Name = "lbl_DispCtrl_ForceTimeMode";
-            this.lbl_DispCtrl_ForceTimeMode.Size = new System.Drawing.Size(70, 23);
-            this.lbl_DispCtrl_ForceTimeMode.TabIndex = 115;
-            this.lbl_DispCtrl_ForceTimeMode.Text = "True";
-            this.lbl_DispCtrl_ForceTimeMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_DispCtrl_ForceTimeMode.Click += new System.EventHandler(this.lbl_ForceTimeMode_Click);
+            this.lblPP_HPC15CtrlDefaultMode.BackColor = System.Drawing.Color.White;
+            this.lblPP_HPC15CtrlDefaultMode.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblPP_HPC15CtrlDefaultMode.Location = new System.Drawing.Point(227, 24);
+            this.lblPP_HPC15CtrlDefaultMode.Margin = new System.Windows.Forms.Padding(2);
+            this.lblPP_HPC15CtrlDefaultMode.Name = "lblPP_HPC15CtrlDefaultMode";
+            this.lblPP_HPC15CtrlDefaultMode.Size = new System.Drawing.Size(70, 23);
+            this.lblPP_HPC15CtrlDefaultMode.TabIndex = 115;
+            this.lblPP_HPC15CtrlDefaultMode.Text = "True";
+            this.lblPP_HPC15CtrlDefaultMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPP_HPC15CtrlDefaultMode.Click += new System.EventHandler(this.lbl_ForceTimeMode_Click);
             // 
             // groupBox8
             // 
@@ -392,7 +419,7 @@
             this.groupBox8.Location = new System.Drawing.Point(6, 327);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox8.Size = new System.Drawing.Size(305, 93);
+            this.groupBox8.Size = new System.Drawing.Size(305, 89);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bias Kernel";
@@ -487,7 +514,7 @@
             this.gboxTempCtrl.Controls.Add(this.lbl_PV2);
             this.gboxTempCtrl.Location = new System.Drawing.Point(6, 130);
             this.gboxTempCtrl.Name = "gboxTempCtrl";
-            this.gboxTempCtrl.Size = new System.Drawing.Size(302, 191);
+            this.gboxTempCtrl.Size = new System.Drawing.Size(302, 187);
             this.gboxTempCtrl.TabIndex = 2;
             this.gboxTempCtrl.TabStop = false;
             this.gboxTempCtrl.Text = "Temperature Ctrl";
@@ -749,7 +776,7 @@
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox6.Size = new System.Drawing.Size(302, 118);
+            this.groupBox6.Size = new System.Drawing.Size(302, 114);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Purge Stage";
@@ -842,7 +869,7 @@
             this.groupBox4.Controls.Add(this.pnl_CalWeight);
             this.groupBox4.Location = new System.Drawing.Point(6, 163);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(357, 316);
+            this.groupBox4.Size = new System.Drawing.Size(357, 312);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Setting";
@@ -1350,7 +1377,7 @@
             this.groupBox2.Controls.Add(this.btn_GotoStationZ);
             this.groupBox2.Location = new System.Drawing.Point(6, 287);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(450, 104);
+            this.groupBox2.Size = new System.Drawing.Size(450, 100);
             this.groupBox2.TabIndex = 171;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Adjust";
@@ -1876,7 +1903,7 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lblCheckBoardYield;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lbl_DispCtrl_ForceTimeMode;
+        private System.Windows.Forms.Label lblPP_HPC15CtrlDefaultMode;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button btn_View;
         private System.Windows.Forms.Label label61;
@@ -2003,5 +2030,7 @@
         private System.Windows.Forms.ComboBox cbxStripMapDnloadFlip;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label lblCheckBoardInputYield;
+        private System.Windows.Forms.Label lblHM_HPC15CtrlDefaultMode;
+        private System.Windows.Forms.Label label34;
     }
 }

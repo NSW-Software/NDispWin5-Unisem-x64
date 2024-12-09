@@ -207,11 +207,6 @@ namespace NDispWin
                 GDefine.RefreshInput(lbl_SensMat2Low, TaskGantry.SensMat2Low());
             }
             catch { };
-
-            if (TaskDisp.VolumeOfst_Protocol == TaskDisp.EVolumeOfstProtocol.AOT_FrontTestCloseLoop )
-            {
-                NDispWin.AOT_FrontTestCloseLoop.AddLogSummaryByShift();
-            }
         }
     }
 }

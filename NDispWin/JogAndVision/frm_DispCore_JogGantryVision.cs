@@ -25,6 +25,8 @@ namespace NDispWin
         public frm_DispCore_JogGantryVision()
         {
             InitializeComponent();
+            GControl.LogForm(this);
+
             ShowVision = true;
 
             this.WindowState = FormWindowState.Maximized;
