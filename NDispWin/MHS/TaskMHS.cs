@@ -3471,6 +3471,18 @@ namespace NDispWin
 
             try
             {
+                if (TaskDisp.Idle_Returned)
+                {
+                    Msg MsgBox = new Msg();
+                    EMsgRes MsgRes = MsgBox.Show("Idle Return Frame was detected. Continue with the returned map?", EMcState.Error, EMsgBtn.smbYes | EMsgBtn.smbNo, true);
+
+                    if (MsgRes == EMsgRes.smrYes)
+                    {
+                        DispProg.ResumeMap(DispProg.Map.IdleReturnMap);
+                    }
+                }
+                TaskDisp.Idle_Returned = false;
+
             #region
             _RetryLoad:
                 if (TaskConv.Pro.SensPsnt)
@@ -5369,6 +5381,8 @@ namespace NDispWin
 
             try
             {
+                if (Status == EConvStatus.Busy) DispProg.Idle.Reset();
+
                 if (Status != EConvStatus.Ready) goto _End;
 
                 #region Setting Condition Check
@@ -8407,7 +8421,8 @@ namespace NDispWin
                                 //    TaskConv.Status = TaskConv.EConvStatus.Stop;
                                 //    goto _End;
                                 //}
-                                TaskConv.Pro.SvStopperUp = true;
+                                //TaskConv.Pro.SvStopperUp = true;
+                                if (!TaskConv.Pro.StopperUp()) goto _End;
                             }
                             if (Station == TaskConv.EStation.Pre)
                             {
@@ -8418,7 +8433,8 @@ namespace NDispWin
                                 //    TaskConv.Status = TaskConv.EConvStatus.Stop;
                                 //    goto _End;
                                 //}
-                                TaskConv.Pre.SvStopperUp = true;
+                                //TaskConv.Pre.SvStopperUp = true;
+                                if (!TaskConv.Pre.StopperUp()) goto _End;
                             }
                             TaskConv.Conv.Fwd_Fast();
                         }

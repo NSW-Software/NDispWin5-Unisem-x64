@@ -36,7 +36,6 @@ namespace NDispWin
             tmr_Idle.Enabled = false;
             try
             {
-
                 TaskDisp.TaskMoveGZZ2Up();
             }
             catch { };
@@ -89,6 +88,7 @@ namespace NDispWin
         {
             tmr_Idle.Enabled = false;
             tmr_Sec.Enabled = false;
+            DefineSafety.DoorLock = false;
             this.Enable(true);
         }
 
@@ -152,10 +152,7 @@ namespace NDispWin
             this.BringToFront();
 
             tmr_NextPurge--;
-            pbar_TimeToPurge.Maximum = TaskDisp.Idle_PurgeInterval;
-            pbar_TimeToPurge.Value = Math.Min(5, TaskDisp.Idle_PurgeInterval - tmr_NextPurge);
+            lblDesc.Text = "Purge in " + tmr_NextPurge + " s.";
         }
-
-
     }
 }

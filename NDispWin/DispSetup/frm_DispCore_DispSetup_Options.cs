@@ -33,8 +33,6 @@ namespace NDispWin
         {
             cbox_EnableRunSingleHead.Checked = TaskDisp.Option_EnableRunSingleHead;
             cbox_PromptRunSingleHead.Checked = TaskDisp.Option_PromptRunSingleHead;
-            cbox_EnableMaterialLow.Checked = TaskDisp.Option_EnableMaterialLow;
-            cbox_EnableDualMaterial.Checked = TaskDisp.Option_EnableDualMaterial;
             cbox_EnableChuckVac.Checked = TaskDisp.Option_EnableChuckVac;
 
             cbox_EnableMaterialTimer.Checked = TaskDisp.Material_EnableTimer;
@@ -44,9 +42,6 @@ namespace NDispWin
             lbl_OriginAdjustLimitXY.Text = TaskDisp.Option_DrawOfstAdjustLimit_XY.ToString("F3");
             lbl_OriginAdjustLimitZ.Text = TaskDisp.Option_DrawOfstAdjustLimit_Z.ToString("F3");
             lblOption_DrawOfstAdjustRate.Text = TaskDisp.Option_DrawOfstAdjustRate.ToString("F3");
-
-            cbox_EnableStartIdle.Checked = TaskDisp.Option_EnableStartIdle;
-            lbl_IdlePurgeTimer.Text = TaskDisp.Option_IdlePurgeTimer.ToString();
 
             cbox_EnableScriptCheck.Checked = TaskDisp.Option_EnableScriptCheck;
             cbox_EnableScriptCheckUnitMode.Checked = TaskDisp.Option_EnableScriptCheckUnitMode;
@@ -59,7 +54,6 @@ namespace NDispWin
 
             cbox_CopyLogToServer.Checked = TaskDisp.CopyLogToServer;
             tbox_LogServerPath.Text = TaskDisp.LogServerPath;
-
         }
 
         private void cbox_EnableRunSingleHead_Click(object sender, EventArgs e)
@@ -70,16 +64,6 @@ namespace NDispWin
         private void cbox_PromptRunSingleHead_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Disp Option, PromptRunSingleHead", ref TaskDisp.Option_PromptRunSingleHead);
-            UpdateDisplay();
-        }
-        private void cbox_EnableMaterialLow_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Disp Option, Enable Material Low", ref TaskDisp.Option_EnableMaterialLow);
-            UpdateDisplay();
-        }
-        private void cbox_EnableDualMaterial_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Disp Option, Enable Dual Material", ref TaskDisp.Option_EnableDualMaterial);
             UpdateDisplay();
         }
 
@@ -138,11 +122,6 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void cbox_EnableScriptCheck_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void cbox_EnableRealTimeFineTune_Click(object sender, EventArgs e)
         {
             TaskDisp.Option_EnableRealTimeFineTune = !TaskDisp.Option_EnableRealTimeFineTune;
@@ -153,17 +132,6 @@ namespace NDispWin
         {
             UC.AdjustExec("Disp Setup Options, Volume Display Decimal Point", ref TaskDisp.Option_VolumeDisplayDecimalPoint, 2, 5);
             UpdateDisplay();
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Disp Setup Options, Idle Purge Timer (s)", ref TaskDisp.Option_IdlePurgeTimer, 0, 3600);
-            UpdateDisplay();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void cbox_EnableHPCManualCtrls_Click(object sender, EventArgs e)
@@ -184,11 +152,6 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cbox_CopyLogToServer_Click(object sender, EventArgs e)
         {
             TaskDisp.CopyLogToServer = !TaskDisp.CopyLogToServer;
@@ -202,26 +165,6 @@ namespace NDispWin
 
             TaskDisp.LogServerPath = TaskDisp.LogServerPath + (TaskDisp.LogServerPath.EndsWith(@"\") ? "" : @"\");
             UpdateDisplay();
-        }
-
-        private void tbox_LogServerPath_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbox_EnableMaterialTimer_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

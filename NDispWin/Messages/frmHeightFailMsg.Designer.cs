@@ -34,7 +34,7 @@
             this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Skip = new System.Windows.Forms.Button();
             this.btn_Retry = new System.Windows.Forms.Button();
-            this.tmr_Display = new System.Windows.Forms.Timer(this.components);
+            this.tmr1s = new System.Windows.Forms.Timer(this.components);
             this.btn_AlmClr = new System.Windows.Forms.Button();
             this.btn_Reject = new System.Windows.Forms.Button();
             this.lbox_Message = new System.Windows.Forms.ListBox();
@@ -104,10 +104,11 @@
             this.btn_Retry.UseVisualStyleBackColor = true;
             this.btn_Retry.Click += new System.EventHandler(this.btn_Retry_Click);
             // 
-            // tmr_Display
+            // tmr1s
             // 
-            this.tmr_Display.Enabled = true;
-            this.tmr_Display.Tick += new System.EventHandler(this.tmr_Display_Tick);
+            this.tmr1s.Enabled = true;
+            this.tmr1s.Interval = 1000;
+            this.tmr1s.Tick += new System.EventHandler(this.tmr1s_Tick);
             // 
             // btn_AlmClr
             // 
@@ -169,8 +170,8 @@
             this.Padding = new System.Windows.Forms.Padding(3);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHeightFailMsg";
-            this.Load += new System.EventHandler(this.frmHeightFailMsg_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHeightFailMsg_FormClosing);
+            this.Load += new System.EventHandler(this.frmHeightFailMsg_Load);
             this.ResumeLayout(false);
 
         }
@@ -182,7 +183,7 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Button btn_Skip;
         private System.Windows.Forms.Button btn_Retry;
-        private System.Windows.Forms.Timer tmr_Display;
+        private System.Windows.Forms.Timer tmr1s;
         private System.Windows.Forms.Button btn_AlmClr;
         private System.Windows.Forms.Button btn_Reject;
         private System.Windows.Forms.ListBox lbox_Message;

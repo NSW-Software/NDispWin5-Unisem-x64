@@ -113,6 +113,8 @@
             this.pnl_Right = new System.Windows.Forms.Panel();
             this.tmr_TR_Buttons = new System.Windows.Forms.Timer(this.components);
             this.tmr_1s = new System.Windows.Forms.Timer(this.components);
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslIdleTimer = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnl_RightTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Logo)).BeginInit();
             this.pnl_RightBottom.SuspendLayout();
@@ -1080,7 +1082,9 @@
             this.toolStripStatusLabel2,
             this.tsslbl_LULDoor,
             this.toolStripStatusLabel3,
-            this.tsslblDoorLock});
+            this.tsslblDoorLock,
+            this.toolStripStatusLabel4,
+            this.tsslIdleTimer});
             this.ss_Bottom.Location = new System.Drawing.Point(3, 695);
             this.ss_Bottom.Name = "ss_Bottom";
             this.ss_Bottom.Size = new System.Drawing.Size(1019, 30);
@@ -1094,48 +1098,48 @@
             this.tsddbtn_Language.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbtn_Language.Name = "tsddbtn_Language";
             this.tsddbtn_Language.ShowDropDownArrow = false;
-            this.tsddbtn_Language.Size = new System.Drawing.Size(75, 28);
+            this.tsddbtn_Language.Size = new System.Drawing.Size(64, 28);
             this.tsddbtn_Language.Text = "Language";
             this.tsddbtn_Language.Click += new System.EventHandler(this.tsddbtn_Language_Click);
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(14, 24);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 25);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // tsslbl_BuzzerMute
             // 
             this.tsslbl_BuzzerMute.AccessibleDescription = "Buzzer Mute";
             this.tsslbl_BuzzerMute.Name = "tsslbl_BuzzerMute";
-            this.tsslbl_BuzzerMute.Size = new System.Drawing.Size(90, 24);
+            this.tsslbl_BuzzerMute.Size = new System.Drawing.Size(74, 25);
             this.tsslbl_BuzzerMute.Text = "Buzzer Mute";
             this.tsslbl_BuzzerMute.Click += new System.EventHandler(this.tsslbl_BuzzerMute_Click);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(14, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(12, 25);
             this.toolStripStatusLabel2.Text = "|";
             // 
             // tsslbl_LULDoor
             // 
             this.tsslbl_LULDoor.AccessibleDescription = "LUL Door";
             this.tsslbl_LULDoor.Name = "tsslbl_LULDoor";
-            this.tsslbl_LULDoor.Size = new System.Drawing.Size(68, 24);
+            this.tsslbl_LULDoor.Size = new System.Drawing.Size(57, 25);
             this.tsslbl_LULDoor.Text = "LUL Door";
             this.tsslbl_LULDoor.Click += new System.EventHandler(this.tsslbl_LULDoor_Click);
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(14, 24);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(12, 25);
             this.toolStripStatusLabel3.Text = "|";
             // 
             // tsslblDoorLock
             // 
             this.tsslblDoorLock.Name = "tsslblDoorLock";
-            this.tsslblDoorLock.Size = new System.Drawing.Size(73, 24);
+            this.tsslblDoorLock.Size = new System.Drawing.Size(62, 25);
             this.tsslblDoorLock.Text = "Door Lock";
             this.tsslblDoorLock.Click += new System.EventHandler(this.tsslblDoorLock_Click);
             // 
@@ -1176,6 +1180,18 @@
             // 
             this.tmr_1s.Interval = 1000;
             this.tmr_1s.Tick += new System.EventHandler(this.tmr_1s_Tick);
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(12, 25);
+            this.toolStripStatusLabel4.Text = "|";
+            // 
+            // tsslIdleTimer
+            // 
+            this.tsslIdleTimer.Name = "tsslIdleTimer";
+            this.tsslIdleTimer.Size = new System.Drawing.Size(55, 25);
+            this.tsslIdleTimer.Text = "Idle : 0 s";
             // 
             // frm_Auto
             // 
@@ -1305,5 +1321,7 @@
         private System.Windows.Forms.Label lblRunInfoMaterialExpiry;
         private System.Windows.Forms.RichTextBox rtbOptions;
         private System.Windows.Forms.RichTextBox rtbPumpSettings;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel tsslIdleTimer;
     }
 }

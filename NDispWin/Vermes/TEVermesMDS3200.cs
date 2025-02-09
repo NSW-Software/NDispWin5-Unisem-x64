@@ -196,7 +196,6 @@ namespace Vermes
                 ComMutex.ReleaseMutex();
             }
         }
-
         //Not used
         //public void RX_Clear()
         //{

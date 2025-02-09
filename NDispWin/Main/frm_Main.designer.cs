@@ -52,16 +52,17 @@
             this.tsbtnTable = new System.Windows.Forms.ToolStripButton();
             this.tsbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.tsbtnOptions = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnInitRight = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnInitLeft = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInitElevators = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInitConveyor = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnInitLeft = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnInitRight = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInitGantry = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInitModule = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInit = new System.Windows.Forms.ToolStripButton();
             this.lbl_Status = new System.Windows.Forms.Label();
             this.tmr_Status = new System.Windows.Forms.Timer(this.components);
             this.tmr_1s = new System.Windows.Forms.Timer(this.components);
+            this.tmr1m = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -327,6 +328,32 @@
             this.tsbtnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsbtnOptions.Click += new System.EventHandler(this.tsbtnOptions_Click);
             // 
+            // tsbtnInitRight
+            // 
+            this.tsbtnInitRight.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbtnInitRight.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnInitRight.Image")));
+            this.tsbtnInitRight.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbtnInitRight.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbtnInitRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnInitRight.Name = "tsbtnInitRight";
+            this.tsbtnInitRight.Size = new System.Drawing.Size(142, 34);
+            this.tsbtnInitRight.Text = "  Init Right Elev";
+            this.tsbtnInitRight.Visible = false;
+            this.tsbtnInitRight.Click += new System.EventHandler(this.tsbtnInitRight_Click);
+            // 
+            // tsbtnInitLeft
+            // 
+            this.tsbtnInitLeft.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbtnInitLeft.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnInitLeft.Image")));
+            this.tsbtnInitLeft.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbtnInitLeft.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbtnInitLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnInitLeft.Name = "tsbtnInitLeft";
+            this.tsbtnInitLeft.Size = new System.Drawing.Size(142, 34);
+            this.tsbtnInitLeft.Text = "  Init Left Elev";
+            this.tsbtnInitLeft.Visible = false;
+            this.tsbtnInitLeft.Click += new System.EventHandler(this.tsbtnInitLeft_Click);
+            // 
             // tsbtnInitElevators
             // 
             this.tsbtnInitElevators.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -352,32 +379,6 @@
             this.tsbtnInitConveyor.Text = "  Init Conveyor";
             this.tsbtnInitConveyor.Visible = false;
             this.tsbtnInitConveyor.Click += new System.EventHandler(this.tsbtnInitConveyor_Click);
-            // 
-            // tsbtnInitLeft
-            // 
-            this.tsbtnInitLeft.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbtnInitLeft.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnInitLeft.Image")));
-            this.tsbtnInitLeft.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tsbtnInitLeft.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbtnInitLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnInitLeft.Name = "tsbtnInitLeft";
-            this.tsbtnInitLeft.Size = new System.Drawing.Size(142, 34);
-            this.tsbtnInitLeft.Text = "  Init Left Elev";
-            this.tsbtnInitLeft.Visible = false;
-            this.tsbtnInitLeft.Click += new System.EventHandler(this.tsbtnInitLeft_Click);
-            // 
-            // tsbtnInitRight
-            // 
-            this.tsbtnInitRight.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbtnInitRight.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnInitRight.Image")));
-            this.tsbtnInitRight.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tsbtnInitRight.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbtnInitRight.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnInitRight.Name = "tsbtnInitRight";
-            this.tsbtnInitRight.Size = new System.Drawing.Size(142, 34);
-            this.tsbtnInitRight.Text = "  Init Right Elev";
-            this.tsbtnInitRight.Visible = false;
-            this.tsbtnInitRight.Click += new System.EventHandler(this.tsbtnInitRight_Click);
             // 
             // tsbtnInitGantry
             // 
@@ -439,6 +440,12 @@
             this.tmr_1s.Interval = 1000;
             this.tmr_1s.Tick += new System.EventHandler(this.tmr_1s_Tick);
             // 
+            // tmr1m
+            // 
+            this.tmr1m.Enabled = true;
+            this.tmr1m.Interval = 60000;
+            this.tmr1m.Tick += new System.EventHandler(this.tmr60s_Tick);
+            // 
             // frm_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -497,5 +504,6 @@
         private System.Windows.Forms.ToolStripLabel tslblDateTime;
         private System.Windows.Forms.ToolStripButton tsbtnInitLeft;
         private System.Windows.Forms.ToolStripButton tsbtnInitRight;
+        private System.Windows.Forms.Timer tmr1m;
     }
 }

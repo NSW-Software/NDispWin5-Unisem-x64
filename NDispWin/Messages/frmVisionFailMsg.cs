@@ -174,6 +174,10 @@ namespace NDispWin
 
         private void tmr_Display_Tick(object sender, EventArgs e)
         {
+            if (DispProg.Idle.Idling)
+            {
+                DialogResult = DialogResult.Abort;
+            }
         }
     }
 }

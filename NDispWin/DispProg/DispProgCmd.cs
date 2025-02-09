@@ -734,7 +734,7 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    DispProg.UnisemProcessLog(Line, 0, 0, 0, false, false, false);
+                    DispProg.UnisemProcessLog(Line, false, false, false);
                 }
             }
             catch (Exception Ex)

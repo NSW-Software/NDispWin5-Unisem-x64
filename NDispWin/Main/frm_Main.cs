@@ -308,10 +308,34 @@ namespace NDispWin
             }
         }
         public static bool b_MonitorLowPressure = true;
+        internal struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
+        [DllImport("User32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+        public static long GetLastInputTime()
+        {
+            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
+            if (!GetLastInputInfo(ref lastInPut)) return 0;
+            return lastInPut.dwTime;
+        }
+        public static uint GetInputIdleTime()
+        {
+            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
+            GetLastInputInfo(ref lastInPut);
+
+            return ((uint)Environment.TickCount - lastInPut.dwTime);
+        }
+
         private void tmr_1s_Tick(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
-            
+            if (GetInputIdleTime() < 1000) DispProg.Idle.Reset();
+
             if (b_MonitorLowPressure)
             {
                 if (GDefineN.LowPressureValid())
@@ -595,6 +619,35 @@ namespace NDispWin
                 tsbtnInitElevators.Visible = false;
                 tsbtnInitLeft.Visible = false;
                 tsbtnInitRight.Visible = false;
+            }
+        }
+
+        private void tmr60s_Tick(object sender, EventArgs e)
+        {
+            if (GDefineN.EnableEventDebugLog)
+            {
+                var tpm = 0.0;
+                var ppm = 0.0;
+                var pmu = 0.0;
+                using (System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess())
+                {
+                    tpm = currentProcess.WorkingSet64 / (1024 * 1024);
+                    ppm = currentProcess.PeakWorkingSet64 / (1024 * 1024);
+                    pmu = currentProcess.PrivateMemorySize64 / (1024 * 1024);
+                }
+
+                var totalMemory = new PerformanceCounter("Memory", "Available MBytes");
+                var committedBytes = new PerformanceCounter("Memory", "Committed Bytes");
+                var cachedBytes = new PerformanceCounter("Memory", "Cache Bytes");
+                Event.DEBUG_INFO.Set("Memory Total, Commit, Process Total Physical,Peak Physical, Private", $"{totalMemory.NextValue()},{committedBytes.NextValue() / (1024 * 1024)},{cachedBytes.NextValue() / (1024 * 1024)},{tpm},{ppm},{pmu} MB");
+            }
+
+            switch (DispProg.Pump_Type)
+            {
+                case TaskDisp.EPumpType.Vermes:
+                case TaskDisp.EPumpType.Vermes1560:
+                    if (!TaskDisp.DispCtrlOpened(0)) TaskDisp.TeachNeedle_Completed = false;
+                    break;
             }
         }
     }

@@ -88,8 +88,12 @@ namespace NDispWin
             DialogResult = DialogResult.Cancel;
         }
 
-        private void tmr_Display_Tick(object sender, EventArgs e)
+        private void tmr1s_Tick(object sender, EventArgs e)
         {
+            if (DispProg.Idle.Idling)
+            {
+                DialogResult = DialogResult.Abort;
+            }
         }
 
         private void lbl_Message_Click(object sender, EventArgs e)

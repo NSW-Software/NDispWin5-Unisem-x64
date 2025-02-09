@@ -748,9 +748,10 @@
             // 
             this.tsbtn_OffsetAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtn_OffsetAll.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_OffsetAll.Image")));
+            this.tsbtn_OffsetAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsbtn_OffsetAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_OffsetAll.Name = "tsbtn_OffsetAll";
-            this.tsbtn_OffsetAll.Size = new System.Drawing.Size(24, 36);
+            this.tsbtn_OffsetAll.Size = new System.Drawing.Size(34, 36);
             this.tsbtn_OffsetAll.Text = "toolStripButton2";
             this.tsbtn_OffsetAll.ToolTipText = "Offset All Dispense Pattern";
             this.tsbtn_OffsetAll.Click += new System.EventHandler(this.tsbtn_OffsetAll_Click);

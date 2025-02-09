@@ -98,7 +98,7 @@ namespace NDispWin
             TaskVision.genTLCamera[m_iSelectedCam].StartGrab();
 
             Task.Run(() =>
-            {//suspect due to onject lock execution is aborted by object
+            {//suspect due to object lock execution is aborted by object
                 Thread.Sleep(250);
                 ZoomFit();
             });

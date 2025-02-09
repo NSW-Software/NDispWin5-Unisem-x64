@@ -50,7 +50,7 @@
             this.lbl_MaxAngle = new System.Windows.Forms.Label();
             this.lbl_FoundAngle = new System.Windows.Forms.Label();
             this.l_lbl_Angle = new System.Windows.Forms.Label();
-            this.tmr_Display = new System.Windows.Forms.Timer(this.components);
+            this.tmr1s = new System.Windows.Forms.Timer(this.components);
             this.btn_AlmClr = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -299,10 +299,11 @@
             this.l_lbl_Angle.Text = "Angle (degree)";
             this.l_lbl_Angle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tmr_Display
+            // tmr1s
             // 
-            this.tmr_Display.Enabled = true;
-            this.tmr_Display.Tick += new System.EventHandler(this.tmr_Display_Tick);
+            this.tmr1s.Enabled = true;
+            this.tmr1s.Interval = 1000;
+            this.tmr1s.Tick += new System.EventHandler(this.tmr_Display_Tick);
             // 
             // btn_AlmClr
             // 
@@ -400,7 +401,7 @@
         private System.Windows.Forms.Label lbl_MaxAngle;
         private System.Windows.Forms.Label lbl_FoundAngle;
         private System.Windows.Forms.Label l_lbl_Angle;
-        private System.Windows.Forms.Timer tmr_Display;
+        private System.Windows.Forms.Timer tmr1s;
         private System.Windows.Forms.Button btn_AlmClr;
         private System.Windows.Forms.Button button1;
     }

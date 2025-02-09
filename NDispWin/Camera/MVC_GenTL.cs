@@ -430,7 +430,8 @@ namespace MVC
             {
                 m_bGrabbing = false;
                 m_hReceiveThread.Abort();
-                throw new Exception(GetErrorMsg("Start Grabbing Fail!", nRet));
+                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), GetErrorMsg("MV_CC_StartGrabbing_NET", nRet));
+                throw new Exception(GetErrorMsg("StartGrab", nRet));
             }
             m_hReceiveThread = new Thread(ReceiveThreadProcess);
             m_hReceiveThread.Start();
@@ -448,7 +449,8 @@ namespace MVC
             int nRet = m_MyCamera.MV_CC_StopGrabbing_NET();
             if (nRet != MyCamera.MV_OK)
             {
-                throw new Exception(GetErrorMsg("Stop Grabbing Fail!", nRet));
+                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), GetErrorMsg("MV_CC_StopGrabbing_NET", nRet));
+                throw new Exception(GetErrorMsg("StopGrab", nRet));
             }
             if (m_hReceiveThread != null) m_hReceiveThread.Abort();
 
@@ -469,7 +471,8 @@ namespace MVC
             if (MyCamera.MV_OK != nRet)
             {
                 m_bGrabbing = false;
-                throw new Exception(GetErrorMsg("Start Grabbing Fail!", nRet));
+                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), GetErrorMsg("MV_CC_StartGrabbing_NET", nRet));
+                throw new Exception(GetErrorMsg("GrabOneImage.StartGrab", nRet));
             }
             ReceiveProcess();
 
@@ -479,7 +482,8 @@ namespace MVC
             nRet = m_MyCamera.MV_CC_StopGrabbing_NET();
             if (nRet != MyCamera.MV_OK)
             {
-                throw new Exception(GetErrorMsg("Stop Grabbing Fail!", nRet));
+                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), GetErrorMsg("MV_CC_StopGrabbing_NET", nRet));
+                throw new Exception(GetErrorMsg("GrabOneImage.StopGrab", nRet));
             }
         }
         public void StartGrab2()
@@ -494,7 +498,8 @@ namespace MVC
             if (MyCamera.MV_OK != nRet)
             {
                 m_bGrabbing = false;
-                throw new Exception(GetErrorMsg("Start Grabbing Fail!", nRet));
+                if (NDispWin.GDefineN.EnableEventDebugLog) NDispWin.Event.CAMERA_INFO.Set(MethodBase.GetCurrentMethod().Name.ToString(), GetErrorMsg("MV_CC_StartGrabbing_NET", nRet));
+                throw new Exception(GetErrorMsg("StopGrab2", nRet));
             }
         }
         public void SaveBuffer(string fileName)

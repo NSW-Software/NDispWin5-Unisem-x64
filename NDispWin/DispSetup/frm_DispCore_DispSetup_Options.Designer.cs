@@ -33,13 +33,11 @@
             this.lblOption_DrawOfstAdjustRate = new System.Windows.Forms.Label();
             this.lbl_XYShortDist = new System.Windows.Forms.Label();
             this.cbox_EnableMaterialTimer = new System.Windows.Forms.CheckBox();
-            this.cbox_EnableDualMaterial = new System.Windows.Forms.CheckBox();
             this.lbl_OriginAdjustLimitXY = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.lbl_MaterialLifeTimeMultipler = new System.Windows.Forms.Label();
             this.lbl_XYPeakSpeedRatio = new System.Windows.Forms.Label();
-            this.cbox_EnableMaterialLow = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,11 +47,7 @@
             this.cbox_EnableRunSingleHead = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbox_PromptRunSingleHead = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.cbox_EnableDrawOfstAdjust = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lbl_IdlePurgeTimer = new System.Windows.Forms.Label();
-            this.cbox_EnableStartIdle = new System.Windows.Forms.CheckBox();
             this.cbox_EnableScriptCheck = new System.Windows.Forms.CheckBox();
             this.Program = new System.Windows.Forms.GroupBox();
             this.cbox_EnableRealTimeFineTune = new System.Windows.Forms.CheckBox();
@@ -82,13 +76,11 @@
             this.gbox_Operation.Controls.Add(this.lblOption_DrawOfstAdjustRate);
             this.gbox_Operation.Controls.Add(this.lbl_XYShortDist);
             this.gbox_Operation.Controls.Add(this.cbox_EnableMaterialTimer);
-            this.gbox_Operation.Controls.Add(this.cbox_EnableDualMaterial);
             this.gbox_Operation.Controls.Add(this.lbl_OriginAdjustLimitXY);
             this.gbox_Operation.Controls.Add(this.label11);
             this.gbox_Operation.Controls.Add(this.label9);
             this.gbox_Operation.Controls.Add(this.lbl_MaterialLifeTimeMultipler);
             this.gbox_Operation.Controls.Add(this.lbl_XYPeakSpeedRatio);
-            this.gbox_Operation.Controls.Add(this.cbox_EnableMaterialLow);
             this.gbox_Operation.Controls.Add(this.label8);
             this.gbox_Operation.Controls.Add(this.label1);
             this.gbox_Operation.Controls.Add(this.label2);
@@ -98,11 +90,7 @@
             this.gbox_Operation.Controls.Add(this.cbox_EnableRunSingleHead);
             this.gbox_Operation.Controls.Add(this.label13);
             this.gbox_Operation.Controls.Add(this.cbox_PromptRunSingleHead);
-            this.gbox_Operation.Controls.Add(this.label3);
             this.gbox_Operation.Controls.Add(this.cbox_EnableDrawOfstAdjust);
-            this.gbox_Operation.Controls.Add(this.label5);
-            this.gbox_Operation.Controls.Add(this.lbl_IdlePurgeTimer);
-            this.gbox_Operation.Controls.Add(this.cbox_EnableStartIdle);
             this.gbox_Operation.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbox_Operation.Location = new System.Drawing.Point(3, 18);
             this.gbox_Operation.Name = "gbox_Operation";
@@ -159,21 +147,7 @@
             this.cbox_EnableMaterialTimer.Text = "Enable Material Timer";
             this.cbox_EnableMaterialTimer.UseVisualStyleBackColor = true;
             this.cbox_EnableMaterialTimer.Visible = false;
-            this.cbox_EnableMaterialTimer.CheckedChanged += new System.EventHandler(this.cbox_EnableMaterialTimer_CheckedChanged);
             this.cbox_EnableMaterialTimer.Click += new System.EventHandler(this.cbox_EnableMaterialTimer_Click);
-            // 
-            // cbox_EnableDualMaterial
-            // 
-            this.cbox_EnableDualMaterial.AccessibleDescription = "Enable Dual Material";
-            this.cbox_EnableDualMaterial.AutoSize = true;
-            this.cbox_EnableDualMaterial.Location = new System.Drawing.Point(406, 21);
-            this.cbox_EnableDualMaterial.Name = "cbox_EnableDualMaterial";
-            this.cbox_EnableDualMaterial.Size = new System.Drawing.Size(134, 18);
-            this.cbox_EnableDualMaterial.TabIndex = 176;
-            this.cbox_EnableDualMaterial.Text = "Enable Dual Material";
-            this.cbox_EnableDualMaterial.UseVisualStyleBackColor = true;
-            this.cbox_EnableDualMaterial.Visible = false;
-            this.cbox_EnableDualMaterial.Click += new System.EventHandler(this.cbox_EnableDualMaterial_Click);
             // 
             // lbl_OriginAdjustLimitXY
             // 
@@ -237,19 +211,6 @@
             this.lbl_XYPeakSpeedRatio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbl_XYPeakSpeedRatio.Click += new System.EventHandler(this.lbl_XYPeakSpeedRatio_Click);
             // 
-            // cbox_EnableMaterialLow
-            // 
-            this.cbox_EnableMaterialLow.AccessibleDescription = "Enable Material Low";
-            this.cbox_EnableMaterialLow.AutoSize = true;
-            this.cbox_EnableMaterialLow.Location = new System.Drawing.Point(266, 21);
-            this.cbox_EnableMaterialLow.Name = "cbox_EnableMaterialLow";
-            this.cbox_EnableMaterialLow.Size = new System.Drawing.Size(134, 18);
-            this.cbox_EnableMaterialLow.TabIndex = 2;
-            this.cbox_EnableMaterialLow.Text = "Enable Material Low";
-            this.cbox_EnableMaterialLow.UseVisualStyleBackColor = true;
-            this.cbox_EnableMaterialLow.Visible = false;
-            this.cbox_EnableMaterialLow.Click += new System.EventHandler(this.cbox_EnableMaterialLow_Click);
-            // 
             // label8
             // 
             this.label8.AccessibleDescription = "XY Short Dist Peak Speed Ratio, Dist";
@@ -260,7 +221,6 @@
             this.label8.TabIndex = 190;
             this.label8.Text = "XY Short Dist Peak Speed Ratio, Dist";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label1
             // 
@@ -355,17 +315,6 @@
             this.cbox_PromptRunSingleHead.UseVisualStyleBackColor = true;
             this.cbox_PromptRunSingleHead.Click += new System.EventHandler(this.cbox_PromptRunSingleHead_Click);
             // 
-            // label3
-            // 
-            this.label3.AccessibleDescription = "";
-            this.label3.Location = new System.Drawing.Point(378, 156);
-            this.label3.Margin = new System.Windows.Forms.Padding(2);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 23);
-            this.label3.TabIndex = 188;
-            this.label3.Text = "(s)";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // cbox_EnableDrawOfstAdjust
             // 
             this.cbox_EnableDrawOfstAdjust.AccessibleDescription = "Enable Draw Ofst Adjust";
@@ -378,42 +327,6 @@
             this.cbox_EnableDrawOfstAdjust.UseVisualStyleBackColor = true;
             this.cbox_EnableDrawOfstAdjust.Click += new System.EventHandler(this.cbox_EnableDrawOfstAdjust_Click);
             // 
-            // label5
-            // 
-            this.label5.AccessibleDescription = "Idle Timer";
-            this.label5.Location = new System.Drawing.Point(264, 156);
-            this.label5.Margin = new System.Windows.Forms.Padding(2);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(125, 23);
-            this.label5.TabIndex = 186;
-            this.label5.Text = "Idle Timer";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbl_IdlePurgeTimer
-            // 
-            this.lbl_IdlePurgeTimer.BackColor = System.Drawing.SystemColors.Window;
-            this.lbl_IdlePurgeTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_IdlePurgeTimer.Location = new System.Drawing.Point(445, 156);
-            this.lbl_IdlePurgeTimer.Margin = new System.Windows.Forms.Padding(2);
-            this.lbl_IdlePurgeTimer.Name = "lbl_IdlePurgeTimer";
-            this.lbl_IdlePurgeTimer.Size = new System.Drawing.Size(75, 23);
-            this.lbl_IdlePurgeTimer.TabIndex = 187;
-            this.lbl_IdlePurgeTimer.Text = "3";
-            this.lbl_IdlePurgeTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbl_IdlePurgeTimer.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // cbox_EnableStartIdle
-            // 
-            this.cbox_EnableStartIdle.AccessibleDescription = "Enable Start Idle";
-            this.cbox_EnableStartIdle.AutoSize = true;
-            this.cbox_EnableStartIdle.Location = new System.Drawing.Point(6, 159);
-            this.cbox_EnableStartIdle.Name = "cbox_EnableStartIdle";
-            this.cbox_EnableStartIdle.Size = new System.Drawing.Size(117, 18);
-            this.cbox_EnableStartIdle.TabIndex = 176;
-            this.cbox_EnableStartIdle.Text = "Enable Start Idle";
-            this.cbox_EnableStartIdle.UseVisualStyleBackColor = true;
-            this.cbox_EnableStartIdle.Click += new System.EventHandler(this.cbox_EnableStartIdle_Click);
-            // 
             // cbox_EnableScriptCheck
             // 
             this.cbox_EnableScriptCheck.AccessibleDescription = "Enable Script Check";
@@ -424,7 +337,6 @@
             this.cbox_EnableScriptCheck.TabIndex = 177;
             this.cbox_EnableScriptCheck.Text = "Enable Script Check";
             this.cbox_EnableScriptCheck.UseVisualStyleBackColor = true;
-            this.cbox_EnableScriptCheck.CheckedChanged += new System.EventHandler(this.cbox_EnableScriptCheck_CheckedChanged);
             this.cbox_EnableScriptCheck.Click += new System.EventHandler(this.cbox_EnableScriptCheck_Click);
             // 
             // Program
@@ -530,7 +442,6 @@
             this.groupBox2.TabIndex = 194;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // groupBox3
             // 
@@ -546,7 +457,6 @@
             this.groupBox3.TabIndex = 232;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Log and File Output";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // cbox_CopyLogToServer
             // 
@@ -577,7 +487,6 @@
             this.tbox_LogServerPath.Name = "tbox_LogServerPath";
             this.tbox_LogServerPath.Size = new System.Drawing.Size(440, 22);
             this.tbox_LogServerPath.TabIndex = 231;
-            this.tbox_LogServerPath.TextChanged += new System.EventHandler(this.tbox_LogServerPath_TextChanged);
             this.tbox_LogServerPath.Validated += new System.EventHandler(this.tbox_LogServerPath_Validated);
             // 
             // frm_DispCore_DispSetup_Options
@@ -618,13 +527,10 @@
         private System.Windows.Forms.Label lbl_OriginAdjustLimitZ;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_OriginAdjustLimitXY;
-        private System.Windows.Forms.CheckBox cbox_EnableMaterialLow;
-        private System.Windows.Forms.CheckBox cbox_EnableStartIdle;
         private System.Windows.Forms.CheckBox cbox_EnableChuckVac;
         private System.Windows.Forms.Label lbl_MaterialLifeTimeMultipler;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox cbox_EnableDualMaterial;
         private System.Windows.Forms.CheckBox cbox_EnableScriptCheck;
         private System.Windows.Forms.GroupBox Program;
         private System.Windows.Forms.CheckBox cbox_EnableScriptCheckUnitMode;
@@ -632,9 +538,6 @@
         private System.Windows.Forms.CheckBox cbox_EnableRealTimeFineTune;
         private System.Windows.Forms.Label lbl_Option_VolumeDisplayDecimalPlace;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lbl_IdlePurgeTimer;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cbox_EnableHPCManualCtrls;
         private System.Windows.Forms.Label lbl_XYPeakSpeedRatio;
         private System.Windows.Forms.Label label8;

@@ -41,10 +41,10 @@
             this.btn_SelectDisp2 = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.tmr_Idle = new System.Windows.Forms.Timer(this.components);
-            this.pbar_TimeToPurge = new System.Windows.Forms.ProgressBar();
             this.tmr_Sec = new System.Windows.Forms.Timer(this.components);
             this.lbl_IdlePurgePostVacTime = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblDesc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_Start
@@ -177,14 +177,6 @@
             this.tmr_Idle.Interval = 1000;
             this.tmr_Idle.Tick += new System.EventHandler(this.tmr_Idle_Tick);
             // 
-            // pbar_TimeToPurge
-            // 
-            this.pbar_TimeToPurge.Location = new System.Drawing.Point(8, 153);
-            this.pbar_TimeToPurge.Name = "pbar_TimeToPurge";
-            this.pbar_TimeToPurge.Size = new System.Drawing.Size(229, 23);
-            this.pbar_TimeToPurge.TabIndex = 193;
-            this.pbar_TimeToPurge.Value = 10;
-            // 
             // tmr_Sec
             // 
             this.tmr_Sec.Interval = 1000;
@@ -214,15 +206,26 @@
             this.label7.Text = "Post Vac Time (ms)";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblDesc
+            // 
+            this.lblDesc.AccessibleDescription = "";
+            this.lblDesc.Location = new System.Drawing.Point(5, 157);
+            this.lblDesc.Margin = new System.Windows.Forms.Padding(2);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(232, 23);
+            this.lblDesc.TabIndex = 198;
+            this.lblDesc.Text = "-";
+            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frm_DispCore_IdlePurge
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(345, 193);
             this.ControlBox = false;
+            this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.lbl_IdlePurgePostVacTime);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.pbar_TimeToPurge);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_SelectDisp2);
             this.Controls.Add(this.btn_SelectDisp1);
@@ -260,9 +263,9 @@
         private System.Windows.Forms.Button btn_SelectDisp2;
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Timer tmr_Idle;
-        private System.Windows.Forms.ProgressBar pbar_TimeToPurge;
         private System.Windows.Forms.Timer tmr_Sec;
         private System.Windows.Forms.Label lbl_IdlePurgePostVacTime;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblDesc;
     }
 }

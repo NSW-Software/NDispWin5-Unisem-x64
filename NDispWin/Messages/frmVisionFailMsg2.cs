@@ -41,28 +41,37 @@ namespace NDispWin
 
             Text = "Vision Fail Message";
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+            try
             {
-                this.WindowState = FormWindowState.Maximized;
-                AutoSize = false;
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                panel1.Top = 0;
-                panel1.Left = this.Width - panel1.Width;
-                panel1.AutoSize = true;
-                this.TopMost = true;
-                this.BringToFront();
+                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
+                {
+                    this.WindowState = FormWindowState.Maximized;
+                    AutoSize = false;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    panel1.Top = 0;
+                    panel1.Left = this.Width - panel1.Width;
+                    panel1.AutoSize = true;
+                    this.TopMost = true;
+                    this.BringToFront();
 
-                TaskVisionfrmMVCGenTLCamera.TopLevel = false;
-                TaskVisionfrmMVCGenTLCamera.Parent = this;
-                TaskVisionfrmMVCGenTLCamera.CamReticles = Reticle.Reticles;
-                TaskVisionfrmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
-                TaskVisionfrmMVCGenTLCamera.Dock = DockStyle.Fill;
-                TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
-                TaskVisionfrmMVCGenTLCamera.Show();
+                    TaskVisionfrmMVCGenTLCamera.TopLevel = false;
+                    TaskVisionfrmMVCGenTLCamera.Parent = this;
+                    TaskVisionfrmMVCGenTLCamera.CamReticles = Reticle.Reticles;
+                    TaskVisionfrmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
+                    TaskVisionfrmMVCGenTLCamera.Dock = DockStyle.Fill;
+                    TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+                    TaskVisionfrmMVCGenTLCamera.Show();
 
-                TaskVisionfrmMVCGenTLCamera.ShowCamReticles = true;
-                TaskVision.genTLCamera[0].StartGrab();
+                    TaskVisionfrmMVCGenTLCamera.ShowCamReticles = true;
+                    TaskVision.genTLCamera[0].StartGrab();
+                }
             }
+            catch (Exception ex)
+            {
+                Msg MsgBox = new Msg();
+                EMsgRes MsgRes = MsgBox.Show(ex.Message.ToString());
+            }
+
             IO.SetState(EMcState.Error);
         }
         private void frmVisionFailMsg2_FormClosing(object sender, FormClosingEventArgs e)
@@ -104,22 +113,18 @@ namespace NDispWin
         {
             DialogResult = DialogResult.Yes;
         }
-
         private void btn_Retry_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Retry;
         }
-
         private void btn_Skip_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
-
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Abort;
         }
-
         private void btn_Manual_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
@@ -150,6 +155,14 @@ namespace NDispWin
             if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
             {
                 TaskVisionfrmMVCGenTLCamera.SelectCamera(0);
+            }
+        }
+
+        private void tmr1s_Tick(object sender, EventArgs e)
+        {
+            if (DispProg.Idle.Idling)
+            {
+                DialogResult = DialogResult.Abort;
             }
         }
     }

@@ -31,8 +31,7 @@ namespace NDispWin
             cbxLanguage2.SelectedIndex = GDefineN.Language2;
             lblAltErrMsgFile.Text = Path.GetFileNameWithoutExtension(GDefineN.AltErrMsgFile);
 
-            cbxCustomerList.DataSource = Enum.GetNames(typeof(LotInfo2.ECustomer));
-                try { cbxCustomerList.SelectedIndex = (int)LotInfo2.Customer; } catch { };
+            cbxIdlePosition.DataSource = Enum.GetNames(typeof(TaskDisp.EMaintPos));
 
             UpdateDisplay();
         }
@@ -65,6 +64,14 @@ namespace NDispWin
             lblMaterialLifeTimeMultipler.Text = TaskDisp.Material_Life_Multiplier.ToString();
             lblMaterialExpiryPreAlertTime.Text = TaskDisp.Material_ExpiryPreAlertTime.ToString();
 
+            cbEnableStartIdle.Checked = TaskDisp.Option_EnableStartIdle;
+            lblIdlePurgeTimer.Text = TaskDisp.Option_IdlePurgeTimer.ToString();
+            cbxIdlePosition.Text = TaskDisp.Idle_Position.ToString();
+            lblIdlePurgeInterval.Text = $"{TaskDisp.Idle_PurgeInterval:f0}";
+            lblIdlePurgeDuration.Text = $"{TaskDisp.Idle_PurgeDuration:f0}";
+            lblIdlePurgePostVacTime.Text = $"{TaskDisp.Idle_PostVacTime:f0}";
+            cbIdleReturn.Checked = TaskDisp.Idle_Return;
+
             cbEnableProcessLog.Checked = DispProg.Options_EnableProcessLog;
 
             #region Maint Page
@@ -88,7 +95,6 @@ namespace NDispWin
             #endregion
 
             lblCustomerPreference.Text = TaskDisp.Preference.ToString();
-            cbEnableLotEntry.Checked = GDefine.EnableLotEntry;
 
             cbEnableStartButton.Checked = GDefineN.Enabled_BtnStart;
             cbEnableStopButton.Checked = GDefineN.Enabled_BtnStop;
@@ -129,11 +135,6 @@ namespace NDispWin
                 lblAltErrMsgFile.Text = Path.GetFileNameWithoutExtension(FileName);
             }
             UpdateDisplay();
-        }
-
-        private void cbox_CustomerList_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            LotInfo2.Customer = (LotInfo2.ECustomer)cbxCustomerList.SelectedIndex;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -632,10 +633,58 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void cbEnableLotEntry_Click(object sender, EventArgs e)
+        private void cbox_EnableStartIdle_Click(object sender, EventArgs e)
         {
-            GDefine.EnableLotEntry = cbEnableLotEntry.Checked;
+            UC.AdjustExec("Disp Option, Enable Start Idle", ref TaskDisp.Option_EnableStartIdle);
             UpdateDisplay();
+        }
+
+        private void lblIdlePurgeTimer_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Disp Setup Options, Idle Purge Timer (s)", ref TaskDisp.Option_IdlePurgeTimer, 0, 3600);
+            UpdateDisplay();
+        }
+
+        private void lblIdlePurgeInterval_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Idle Purge Interval (s)", ref TaskDisp.Idle_PurgeInterval, 5, 600);
+            UpdateDisplay();
+        }
+
+        private void lblIdlePurgeDuration_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Idle Purge Duration (ms)", ref TaskDisp.Idle_PurgeDuration, 10, 50000);
+            UpdateDisplay();
+        }
+
+        private void lblIdlePurgePostVacTime_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Idle Post Vac Time (ms)", ref TaskDisp.Idle_PostVacTime, 0, 5000);
+            UpdateDisplay();
+        }
+
+        private void cbxIdlePosition_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            TaskDisp.Idle_Position = (TaskDisp.EMaintPos)cbxIdlePosition.SelectedIndex;
+        }
+
+        private void btnIdle_Click(object sender, EventArgs e)
+        {
+            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
+            frm.AutoStart = true;
+            frm.ShowDialog();
+        }
+
+        private void cbReturn_Click(object sender, EventArgs e)
+        {
+            TaskDisp.Idle_Return = !TaskDisp.Idle_Return;
+            Log.OnSet("Idle Return", !TaskDisp.Idle_Return, TaskDisp.Idle_Return);
+            UpdateDisplay();
+        }
+
+        private void cbIdleReturn_CheckStateChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

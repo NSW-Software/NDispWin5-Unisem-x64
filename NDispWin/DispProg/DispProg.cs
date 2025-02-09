@@ -194,6 +194,10 @@ namespace NDispWin
                 dt_LastMove = DateTime.Now;
                 atIdle = false;
             }
+            public static uint Timer()//return idling time in s
+            {
+                return (uint)((DateTime.Now - dt_LastMove).TotalSeconds);
+            }
             public static bool Idling
             {
                 get
@@ -244,7 +248,22 @@ namespace NDispWin
                         {
                             Event.OP_IDLE_PURGE_START.Set();
                             TaskDisp.TaskMoveGZZ2Up();
-                            TaskDisp.TaskGotoTPos2(TaskDisp.Needle_Purge_Pos);
+
+                            TPos3[] pos = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
+                            switch ((TaskDisp.EMaintPos)TaskDisp.Idle_Position)
+                            {
+                                case TaskDisp.EMaintPos.Clean:
+                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Clean_Pos[0]), new TPos3(TaskDisp.Needle_Clean_Pos[1]) };
+                                    break;
+                                case TaskDisp.EMaintPos.Purge:
+                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Purge_Pos[0]), new TPos3(TaskDisp.Needle_Purge_Pos[1]) };
+                                    break;
+                                case TaskDisp.EMaintPos.Flush:
+                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Flush_Pos[0]), new TPos3(TaskDisp.Needle_Flush_Pos[1]) };
+                                    break;
+                            }
+
+                            TaskDisp.TaskGotoTPos2(pos);
                             atIdle = true;
                         }
                 }
@@ -518,6 +537,7 @@ namespace NDispWin
             public TMap ActivePreMap = new TMap();
             public TMap[] CurrMap = new TMap[MAX_IDS];
             public TMap[] PrevMap = new TMap[MAX_IDS];
+            public TMap[] IdleReturnMap = new TMap[MAX_IDS];//Map for idle returned frame
 
             public TMaps()
             {
@@ -526,6 +546,7 @@ namespace NDispWin
                     PreMap[i] = new TMap();
                     CurrMap[i] = new TMap();
                     PrevMap[i] = new TMap();
+                    IdleReturnMap[i] = new TMap();
                 }
             }
         }
@@ -534,7 +555,6 @@ namespace NDispWin
         public static EMapBin rt_Head1MapBin = EMapBin.None;
         public static EMapBin rt_Head2MapBin = EMapBin.None;
         public static TMapColor MapColor = new TMapColor();
-
 
         public static bool ClearMaps()
         {
@@ -565,11 +585,14 @@ namespace NDispWin
             Map.ActivePreMap.Clear();
             return true;
         }
-        public static bool ResumeMap()
+        public static bool ResumeMap(TMap[] sourceMap = null)
         {
             for (int ID = 0; ID < rt_LayoutCount; ID++)
             {
-                Map.CurrMap[ID].Bin = (EMapBin[])DispProg.Map.PrevMap[ID].Bin.Clone();
+                if (sourceMap == null)
+                    Map.CurrMap[ID].Bin = (EMapBin[])Map.PrevMap[ID].Bin.Clone();
+                else
+                    Map.CurrMap[ID].Bin = (EMapBin[])sourceMap[ID].Bin.Clone();
 
                 for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
                 {
@@ -579,7 +602,14 @@ namespace NDispWin
                         Map.CurrMap[ID].Bin[i] = EMapBin.None;
                 }
             }
-
+            return true;
+        }
+        public static bool UpdateIdleReturnMaps()
+        {
+            for (int ID = 0; ID < rt_LayoutCount; ID++)
+            {
+                Map.IdleReturnMap[ID].Bin = (EMapBin[])Map.CurrMap[ID].Bin.Clone();
+            }
             return true;
         }
         public static bool CurrMapMask(EMapBin[] SecondMapBin)
@@ -2791,7 +2821,10 @@ namespace NDispWin
                 case TaskDisp.EPumpType.TPRV:
                     break;
                 default:
-                    if (!TaskDisp.DispCtrlOpened(0)) TaskDisp.OpenDispCtrl(0);
+                    if (!TaskDisp.DispCtrlOpened(0))
+                    {
+                        TaskDisp.OpenDispCtrl(0);
+                    }
                     break;
             }
             if (TaskDisp.Vermes3200[0].IsOpen) cycles = TaskDisp.Vermes3200[0].ValveCycles;
@@ -6328,22 +6361,6 @@ namespace NDispWin
                                     string data = "";
                                     TaskVision.ExecVision((int)EVisionRef.No1, ActiveLine.ID, ref v_ox, ref v_oy, ref v_oa, ref v_s, ref v_OK, ref data, ref Image);
 
-                                    if (GDefineN.EnableEventDebugLog)
-                                    {
-                                        var tpm = 0.0;
-                                        var ppm = 0.0;
-                                        var pmu = 0.0;
-                                        using (System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess())
-                                        {
-                                            tpm = currentProcess.WorkingSet64 / (1024 * 1024);
-                                            ppm = currentProcess.PeakWorkingSet64 / (1024 * 1024);
-                                            pmu = currentProcess.PrivateMemorySize64 / (1024 * 1024);
-                                        }
-                                        System.Diagnostics.PerformanceCounter tm = new System.Diagnostics.PerformanceCounter("Memory", "Committed Bytes");
-                                        System.Diagnostics.PerformanceCounter am = new System.Diagnostics.PerformanceCounter("Memory", "Available MBytes");
-                                        Event.DEBUG_INFO.Set("Memory Total, Avail, Process Total Physical,Peak Physical, Private", $"{tm.NextValue() / (1024 * 1024)},{am.NextValue()},{tpm},{ppm},{pmu} MB");
-                                    }
-
                                     if (ActiveLine.IPara[3] > 0)//(SaveDoVisionImages)
                                     {
                                         //string Dir = ImageLocation + @"\" + GDefine.ProgRecipeName;
@@ -6405,7 +6422,6 @@ namespace NDispWin
                                             }
 
                                             DefineSafety.DoorLock = false;
-
                                             frmVisionFailMsg2 frmV = new frmVisionFailMsg2();
                                             string msg = "";
                                             if (Math.Abs(v_ox) > ActiveLine.DPara[1] || Math.Abs(v_oy) > ActiveLine.DPara[1])
@@ -7041,22 +7057,6 @@ namespace NDispWin
                                         TaskVision.imgBoxEmgu.Image = TaskVision.Image;
                                         if (TaskVision.imgBoxEmgu != null) TaskVision.imgBoxEmgu.Invalidate();
 
-                                        if (GDefineN.EnableEventDebugLog)
-                                        {
-                                            var tpm = 0.0;
-                                            var ppm = 0.0;
-                                            var pmu = 0.0;
-                                            using (System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess())
-                                            {
-                                                tpm = currentProcess.WorkingSet64 / (1024 * 1024);
-                                                ppm = currentProcess.PeakWorkingSet64 / (1024 * 1024);
-                                                pmu = currentProcess.PrivateMemorySize64 / (1024 * 1024);
-                                            }
-                                            System.Diagnostics.PerformanceCounter tm = new System.Diagnostics.PerformanceCounter("Memory", "Committed Bytes");
-                                            System.Diagnostics.PerformanceCounter am = new System.Diagnostics.PerformanceCounter("Memory", "Available MBytes");
-                                            Event.DEBUG_INFO.Set("Memory Total, Avail, Process Total Physical,Peak Physical, Private", $"{tm.NextValue() / (1024 * 1024)},{am.NextValue()},{tpm},{ppm},{pmu} MB");
-                                        }
-
                                         if (v_OK)
                                         {
                                             if ((ActiveLine.IPara[3] & 0x10) == 0x10) SaveImage("OK");
@@ -7219,7 +7219,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        UnisemProcessLog(ActiveLine, 0, 0, 0, false, false, false, rt_Read_IDs[0,0]);
+                                        UnisemProcessLog(ActiveLine, false, false, false, rt_Read_IDs[0,0]);
                                     }
                                 _End:
                                     break;
@@ -7410,7 +7410,7 @@ namespace NDispWin
                                     #endregion
 
                                     EExecuteDoHeight executeDoHeight = ExecuteDoHeight(ActiveLine, X, Y, Z, ref i_DoHeightSkipCntr, ref d_LastLaserHeight, ref HeightData);
-                                    UnisemProcessLog(ActiveLine, 0, 0, 0, true, true, false, $"Cmd {TaskGantry.GZPos():f3}, Real {TaskGantry.GZRPos():f3}");
+                                    UnisemProcessLog(ActiveLine, true, true, false, $"Cmd {TaskGantry.GZPos():f3}, Real {TaskGantry.GZRPos():f3}");
 
                                     switch (executeDoHeight)
                                     {
@@ -8483,7 +8483,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                        UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
                                     break;
@@ -8551,7 +8551,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                        UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
                                     break;
@@ -8872,7 +8872,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                        UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
                                     break;
@@ -9721,7 +9721,7 @@ namespace NDispWin
 
                                     if (DispProg.Options_EnableProcessLog)
                                     {
-                                        UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false);
+                                        UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
                                     break;
@@ -11210,11 +11210,6 @@ namespace NDispWin
                         #endregion
                     }
 
-                    if (DispProg.Options_EnableProcessLog)
-                    {
-                        UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
-                    }
-
                     #region Down Wait
                     if (Model.DnWait > 0)
                     {
@@ -11222,6 +11217,14 @@ namespace NDispWin
                         while (GDefine.GetTickCount() < t) { }// { Thread.Sleep(0); }
                     }
                     #endregion
+
+                    if (DispProg.Options_EnableProcessLog)
+                    {
+                        double x = TaskGantry.GXPos();
+                        double y = TaskGantry.GYPos();
+                        double z = TaskGantry.GZPos() + Model.DispGap;
+                        UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x,y,z});
+                    }
 
                     if (DotMode == EDotMode.Cont)
                     {
@@ -11765,7 +11768,10 @@ namespace NDispWin
 
                     if (DispProg.Options_EnableProcessLog)
                     {
-                        UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
+                        double x = TaskGantry.GXPos();
+                        double y = TaskGantry.GYPos();
+                        double z = TaskGantry.GZPos() + Model.DispGap;
+                        UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x, y, z });
                     }
                     #endregion
                 }
@@ -17765,7 +17771,10 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
+                    double x = TaskGantry.GXPos();
+                    double y = TaskGantry.GYPos();
+                    double z = TaskGantry.GZPos() + Model.DispGap;
+                    UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x, y, z });
                 }
 
                 double[] RelDummyPos = new double[4] { 0, 0, 0, 0 };
@@ -18300,7 +18309,10 @@ namespace NDispWin
 
                         if (DispProg.Options_EnableProcessLog)
                         {
-                            UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
+                            double x = TaskGantry.GXPos();
+                            double y = TaskGantry.GYPos();
+                            double z = TaskGantry.GZPos() + Model.DispGap;
+                            UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x, y, z });
                         }
                     }
 
@@ -18780,7 +18792,10 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
+                    double x = TaskGantry.GXPos();
+                    double y = TaskGantry.GYPos();
+                    double z = TaskGantry.GZPos() + Model.DispGap;
+                    UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x, y, z });
                 }
 
                 int t_Log = GDefine.GetTickCount();
@@ -19273,7 +19288,10 @@ namespace NDispWin
 
                 if (DispProg.Options_EnableProcessLog)
                 {
-                    UnisemProcessLog(Line, GXY.X, GXY.Y, Z1 + Model.DispGap);
+                    double x = TaskGantry.GXPos();
+                    double y = TaskGantry.GYPos();
+                    double z = TaskGantry.GZPos() + Model.DispGap;
+                    UnisemProcessLog(Line, new double[] { GXY.X, GXY.Y, Z1 + Model.DispGap }, new double[] { x, y, z });
                 }
 
                 int t_Log = GDefine.GetTickCount();
@@ -22077,7 +22095,10 @@ namespace NDispWin
                 {
                     string str = "";
                     str += $"OX,OY,S={ox * TaskVision.DistPerPixelX[Line.IPara[1]]:f3},{oy * TaskVision.DistPerPixelY[Line.IPara[1]]:f3},{s:f3},";
-                    UnisemProcessLog(Line, X, Y, 0, true, true, false, str);
+                    double x = TaskGantry.GXPos();
+                    double y = TaskGantry.GYPos();
+                    double z = TaskGantry.GZPos();
+                    UnisemProcessLog(Line, new double[] { X, Y, 0 }, new double[] { x,y,z }, true, true, false, str);
                 }
             }
             catch (Exception Ex)
@@ -22417,7 +22438,7 @@ namespace NDispWin
                 str += $"OX,OY={TaskDisp.Laser_Ofst.X:f3},{TaskDisp.Laser_Ofst.X:f3},";
                 str += $"TouchPosZ,Z2={TaskDisp.Head_ZSensor_RefPosZ[0]:f3},{TaskDisp.Head_ZSensor_RefPosZ[1]:f3},";
                 str += $"H={TaskDisp.Laser_RefPosZ:f3},";
-                UnisemProcessLog(ActiveLine, 0, 0, 0, true, false, false, str);
+                UnisemProcessLog(ActiveLine, true, false, false, str);
             }
 
             double d_RefHeight = TaskDisp.Laser_CalValue == 0 ? ActiveLine.DPara[5] : TaskDisp.Laser_CalValue - TaskDisp.Laser_RefPosZ + ActiveLine.DPara[5];
@@ -22712,21 +22733,23 @@ namespace NDispWin
             return EHeightSetReturn.OK;
         }
 
-        internal static void UnisemProcessLog(TLine Line, double posX, double posY, double posZ, bool logCR = true, bool logPos = true, bool logPump = true, string extInfo = "")
+        //internal static void UnisemProcessLog(TLine Line, double posX, double posY, double posZ, bool logCR = true, bool logPos = true, bool logPump = true, string extInfo = "")
+        internal static void UnisemProcessLog(TLine Line, double[] cmdPos, double[] realPos, bool logCR = true, bool logPos = true, bool logPump = true, string extInfo = "")
         {
             if (DispProg.Options_EnableProcessLog)
             {
                 TModelPara Model = new TModelPara(ModelList, Line.IPara[0]);
 
-                string str = $"{Line.Cmd.ToString()},";
+                string str = $"{Line.Cmd},";
                 str += $"ID={Line.ID},";
-                str += $"RunMode={RunMode.ToString()},";
+                str += $"RunMode={RunMode},";
                 str += $"UnitNo={RunTime.UIndex},";
                 if (logCR) str += $"C,R={RunTime.Head_CR[0].X},{RunTime.Head_CR[0].Y},";
-                if (logPos) str += $"X,Y,Z={posX:f3},{posY:f3},{posZ:f3},";
+                if (logPos) str += $"Cmd X,Y,Z={cmdPos[0]:f3},{cmdPos[1]:f3},{cmdPos[2]:f3},";
+                if (logPos) str += $"Real X,Y,Z={realPos[0]:f3},{realPos[1]:f3},{realPos[2]:f3},";
                 if (logPump)
                 {
-                    str += $"Pump={Pump_Type.ToString()},";
+                    str += $"Pump={Pump_Type},";
                     str += $"DispGap={Model.DispGap:f3},";
 
                     switch (RunMode)
@@ -22784,6 +22807,10 @@ namespace NDispWin
                 }
                 GLog.WriteProcessLog(str);
             }
+        }
+        internal static void UnisemProcessLog(TLine Line, bool logCR = true, bool logPos = true, bool logPump = true, string extInfo = "")
+        {
+            UnisemProcessLog(Line, new double[] { 0, 0, 0, }, new double[] { 0, 0, 0 }, logCR, logPos, logPump, extInfo);
         }
     }
 

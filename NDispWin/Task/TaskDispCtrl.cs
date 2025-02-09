@@ -560,6 +560,7 @@ namespace NDispWin
                             if (!TaskDisp.TaskGotoFlushNeedlePrompZ(false)) return false;
                             break;
                         case EAction.Prompt_InstValveKit:
+                            TaskDisp.TeachNeedle_Completed = false;
                             break;
                         case EAction.Prompt_AttachBarrel:
                             break;
@@ -610,6 +611,7 @@ namespace NDispWin
                         case EAction.Prompt_RemoveBarrelAdaptor:
                             break;
                         case EAction.Prompt_RemoveValveKit:
+                            TaskDisp.TeachNeedle_Completed = false;
                             break;
                         case EAction.Prompt_Custom:
                             break;

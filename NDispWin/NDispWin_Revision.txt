@@ -21,6 +21,23 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
+
+Ver 6.1.8.0 20250207 - Remote release to LYL/LRK/LT for UnisemCD - Gitted
+  - [Enhance] Change Setup.PusherRunConv from TaskConv.Pro.SvStopperUp to TaskConv.Pro.StopperUp();
+  - [Feature] Prompt to resume IdleReturn Map.
+- [Feature] For Vermes pump, TaskDisp.TeachNeedle_Completed = false if disconnect detected.
+- [Feature] Auto close Messages frmVisonFailMsg, frmVisonFailMsg2, frmHeightFailMsg if the machine is going into idle purge.
+  - [Feature] Added additonal DebugEventLog to track camera error messages
+  - [Feature] Added DispProg.Idle.Reset() to frmMain to detect mouse and keyboard activity
+  - [Changes] LogMemory every 60s, reasonable timing for monitoring
+Ver 6.1.7.3 20250116 - Onsite release to LYL/LT for UnisemCD
+- [Enhance] LogMemory every 15s
+- [Feature] TR_Run() PumpType==Vermes set TaskDisp.TeachNeedle_Completed = false, force TeachNeedle (removed 6.1.7.4)
+- [Refactor] Refactor Idle_Purge, move controls to Setup.Options
+- [Bugfix] frmSetupHM.btnTimerTrig remove BPress and Vac trigger.
+- [Feature] Added Real Pos to ProcessLog
+Ver 6.1.7.2 20241220 - Remote Release to LYL/YZ/YZC for UnisemCD - Gitted
+- [Feature] Added HM support PurgeStage
 Ver 6.1.7.1 20241209 - Remote Release to LYL/YZ/WZM for UnisemCD - Gitted
 - [Refactor] Removed unused frm_LotEntryOsramEMos, frm_LotEntryAnalog, frm_LotEntryAnalogPrompt, frm_LotEntryAnalogSeutp and dependencies
 - [Refactor] Removed unused frm_AOT_TestCloseLoop, frm_Lextart_TestCloseLoop, frm_Osram_eMos_Setup, frmDispProg_VolumeOfst and dependencies

@@ -54,7 +54,7 @@ namespace NDispWin
                           $"/ {DispProg.ErrorMap.OfstX_:f3},{DispProg.ErrorMap.OfstY_:f3},{DispProg.ErrorMap.OfstZ_:f3}";
 
             tslbl_ProgName.Text = GDefine.ProgRecipeName;
-            tslbl_ProgName.ToolTipText = "Program: " +  GDefine.ProgRecipeName;
+            tslbl_ProgName.ToolTipText = "Program: " + GDefine.ProgRecipeName;
 
             switch (DispProg.rt_StationNo)
             {
@@ -218,9 +218,9 @@ namespace NDispWin
 
                         TLayout.ELoopDir repeatLoopDir = TLayout.ELoopDir.XFZ;
                         try { repeatLoopDir = (TLayout.ELoopDir)CLine.IPara[1]; } catch { }
-                        string s = repeatLoopDir.ToString() + " "; 
-                        Para = Para + s + "C,R Pitch ((" + 
-                            CLine.DPara[2].ToString("f3") + "," + CLine.DPara[3].ToString("f3") + "),(" + 
+                        string s = repeatLoopDir.ToString() + " ";
+                        Para = Para + s + "C,R Pitch ((" +
+                            CLine.DPara[2].ToString("f3") + "," + CLine.DPara[3].ToString("f3") + "),(" +
                             CLine.DPara[4].ToString("f3") + "," + CLine.DPara[5].ToString("f3") + ")) ";
                         break;
                     #endregion
@@ -379,7 +379,7 @@ namespace NDispWin
                             break;
                         }
                     #endregion
-                   case DispProg.ECmd.USE_REF:
+                    case DispProg.ECmd.USE_REF:
                     case DispProg.ECmd.USE_VISION:
                         #region
                         {
@@ -644,7 +644,7 @@ namespace NDispWin
                                 int Line = i;
                                 while (Line > 0)
                                 {
-                                    if (CmdLine.Line[Line-1].Cmd == DispProg.ECmd.LINE ||
+                                    if (CmdLine.Line[Line - 1].Cmd == DispProg.ECmd.LINE ||
                                         CmdLine.Line[Line - 1].Cmd == DispProg.ECmd.MOVE ||
                                         CmdLine.Line[Line - 1].Cmd == DispProg.ECmd.DOT)
                                     {
@@ -793,7 +793,7 @@ namespace NDispWin
 
                         Para = Para + " ";
                         if (CmdLine.Line[i].Cmd == DispProg.ECmd.PP_RECYCLE_B || CmdLine.Line[i].Cmd == DispProg.ECmd.PP_RECYCLE_N)
-                                Para = Para + "Count " + CmdLine.Line[i].IPara[2].ToString();
+                            Para = Para + "Count " + CmdLine.Line[i].IPara[2].ToString();
                         if (CmdLine.Line[i].Cmd == DispProg.ECmd.PP_RECYCLE_B)
                             Para = Para + ", " + "Method " + ((TaskDisp.ERecycleMethod)CmdLine.Line[i].IPara[3]).ToString();
                         break;
@@ -923,24 +923,33 @@ namespace NDispWin
 
             if (!Modal) this.WindowState = FormWindowState.Maximized;
 
-            if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-            {
-                TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
-                TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
-                TaskVision.frmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
-                TaskVision.frmMVCGenTLCamera.TopLevel = false;
-                TaskVision.frmMVCGenTLCamera.Parent = splitContainer2.Panel1;
-                TaskVision.frmMVCGenTLCamera.Dock = DockStyle.Fill;
-                TaskVision.frmMVCGenTLCamera.Show();
 
-                if (TaskVision.genTLCamera[0].IsConnected)
+            try
+            {
+                if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
                 {
-                    TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                    TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
-                    TaskVision.genTLCamera[0].StartGrab();
+                    TaskVision.frmMVCGenTLCamera = new frmMVCGenTLCamera();
+                    TaskVision.frmMVCGenTLCamera.CamReticles = Reticle.Reticles;
+                    TaskVision.frmMVCGenTLCamera.FormBorderStyle = FormBorderStyle.None;
+                    TaskVision.frmMVCGenTLCamera.TopLevel = false;
+                    TaskVision.frmMVCGenTLCamera.Parent = splitContainer2.Panel1;
+                    TaskVision.frmMVCGenTLCamera.Dock = DockStyle.Fill;
+                    TaskVision.frmMVCGenTLCamera.Show();
+
+                    if (TaskVision.genTLCamera[0].IsConnected)
+                    {
+                        TaskVision.frmMVCGenTLCamera.SelectCamera(0);
+                        TaskVision.frmMVCGenTLCamera.ShowCamReticles = true;
+                        TaskVision.genTLCamera[0].StartGrab();
+                    }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                Msg MsgBox = new Msg();
+                EMsgRes MsgRes = MsgBox.Show(ex.Message.ToString());
+            }
+
             frm_Jog = new frmJogGantry();
             frm_Jog.FormBorderStyle = FormBorderStyle.None;
             frm_Jog.TopLevel = false;
@@ -1001,13 +1010,22 @@ namespace NDispWin
                 RefreshProgramList();
             }
 
-            if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.MVSGenTL)
+            try
             {
-                TaskVision.genTLCamera[(int)TaskVision.SelectedCam].GrabOneImage();
-                TaskVision.Image = TaskVision.genTLCamera[(int)TaskVision.SelectedCam].mImage.Clone();
-                if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[(int)TaskVision.SelectedCam].StartGrab();
+                if (GDefine.CameraType[(int)TaskVision.SelectedCam] == GDefine.ECameraType.MVSGenTL)
+                {
+                    TaskVision.genTLCamera[(int)TaskVision.SelectedCam].GrabOneImage();
+                    TaskVision.Image = TaskVision.genTLCamera[(int)TaskVision.SelectedCam].mImage.Clone();
+                    if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[(int)TaskVision.SelectedCam].StartGrab();
+                }
+            }
+            catch (Exception ex)
+            {
+                Msg MsgBox = new Msg();
+                EMsgRes MsgRes = MsgBox.Show(ex.Message.ToString());
             }
         }
+    
         private void frm_DispCore_DispProg_Activated(object sender, EventArgs e)
         {
         }

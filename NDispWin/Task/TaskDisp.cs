@@ -178,6 +178,7 @@ namespace NDispWin
                 case TaskDisp.EPumpType.SP:
                 case TaskDisp.EPumpType.PP:
                 case TaskDisp.EPumpType.PPD:
+                case TaskDisp.EPumpType.HM:
                     break;
                 default:
                     MessageBox.Show("Purge Stage do not support selected Pump Type.");
@@ -212,7 +213,6 @@ namespace NDispWin
                 switch (DispProg.Pump_Type)
                 {
                     case TaskDisp.EPumpType.PP:
-                    //case TaskDisp.EPumpType.PP2D:
                     case TaskDisp.EPumpType.PPD:
                         {
                             double VolToDispA_ul = DispProg.PP_HeadA_DispBaseVol + DispProg.PP_HeadA_DispVol_Adj;
@@ -256,6 +256,19 @@ namespace NDispWin
                         {
                             FPressCtrl.Thread.Set_PressUnit(new double[2] { Model.FPressA, Model.FPressB });
                             DispProg.pressVal = new double[] { Model.FPressA, Model.FPressB };
+                        }
+                        break;
+                    case TaskDisp.EPumpType.HM:
+                        {
+                            if (Model.FPressA != DispProg.pressVal[0] || Model.FPressB != DispProg.pressVal[1])
+                            {
+                                FPressCtrl.Thread.Set_PressUnit(new double[2] { Model.FPressA, Model.FPressB });
+                                DispProg.pressVal = new double[] { Model.FPressA, Model.FPressB };
+                            }
+                            TaskDisp.SetDispSpeed(true, false, DispProg.HM_HeadA_Disp_RPM, DispProg.HM_HeadB_Disp_RPM);
+                            TaskDisp.SetDispTime(true, false, DispProg.HM_HeadA_Disp_Time, DispProg.HM_HeadB_Disp_Time);
+                            TaskDisp.SetBSuckSpeed(true, false, DispProg.HM_HeadA_BSuck_RPM, DispProg.HM_HeadB_BSuck_RPM);
+                            TaskDisp.SetBSuckTime(true, false, DispProg.HM_HeadA_BSuck_Time, DispProg.HM_HeadB_BSuck_Time);
                         }
                         break;
                 }
@@ -316,9 +329,6 @@ namespace NDispWin
                                 TaskGantry.DispPortC1 = false;
                                 TaskGantry.BVac1 = true;
                                 TaskGantry.BPress1 = false;
-
-                                //if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
-                                //if (!TaskGantry.WaitGXY()) return false;
                             }
 
                             if (Model.PostWait > 0)
@@ -329,7 +339,6 @@ namespace NDispWin
                             break;
                         }
                     case TaskDisp.EPumpType.PP:
-                    //case TaskDisp.EPumpType.PP2D:
                     case TaskDisp.EPumpType.PPD:
                         {
                             if (!TaskDisp.Thread_SetDispVolume_Wait()) return false;
@@ -342,11 +351,8 @@ namespace NDispWin
                             if (!TaskDisp.TrigOn(true, false)) return false;
                             if (!TaskDisp.CtrlWaitResponse(true, false)) return false;
                             if (!TaskDisp.TrigOff(true, false)) return false;
-                            //if (b_Head1Run) DispProg.Stats.DispCount_Inc(0);
-                            //if (b_Head2Run) DispProg.Stats.DispCount_Inc(1);
 
                             int t_Start = GDefine.GetTickCount() + (int)Model.StartDelay;
-
                             if (Model.StartDelay > 0)
                             {
                                 while (GDefine.GetTickCount() < t_Start)
@@ -359,6 +365,55 @@ namespace NDispWin
                             if (!TaskDisp.CtrlWaitComplete(true, false)) return false;
                             break;
                         }
+                    case TaskDisp.EPumpType.HM:
+                        {
+                            if (Model.DnWait > 0)
+                            {
+                                int t = GDefine.GetTickCount() + Model.DnWait;
+                                while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                            }
+
+                            if (!TaskDisp.CtrlWaitReady(true, false)) return false;
+                            if (!TaskDisp.TrigOn(true, false)) return false;
+
+                            if (Model.StartDelay > 0)
+                            {
+                                int t = GDefine.GetTickCount() + (int)Model.StartDelay;
+                                while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                            }
+
+                            if (Pattern == EPattern.Dot)
+                            {
+                                if (DispProg.HM_HeadA_Disp_Time > 0)
+                                {
+                                    int t = GDefine.GetTickCount() + (int)DispProg.HM_HeadA_Disp_Time;
+                                    while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                                }
+                            }
+                            else//Line
+                            {
+                                if (!TaskGantry.SetMotionParamEx(TaskGantry.GXAxis, Model.LineStartV, Model.LineSpeed, Model.LineAccel)) return false;
+                                if (!TaskGantry.MoveLineRel(TaskGantry.GXAxis, TaskGantry.GYAxis, PatternSize.X, PatternSize.Y)) return false;
+                                if (!TaskGantry.WaitGXY()) return false;
+                            }
+
+                            if (Model.EndDelay > 0)
+                            {
+                                int t = GDefine.GetTickCount() + (int)Model.EndDelay;
+                                while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                            }
+
+                            if (!TaskDisp.TrigOff(true, false)) return false;
+                            if (!TaskDisp.CtrlWaitComplete(true, false)) return false;
+
+                            if (Model.PostWait > 0)
+                            {
+                                int t = GDefine.GetTickCount() + Model.PostWait;
+                                while (true) { if (GDefine.GetTickCount() >= t) break; Thread.Sleep(0); }
+                            }
+
+                        }
+                        break;
                 }
             _Ret:
 
@@ -878,8 +933,11 @@ namespace NDispWin
 
         public static int Idle_TimeToIdle = 0;//(s)
         public static int Idle_PurgeDuration = 0;//(ms)
-        public static int Idle_PostVacTime = 0;//(ms)
         public static int Idle_PurgeInterval = 5;//(s)
+        public static int Idle_PostVacTime = 0;//(ms)
+        public static EMaintPos Idle_Position = EMaintPos.Purge;
+        public static bool Idle_Return = false;
+        public static bool Idle_Returned = false;//volatile, Frame was returned.
 
         public static string[] WeightProgramName = new string[2] { "", "" };
         public static EHeadNo[] WeightProgramHead = new EHeadNo[2] { EHeadNo.Head1, EHeadNo.Head1 };
@@ -1377,8 +1435,9 @@ namespace NDispWin
 
             Idle_TimeToIdle = IniFile.ReadInteger("Idle", "TimeToIdle", 0);
             Idle_PurgeDuration = IniFile.ReadInteger("Idle", "PurgeDuration", 100);
-            Idle_PostVacTime = IniFile.ReadInteger("Idle", "PostVacTime", 100);
             Idle_PurgeInterval = IniFile.ReadInteger("Idle", "PurgeInterval", 60);
+            Idle_PostVacTime = IniFile.ReadInteger("Idle", "PostVacTime", 100);
+            Idle_Position = (EMaintPos)IniFile.ReadInteger("Idle", "Position", (int)EMaintPos.Purge);
 
             #region Needle Weight
             //for (int i = 0; i < MAX_HEADCOUNT; i++)
@@ -1689,8 +1748,9 @@ namespace NDispWin
 
             IniFile.WriteInteger("Idle", "TimeToIdle", Idle_TimeToIdle);
             IniFile.WriteInteger("Idle", "PurgeDuration", Idle_PurgeDuration);
-            IniFile.WriteInteger("Idle", "PostVacTime", Idle_PostVacTime);
             IniFile.WriteInteger("Idle", "PurgeInterval", Idle_PurgeInterval);
+            IniFile.WriteInteger("Idle", "PostVacTime", Idle_PostVacTime);
+            IniFile.WriteInteger("Idle", "Position", (int)Idle_Position);
 
             #region Needle PreDisp
             //for (int i = 0; i < MAX_HEADCOUNT; i++)
@@ -2375,7 +2435,6 @@ namespace NDispWin
                 LightRGB_TopCamera = TaskVision.CurrentLightRGBA;
                 #endregion
 
-                //TaskVision.LightingOn(TaskVision.DefLightRGB);
                 #region Computate Head1 Values
                 Cal_Pos_X = TaskGantry.GXPos();
                 Cal_Pos_Y = TaskGantry.GYPos();
@@ -2433,7 +2492,6 @@ namespace NDispWin
                 Head_Ofst[0].X = _Head_Ofst[0].X;
                 Head_Ofst[0].Y = _Head_Ofst[0].Y;
                 #endregion
-
 
                 if (GDefine.GantryConfig == GDefine.EGantryConfig.XYZ && GDefine.HeadConfig == GDefine.EHeadConfig.Dual)
                 {
@@ -2813,25 +2871,6 @@ namespace NDispWin
             }
             finally
             {
-                //if (GDefine.CameraType[(int)ECamNo.Cam00] == GDefine.ECameraType.Spinnaker)
-                //{
-                //    TaskVision.frmGenImageView.Reticles.Clear();
-                //}
-                if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-                {
-                    try
-                    {
-                        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam02);
-                        //TaskVision.frmGenImageView.GrabStop();
-
-                        //TaskVision.frmGenImageView.SelectIndex((int)ECamNo.Cam00);
-                        //TaskVision.frmGenImageView.Hide();
-                        //TaskVision.frmGenImageView.Reticles.Clear();
-                    }
-                    catch
-                    {
-                    }
-                }
             }
             return true;
         }
@@ -3488,10 +3527,6 @@ namespace NDispWin
 
             GDefine.Status = EStatus.Ready;
             return true;
-            //_Error:
-            //    GDefine.Status = EStatus.ErrorInit;
-            //    frm_DispCore_Msg.Page.ShowMsg(EMsg, frm_DispCore_Msg.TMsgBtn.smbAlmClr | frm_DispCore_Msg.TMsgBtn.smbOK);
-            //    return false;
         }
 
         public static bool MoveNeedleToBCamera(string NeedleName, double X, double Y, double Z, double Z2)
@@ -9060,54 +9095,52 @@ namespace NDispWin
         public static bool IDReader_Enabled = true;
         public static bool IDReader_Read(bool ShowImg, ref string ReadData)
         {
-                    {
-                        Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
+            Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> Image = null;
 
-                        _Retry:
-                        if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
-                        {
-                            TaskVision.genTLCamera[0].GrabOneImage();
-                            Image = TaskVision.genTLCamera[0].mImage.Clone();
-                            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                        }
+        _Retry:
+            if (GDefine.CameraType[0] is GDefine.ECameraType.MVSGenTL)
+            {
+                TaskVision.genTLCamera[0].GrabOneImage();
+                Image = TaskVision.genTLCamera[0].mImage.Clone();
+                if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
+            }
 
-                        if (DispProg.frm_CamView.Visible) DispProg.frm_CamView.Image = Image.ToBitmap();
-                        try
-                        {
-                            //Euresys.Open_eVision_2_5.EImageBW8 m_Source = new Euresys.Open_eVision_2_5.EImageBW8();
-                            //Euresys.Open_eVision_2_5.EMatrixCode m_MatrixCode = new Euresys.Open_eVision_2_5.EMatrixCode();
-                            //Euresys.Open_eVision_2_5.EMatrixCodeReader m_MatrixCodeReader = new Euresys.Open_eVision_2_5.EMatrixCodeReader();
-                            EImageBW8 m_Source = new EImageBW8();
-                            EMatrixCode m_MatrixCode = new EMatrixCode();
-                            EMatrixCodeReader m_MatrixCodeReader = new EMatrixCodeReader();
+            if (DispProg.frm_CamView.Visible) DispProg.frm_CamView.Image = Image.ToBitmap();
+            try
+            {
+                //Euresys.Open_eVision_2_5.EImageBW8 m_Source = new Euresys.Open_eVision_2_5.EImageBW8();
+                //Euresys.Open_eVision_2_5.EMatrixCode m_MatrixCode = new Euresys.Open_eVision_2_5.EMatrixCode();
+                //Euresys.Open_eVision_2_5.EMatrixCodeReader m_MatrixCodeReader = new Euresys.Open_eVision_2_5.EMatrixCodeReader();
+                EImageBW8 m_Source = new EImageBW8();
+                EMatrixCode m_MatrixCode = new EMatrixCode();
+                EMatrixCodeReader m_MatrixCodeReader = new EMatrixCodeReader();
 
-                            using (Image)
-                            {
-                                Bitmap bmp = Image.ToBitmap();
+                using (Image)
+                {
+                    Bitmap bmp = Image.ToBitmap();
 
-                                string s_tempfile = @"c:\temp.bmp";
-                                bmp.Save(s_tempfile);
+                    string s_tempfile = @"c:\temp.bmp";
+                    bmp.Save(s_tempfile);
 
-                                m_Source.Load(s_tempfile);
-                                m_MatrixCode = m_MatrixCodeReader.Read(m_Source);
+                    m_Source.Load(s_tempfile);
+                    m_MatrixCode = m_MatrixCodeReader.Read(m_Source);
 
-                                ReadData = m_MatrixCode.DecodedString;
-                                if (ReadData.Length > 0) return true;
-                                return false;
-                            }
-                        }
-                        catch (Exception Ex)
-                        {
-                            Msg MsgBox = new Msg();
-                            EMsgRes Resp = MsgBox.Show("IDReader_Read DataMatrix Error.", "", Ex.Message.ToString(),  EMcState.Error, EMsgBtn.smbRetry_Cancel, true);
-                            switch (Resp)
-                            {
-                                case EMsgRes.smrRetry: goto _Retry;
-                            }
+                    ReadData = m_MatrixCode.DecodedString;
+                    if (ReadData.Length > 0) return true;
+                    return false;
+                }
+            }
+            catch (Exception Ex)
+            {
+                Msg MsgBox = new Msg();
+                EMsgRes Resp = MsgBox.Show("IDReader_Read DataMatrix Error.", "", Ex.Message.ToString(), EMcState.Error, EMsgBtn.smbRetry_Cancel, true);
+                switch (Resp)
+                {
+                    case EMsgRes.smrRetry: goto _Retry;
+                }
 
-                            return false;
-                        }
-                    }
+                return false;
+            }
         }
 
         public static bool TaskIdlePurge(int Mask)
@@ -9123,7 +9156,20 @@ namespace NDispWin
 
                 TaskDisp.FPressOn(new bool[2] { DispA, DispB });
 
-                TPos3[] Pos3 = new TPos3[2] { TaskDisp.Needle_Purge_Pos[0], TaskDisp.Needle_Purge_Pos[1] };
+                //TPos3[] Pos3 = new TPos3[2] { TaskDisp.Needle_Purge_Pos[0], TaskDisp.Needle_Purge_Pos[1] };
+                TPos3[] Pos3 = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
+                switch ((EMaintPos)Idle_Position)
+                {
+                    case EMaintPos.Clean:
+                        Pos3 = new TPos3[2] { new TPos3(Needle_Clean_Pos[0]), new TPos3(Needle_Clean_Pos[1]) };
+                        break;
+                    case EMaintPos.Purge:
+                        Pos3 = new TPos3[2] { new TPos3(Needle_Purge_Pos[0]), new TPos3(Needle_Purge_Pos[1]) };
+                        break;
+                    case EMaintPos.Flush:
+                        Pos3 = new TPos3[2] { new TPos3(Needle_Flush_Pos[0]), new TPos3(Needle_Flush_Pos[1]) };
+                        break;
+                }
 
                 if (!TaskDisp.TaskMoveGZZ2Up()) return false;
                 if (!TaskDisp.GotoXYPos(Pos3[0], Pos3[1])) return false;
@@ -9210,37 +9256,9 @@ namespace NDispWin
 
                 if (Idle_PostVacTime > 0)
                 {
-                    //#region On Vac
-                    //try
-                    //{
-                    //    TaskGantry.SvCleanVac(TaskGantry.TOutputState.On);
-                    //}
-                    //catch (Exception Ex)
-                    //{
-                    //    EMsg = EMsg + (char)13 + Ex.Message.ToString();
-                    //    Msg MsgBox = new Msg();
-                    //    MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg, true);
-                    //    return false;
-                    //}
-                    //#endregion
                     TaskGantry.SvCleanVac = true;
-
                     int t = GDefine.GetTickCount() + Idle_PostVacTime;
                     while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-
-                    //#region Off Vac
-                    //try
-                    //{
-                    //    TaskGantry.SvCleanVac(TaskGantry.TOutputState.Off);
-                    //}
-                    //catch (Exception Ex)
-                    //{
-                    //    EMsg = EMsg + (char)13 + Ex.Message.ToString();
-                    //    Msg MsgBox = new Msg();
-                    //    MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg, true);
-                    //    return false;
-                    //}
-                    //#endregion                    
                     TaskGantry.SvCleanVac = false;
                 }
 

@@ -32,6 +32,11 @@ namespace NDispWin
 
             this.Text = "HM Pump Setup";
 
+            TaskDisp.SetDispSpeed(true, true, DispProg.HM_HeadA_Disp_RPM, DispProg.HM_HeadB_Disp_RPM);
+            TaskDisp.SetDispTime(true, true, DispProg.HM_HeadA_Disp_Time, DispProg.HM_HeadB_Disp_Time);
+            TaskDisp.SetBSuckSpeed(true, true, DispProg.HM_HeadA_BSuck_RPM, DispProg.HM_HeadB_BSuck_RPM);
+            TaskDisp.SetBSuckTime(true, true, DispProg.HM_HeadA_BSuck_Time, DispProg.HM_HeadB_BSuck_Time);
+
             UpdateDisplay();
         }
 
@@ -83,6 +88,7 @@ namespace NDispWin
         {
             DispProg.HM_HeadA_Disp_RPM = Math.Round(DispProg.HM_HeadA_Disp_RPM, 1);
             UC.AdjustExec("HeadA Disp Speed (RPM)", ref DispProg.HM_HeadA_Disp_RPM, GetMinMaxRPM[0], GetMinMaxRPM[1]);
+            TaskDisp.SetDispSpeed(true, true, DispProg.HM_HeadA_Disp_RPM, DispProg.HM_HeadB_Disp_RPM);
             UpdateDisplay();
         }
 
@@ -102,17 +108,20 @@ namespace NDispWin
         private void lbl_HeadA_DispTime_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("HeadA Disp Time (ms)", ref DispProg.HM_HeadA_Disp_Time, GetMinMaxDispTime[0], GetMinMaxDispTime[1]);
+            TaskDisp.SetDispTime(true, true, DispProg.HM_HeadA_Disp_Time, DispProg.HM_HeadB_Disp_Time);
             UpdateDisplay();
         }
         private void lbl_HeadA_BSuckSpeed_Click(object sender, EventArgs e)
         {
             DispProg.HM_HeadA_BSuck_RPM = Math.Round(DispProg.HM_HeadA_BSuck_RPM, 1);
             UC.AdjustExec("HeadA Back Suck (RPM)", ref DispProg.HM_HeadA_BSuck_RPM, GetMinMaxRPM[0], GetMinMaxRPM[1]);
+            TaskDisp.SetBSuckSpeed(true, true, DispProg.HM_HeadA_BSuck_RPM, DispProg.HM_HeadB_BSuck_RPM);
             UpdateDisplay();
         }
         private void lbl_HeadA_BSuckTime_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("HeadA Back Suck (Time)", ref DispProg.HM_HeadA_BSuck_Time, 0, 5000);
+            TaskDisp.SetBSuckTime(true, true, DispProg.HM_HeadA_BSuck_Time, DispProg.HM_HeadB_BSuck_Time);
             UpdateDisplay();
         }
 
@@ -226,8 +235,8 @@ namespace NDispWin
                         btnTimerTrig.Enable(true);
 
                         FPressCtrl.SetPress_MPa(DispProg.FPress);
-                        TaskGantry.BVac1 = false;
-                        TaskGantry.BPress1 = true;
+                        //TaskGantry.BVac1 = false;
+                        //TaskGantry.BPress1 = true;
                         TaskDisp.TrigOn(true, false);
 
                         tTrigOff = Environment.TickCount + (DispProg.HM_Timer * 1000);
@@ -240,8 +249,8 @@ namespace NDispWin
                     finally
                     {
                         TaskDisp.TrigOff(true, false);
-                        TaskGantry.BPress1 = false;
-                        TaskGantry.BVac1 = true;
+                        //TaskGantry.BPress1 = false;
+                        //TaskGantry.BVac1 = true;
 
                         trigTimerRunning = false;
                         tTrigOff = 0;

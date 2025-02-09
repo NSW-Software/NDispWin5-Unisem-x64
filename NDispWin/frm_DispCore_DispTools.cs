@@ -84,9 +84,6 @@ namespace NDispWin
 
             btn_DrawOfstAdjust.Visible = TaskDisp.Option_EnableDrawOfstAdjust;
             lbl_OrignOfst.Visible = TaskDisp.Option_EnableDrawOfstAdjust;
-            //lbl_OrignOfst.Text = "(" + DispProg.OriginOfst[(int)DispProg.rt_StationNo].X.ToString("F3") + ", " +
-            //                       DispProg.OriginOfst[(int)DispProg.rt_StationNo].Y.ToString("F3") + ", " +
-            //                       DispProg.OriginOfst[(int)DispProg.rt_StationNo].Z.ToString("F3") + ")";
             lbl_OrignOfst.Text = "(" + DispProg.OriginDrawOfst.GetString + ")";
             if (DispProg.OriginDrawOfst.X != 0 || DispProg.OriginDrawOfst.Y != 0 || DispProg.OriginDrawOfst.Z != 0)
                 lbl_OrignOfst.ForeColor = Color.Orange;
@@ -187,16 +184,6 @@ namespace NDispWin
         }
         private void frm_DispCore_DispTools_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker)
-            {
-                try
-                {
-                    //TaskVision.frmGenImageView.GrabStop();
-                    //TaskVision.frmGenImageView.Hide();
-                    //TaskVision.frmGenImageView.EnableCamReticles = true;
-                }
-                catch { }
-            }
         }
 
         private void frmDispTools_KeyDown(object sender, KeyEventArgs e)

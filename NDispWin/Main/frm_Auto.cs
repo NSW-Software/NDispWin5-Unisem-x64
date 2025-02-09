@@ -405,8 +405,10 @@ namespace NDispWin
                 }
             }
         }
+
         private void tmr_1s_Tick(object sender, EventArgs e)
         {
+            tsslIdleTimer.Text = $"Idle : {DispProg.Idle.Timer()} s";
             int value = DispProg.Idle.Idling ? 1 : 0;
             if (value == 1)
             {
@@ -417,6 +419,18 @@ namespace NDispWin
 
                 Define_Run.TR_StopRun();
                 DispProg.Idle.RunIdle();
+
+                //Return
+                if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
+                {
+                    if (TaskConv.Pre.Status != TaskConv.EProcessStatus.Empty || TaskConv.In.SensPsnt) goto _AbortReturn;
+
+                    TaskDisp.Idle_Returned = true;
+                    DispProg.UpdateIdleReturnMaps();
+
+                    TaskConv.MoveProToIn();
+                _AbortReturn:;
+                }
             }
 
             #region Progam

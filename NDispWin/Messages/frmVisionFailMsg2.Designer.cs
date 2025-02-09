@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_AlmClr = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Accept = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.btn_JogPos = new System.Windows.Forms.Button();
             this.lbl_Message = new System.Windows.Forms.Label();
+            this.tmr1s = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,12 +166,17 @@
             this.lbl_Message.Size = new System.Drawing.Size(0, 14);
             this.lbl_Message.TabIndex = 27;
             // 
+            // tmr1s
+            // 
+            this.tmr1s.Interval = 1000;
+            this.tmr1s.Tick += new System.EventHandler(this.tmr1s_Tick);
+            // 
             // frmVisionFailMsg2
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(519, 213);
+            this.ClientSize = new System.Drawing.Size(452, 202);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -199,5 +206,6 @@
         private System.Windows.Forms.Label lbl_Message;
         private System.Windows.Forms.Button btn_JogPos;
         private System.Windows.Forms.RichTextBox rtbMessage;
+        private System.Windows.Forms.Timer tmr1s;
     }
 }
