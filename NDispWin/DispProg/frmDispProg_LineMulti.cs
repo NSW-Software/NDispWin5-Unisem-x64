@@ -164,7 +164,7 @@ namespace NDispWin
 
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -196,7 +196,7 @@ namespace NDispWin
 
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -212,7 +212,7 @@ namespace NDispWin
 
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -287,7 +287,7 @@ namespace NDispWin
 
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;

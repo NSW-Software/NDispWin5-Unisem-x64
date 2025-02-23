@@ -35,19 +35,6 @@ namespace NDispWin
                 TModelPara Model = new TModelPara(DispProg.ModelList, Line.IPara[0]);
                 bool Disp = (Line.IPara[2] > 0);
 
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
-                }
-                #endregion
-
                 #region assign and translate position
                 double dx = f_origin_x + DispProg.rt_LayoutRelPos[DispProg.RunTime.UIndex].X + Line.X[0];
                 double dy = f_origin_y + DispProg.rt_LayoutRelPos[DispProg.RunTime.UIndex].Y + Line.Y[0];
@@ -664,7 +651,7 @@ namespace NDispWin
             {
                 GDefine.Status = EStatus.Busy;
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 switch (RunMode)
                 {

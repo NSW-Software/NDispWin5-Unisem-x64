@@ -1740,7 +1740,7 @@ namespace NDispWin
                 TaskConv.Stop();
                 SvStopperUp = false;
                 Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
                 switch (MsgRes)
                 {
                     case EMsgRes.smrRetry: goto _Retry;
@@ -1763,7 +1763,7 @@ namespace NDispWin
                 SvStopperUp = false;
 
                 Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
                 switch (MsgRes)
                 {
                     case EMsgRes.smrRetry: goto _Retry;
@@ -2249,7 +2249,7 @@ namespace NDispWin
                 TaskConv.Stop();
                 SvStopperUp = false;
                 Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRO", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRO", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
                 switch (MsgRes)
                 {
                     case EMsgRes.smrRetry: goto _Retry;
@@ -2273,7 +2273,7 @@ namespace NDispWin
                 SvStopperUp = false;
 
                 Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_DN_TIMEOUT, "PRO", EMcState.Error, EMsgBtn.smbOK_Retry_Cancel, false);
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_DN_TIMEOUT, "PRO", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
                 switch (MsgRes)
                 {
                     case EMsgRes.smrRetry: goto _Retry;
@@ -8422,7 +8422,11 @@ namespace NDispWin
                                 //    goto _End;
                                 //}
                                 //TaskConv.Pro.SvStopperUp = true;
-                                if (!TaskConv.Pro.StopperUp()) goto _End;
+                                if (!TaskConv.Pro.StopperUp())
+                                {
+                                    TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                    goto _End;
+                                }
                             }
                             if (Station == TaskConv.EStation.Pre)
                             {
@@ -8434,7 +8438,11 @@ namespace NDispWin
                                 //    goto _End;
                                 //}
                                 //TaskConv.Pre.SvStopperUp = true;
-                                if (!TaskConv.Pre.StopperUp()) goto _End;
+                                if (!TaskConv.Pre.StopperUp())
+                                {
+                                    TaskConv.Status = TaskConv.EConvStatus.Stop;
+                                    goto _End;
+                                }
                             }
                             TaskConv.Conv.Fwd_Fast();
                         }

@@ -128,7 +128,7 @@ namespace NDispWin
             double X = TaskDisp.PurgeStage.StartXY.X;
             double Y = TaskDisp.PurgeStage.StartXY.Y;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
         }
@@ -151,7 +151,7 @@ namespace NDispWin
             double X = TaskDisp.PurgeStage.EndXY.X;
             double Y = TaskDisp.PurgeStage.EndXY.Y;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
         }
@@ -186,7 +186,7 @@ namespace NDispWin
         {
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { };
             Close();

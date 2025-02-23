@@ -199,7 +199,7 @@ namespace NDispWin
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             Close();
         }
 
@@ -248,7 +248,7 @@ namespace NDispWin
 
             try
             {
-                if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                if (!TaskDisp.TaskMoveGZUp()) return;
                 if (!TaskGantry.SetMotionParamGXYX2Y2()) return;
 
                 TPos2 GXY = new TPos2(DispProg.Origin(DispProg.rt_StationNo).X, DispProg.Origin(DispProg.rt_StationNo).Y);
@@ -500,7 +500,7 @@ namespace NDispWin
 
             try
             {
-                if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                if (!TaskDisp.TaskMoveGZUp()) return;
                 if (!TaskGantry.SetMotionParamGXYX2Y2()) return;
 
                 TPos2 GXY = new TPos2(DispProg.Origin(DispProg.rt_StationNo).X, DispProg.Origin(DispProg.rt_StationNo).Y);

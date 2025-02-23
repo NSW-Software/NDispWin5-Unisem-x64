@@ -154,7 +154,7 @@ namespace NDispWin
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
             DispProg.RealTimeOffset(DispProg.ERealTimeOp.Add, ref X, ref Y);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -197,7 +197,7 @@ namespace NDispWin
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[1];
             DispProg.RealTimeOffset(DispProg.ERealTimeOp.Add, ref X, ref Y);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -242,7 +242,7 @@ namespace NDispWin
                 double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + Y_R;
                 DispProg.RealTimeOffset(DispProg.ERealTimeOp.Add, ref X, ref Y);
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                if (!TaskDisp.TaskMoveGZUp()) return;
 
                 if (!TaskGantry.SetMotionParamGXY()) return;
                 if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -274,7 +274,7 @@ namespace NDispWin
                 double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + Y_R;
                 DispProg.RealTimeOffset(DispProg.ERealTimeOp.Add, ref X, ref Y);
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                if (!TaskDisp.TaskMoveGZUp()) return;
 
                 if (!TaskGantry.SetMotionParamGXY()) return;
                 if (!TaskGantry.MoveAbsGXY(X, Y)) return;

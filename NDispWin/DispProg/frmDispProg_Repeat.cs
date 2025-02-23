@@ -172,7 +172,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.DPara[0];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.DPara[1];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -202,7 +202,7 @@ namespace NDispWin
             X = X + (CmdLine.DPara[2] * (CmdLine.Index[2] - 1));
             Y = Y + (CmdLine.DPara[3] * (CmdLine.Index[2] - 1));
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -232,7 +232,7 @@ namespace NDispWin
             X = X + (CmdLine.DPara[4] * (CmdLine.Index[4] - 1));
             Y = Y + (CmdLine.DPara[5] * (CmdLine.Index[4] - 1));
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
@@ -246,7 +246,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.DPara[0];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.DPara[1];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
 
@@ -263,7 +263,7 @@ namespace NDispWin
             X = X + (CmdLine.DPara[2] * CR.X) + (CmdLine.DPara[4] * CR.Y);
             Y = Y + (CmdLine.DPara[3] * CR.X) + (CmdLine.DPara[5] * CR.Y);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
 
@@ -295,7 +295,7 @@ namespace NDispWin
             X = X + (CmdLine.DPara[2] * CR.X) + (CmdLine.DPara[4] * CR.Y);
             Y = Y + (CmdLine.DPara[3] * CR.X) + (CmdLine.DPara[5] * CR.Y);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
 
@@ -327,7 +327,7 @@ namespace NDispWin
             X = X + (CmdLine.DPara[2] * CR.X) + (CmdLine.DPara[4] * CR.Y);
             Y = Y + (CmdLine.DPara[3] * CR.X) + (CmdLine.DPara[5] * CR.Y);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
 

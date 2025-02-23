@@ -36,7 +36,7 @@ namespace NDispWin
             tmr_Idle.Enabled = false;
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { };
         }

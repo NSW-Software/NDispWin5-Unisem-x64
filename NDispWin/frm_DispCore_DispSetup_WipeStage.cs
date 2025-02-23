@@ -84,7 +84,7 @@ namespace NDispWin
         {
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { };
             Close();
@@ -95,7 +95,7 @@ namespace NDispWin
             double X = TaskDisp.WipeStage.StartXY.X;
             double Y = TaskDisp.WipeStage.StartXY.Y;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;
         }
@@ -191,7 +191,7 @@ namespace NDispWin
             double Z = TaskDisp.Head_ZSensor_RefPosZ[0] + TaskDisp.WipeStage.WipeHeightOffset + TaskDisp.WipeStage.WipeGap;
             Z = Z + TaskDisp.WipeStage.Path[0].Z;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y, true)) return;
             if (!TaskGantry.MoveAbsGZ(Z, true)) return;
@@ -203,7 +203,7 @@ namespace NDispWin
             double Z = TaskDisp.Head_ZSensor_RefPosZ[0] + TaskDisp.WipeStage.WipeHeightOffset + TaskDisp.WipeStage.WipeGap;
             Z = Z + TaskDisp.WipeStage.Path[1].Z;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y, true)) return;
             if (!TaskGantry.MoveAbsGZ(Z, true)) return;
@@ -215,7 +215,7 @@ namespace NDispWin
             double Z = TaskDisp.Head_ZSensor_RefPosZ[0] + TaskDisp.WipeStage.WipeHeightOffset + TaskDisp.WipeStage.WipeGap;
             Z = Z + TaskDisp.WipeStage.Path[2].Z;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y, true)) return;
             if (!TaskGantry.MoveAbsGZ(Z, true)) return;
@@ -227,7 +227,7 @@ namespace NDispWin
             double Z = TaskDisp.Head_ZSensor_RefPosZ[0] + TaskDisp.WipeStage.WipeHeightOffset + TaskDisp.WipeStage.WipeGap;
             Z = Z + TaskDisp.WipeStage.Path[3].Z;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y, true)) return;
             if (!TaskGantry.MoveAbsGZ(Z, true)) return;
@@ -239,7 +239,7 @@ namespace NDispWin
             double Z = TaskDisp.Head_ZSensor_RefPosZ[0] + TaskDisp.WipeStage.WipeHeightOffset + TaskDisp.WipeStage.WipeGap;
             Z = Z + TaskDisp.WipeStage.Path[4].Z;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y, true)) return;
             if (!TaskGantry.MoveAbsGZ(Z, true)) return;

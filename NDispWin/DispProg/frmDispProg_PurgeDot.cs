@@ -197,7 +197,7 @@ namespace NDispWin
             Log.OnSet(CmdName + " Position XYZ1", Old1, New1);
             Log.OnSet(CmdName + " Position XYZ2", Old2, New2);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             UpdateDisplay();
         }
@@ -214,7 +214,7 @@ namespace NDispWin
             
             //if (!TaskGantry.SetMotionParamGZZ2()) return;
             //if (!TaskGantry.MoveAbsGZZ2(0)) return;
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXYX2Y2()) return;
 
@@ -304,7 +304,7 @@ namespace NDispWin
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             DispProg.Script[ProgNo].CmdList.Line[LineNo].Copy(CmdLine);
             //frm_DispProg2.Done = true;
@@ -313,7 +313,7 @@ namespace NDispWin
         }
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             //frm_DispProg2.Done = true;
             Log.OnAction("Cancel", CmdName);

@@ -85,7 +85,7 @@ namespace NDispWin
         {
             if (e.KeyCode == Keys.Escape)
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
 
                 if (this.Modal)
                 {

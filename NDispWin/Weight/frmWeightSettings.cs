@@ -143,7 +143,7 @@ namespace NDispWin
                 TaskWeight.Needle_Weight_Pos[1].Y = 0;
                 TaskWeight.Needle_Weight_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
 
         }
@@ -161,7 +161,7 @@ namespace NDispWin
             {
 
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btn_GotoNeedle2WeightPos_Click(object sender, EventArgs e)

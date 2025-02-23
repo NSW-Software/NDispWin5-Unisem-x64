@@ -178,7 +178,7 @@ namespace NDispWin
                         }
                     }
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                    if (!TaskDisp.TaskMoveGZUp()) return;
                     DispProg.RealTimeOffset(DispProg.ERealTimeOp.Add, ref X, ref Y);
                     if (!TaskGantry.SetMotionParamGXY()) return;
                     if (!TaskGantry.MoveAbsGXY(X, Y)) return;

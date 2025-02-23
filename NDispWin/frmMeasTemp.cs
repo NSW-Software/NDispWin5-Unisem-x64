@@ -155,7 +155,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + positions[lbxPositions.SelectedIndex].X;
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + positions[lbxPositions.SelectedIndex].Y;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;

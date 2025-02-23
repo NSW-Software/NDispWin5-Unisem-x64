@@ -439,6 +439,8 @@ namespace NDispWin
         public const int DO_VISION_FAIL = OPERATION_ERR + 80;
 
         public const int DISP_IS_BUSY = OPERATION_ERR + 90;
+
+        public const int AUTO_IDLE_ON_ERROR_EXECUTED = OPERATION_ERR + 91;
         #endregion
 
         const int PROGRAM_ERR = 2900;

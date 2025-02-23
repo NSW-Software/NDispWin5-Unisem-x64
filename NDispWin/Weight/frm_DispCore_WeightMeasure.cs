@@ -91,7 +91,7 @@ namespace NDispWin
 
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { };
         }

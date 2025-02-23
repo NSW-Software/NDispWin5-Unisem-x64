@@ -69,7 +69,7 @@ namespace NDispWin
                 TaskDisp.Machine_Maint_Pos[1].Y = 0;
                 TaskDisp.Machine_Maint_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
 
@@ -96,7 +96,7 @@ namespace NDispWin
                 TaskDisp.Needle_Maint_Pos[1].Y = 0;
                 TaskDisp.Needle_Maint_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
 
@@ -129,7 +129,7 @@ namespace NDispWin
                 TaskDisp.P1NeedleInspCamPos[1].Y = 0;
                 TaskDisp.P1NeedleInspCamPos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btnGotoP1NICamPos_Click(object sender, EventArgs e)
@@ -161,7 +161,7 @@ namespace NDispWin
                 TaskDisp.P2NeedleInspCamPos[1].Y = 0;
                 TaskDisp.P2NeedleInspCamPos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btnGotoP2NICamPos_Click(object sender, EventArgs e)

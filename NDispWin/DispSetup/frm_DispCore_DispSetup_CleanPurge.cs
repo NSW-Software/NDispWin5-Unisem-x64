@@ -127,7 +127,7 @@ namespace NDispWin
             //    TaskDisp.Needle_Purge_Pos[1].Z = TaskDisp.Needle_Clean_Pos[1].Z;
             //}
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btn_Goto_Click(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace NDispWin
                 TaskDisp.Needle_Purge_Pos[1].Y = 0;
                 TaskDisp.Needle_Purge_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btn_GotoPurgePos_Click(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace NDispWin
                 TaskDisp.Needle_Flush_Pos[1].Y = 0;
                 TaskDisp.Needle_Flush_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
 

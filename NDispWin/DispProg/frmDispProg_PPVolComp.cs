@@ -133,14 +133,14 @@ namespace NDispWin
         {
             DispProg.Script[ProgNo].CmdList.Line[LineNo].Copy(CmdLine);
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             Log.OnAction("OK", CmdName);
             Close();
         }
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             Log.OnAction("Cancel", CmdName);
             Close();

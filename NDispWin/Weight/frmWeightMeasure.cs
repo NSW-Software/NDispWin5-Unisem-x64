@@ -49,7 +49,7 @@ namespace NDispWin
             TaskWeight.SoftZeroReset();
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { };
         }

@@ -541,7 +541,7 @@ namespace NDispWin
             //TPos2 GX2Y2 = new TPos2(TaskDisp.Head2_DefPos.X, TaskDisp.Head2_DefPos.Y);
             //GX2Y2.X = GX2Y2.X - TaskDisp.Head2_DefDistX + TaskDisp.Head2_MinDistX;
             //if (!TaskDisp.GotoXYPos(GXY, GX2Y2)) goto _Error;
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+            if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) goto _Error;
             TPos2 GXY = new TPos2(XS + TaskDisp.Laser_Ofst.X, YS + TaskDisp.Laser_Ofst.Y);
@@ -1739,7 +1739,7 @@ namespace NDispWin
         {
             GDefine.Status = EStatus.Busy;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+            if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) goto _Error;
             TPos2 GXY = new TPos2(XS + TaskDisp.Laser_Ofst.X, YS + TaskDisp.Laser_Ofst.Y);

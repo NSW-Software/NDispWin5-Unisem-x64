@@ -103,7 +103,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[0];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
@@ -131,7 +131,7 @@ namespace NDispWin
 
             //if (!TaskGantry.SetMotionParamGZZ2()) return;
             //if (!TaskGantry.MoveAbsGZZ2(0)) return;
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;

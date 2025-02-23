@@ -436,7 +436,7 @@ namespace NDispWin
         {
             GDefine.Status = EStatus.Busy;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             TPos2 GXY = new TPos2(Needle_Weight_Pos[0].X, Needle_Weight_Pos[0].Y);
             TPos2 GX2Y2 = new TPos2(TaskDisp.Head2_DefPos.X, TaskDisp.Head2_DefPos.Y);
@@ -916,7 +916,7 @@ namespace NDispWin
 
             if (d_mg <= 0)
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
                 s_Log = "[Head" + HeadNo + " Error] Low Weight Error.";
                 ListBox.Items.Add(s_Log);
                 Log.WeightCal.WriteByMonthDay(s_Log);
@@ -1248,7 +1248,7 @@ namespace NDispWin
                             TaskWeight.SaveDefault();
                             TaskDisp.FPressOff();
 
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
                             s_Log = "[Completed]";
                             ListBox.Items.Add(s_Log);
                             Log.WeightCal.WriteByMonthDay(s_Log);
@@ -1262,7 +1262,7 @@ namespace NDispWin
 
                     if (list_WC_MeasWeight.Count >= TaskWeight.CalMaxAttempt)
                     {
-                        TaskDisp.TaskMoveGZZ2Up();
+                        TaskDisp.TaskMoveGZUp();
                         s_Log = "[Head" + HeadNo + " Error] Max Attempt Fail to Achieve Target.";
                         ListBox.Items.Add(s_Log);
                         Log.WeightCal.WriteByMonthDay(s_Log);
@@ -1287,7 +1287,7 @@ namespace NDispWin
                 #region Check Press Limit
                 if (FPressOutRange)
                 {
-                    TaskDisp.TaskMoveGZZ2Up();
+                    TaskDisp.TaskMoveGZUp();
                     s_Log = "[Head" + HeadNo + " Error] FPress Out Of Range.";
                     ListBox.Items.Add(s_Log);
                     Log.WeightCal.WriteByMonthDay(s_Log);
@@ -1303,7 +1303,7 @@ namespace NDispWin
         _Abort:
             TaskDisp.FPressOff();
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             return false;
 
@@ -1311,7 +1311,7 @@ namespace NDispWin
         _Cancel:
             TaskDisp.FPressOff();
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "[Head" + HeadNo + " Cancelled]";
             ListBox.Items.Add(s_Log);
@@ -1323,7 +1323,7 @@ namespace NDispWin
         _SpeedError:
             TaskDisp.FPressOff();
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "[Head" + HeadNo + " Error]";
             ListBox.Items.Add(s_Log);
@@ -1757,21 +1757,21 @@ namespace NDispWin
                 }
             }
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             return true;
 
         _Error:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             ListBox.Items.Add("Error");
             return false;
 
         _Cancel:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             ListBox.Items.Add("Head" + HeadNo + " Cancelled.");
             return false;
         }
@@ -1972,7 +1972,7 @@ namespace NDispWin
                             s_Log = "Flowrate " + Value[headNo].ToString("f3") + " mg/s, Pressure " + DispProg.FPress[headNo].ToString("f3") + " MPa";
                             AddLog(s_Log);
 
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
                             s_Log = "Cal Completed.";
                             AddLog(s_Log);
 
@@ -1984,7 +1984,7 @@ namespace NDispWin
 
                         if (list_Cal.Count >= maxAttempt)
                         {
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
                             s_Log = "Cal Failed. Exceed Max Attempt.";
                             AddLog(s_Log);
                             return false;
@@ -2038,7 +2038,7 @@ namespace NDispWin
                             s_Log = "Flowrate " + Value[headNo].ToString("f3") + " mg/s, Pressure " + DispProg.FPress[headNo].ToString("f3") + " MPa";
                             AddLog(s_Log);
 
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
                             s_Log = "Cal Completed.";
                             AddLog(s_Log);
 
@@ -2050,7 +2050,7 @@ namespace NDispWin
 
                         if (list_Cal.Count >= maxAttempt)
                         {
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
                             s_Log = "Cal Failed. Exceed Max Attempt.";
                             AddLog(s_Log);
                             return false;
@@ -2069,12 +2069,12 @@ namespace NDispWin
 
             _Abort:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             return false;
 
             _Cancel:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "Cal Cancelled.";
             AddLog(s_Log);
@@ -2082,7 +2082,7 @@ namespace NDispWin
 
             _Error:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "Cal Error.";
             AddLog(s_Log);
@@ -2247,12 +2247,12 @@ namespace NDispWin
 
         _Abort:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             return false;
 
         _Cancel:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "Meas Cancelled.";
             AddLog(s_Log);
@@ -2260,7 +2260,7 @@ namespace NDispWin
 
         _Error:
             TaskDisp.FPressOff();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             s_Log = "Meas Error.";
             AddLog(s_Log);

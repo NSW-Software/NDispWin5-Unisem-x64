@@ -191,7 +191,7 @@ namespace NDispWin
 
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
             }
             catch { }
 
@@ -310,7 +310,7 @@ namespace NDispWin
         }
         private void btn_GotoStationXY_Click(object sender, EventArgs e)
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXYX2Y2()) return;
 
@@ -340,7 +340,7 @@ namespace NDispWin
 
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
         }
 
         #endregion

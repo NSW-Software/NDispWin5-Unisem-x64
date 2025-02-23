@@ -180,8 +180,6 @@ namespace NDispWin
         }
         private void lbl_AlignType_Click(object sender, EventArgs e)
         {
-            if (CmdLine.IPara[0] == 4) return;
-
             EAlignType E = EAlignType.Board;
 
             UC.AdjustExec(CmdName + ", AlignType", ref CmdLine.IPara[2], E);
@@ -244,7 +242,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[0];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
@@ -268,7 +266,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[1];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[1];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
@@ -292,7 +290,7 @@ namespace NDispWin
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[2];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[2];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
             if (!TaskGantry.SetMotionParamGXY()) return;
@@ -335,7 +333,7 @@ namespace NDispWin
             i_PointNo--;
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
@@ -349,7 +347,7 @@ namespace NDispWin
             i_PointNo++;
             UpdateDisplay();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
@@ -359,7 +357,7 @@ namespace NDispWin
         }
         private void btnGotoPos_Click(object sender, EventArgs e)
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOrigin.X) + CmdLine.X[i_PointNo];
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[i_PointNo];
@@ -516,7 +514,7 @@ namespace NDispWin
 
                                 int t = GDefine.GetTickCount();
 
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                                if (!TaskDisp.TaskMoveGZUp()) return;
 
                                 double dx = DispProg.Origin(ERunStationNo.Station1).X + DispProg.Script[ProgNo].CmdList.Line[nextLine].X[0];
                                 double dy = DispProg.Origin(ERunStationNo.Station1).Y + DispProg.Script[ProgNo].CmdList.Line[nextLine].Y[0];

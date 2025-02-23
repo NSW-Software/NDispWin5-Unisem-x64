@@ -52,7 +52,7 @@ namespace NDispWin
 
             Z = Z - OverTravel;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (TaskDisp.TeachNeedle_DotPromptCleanStage)
             {
@@ -183,7 +183,7 @@ namespace NDispWin
 
                         if (dr == DialogResult.Cancel)
                         {
-                            if (!TaskDisp.TaskMoveGZZ2Up()) goto _Fail;
+                            if (!TaskDisp.TaskMoveGZUp()) goto _Fail;
                             goto _Fail;
                         }
                         break;
@@ -191,7 +191,7 @@ namespace NDispWin
                         //goto _RetryCoarse;
                         break;
                     case EMsgRes.smrCancel:
-                        if (!TaskDisp.TaskMoveGZZ2Up()) goto _Fail;
+                        if (!TaskDisp.TaskMoveGZUp()) goto _Fail;
                         goto _Fail;
                 }
                 #endregion
@@ -353,7 +353,7 @@ namespace NDispWin
 
             if (i_TouchCount < 3) goto _Retouch;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _Fail;
+            if (!TaskDisp.TaskMoveGZUp()) goto _Fail;
 
             #region Add Log
             string s_TouchPos = CoarseFoundZ.ToString("f3") + "/";
@@ -393,11 +393,11 @@ namespace NDispWin
             TouchZ = d_Ave;
             #endregion
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             return true;
 
         _Fail:
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             return false;
         }
     }

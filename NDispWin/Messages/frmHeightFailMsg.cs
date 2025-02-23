@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NDispWin
 {
@@ -20,6 +22,7 @@ namespace NDispWin
         public const int Reject = 0x10;
         public int Buttons = Retry | Skip |Stop |Accept |Reject; 
 
+        bool bClosed = false;
         public frm_DispCore_HeightFailMsg()
         {
             InitializeComponent();
@@ -44,11 +47,43 @@ namespace NDispWin
             UpdateDisplay();
 
             IO.SetState(EMcState.Error);
+
+            Task.Run(() => {//no await
+                while (!bClosed)
+                {
+                    if (bClosed) break;
+                    if (TaskDisp.Option_EnableIdleOnError && DispProg.Idle.Idling)
+                    {
+                        DispProg.Idle.RunIdle();
+
+                        if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
+                        {
+                            if (TaskConv.Pre.Status != TaskConv.EProcessStatus.Empty || TaskConv.In.SensPsnt) goto _AbortReturn;
+
+                            TaskDisp.Idle_Returned = true;
+                            DispProg.UpdateIdleReturnMaps();
+
+                            TaskConv.MoveProToIn();
+                        _AbortReturn:;
+                        }
+
+                        DialogResult = DialogResult.Abort;
+                        EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Error Unattended for {DispProg.Idle.Timer()}s");
+                    }
+
+                    if (TaskDisp.Option_EnableStartIdle && DispProg.Idle.Idling)
+                    {
+                        DialogResult = DialogResult.Abort;
+                    }
+
+                    Thread.Sleep(5);
+                }
+            });
         }
 
         private void frmHeightFailMsg_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            bClosed = true;
         }
 
         private void UpdateDisplay()
@@ -86,19 +121,6 @@ namespace NDispWin
         private void btn_Reject_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-        }
-
-        private void tmr1s_Tick(object sender, EventArgs e)
-        {
-            if (DispProg.Idle.Idling)
-            {
-                DialogResult = DialogResult.Abort;
-            }
-        }
-
-        private void lbl_Message_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

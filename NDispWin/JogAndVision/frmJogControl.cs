@@ -793,7 +793,7 @@ namespace NDispWin
 
                 try
                 {
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                    if (!TaskDisp.TaskMoveGZUp()) return;
 
                     if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
                     {

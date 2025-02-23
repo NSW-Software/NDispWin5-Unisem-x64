@@ -143,7 +143,7 @@ namespace NDispWin
 
         private void btn_Goto_Click(object sender, EventArgs e)
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(TaskDisp.TeachNeedle_CleanStage_Pos.X, TaskDisp.TeachNeedle_CleanStage_Pos.Y)) return;

@@ -247,7 +247,7 @@ namespace NDispWin
                         if ((DateTime.Now - dt_LastMove).TotalSeconds > TaskDisp.Option_IdlePurgeTimer)
                         {
                             Event.OP_IDLE_PURGE_START.Set();
-                            TaskDisp.TaskMoveGZZ2Up();
+                            TaskDisp.TaskMoveGZUp();
 
                             TPos3[] pos = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
                             switch ((TaskDisp.EMaintPos)TaskDisp.Idle_Position)
@@ -633,7 +633,7 @@ namespace NDispWin
         public static double Head_NeedlePitchY = 0;
 
         public static bool DispCtrl_ForceTimeMode = true;
-        public static bool Options_EnableProcessLog = false;
+        public static bool Options_EnableProcessLog = true;
 
         public static double Options_CheckBoardInputYield = 0;
         public static double Options_CheckBoardYield = 0;
@@ -2834,7 +2834,7 @@ namespace NDispWin
 
             try
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
 
                 if (!Script[0].IsBusy)
                     if (!Script[0].Run(RunMode, Origin(rt_StationNo).X, Origin(rt_StationNo).Y, Origin(rt_StationNo).Z, false, false))// goto _Stop;
@@ -2849,7 +2849,7 @@ namespace NDispWin
             {
                 try
                 {
-                    TaskDisp.TaskMoveGZZ2Up();
+                    TaskDisp.TaskMoveGZUp();
                 }
                 catch { };
 
@@ -9763,7 +9763,7 @@ namespace NDispWin
                     }
 
                 _EndBoard:
-                    if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+                    if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
                     if (TaskDisp.Option_EnableChuckVac)
                     {
@@ -9870,7 +9870,7 @@ namespace NDispWin
                 GDefine.Status = EStatus.Stop;
                 BdStatus = EBoardStatus.Stop;
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+                if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
                 IsBusy = false;
                 Running = false;
@@ -10261,7 +10261,7 @@ namespace NDispWin
 
                 try
                 {
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
 
                     //TPos2 GXY = new TPos2(X, Y);
                     //TPos2 GX2Y2 = new TPos2(TaskDisp.Head2_DefPos.X, TaskDisp.Head2_DefPos.Y);
@@ -10387,7 +10387,7 @@ namespace NDispWin
                     }
                     #endregion
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+                    if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
                     TPos2 GXY = new TPos2(XA1, YA1);
                     TPos2 GX2Y2 = new TPos2(XA2, YA2);
@@ -10776,7 +10776,7 @@ namespace NDispWin
                     }
                     #endregion
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+                    if (!TaskDisp.TaskMoveGZUp()) goto _Error;
 
                     switch (RunMode)
                     {
@@ -10954,19 +10954,6 @@ namespace NDispWin
                         case ERunMode.Camera:
                         case ERunMode.Dry:
                             break;
-                    }
-                    #endregion
-
-                    #region Move GZ2 Up if invalid
-                    if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !Head2Valid)
-                    {
-                        switch (RunMode)
-                        {
-                            case ERunMode.Normal:
-                            case ERunMode.Dry:
-                                if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                                break;
-                        }
                     }
                     #endregion
 
@@ -11486,19 +11473,6 @@ namespace NDispWin
                 #region Update Z Offset
                 Z1 = Z1 + TaskDisp.Z1Offset;
                 Z2 = Z2 + TaskDisp.Z2Offset + TaskDisp.Head2_ZOffset;
-                #endregion
-
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !Head2Valid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
-                }
                 #endregion
 
                 try
@@ -15109,7 +15083,7 @@ namespace NDispWin
                     }
                 }
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (!temp) RunTime.UIndex = UnitNo;
                 double X = Origin(rt_StationNo).X + rt_Start.X + rt_LayoutRelPos[UnitNo].X;
@@ -17619,19 +17593,6 @@ namespace NDispWin
                 }
                 #endregion
 
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
-                }
-                #endregion
-
                 #region assign and translate position
                 double dx = f_origin_x + rt_LayoutRelPos[RunTime.UIndex].X + Line.X[0];
                 double dy = f_origin_y + rt_LayoutRelPos[RunTime.UIndex].Y + Line.Y[0];
@@ -18145,19 +18106,6 @@ namespace NDispWin
                 }
                 #endregion
 
-                #region GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
-                }
-                #endregion
-
                 double Z1 = 0;
                 double Z2 = 0;
 
@@ -18610,19 +18558,6 @@ namespace NDispWin
                     case ERunMode.Camera:
                     case ERunMode.Dry:
                         break;
-                }
-                #endregion
-
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
                 }
                 #endregion
 
@@ -19106,19 +19041,6 @@ namespace NDispWin
                     case ERunMode.Camera:
                     case ERunMode.Dry:
                         break;
-                }
-                #endregion
-
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
                 }
                 #endregion
 
@@ -20105,19 +20027,6 @@ namespace NDispWin
                     case ERunMode.Camera:
                     case ERunMode.Dry:
                         break;
-                }
-                #endregion
-
-                #region Move GZ2 Up if invalid
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2 && !b_Head2IsValid)
-                {
-                    switch (RunMode)
-                    {
-                        case ERunMode.Normal:
-                        case ERunMode.Dry:
-                            if (!TaskDisp.TaskMoveGZ2Up()) return false;
-                            break;
-                    }
                 }
                 #endregion
 
@@ -21170,7 +21079,7 @@ namespace NDispWin
                 if (EndY - StartY < 0) indexDistY = -indexDistY;
                 #endregion
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (!TaskGantry.MoveGX2Y2DefPos(true)) goto _Error;
                 if (!TaskGantry.SetMotionParamGXY()) goto _Error;
 
@@ -21466,7 +21375,7 @@ namespace NDispWin
 
             try
             {
-                if (!TaskDisp.TaskMoveGZZ2Up()) goto _Error;
+                if (!TaskDisp.TaskMoveGZUp()) goto _Error;
                 if (!TaskGantry.MoveGX2Y2DefPos(true)) goto _Error;
                 if (!TaskGantry.SetMotionParamGXY()) goto _Error;
                 if (!TaskGantry.MoveAbsGXY(X, Y, true)) goto _Error;
@@ -22336,7 +22245,7 @@ namespace NDispWin
 
             try
             {
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (!TaskGantry.MoveGX2Y2DefPos(true)) return false;
 
                 #region Set XY Move Para

@@ -122,7 +122,7 @@ namespace NDispWin
 
             //if (!TaskGantry.SetMotionParamGZZ2()) return;
             //if (!TaskGantry.MoveAbsGZZ2(0)) return;
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.SetMotionParamGXY()) return;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return;

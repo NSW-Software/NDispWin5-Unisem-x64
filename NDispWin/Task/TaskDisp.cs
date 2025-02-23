@@ -165,7 +165,7 @@ namespace NDispWin
             else
                 Y = Y + 50;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             if (!TaskGantry.SetMotionParamGXY()) return false;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return false;
 
@@ -192,7 +192,7 @@ namespace NDispWin
             }
 
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             if (!TaskGantry.SetMotionParamGXY()) return false;
 
             TModelPara Model = new TModelPara(DispProg.ModelList, ModelNo);
@@ -464,7 +464,7 @@ namespace NDispWin
                     }
                 }
             }
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             return true;
         }
@@ -629,7 +629,7 @@ namespace NDispWin
             else
                 Y = Y + 50;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             if (!TaskGantry.SetMotionParamGXY()) return false;
             if (!TaskGantry.MoveAbsGXY(X, Y)) return false;
 
@@ -679,7 +679,7 @@ namespace NDispWin
                 TaskGantry.TapeTrig = false;
             }
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
             {
@@ -765,7 +765,7 @@ namespace NDispWin
 
             LastCR = NextCR;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (i_Repeat < RepeatWipe)
             {
@@ -793,7 +793,7 @@ namespace NDispWin
                 }
             }
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             return true;
         }
@@ -966,6 +966,8 @@ namespace NDispWin
 
         public static bool Option_EnableStartIdle = false;
         public static int Option_IdlePurgeTimer = 0;//s
+        public static bool Option_EnableIdleOnError = false;
+
         public static bool Option_EnableScriptCheck = false;
         public static bool Option_EnableScriptCheckUnitMode = false;
         public static bool Option_EnableRealTimeFineTune = false;
@@ -1527,6 +1529,7 @@ namespace NDispWin
             Option_DrawOfstAdjustRate = IniFile.ReadDouble("Option", "DrawOfstAdjustRate", 0.1);
 
             Option_EnableStartIdle = IniFile.ReadBool("Option", "EnableStartIdle", false);
+            Option_EnableIdleOnError = IniFile.ReadBool("Option", "EnableIdleOnError", false);
             Option_IdlePurgeTimer = IniFile.ReadInteger("Option", "IdlePurgeTimer", 0);
             Option_EnableScriptCheck = IniFile.ReadBool("Option", "EnableScriptCheck", false);
             Option_EnableScriptCheckUnitMode = IniFile.ReadBool("Option", "EnableScriptCheckUnitMode", false);
@@ -1557,7 +1560,7 @@ namespace NDispWin
             Material.Unit.Limit[0] = IniFile.ReadInteger("Material", "UnitLimit0", 0);
             Material.Unit.Limit[1] = IniFile.ReadInteger("Material", "UnitLimit1", 0);
 
-            DispProg.Options_EnableProcessLog = IniFile.ReadBool("Option", "EnableProcessLog", true);
+            //DispProg.Options_EnableProcessLog = IniFile.ReadBool("Option", "EnableProcessLog", true);//Request by LYL v6.1.8.1
 
             CopyLogToServer = IniFile.ReadBool("Log", "CopyToServer", false);
             LogServerPath = IniFile.ReadString("Log", "ServerPath", LogServerPath);
@@ -1839,6 +1842,7 @@ namespace NDispWin
             IniFile.WriteDouble("Option", "Option_DrawOfstAdjustRate", Option_DrawOfstAdjustRate);
             
             IniFile.WriteBool("Option", "EnableStartIdle", Option_EnableStartIdle);
+            IniFile.WriteBool("Option", "EnableIdleOnError", Option_EnableIdleOnError);
             IniFile.WriteInteger("Option", "IdlePurgeTimer", Option_IdlePurgeTimer);
             IniFile.WriteBool("Option", "EnableScriptCheck", Option_EnableScriptCheck);
             IniFile.WriteBool("Option", "EnableScriptCheckUnitMode", Option_EnableScriptCheckUnitMode);
@@ -1869,7 +1873,7 @@ namespace NDispWin
             IniFile.WriteInteger("Material", "UnitLimit0", Material.Unit.Limit[0]);
             IniFile.WriteInteger("Material", "UnitLimit1", Material.Unit.Limit[1]);
 
-            IniFile.WriteBool("Option", "EnableProcessLog", DispProg.Options_EnableProcessLog);
+            //IniFile.WriteBool("Option", "EnableProcessLog", DispProg.Options_EnableProcessLog);//Request by LYL v6.1.8.1
 
             IniFile.WriteBool("Log", "CopyToServer", CopyLogToServer);
             IniFile.WriteString("Log", "ServerPath", LogServerPath);
@@ -2224,7 +2228,7 @@ namespace NDispWin
                                     }
                                     if (dr == DialogResult.Cancel)
                                     {
-                                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                        if (!TaskDisp.TaskMoveGZUp()) return false;
                                         return false;
                                     }
                                     //if (!TaskDisp.TaskMoveGZZ2Up()) return false;
@@ -2483,7 +2487,7 @@ namespace NDispWin
                             case EMsgRes.smrOK:
                                 break;
                             case EMsgRes.smrCancel:
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 return false;
                         }
                     }
@@ -2524,7 +2528,7 @@ namespace NDispWin
                                 case EMsgRes.smrOK:
                                     break;
                                 case EMsgRes.smrCancel:
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     return false;
                             }
                         }
@@ -2571,7 +2575,7 @@ namespace NDispWin
                                 Y2 = TaskGantry.GY2Pos();
                                 Z2 = TaskGantry.GZ2Pos();
 
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 if (dr == DialogResult.Cancel)
                                 {
                                     return false;
@@ -2596,7 +2600,7 @@ namespace NDispWin
                                         Y2 = TaskGantry.GY2Pos();
                                         Z2 = TaskGantry.GZ2Pos();
 
-                                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                        if (!TaskDisp.TaskMoveGZUp()) return false;
                                         if (dr == DialogResult.Cancel)
                                         {
                                             return false;
@@ -2728,10 +2732,10 @@ namespace NDispWin
                                         }
                                         if (dr == DialogResult.Cancel)
                                         {
-                                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                            if (!TaskDisp.TaskMoveGZUp()) return false;
                                             return false;
                                         }
-                                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                        if (!TaskDisp.TaskMoveGZUp()) return false;
                                         Aperture_Dia_Setup = Radius[0];
                                         Aperture_Dia = Aperture_Dia_Setup;
                                         break;
@@ -3053,13 +3057,13 @@ namespace NDispWin
 
             if (dr == DialogResult.Cancel)
             {
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 return false;
             }
 
             TouchZ = TaskGantry.LogicalPos(_Axis);
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             return true;
         }
         public static bool GotoNeedle(string NeedleName, double X, double Y, double Z, CControl2.TAxis _Axis)
@@ -3095,7 +3099,7 @@ namespace NDispWin
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show("Adjust Needle 2 Position.", EMcState.Notice, EMsgBtn.smbOK_Cancel, false);
             }
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             return true;
         }
         public static bool CalZSensorZ(bool CalLaser)
@@ -3160,7 +3164,7 @@ namespace NDispWin
                 #region Teach Laser Position
                 if (CalLaser && (GDefine.HSensorType > GDefine.EHeightSensorType.None))
                 {
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
 
                     if (!TaskGantry.SetMotionParamGXY()) return false;
                     if (!TaskGantry.MoveAbsGXY(CX + Laser_Ofst.X, CY + Laser_Ofst.Y)) return false;
@@ -3226,7 +3230,7 @@ namespace NDispWin
                         case EMsgRes.smrRetry:
                             goto _Retry1B;
                         case EMsgRes.smrCancel:
-                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                            if (!TaskDisp.TaskMoveGZUp()) return false;
                             return false;
                     }
                     #endregion
@@ -3277,7 +3281,7 @@ namespace NDispWin
                                 case EMsgRes.smrRetry:
                                     goto _Retry2;
                                 case EMsgRes.smrCancel:
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     return false;
                             }
                         }
@@ -3297,7 +3301,7 @@ namespace NDispWin
                                     case EMsgRes.smrRetry:
                                         goto _Retry2A;
                                     case EMsgRes.smrCancel:
-                                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                        if (!TaskDisp.TaskMoveGZUp()) return false;
                                         return false;
                                 }
                             }
@@ -3313,7 +3317,7 @@ namespace NDispWin
                                     case EMsgRes.smrRetry:
                                         goto _Retry2B;
                                     case EMsgRes.smrCancel:
-                                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                        if (!TaskDisp.TaskMoveGZUp()) return false;
                                         return false;
                                 }
                             }
@@ -3343,7 +3347,7 @@ namespace NDispWin
             if (TeachNeedle_Method == ETeachNeedleMethod.None) return true;
 
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             //double d_ZSensor_LaserZ = 0;
             double d_ZSensor_LaserZ_New = TaskDisp.Laser_RefPosZ;
@@ -3394,7 +3398,7 @@ namespace NDispWin
                 Head_Ofst[1].Z = d_TouchZ2 - Head_ZSensor_RefPosZ_Setup[(int)EHead.Two];
             }
 
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             if (GDefine.HSensorType > GDefine.EHeightSensorType.None)
             {
@@ -3427,7 +3431,7 @@ namespace NDispWin
             int t1 = GDefine.GetTickCount() + TeachNeedle_WaitTime;
             while (GDefine.GetTickCount() < t1) { Thread.Sleep(1); }
 
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             if (!TaskGantry.MoveAbsGXY(Camera_Cal_Pos.X, Camera_Cal_Pos.Y)) return false;
 
@@ -3439,7 +3443,7 @@ namespace NDispWin
             DialogResult dr = frm.ShowDialog();
             frm.ForceGantryMode = EForceGantryMode.None;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (dr == DialogResult.Cancel)
             {
@@ -3479,7 +3483,7 @@ namespace NDispWin
                 int t = GDefine.GetTickCount() + TeachNeedle_WaitTime;
                 while (GDefine.GetTickCount() < t) { Thread.Sleep(1); }
 
-                if (!TaskMoveGZZ2Up()) return false;
+                if (!TaskMoveGZUp()) return false;
 
                 if (!TaskGantry.MoveAbsGXY(Camera_Cal_Pos.X + 2, Camera_Cal_Pos.Y)) return false;
 
@@ -3492,7 +3496,7 @@ namespace NDispWin
                 DialogResult dr2 = frm2.ShowDialog();
                 frm2.ForceGantryMode = EForceGantryMode.None;
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (dr2 == DialogResult.Cancel)
                 {
@@ -3557,7 +3561,7 @@ namespace NDispWin
         public static bool TaskTeachNeedle_ZSensor_BCamera()
         {
             #region Move Z Up
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             #endregion
 
             if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
@@ -3615,7 +3619,7 @@ namespace NDispWin
                         case EMsgRes.smrRetry:
                             goto _RetryZ1N2;
                         case EMsgRes.smrCancel:
-                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                            if (!TaskDisp.TaskMoveGZUp()) return false;
                             return false;
                     }
                 }
@@ -3629,7 +3633,7 @@ namespace NDispWin
                 #region Search Head 2 Needle 1
                 if (!TaskZTouch.SearchNeedleZTouch("Head 2 Needle 1", CX + Head_Ofst[0].X - Head2_DefDistX, CY + Head_Ofst[0].Y, d_H2N1TouchPos, TaskGantry.GZ2Axis, ref d_H2N1TouchPos)) return false;
                 d_H2N2TouchPos = d_H2N1TouchPos;
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 #endregion
 
                 if (DispProg.Pump_Type == EPumpType.PP2D)
@@ -3667,12 +3671,12 @@ namespace NDispWin
                             case EMsgRes.smrRetry:
                                 goto _RetryZ2N2;
                             case EMsgRes.smrCancel:
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 return false;
                         }
                         #endregion
                     }
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
                     #endregion
                 }
             }
@@ -3715,12 +3719,12 @@ namespace NDispWin
                             case EMsgRes.smrRetry:
                                 goto _RetryZ2N1;
                             case EMsgRes.smrCancel:
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 return false;
                         }
                         #endregion
                     }
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
                     #endregion
                     if (DispProg.Pump_Type == EPumpType.PP2D)
                     {
@@ -3757,12 +3761,12 @@ namespace NDispWin
                                 case EMsgRes.smrRetry:
                                     goto _RetryZ2N2;
                                 case EMsgRes.smrCancel:
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     return false;
                             }
                             #endregion
                         }
-                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                        if (!TaskDisp.TaskMoveGZUp()) return false;
                         #endregion
                     }
                 }
@@ -3774,10 +3778,10 @@ namespace NDispWin
             Head_Ofst[1].Z = 0;
             #endregion
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             #region Step 1: Move Camera to Bottom Camera Pos
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             #region Move Needle XY to Cal Pos
             if (!TaskGantry.SetMotionParamGXY()) return false;
             if (!TaskGantry.MoveAbsGXY(BCamera_Cal_Pos.X, BCamera_Cal_Pos.Y)) return false;
@@ -3795,7 +3799,7 @@ namespace NDispWin
             #region Move Z Up
             //if (!TaskGantry.SetMotionParamGZZ2()) return false;
             //if (!TaskGantry.MoveAbsGZZ2((float)0)) return false;
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             #endregion
             #region Handle User Entry
             if (dr == DialogResult.Cancel)
@@ -3811,7 +3815,7 @@ namespace NDispWin
 
             _RetryHead1:
             #region Head 1 Needle 1
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
             TPos3 H1N1 = new TPos3();
             H1N1.X = BCamera_Cal_Pos.X + Head_Ofst[0].X;
             H1N1.Y = BCamera_Cal_Pos.Y + Head_Ofst[0].Y;
@@ -3851,7 +3855,7 @@ namespace NDispWin
 
             Event.SETUP_HEAD1_OFST_UPDATE.Set("HeadOffset", Head_Ofst[0].X.ToString("f3") + "," + Head_Ofst[0].Y.ToString("f3"));
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (DispProg.Pump_Type == EPumpType.PP2D)
             {
@@ -3887,10 +3891,10 @@ namespace NDispWin
                     case EMsgRes.smrRetry:
                         goto _RetryHead1;
                     case EMsgRes.smrCancel:
-                        if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                        if (!TaskDisp.TaskMoveGZUp()) return false;
                         return false;
                 }
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 #endregion
             }
 
@@ -3898,7 +3902,7 @@ namespace NDispWin
             {
                 _RetryHead2:
                 #region Head2 Needle1
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
                 {
                     if (!TaskGantry.SetMotionParamGX2Y2()) return false;
@@ -3932,7 +3936,7 @@ namespace NDispWin
                 }
                 #endregion
                 d_BCamera_Cal_Needle2_Z = TaskGantry.GZ2Pos();
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 #endregion
 
                 #region Head2 Computation
@@ -3977,10 +3981,10 @@ namespace NDispWin
                         case EMsgRes.smrRetry:
                             goto _RetryHead2;
                         case EMsgRes.smrCancel:
-                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                            if (!TaskDisp.TaskMoveGZUp()) return false;
                             return false;
                     }
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
                     #endregion
                 }
             }
@@ -3989,7 +3993,7 @@ namespace NDispWin
             {
                 _RetryHead2:
                 #region Head 2 Needle1
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 {
                     TPos3 H2N1 = new TPos3();
                     H2N1.X = BCamera_Cal_Pos.X + Head_Ofst[0].X - Head_PitchX;
@@ -4018,10 +4022,10 @@ namespace NDispWin
                         case EMsgRes.smrOK:
                             break;
                         case EMsgRes.smrCancel:
-                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                            if (!TaskDisp.TaskMoveGZUp()) return false;
                             return false;
                     }
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
                 }
                 #endregion
 
@@ -4059,10 +4063,10 @@ namespace NDispWin
                         case EMsgRes.smrRetry:
                             goto _RetryHead2;
                         case EMsgRes.smrCancel:
-                            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                            if (!TaskDisp.TaskMoveGZUp()) return false;
                             return false;
                     }
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
                     #endregion
                 }
             }
@@ -4170,7 +4174,7 @@ namespace NDispWin
                     DialogResult dr = frm.ShowDialog();
                     frm.ForceGantryMode = EForceGantryMode.None;
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                    if (!TaskDisp.TaskMoveGZUp()) return false;
 
                     if (dr == DialogResult.Cancel)
                     {
@@ -4185,7 +4189,7 @@ namespace NDispWin
                 TaskVision.LightingOff();
                 #endregion
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 #region Set Needle1 XY to ZSensor Loc, Search Needle1
                 #region Move Needle XY to ZSensor
@@ -4349,7 +4353,7 @@ namespace NDispWin
                             #region
                             {
                                 #region Move Head2 XY to Cal Pos
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 if (!TaskGantry.SetMotionParamGXY()) return false;
                                 if (!TaskGantry.MoveAbsGXY(_Camera_ZSensor_Pos.X + _Head_Ofst[0].X - Head2_DefDistX, _Camera_ZSensor_Pos.Y + _Head_Ofst[0].Y, false)) return false;
                                 if (!TaskGantry.SetMotionParamExGX2Y2()) return false;
@@ -4512,7 +4516,7 @@ namespace NDispWin
                             #region
                             {
                                 #region Move Head2 XY to Cal Pos
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 if (!TaskGantry.SetMotionParamGXY()) return false;
                                 if (!TaskGantry.MoveAbsGXY(_Camera_ZSensor_Pos.X + _Head_Ofst[0].X - Head_PitchX, _Camera_ZSensor_Pos.Y + _Head_Ofst[0].Y, false)) return false;
                                 //if (!TaskGantry.SetMotionParamGX2Y2()) return false;
@@ -4714,7 +4718,7 @@ namespace NDispWin
                             case EMsgRes.smrOK:
                                 break;
                             case EMsgRes.smrCancel:
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 return false;
                         }
                     }
@@ -4774,7 +4778,7 @@ namespace NDispWin
                 DialogResult dr = frm.ShowDialog();
                 frm.ForceGantryMode = EForceGantryMode.None;
                 #endregion
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 #region handle user entry
                 if (dr == DialogResult.Cancel)
@@ -4796,7 +4800,7 @@ namespace NDispWin
                 #region Teach Laser Position
                 //if (GDefine.HSensorType > GDefine.EHeightSensorType.None)
                 //{
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (!TaskGantry.SetMotionParamGXY()) return false;
                 if (!TaskGantry.MoveAbsGXY(CX + Laser_Ofst.X, CY + Laser_Ofst.Y)) return false;
@@ -4909,7 +4913,7 @@ namespace NDispWin
             try
             {
                 #region Teach Camera Position
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 #region Move Camera XY to ZSensor
                 if (!TaskGantry.SetMotionParamGXY()) return false;
@@ -4932,7 +4936,7 @@ namespace NDispWin
                 DialogResult dr = frm.ShowDialog();
                 frm.ForceGantryMode = EForceGantryMode.None;
                 #endregion
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 #region handle user entry
                 if (dr == DialogResult.Cancel)
@@ -4954,7 +4958,7 @@ namespace NDispWin
                 TaskLaser.TrigMode = false;
 
                 #region Move Laser to ZSensor Pos
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (!TaskGantry.SetMotionParamGXY()) return false;
                 if (!TaskGantry.MoveAbsGXY(CX + Laser_Ofst.X, CY + Laser_Ofst.Y)) return false;
@@ -5185,7 +5189,7 @@ namespace NDispWin
                 frm.ForceGantryMode = EForceGantryMode.None;
                 #endregion
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (dr == DialogResult.Cancel)
                 {
@@ -5200,7 +5204,7 @@ namespace NDispWin
                 double cY = TaskGantry.GYPos();
 
                 #region Teach TmepSensor Position
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (!TaskGantry.SetMotionParamGXY()) return false;
                 if (!TaskGantry.MoveAbsGXY(cX + TempSensor_Ofst.X, cY + TempSensor_Ofst.Y)) return false;
 
@@ -5265,7 +5269,7 @@ namespace NDispWin
                 frm.ForceGantryMode = EForceGantryMode.None;
                 #endregion
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 if (dr == DialogResult.Cancel)
                 {
@@ -5280,7 +5284,7 @@ namespace NDispWin
                 double cYcam = TaskGantry.GYPos();
 
                 #region Teach TempSensor Position
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (!TaskGantry.SetMotionParamGXY()) return false;
                 if (!TaskGantry.MoveAbsGXY(cXcam + TempSensor_Ofst.X, cYcam + TempSensor_Ofst.Y)) return false;
 
@@ -5466,7 +5470,7 @@ namespace NDispWin
 
         public static bool TaskTeachNeedle_Laser_Touch_Dot_Set()
         {
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (GDefine.HSensorType > GDefine.EHeightSensorType.None)
             {
@@ -5579,111 +5583,9 @@ namespace NDispWin
         {
             string EMsg = "TaskMoveGZUp";
 
-            GDefine.Status = EStatus.Busy;
-
             try
             {
                 if (TaskGantry.SensHome(TaskGantry.GZAxis)) goto _End;
-
-                if (!TaskGantry.SetMotionParamGZZ2()) return false;
-                if (!TaskGantry.MoveAbsGZ(TaskDisp.ZDefPos)) return false;
-
-                int t = GDefine.GetTickCount() + MoveZUp_TimeOut;
-                while (!TaskGantry.SensHome(TaskGantry.GZAxis))
-                {
-                    if (GDefine.GetTickCount() >= t)
-                    {
-                        Msg MsgBox = new Msg();
-                        MsgBox.Show(ErrCode.GZ_MOVE_TO_HOME_SENSOR_FAIL, EMsg, true);
-                        return false;
-                    }
-                }
-
-                _End:
-                if (TaskGantry.GZPos() < 0)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ, Pos {TaskGantry.GZPos()}", true);
-                    GDefine.Status = EStatus.ErrorInit;
-                    return false;
-                }
-            }
-            catch (Exception Ex)
-            {
-                EMsg = EMsg + (char)13 + Ex.Message.ToString();
-                Msg MsgBox = new Msg();
-                MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg);
-                return false;
-            };
-
-            GDefine.Status = EStatus.Ready;
-            return true;
-        }
-        /// <summary>
-        /// Move Z2 to ZDefPos if not at Home Sensor position. 
-        /// </summary>
-        /// <returns></returns>
-        public static bool TaskMoveGZ2Up()
-        {
-            string EMsg = "TaskMoveGZ2Up";
-
-            try
-            {
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-                {
-                    if (TaskGantry.SensHome(TaskGantry.GZ2Axis)) goto _End;
-
-                    if (!TaskGantry.SetMotionParamGZZ2()) return false;
-                    if (!TaskGantry.MoveAbsGZ2(TaskDisp.ZDefPos)) return false;
-
-                    int t = GDefine.GetTickCount() + MoveZUp_TimeOut;
-                    while (!TaskGantry.SensHome(TaskGantry.GZ2Axis))
-                    {
-                        if (GDefine.GetTickCount() >= t)
-                        {
-                            Msg MsgBox = new Msg();
-                            MsgBox.Show(ErrCode.GZ2_MOVE_TO_HOME_SENSOR_FAIL, EMsg, true);
-                            return false;
-                        }
-                    }
-                }
-
-                _End:
-                if (TaskGantry.GZ2Pos() < 0)
-                {
-                    Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, "GZ2", true);
-                    GDefine.Status = EStatus.ErrorInit;
-                    return false;
-                }
-            }
-            catch (Exception Ex)
-            {
-                EMsg = EMsg + (char)13 + Ex.Message.ToString();
-                Msg MsgBox = new Msg();
-                MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg);
-                return false;
-            };
-            return true;
-        }
-        /// <summary>
-        /// Move all Z to ZDefPos if not at Home Sensor position. 
-        /// </summary>
-        /// <returns></returns>
-        public static bool TaskMoveGZZ2Up()
-        {
-            string EMsg = "TaskMoveGZZ2Up";
-
-            try
-            {
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-                {
-                    if (TaskGantry.SensHome(TaskGantry.GZAxis) && TaskGantry.SensHome(TaskGantry.GZ2Axis)) goto _End;
-                }
-                else
-                {
-                    if (TaskGantry.SensHome(TaskGantry.GZAxis)) goto _End;
-                }
 
                 if (!TaskGantry.SetMotionParamGZZ2()) return false;
                 if (!TaskGantry.MoveAbsGZZ2(TaskDisp.ZDefPos)) return false;
@@ -5700,37 +5602,13 @@ namespace NDispWin
                     Thread.Sleep(2);
                 }
 
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-                {
-                    while (!TaskGantry.SensHome(TaskGantry.GZ2Axis))
-                    {
-                        if (GDefine.GetTickCount() >= t)
-                        {
-                            Msg MsgBox = new Msg();
-                            MsgBox.Show(ErrCode.GZ2_MOVE_TO_HOME_SENSOR_FAIL, EMsg, true);
-                            return false;
-                        }
-                        Thread.Sleep(2);
-                    }
-                }
-
-                _End:
-                if (TaskGantry.GZPos() < -0.1)
+            _End:
+                if (TaskGantry.GZPos() < -0.05)
                 {
                     Msg MsgBox = new Msg();
-                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ, Pos {TaskGantry.GZPos()}", true);
+                    MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ, CmdPos {TaskGantry.GZPos()}, EncdPos {TaskGantry.GZRPos()}", true);
                     GDefine.Status = EStatus.ErrorInit;
                     return false;
-                }
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-                {
-                    if (TaskGantry.GZ2Pos() < -0.1)
-                    {
-                        Msg MsgBox = new Msg();
-                        MsgBox.Show(ErrCode.ABNORMAL_MOTOR_POSITION_ERROR, $"GZ2, Pos {TaskGantry.GZ2Pos()}", true);
-                        GDefine.Status = EStatus.ErrorInit;
-                        return false;
-                    }
                 }
             }
             catch (Exception Ex)
@@ -5757,9 +5635,6 @@ namespace NDispWin
 
             try
             {
-                if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-                    if (!TaskDisp.TaskMoveGZ2Up()) return false;
-
                 if (!TaskGantry.SetMotionParamGZ()) return false;
                 if (!TaskGantry.MoveAbsGZ(ZDefPos + DispProg.FocusRelPos[FocusNo])) return false;
 
@@ -6128,7 +6003,7 @@ namespace NDispWin
             string EMsg = "Task Move Cam Offset";
 
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             try
             {
@@ -6160,7 +6035,7 @@ namespace NDispWin
             string EMsg = "Task Move Needle Offset";
 
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             try
             {
@@ -6193,7 +6068,7 @@ namespace NDispWin
             string EMsg = "Task Move Laser Offset";
 
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             try
             {
@@ -6225,7 +6100,7 @@ namespace NDispWin
         {
             string EMsg = "TaskMoveCamOffset";
 
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             GDefine.Status = EStatus.Busy;
             try
@@ -6283,7 +6158,7 @@ namespace NDispWin
             string EMsg = "Task Goto TPos3";
 
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             try
             {
@@ -6310,7 +6185,7 @@ namespace NDispWin
             try
             {
                 GDefine.Status = EStatus.Busy;
-                if (!TaskMoveGZZ2Up()) return false;
+                if (!TaskMoveGZUp()) return false;
 
                 if (!GotoXYPos(Pos[(int)EHead.One], Pos[(int)EHead.Two])) return false;
 
@@ -6412,7 +6287,7 @@ namespace NDispWin
                 }
                 if (MoveUp)
                 {
-                    if (!TaskMoveGZZ2Up()) return false;
+                    if (!TaskMoveGZUp()) return false;
                 }
 
                 //if (DispProg.DispCtrl_ForceTimeMode)
@@ -6505,7 +6380,7 @@ namespace NDispWin
         _Stop:
             TrigOff(DispA, DispB);
             TaskGantry.SvCleanVac = false;
-            TaskMoveGZZ2Up();
+            TaskMoveGZUp();
             GDefine.Status = EStatus.Stop;
             return false;
         }
@@ -6657,7 +6532,7 @@ namespace NDispWin
         public static bool TaskGotoPMaint()
         {
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             //if (!GotoXYPos(Needle_Maint_Pos[(int)EHead.One], Needle_Maint_Pos[(int)EHead.Two])) return false;
 
@@ -6673,7 +6548,7 @@ namespace NDispWin
         public static bool TaskGotoMMaint()
         {
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             if (!GotoGX2Y2Pos(Machine_Maint_Pos[(int)EHead.Two])) return false;
             if (!TaskGantry.SetMotionParamGXY()) return false;
@@ -6689,7 +6564,7 @@ namespace NDispWin
         {
             GDefine.Status = EStatus.Busy;
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+            if (!TaskDisp.TaskMoveGZUp()) return false;
 
             if (!TaskGantry.SetMotionParamGXY()) return false;
             if (!TaskGantry.MoveAbsGXY(X, Y, false)) return false;
@@ -6732,7 +6607,7 @@ namespace NDispWin
         {
             GDefine.Status = EStatus.Busy;
 
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
             {
@@ -6746,7 +6621,7 @@ namespace NDispWin
         public static bool TaskNeedleInsp(int headSelect/*1,2*/)
         {
             GDefine.Status = EStatus.Busy;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
 
             switch (headSelect)
             {
@@ -6762,7 +6637,7 @@ namespace NDispWin
 
             if (!TaskGantry.NICamRun)
             {
-                if (!TaskMoveGZZ2Up()) return false;
+                if (!TaskMoveGZUp()) return false;
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show(ErrCode.NEEDLE_INSP_NOT_IN_RUN_MODE, EMcState.Warning, EMsgBtn.smbOK, false);
                 goto _Stop;
@@ -6770,7 +6645,7 @@ namespace NDispWin
 
             if (TaskGantry.NICamBusy)
             {
-                if (!TaskMoveGZZ2Up()) return false;
+                if (!TaskMoveGZUp()) return false;
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show(ErrCode.NEEDLE_INSP_IS_BUSY, EMcState.Warning, EMsgBtn.smbOK, false);
                 goto _Stop;
@@ -6785,7 +6660,7 @@ namespace NDispWin
                 if (sw.ElapsedMilliseconds > 1000)
                 {
                     TaskGantry.NICamTrig = false;
-                    if (!TaskMoveGZZ2Up()) return false;
+                    if (!TaskMoveGZUp()) return false;
                     Msg MsgBox = new Msg();
                     EMsgRes MsgRes = MsgBox.Show(ErrCode.NEEDLE_INSP_RESPONSE_TIMEOUT, EMcState.Warning, EMsgBtn.smbOK, false);
                     goto _Stop;
@@ -6799,7 +6674,7 @@ namespace NDispWin
                 Thread.Sleep(0);
                 if (sw.ElapsedMilliseconds > 1000)
                 {
-                    if (!TaskMoveGZZ2Up()) return false;
+                    if (!TaskMoveGZUp()) return false;
                     Msg MsgBox = new Msg();
                     EMsgRes MsgRes = MsgBox.Show(ErrCode.NEEDLE_INSP_BUSY_TIMEOUT, EMcState.Warning, EMsgBtn.smbOK, false);
                     goto _Stop;
@@ -6808,7 +6683,7 @@ namespace NDispWin
 
             if (!TaskGantry.NICamSigOK)
             {
-                if (!TaskMoveGZZ2Up()) return false;
+                if (!TaskMoveGZUp()) return false;
                 Msg MsgBox = new Msg();
                 EMsgRes MsgRes = MsgBox.Show(ErrCode.NEEDLE_INSP_FAIL, $"Pump{headSelect}", EMcState.Warning, EMsgBtn.smbOK, false);
                 goto _Stop;
@@ -6818,7 +6693,7 @@ namespace NDispWin
 
         _Stop:
             TaskGantry.NICamTrig = false;
-            if (!TaskMoveGZZ2Up()) return false;
+            if (!TaskMoveGZUp()) return false;
             GDefine.Status = EStatus.Ready;
             return false;
         }
@@ -9171,7 +9046,7 @@ namespace NDispWin
                         break;
                 }
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
                 if (!TaskDisp.GotoXYPos(Pos3[0], Pos3[1])) return false;
 
                 if (!TaskGantry.SetMotionParamGZZ2()) return false;
@@ -9225,7 +9100,7 @@ namespace NDispWin
                     if (!TaskDisp.CtrlWaitComplete(DispA, DispB)) goto _Stop;
                 }
 
-                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                if (!TaskDisp.TaskMoveGZUp()) return false;
 
                 //if (DispProg.DispCtrl_ForceTimeMode)
                 //{

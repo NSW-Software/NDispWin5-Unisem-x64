@@ -122,15 +122,15 @@ namespace NDispWin
                                 if (!TaskDisp.TaskGotoMMaint()) return false;
                                 break;
                             case EDispFunc.Shot:
-                                if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                if (!TaskDisp.TaskMoveGZUp()) return false;
                                 if (!TaskDisp.TaskGotoPMaint()) return false;
 
                                 if (!TaskDisp.TaskShotNeedle(TaskDisp.Needle_Maint_Pos, b_Head1, b_Head2, Funcs[i].Wait, Funcs[i].Count))
                                 {
-                                    TaskDisp.TaskMoveGZZ2Up();
+                                    TaskDisp.TaskMoveGZUp();
                                     return false;
                                 }
-                                TaskDisp.TaskMoveGZZ2Up();
+                                TaskDisp.TaskMoveGZUp();
                                 break;
                             //case EDispFunc.Purge:
                             //    if (Funcs[i].Count == 0)
@@ -141,7 +141,7 @@ namespace NDispWin
                             case EDispFunc.CleanFill:
                                 #region
                                 {
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     if (!TaskDisp.TaskGotoPMaint()) return false;
 
                                     int Counter = 0;
@@ -150,19 +150,19 @@ namespace NDispWin
                                     {
                                         if (!TaskDisp.CleanFill(b_Head1, b_Head2))
                                         {
-                                            TaskDisp.TaskMoveGZZ2Up();
+                                            TaskDisp.TaskMoveGZUp();
                                             return false;
                                         }
                                         Counter++;
                                     }
-                                    TaskDisp.TaskMoveGZZ2Up();
+                                    TaskDisp.TaskMoveGZUp();
                                     break;
                                 }
                             #endregion
                             case EDispFunc.RecycleBarrelF:
                                 #region
                                 {
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     if (!TaskDisp.TaskGotoPMaint()) return false;
 
                                     int Counter = 0;
@@ -171,19 +171,19 @@ namespace NDispWin
                                     {
                                         if (!TaskDisp.RecycleBarrel(b_Head1, b_Head2, TaskDisp.ERecycleMethod.Full))
                                         {
-                                            TaskDisp.TaskMoveGZZ2Up();
+                                            TaskDisp.TaskMoveGZUp();
                                             return false;
                                         }
                                         Counter++;
                                     }
-                                    TaskDisp.TaskMoveGZZ2Up();
+                                    TaskDisp.TaskMoveGZUp();
                                     break;
                                 }
                             #endregion
                             case EDispFunc.RecycleBarrel5S:
                                 #region
                                 {
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     if (!TaskDisp.TaskGotoPMaint()) return false;
 
                                     int Counter = 0;
@@ -192,26 +192,26 @@ namespace NDispWin
                                     {
                                         if (!TaskDisp.RecycleBarrel(b_Head1, b_Head2, TaskDisp.ERecycleMethod.FiveSteps))
                                         {
-                                            TaskDisp.TaskMoveGZZ2Up();
+                                            TaskDisp.TaskMoveGZUp();
                                             return false;
                                         }
                                         Counter++;
                                     }
-                                    TaskDisp.TaskMoveGZZ2Up();
+                                    TaskDisp.TaskMoveGZUp();
                                     break;
                                 }
                             #endregion
                             case EDispFunc.RecycleNeedle:
                                 #region
                                 {
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     if (!TaskDisp.TaskGotoPMaint()) return false;
                                     if (!TaskDisp.RecycleNeedle(b_Head1, b_Head2, Funcs[i].Count))
                                     {
-                                        TaskDisp.TaskMoveGZZ2Up();
+                                        TaskDisp.TaskMoveGZUp();
                                         return false;
                                     }
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return false;
+                                    if (!TaskDisp.TaskMoveGZUp()) return false;
                                     break;
                                 }
                                 #endregion

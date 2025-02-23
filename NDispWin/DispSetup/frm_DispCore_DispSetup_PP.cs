@@ -258,7 +258,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             if (!TaskDisp.RemoveAirOn(b_HeadA, b_HeadB)) goto _End;
@@ -276,7 +276,7 @@ namespace NDispWin
             _End:
             frm.Close();
             RemoveAirStartTime = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
 
@@ -317,7 +317,7 @@ namespace NDispWin
 
                 try
                 {
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                    if (!TaskDisp.TaskMoveGZUp()) return;
                     if (!TaskDisp.TaskGotoPMaint()) return;
 
                     b_RemoveAirBusy = true;
@@ -335,7 +335,7 @@ namespace NDispWin
                 }
                 finally
                 {
-                    TaskDisp.TaskMoveGZZ2Up();
+                    TaskDisp.TaskMoveGZUp();
                     b_RemoveAirBusy = false;
                 }
             });
@@ -398,7 +398,7 @@ namespace NDispWin
                 {
                     b_MouseDn = true;
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                    if (!TaskDisp.TaskMoveGZUp()) return;
                     if (!TaskDisp.TaskGotoPMaint()) return;
 
                     b_BarrelPressBusy = true;
@@ -413,7 +413,7 @@ namespace NDispWin
                 }
                 finally
                 {
-                    TaskDisp.TaskMoveGZZ2Up();
+                    TaskDisp.TaskMoveGZUp();
                     b_BarrelPressBusy = false;
                 }
             });
@@ -434,7 +434,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             if (!TaskDisp.BarrelPressOn(b_HeadA, b_HeadB)) goto _End;
@@ -454,7 +454,7 @@ namespace NDispWin
             _End:
             frm.Close();
             BarrelPressStartTime = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
         private void btn_BarrelPress_MouseLeave(object sender, EventArgs e)
@@ -477,7 +477,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             RecycleBarrelCounter = 0;
@@ -499,7 +499,7 @@ namespace NDispWin
             _End:
             frm.Close();
             RecycleBarrelCounter = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
         private void btn_RecycleMethod_Click(object sender, EventArgs e)
@@ -525,7 +525,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             CleanFillCounter = 0;
@@ -543,7 +543,7 @@ namespace NDispWin
             _End:
             frm.Close();
             CleanFillCounter = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
 
@@ -561,7 +561,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             PurgeShotCounter = 0;
@@ -588,7 +588,7 @@ namespace NDispWin
             _End:
             frm.Close();
             PurgeShotCounter = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
         private void btn_Shot_Click(object sender, EventArgs e)
@@ -600,7 +600,7 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             PurgeShotCounter = 0;
@@ -621,7 +621,7 @@ namespace NDispWin
         _End:
             frm.Close();
             PurgeShotCounter = -1;
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
         private void lbl_RecycleNeedleCount_Click(object sender, EventArgs e)
@@ -639,14 +639,14 @@ namespace NDispWin
             frm_DispCore_Progress frm = new frm_DispCore_Progress();
             frm.Show();
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) goto _End;
+            if (!TaskDisp.TaskMoveGZUp()) goto _End;
             if (!TaskDisp.TaskGotoPMaint()) goto _End;
 
             if (!TaskDisp.RecycleNeedle(b_HeadA, b_HeadB, TaskDisp.DispTool_RecycleNeedleCount)) goto _End;
 
         _End:
             frm.Close();
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             EnableControls();
         }
 

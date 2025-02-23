@@ -102,7 +102,7 @@ namespace NDispWin
             double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOrigin.Y) + CmdLine.Y[0];
             double Z = CmdLine.Z[0];
 
-            if (!TaskDisp.TaskMoveGZZ2Up()) return;
+            if (!TaskDisp.TaskMoveGZUp()) return;
 
             if (!TaskGantry.MoveGX2Y2DefPos(true)) return;
 

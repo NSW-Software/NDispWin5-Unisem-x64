@@ -21,7 +21,12 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
+Ver 6.1.9.0 20250223 - Remote release to LYL/LRK/LT for UnisemCD - Gitted
+  - [BugFix] Enable DO_HEIGHT type selection for LST, cluster support was updated in Ver 6.1.6.0 20240924. Req LYL.
+  - [Feature] TaskDisp.Option_EnableIdleOnError to execute aut0 idle for frmVisionFailMsg, frmVisionFailMsg2 and frmHeightFailMsg. Req LRK.
+  - [Hsekeep] Removed TaskMoveGZ2Up as it is not used. Combine TaskMoveGZZ2Up to TaskMoveGZUp, GZ2 is not used. Add Cmd and Real Pos to error to ease troubleshooting
+  - [Request] Set Options_EnableProcessLog and EnableEventDebugLog always true. May affect the UPH. Req LYL.
+  - [BugFix] Update RunKick to stop machine on Pre and Pro Stopper uptime out. Req LYL.
 Ver 6.1.8.0 20250207 - Remote release to LYL/LRK/LT for UnisemCD - Gitted
   - [Enhance] Change Setup.PusherRunConv from TaskConv.Pro.SvStopperUp to TaskConv.Pro.StopperUp();
   - [Feature] Prompt to resume IdleReturn Map.

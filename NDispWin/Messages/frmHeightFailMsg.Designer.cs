@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btn_Accept = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Skip = new System.Windows.Forms.Button();
             this.btn_Retry = new System.Windows.Forms.Button();
-            this.tmr1s = new System.Windows.Forms.Timer(this.components);
             this.btn_AlmClr = new System.Windows.Forms.Button();
             this.btn_Reject = new System.Windows.Forms.Button();
             this.lbox_Message = new System.Windows.Forms.ListBox();
@@ -103,12 +101,6 @@
             this.btn_Retry.Text = "Retry";
             this.btn_Retry.UseVisualStyleBackColor = true;
             this.btn_Retry.Click += new System.EventHandler(this.btn_Retry_Click);
-            // 
-            // tmr1s
-            // 
-            this.tmr1s.Enabled = true;
-            this.tmr1s.Interval = 1000;
-            this.tmr1s.Tick += new System.EventHandler(this.tmr1s_Tick);
             // 
             // btn_AlmClr
             // 
@@ -183,7 +175,6 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Button btn_Skip;
         private System.Windows.Forms.Button btn_Retry;
-        private System.Windows.Forms.Timer tmr1s;
         private System.Windows.Forms.Button btn_AlmClr;
         private System.Windows.Forms.Button btn_Reject;
         private System.Windows.Forms.ListBox lbox_Message;

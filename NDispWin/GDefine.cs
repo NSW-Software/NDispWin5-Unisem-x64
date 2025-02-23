@@ -149,7 +149,7 @@ namespace NDispWin
         public static bool DisableAutoRunMapEdit;
 
         public static bool AutoPageShowImage;
-        public static bool EnableEventDebugLog;
+        public static bool EnableEventDebugLog = true;
 
         public static bool EnableDoorSens
         {
@@ -193,7 +193,7 @@ namespace NDispWin
             EnableDoorSens = IniFile.ReadBool("Safety", "EnableDoorSens", true);
             EnableDoorLock = IniFile.ReadBool("Safety", "EnableDoorLock", false);
 
-            EnableEventDebugLog = IniFile.ReadBool("Advance", "EnableEventDebugLog", false);
+            //EnableEventDebugLog = IniFile.ReadBool("Advance", "EnableEventDebugLog", false);//Request by LYL v6.1.8.1
 
             Save();
         }
@@ -215,7 +215,7 @@ namespace NDispWin
             IniFile.WriteBool("Safety", "EnableDoorSens", EnableDoorSens);
             IniFile.WriteBool("Safety", "EnableDoorLock", EnableDoorLock);
 
-            IniFile.WriteBool("Advance", "EnableEventDebugLog", EnableEventDebugLog);
+            //IniFile.WriteBool("Advance", "EnableEventDebugLog", EnableEventDebugLog);//Request by LYL v6.1.8.1
         }
 
         public static bool BtnStartValid()
@@ -1037,7 +1037,7 @@ namespace NDispWin
             {
                 if (TaskConv.Pro.SensPsnt)
                 {
-                    TaskDisp.TaskMoveGZZ2Up();
+                    TaskDisp.TaskMoveGZUp();
                     if (!TaskDisp.TaskGotoTPos2(TaskDisp.Needle_Purge_Pos)) return false;
                 }
             }

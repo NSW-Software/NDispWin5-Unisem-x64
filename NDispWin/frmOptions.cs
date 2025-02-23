@@ -46,6 +46,11 @@ namespace NDispWin
             if (NUtils.UserAcc.Active.GroupID < (int)ELevel.Admin)
                 tpOptions.TabPages.Remove(tpAdvance);
         }
+        private void frmOptions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frm_Jog2.Close();
+            frm_Jog2.Dispose();
+        }
 
         private void UpdateDisplay()
         {
@@ -64,13 +69,16 @@ namespace NDispWin
             lblMaterialLifeTimeMultipler.Text = TaskDisp.Material_Life_Multiplier.ToString();
             lblMaterialExpiryPreAlertTime.Text = TaskDisp.Material_ExpiryPreAlertTime.ToString();
 
+            #region Process.AutoIdle
             cbEnableStartIdle.Checked = TaskDisp.Option_EnableStartIdle;
+            cbEnableIdleOnError.Checked = TaskDisp.Option_EnableIdleOnError;
             lblIdlePurgeTimer.Text = TaskDisp.Option_IdlePurgeTimer.ToString();
             cbxIdlePosition.Text = TaskDisp.Idle_Position.ToString();
             lblIdlePurgeInterval.Text = $"{TaskDisp.Idle_PurgeInterval:f0}";
             lblIdlePurgeDuration.Text = $"{TaskDisp.Idle_PurgeDuration:f0}";
             lblIdlePurgePostVacTime.Text = $"{TaskDisp.Idle_PostVacTime:f0}";
             cbIdleReturn.Checked = TaskDisp.Idle_Return;
+            #endregion
 
             cbEnableProcessLog.Checked = DispProg.Options_EnableProcessLog;
 
@@ -273,11 +281,6 @@ namespace NDispWin
             frm_Jog2.Show();
         }
 
-        private void frmOptions_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            frm_Jog2.Close();
-            frm_Jog2.Dispose();
-        }
 
         private void lblSECSGEMProtocol_Click(object sender, EventArgs e)
         {
@@ -633,9 +636,17 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void cbox_EnableStartIdle_Click(object sender, EventArgs e)
+        #region Process.AutoIdle 
+        private void cbEnableStartIdle_Click(object sender, EventArgs e)
         {
-            UC.AdjustExec("Disp Option, Enable Start Idle", ref TaskDisp.Option_EnableStartIdle);
+            TaskDisp.Option_EnableStartIdle = !TaskDisp.Option_EnableStartIdle;
+            Log.OnSet("Start Idle", !TaskDisp.Option_EnableStartIdle, TaskDisp.Option_EnableStartIdle);
+            UpdateDisplay();
+        }
+        private void cbEnableIdleOnError_Click(object sender, EventArgs e)
+        {
+            TaskDisp.Option_EnableIdleOnError = !TaskDisp.Option_EnableIdleOnError;
+            Log.OnSet("Start Idle", !TaskDisp.Option_EnableIdleOnError, TaskDisp.Option_EnableIdleOnError);
             UpdateDisplay();
         }
 
@@ -644,35 +655,24 @@ namespace NDispWin
             UC.AdjustExec("Disp Setup Options, Idle Purge Timer (s)", ref TaskDisp.Option_IdlePurgeTimer, 0, 3600);
             UpdateDisplay();
         }
-
+        private void cbxIdlePosition_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            TaskDisp.Idle_Position = (TaskDisp.EMaintPos)cbxIdlePosition.SelectedIndex;
+        }
         private void lblIdlePurgeInterval_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Idle Purge Interval (s)", ref TaskDisp.Idle_PurgeInterval, 5, 600);
             UpdateDisplay();
         }
-
         private void lblIdlePurgeDuration_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Idle Purge Duration (ms)", ref TaskDisp.Idle_PurgeDuration, 10, 50000);
             UpdateDisplay();
         }
-
         private void lblIdlePurgePostVacTime_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Idle Post Vac Time (ms)", ref TaskDisp.Idle_PostVacTime, 0, 5000);
             UpdateDisplay();
-        }
-
-        private void cbxIdlePosition_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            TaskDisp.Idle_Position = (TaskDisp.EMaintPos)cbxIdlePosition.SelectedIndex;
-        }
-
-        private void btnIdle_Click(object sender, EventArgs e)
-        {
-            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
-            frm.AutoStart = true;
-            frm.ShowDialog();
         }
 
         private void cbReturn_Click(object sender, EventArgs e)
@@ -682,9 +682,12 @@ namespace NDispWin
             UpdateDisplay();
         }
 
-        private void cbIdleReturn_CheckStateChanged(object sender, EventArgs e)
+        private void btnIdle_Click(object sender, EventArgs e)
         {
-
+            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
+            frm.AutoStart = true;
+            frm.ShowDialog();
         }
+        #endregion
     }
 }

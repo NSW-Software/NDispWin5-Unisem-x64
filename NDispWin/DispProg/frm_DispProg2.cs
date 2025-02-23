@@ -1034,7 +1034,7 @@ namespace NDispWin
             frm_Layout.Close();
             frm_Layout.Dispose();
 
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
 
             DispProg.ProgramMode = false;
 
@@ -1159,7 +1159,7 @@ namespace NDispWin
 
                     Log.OnSet("SetZ", z, DispProg.OriginBase[(int)DispProg.rt_StationNo].Z);
 
-                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                    if (!TaskDisp.TaskMoveGZUp()) return;
 
                     frm1.Done = true;
                 });
@@ -2236,7 +2236,7 @@ namespace NDispWin
                                 case DispProg.ECmd.DO_VISION:
                                     double X = (DispProg.Origin(DispProg.rt_StationNo).X + SubOfst.X) + DispProg.Script[SelProg].CmdList.Line[ProgLine].X[0];
                                     double Y = (DispProg.Origin(DispProg.rt_StationNo).Y + SubOfst.Y) + DispProg.Script[SelProg].CmdList.Line[ProgLine].Y[0];
-                                    if (!TaskDisp.TaskMoveGZZ2Up()) return;
+                                    if (!TaskDisp.TaskMoveGZUp()) return;
 
                                     if (!TaskGantry.SetMotionParamGXY()) return;
                                     if (!TaskGantry.MoveAbsGXY(X, Y)) return;

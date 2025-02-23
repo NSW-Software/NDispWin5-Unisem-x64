@@ -25,7 +25,7 @@ namespace NDispWin
         }
         private void frm_DispCore_WeightSetting_FormClosing(object sender, FormClosingEventArgs e)
         {
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
         }
 
         private void UpdateDisplay()
@@ -137,7 +137,7 @@ namespace NDispWin
                 TaskWeight.Needle_Weight_Pos[1].Y = 0;
                 TaskWeight.Needle_Weight_Pos[1].Z = 0;
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btn_GotoNeedleWeightPos_Click(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace NDispWin
             {
 
             }
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             UpdateDisplay();
         }
         private void btn_GotoNeedle2WeightPos_Click(object sender, EventArgs e)

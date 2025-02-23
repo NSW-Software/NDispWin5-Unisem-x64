@@ -114,7 +114,7 @@ namespace NDispWin
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             TaskDisp.CheckDispCtrlConnection();
 
             Close();
@@ -124,7 +124,7 @@ namespace NDispWin
         {
             if (e.KeyCode == Keys.Escape)
             {
-                TaskDisp.TaskMoveGZZ2Up();
+                TaskDisp.TaskMoveGZUp();
                 Close();
             }
         }

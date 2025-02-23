@@ -44,7 +44,7 @@ namespace NDispWin
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            TaskDisp.TaskMoveGZZ2Up();
+            TaskDisp.TaskMoveGZUp();
             Close();
         }
 
