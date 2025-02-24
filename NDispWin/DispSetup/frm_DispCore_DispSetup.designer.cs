@@ -53,7 +53,6 @@
             this.lbl_TeachNeedle = new System.Windows.Forms.Label();
             this.lbl_HeadCalSetting = new System.Windows.Forms.Label();
             this.lbl_HeadCal = new System.Windows.Forms.Label();
-            this.btn_Idle = new System.Windows.Forms.Button();
             this.tmr_Reticle = new System.Windows.Forms.Timer(this.components);
             this.tmr1s = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
@@ -194,7 +193,7 @@
             this.cbTempSensorOfstManual.AutoSize = true;
             this.cbTempSensorOfstManual.Location = new System.Drawing.Point(118, 144);
             this.cbTempSensorOfstManual.Name = "cbTempSensorOfstManual";
-            this.cbTempSensorOfstManual.Size = new System.Drawing.Size(76, 22);
+            this.cbTempSensorOfstManual.Size = new System.Drawing.Size(63, 18);
             this.cbTempSensorOfstManual.TabIndex = 187;
             this.cbTempSensorOfstManual.Text = "Manual";
             this.cbTempSensorOfstManual.UseVisualStyleBackColor = true;
@@ -217,7 +216,7 @@
             this.cbox_BypassTeachNeedleCheck.AutoSize = true;
             this.cbox_BypassTeachNeedleCheck.Location = new System.Drawing.Point(8, 221);
             this.cbox_BypassTeachNeedleCheck.Name = "cbox_BypassTeachNeedleCheck";
-            this.cbox_BypassTeachNeedleCheck.Size = new System.Drawing.Size(216, 22);
+            this.cbox_BypassTeachNeedleCheck.Size = new System.Drawing.Size(179, 18);
             this.cbox_BypassTeachNeedleCheck.TabIndex = 184;
             this.cbox_BypassTeachNeedleCheck.Text = "Bypass Teach Needle Check";
             this.cbox_BypassTeachNeedleCheck.UseVisualStyleBackColor = true;
@@ -364,18 +363,6 @@
             this.lbl_HeadCal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl_HeadCal.Click += new System.EventHandler(this.lbl_HeadCal_Click);
             // 
-            // btn_Idle
-            // 
-            this.btn_Idle.AccessibleDescription = "Idle";
-            this.btn_Idle.Location = new System.Drawing.Point(166, 650);
-            this.btn_Idle.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Idle.Name = "btn_Idle";
-            this.btn_Idle.Size = new System.Drawing.Size(70, 36);
-            this.btn_Idle.TabIndex = 183;
-            this.btn_Idle.Text = "Idle";
-            this.btn_Idle.UseVisualStyleBackColor = true;
-            this.btn_Idle.Click += new System.EventHandler(this.btn_Idle_Click);
-            // 
             // tmr_Reticle
             // 
             this.tmr_Reticle.Tick += new System.EventHandler(this.tmr_Reticle_Tick);
@@ -392,7 +379,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(811, 705);
             this.ControlBox = false;
-            this.Controls.Add(this.btn_Idle);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_Jog);
@@ -439,7 +425,6 @@
         private System.Windows.Forms.Label lbl_HeadCalSetting;
         private System.Windows.Forms.Label lbl_Options;
         private System.Windows.Forms.Label lbl_Weight;
-        private System.Windows.Forms.Button btn_Idle;
         private System.Windows.Forms.Timer tmr_Reticle;
         private System.Windows.Forms.CheckBox cbox_BypassTeachNeedleCheck;
         private System.Windows.Forms.Timer tmr1s;

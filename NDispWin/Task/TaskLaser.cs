@@ -116,6 +116,7 @@ namespace NDispWin
                         {
                             if (openCL3Retried) throw;
                             Thread.Sleep(500);
+                            openCL3Retried = true;
                             goto _retryCL3;
                         }
                         break;

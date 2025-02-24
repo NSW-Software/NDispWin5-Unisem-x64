@@ -253,7 +253,7 @@ namespace NDispWin
         #region TPara
         public static string[] TParaStr =// new string[ST_PARA_COUNT]
             {
-                "Stopper Enable",
+                "Stopper Mode",
                 "Stopper Up Delay (ms)",
                 "Stopper Dn Delay (ms)",
 
@@ -395,7 +395,7 @@ namespace NDispWin
             };
         public static string[] TParaDesc =
             {
-                "Stopper Enable (0, 1-> Enable, 2 -> Enable-Down)",
+                "Stopper Mode (PRO Station only: 2 -> Enable-Down)",
                 "Delay after Stopper Up",
                 "Delay after Stopper Dn",
 

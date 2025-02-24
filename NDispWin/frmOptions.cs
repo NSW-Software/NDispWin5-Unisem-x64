@@ -70,13 +70,9 @@ namespace NDispWin
             lblMaterialExpiryPreAlertTime.Text = TaskDisp.Material_ExpiryPreAlertTime.ToString();
 
             #region Process.AutoIdle
-            cbEnableStartIdle.Checked = TaskDisp.Option_EnableStartIdle;
             cbEnableIdleOnError.Checked = TaskDisp.Option_EnableIdleOnError;
             lblIdlePurgeTimer.Text = TaskDisp.Option_IdlePurgeTimer.ToString();
             cbxIdlePosition.Text = TaskDisp.Idle_Position.ToString();
-            lblIdlePurgeInterval.Text = $"{TaskDisp.Idle_PurgeInterval:f0}";
-            lblIdlePurgeDuration.Text = $"{TaskDisp.Idle_PurgeDuration:f0}";
-            lblIdlePurgePostVacTime.Text = $"{TaskDisp.Idle_PostVacTime:f0}";
             cbIdleReturn.Checked = TaskDisp.Idle_Return;
             #endregion
 
@@ -637,19 +633,12 @@ namespace NDispWin
         }
 
         #region Process.AutoIdle 
-        private void cbEnableStartIdle_Click(object sender, EventArgs e)
-        {
-            TaskDisp.Option_EnableStartIdle = !TaskDisp.Option_EnableStartIdle;
-            Log.OnSet("Start Idle", !TaskDisp.Option_EnableStartIdle, TaskDisp.Option_EnableStartIdle);
-            UpdateDisplay();
-        }
         private void cbEnableIdleOnError_Click(object sender, EventArgs e)
         {
             TaskDisp.Option_EnableIdleOnError = !TaskDisp.Option_EnableIdleOnError;
             Log.OnSet("Start Idle", !TaskDisp.Option_EnableIdleOnError, TaskDisp.Option_EnableIdleOnError);
             UpdateDisplay();
         }
-
         private void lblIdlePurgeTimer_Click(object sender, EventArgs e)
         {
             UC.AdjustExec("Disp Setup Options, Idle Purge Timer (s)", ref TaskDisp.Option_IdlePurgeTimer, 0, 3600);
@@ -659,34 +648,11 @@ namespace NDispWin
         {
             TaskDisp.Idle_Position = (TaskDisp.EMaintPos)cbxIdlePosition.SelectedIndex;
         }
-        private void lblIdlePurgeInterval_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Idle Purge Interval (s)", ref TaskDisp.Idle_PurgeInterval, 5, 600);
-            UpdateDisplay();
-        }
-        private void lblIdlePurgeDuration_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Idle Purge Duration (ms)", ref TaskDisp.Idle_PurgeDuration, 10, 50000);
-            UpdateDisplay();
-        }
-        private void lblIdlePurgePostVacTime_Click(object sender, EventArgs e)
-        {
-            UC.AdjustExec("Idle Post Vac Time (ms)", ref TaskDisp.Idle_PostVacTime, 0, 5000);
-            UpdateDisplay();
-        }
-
         private void cbReturn_Click(object sender, EventArgs e)
         {
             TaskDisp.Idle_Return = !TaskDisp.Idle_Return;
             Log.OnSet("Idle Return", !TaskDisp.Idle_Return, TaskDisp.Idle_Return);
             UpdateDisplay();
-        }
-
-        private void btnIdle_Click(object sender, EventArgs e)
-        {
-            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
-            frm.AutoStart = true;
-            frm.ShowDialog();
         }
         #endregion
     }

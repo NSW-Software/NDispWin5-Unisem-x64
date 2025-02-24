@@ -249,7 +249,6 @@ namespace NDispWin
             AppLanguage.Func2.WriteLangFile(new frmCameraSetting());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispInfo());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispTools());
-            AppLanguage.Func2.WriteLangFile(new frm_DispCore_IdlePurge());
             AppLanguage.Func2.WriteLangFile(new frm_DispCore_DispCtrl_FuncSetup());
 
             AppLanguage.Func2.WriteLangFile(new frmSetupHM());

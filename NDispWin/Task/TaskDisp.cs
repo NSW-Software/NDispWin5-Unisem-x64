@@ -932,9 +932,9 @@ namespace NDispWin
         public static int Needle_Flush_PostVacTime = 0;
 
         public static int Idle_TimeToIdle = 0;//(s)
-        public static int Idle_PurgeDuration = 0;//(ms)
-        public static int Idle_PurgeInterval = 5;//(s)
-        public static int Idle_PostVacTime = 0;//(ms)
+        //public static int Idle_PurgeDuration = 0;//(ms)
+        //public static int Idle_PurgeInterval = 5;//(s)
+        //public static int Idle_PostVacTime = 0;//(ms)
         public static EMaintPos Idle_Position = EMaintPos.Purge;
         public static bool Idle_Return = false;
         public static bool Idle_Returned = false;//volatile, Frame was returned.
@@ -1436,10 +1436,8 @@ namespace NDispWin
             #endregion
 
             Idle_TimeToIdle = IniFile.ReadInteger("Idle", "TimeToIdle", 0);
-            Idle_PurgeDuration = IniFile.ReadInteger("Idle", "PurgeDuration", 100);
-            Idle_PurgeInterval = IniFile.ReadInteger("Idle", "PurgeInterval", 60);
-            Idle_PostVacTime = IniFile.ReadInteger("Idle", "PostVacTime", 100);
             Idle_Position = (EMaintPos)IniFile.ReadInteger("Idle", "Position", (int)EMaintPos.Purge);
+            Idle_Return = IniFile.ReadBool("Idle", "Return", false);
 
             #region Needle Weight
             //for (int i = 0; i < MAX_HEADCOUNT; i++)
@@ -1750,10 +1748,8 @@ namespace NDispWin
             #endregion
 
             IniFile.WriteInteger("Idle", "TimeToIdle", Idle_TimeToIdle);
-            IniFile.WriteInteger("Idle", "PurgeDuration", Idle_PurgeDuration);
-            IniFile.WriteInteger("Idle", "PurgeInterval", Idle_PurgeInterval);
-            IniFile.WriteInteger("Idle", "PostVacTime", Idle_PostVacTime);
             IniFile.WriteInteger("Idle", "Position", (int)Idle_Position);
+            IniFile.WriteBool("Idle", "Return", Idle_Return);
 
             #region Needle PreDisp
             //for (int i = 0; i < MAX_HEADCOUNT; i++)
@@ -9015,145 +9011,6 @@ namespace NDispWin
                 }
 
                 return false;
-            }
-        }
-
-        public static bool TaskIdlePurge(int Mask)
-        {
-            string EMsg = "Task Idle Purge";
-
-            bool DispA = ((Mask & 0x01) == 0x01);
-            bool DispB = ((Mask & 0x02) == 0x02);
-
-            try
-            {
-                GDefine.Status = EStatus.Busy;
-
-                TaskDisp.FPressOn(new bool[2] { DispA, DispB });
-
-                //TPos3[] Pos3 = new TPos3[2] { TaskDisp.Needle_Purge_Pos[0], TaskDisp.Needle_Purge_Pos[1] };
-                TPos3[] Pos3 = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
-                switch ((EMaintPos)Idle_Position)
-                {
-                    case EMaintPos.Clean:
-                        Pos3 = new TPos3[2] { new TPos3(Needle_Clean_Pos[0]), new TPos3(Needle_Clean_Pos[1]) };
-                        break;
-                    case EMaintPos.Purge:
-                        Pos3 = new TPos3[2] { new TPos3(Needle_Purge_Pos[0]), new TPos3(Needle_Purge_Pos[1]) };
-                        break;
-                    case EMaintPos.Flush:
-                        Pos3 = new TPos3[2] { new TPos3(Needle_Flush_Pos[0]), new TPos3(Needle_Flush_Pos[1]) };
-                        break;
-                }
-
-                if (!TaskDisp.TaskMoveGZUp()) return false;
-                if (!TaskDisp.GotoXYPos(Pos3[0], Pos3[1])) return false;
-
-                if (!TaskGantry.SetMotionParamGZZ2()) return false;
-                if (!TaskDisp.TaskMoveAbsGZZ2(Pos3[0].Z, Pos3[1].Z)) return false;
-
-                bool IsDispAPurgeMode = false;
-                bool IsDispBPurgeMode = false;
-                if (!TaskDisp.GetDispCtrlMode(DispA, DispB, ref IsDispAPurgeMode, ref IsDispBPurgeMode)) goto _Stop;
-                if (!TaskDisp.SetDispCtrlPurgeMode(DispA, DispB)) goto _Stop;
-
-                switch (DispProg.Pump_Type)
-                {
-                    case TaskDisp.EPumpType.Vermes:
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (TaskDisp.Vermes3200[i].IsOpen)
-                            {
-                                if (TaskDisp.Vermes3200[i].Param.NP != 0)// TaskDisp.Idle_PurgeDuration)
-                                {
-                                    TaskDisp.Vermes3200[i].Param.NP = 0;// (uint)TaskDisp.Idle_PurgeDuration;
-                                    TaskDisp.Vermes3200[i].Set();
-                                }
-                            }
-                        }
-                        break;
-                    case TaskDisp.EPumpType.Vermes1560:
-                        for (int i = 0; i < 2; i++)
-                        {
-                            if (TaskDisp.Vermes1560[i].IsOpen)
-                            {
-                                if (TaskDisp.Vermes1560[i].NP[0] != 0)
-                                {
-                                    TaskDisp.Vermes1560[i].NP[0] = 0;
-                                    TaskDisp.Vermes1560[i].UpdateSetup();
-                                }
-                            }
-                        }
-                        break;
-                }
-
-                if (DispA || DispB)
-                {
-                    if (!TaskDisp.CtrlWaitReady(DispA, DispB)) goto _Stop;
-                    if (!TaskDisp.TrigOn(DispA, DispB)) goto _Stop;
-                    if (!TaskDisp.CtrlWaitResponse(DispA, DispB)) goto _Stop;
-
-                    int t = GDefine.GetTickCount() + TaskDisp.Idle_PurgeDuration;
-                    while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-
-                    if (!TaskDisp.TrigOff(DispA, DispB)) goto _Stop;
-                    if (!TaskDisp.CtrlWaitComplete(DispA, DispB)) goto _Stop;
-                }
-
-                if (!TaskDisp.TaskMoveGZUp()) return false;
-
-                //if (DispProg.DispCtrl_ForceTimeMode)
-                //{
-                //    TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
-                //}
-                //else
-                //{
-                //    if (!IsDispAPurgeMode)
-                //        TaskDisp.SetDispCtrlTimedMode(DispA, DispB);
-                //}
-                switch (DispProg.Pump_Type)
-                {
-                    case EPumpType.HM:
-                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
-                            SetDispCtrlTimedMode(DispA, DispB);
-                        if (DispProg.HM_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
-                            SetDispCtrlPurgeMode(DispA, DispB);
-                        break;
-                    case EPumpType.PP:
-                    case EPumpType.PPD:
-                    case EPumpType.PP2D:
-                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Timed)
-                            SetDispCtrlTimedMode(DispA, DispB);
-                        if (DispProg.PP_HPC15CtrlDefaultMode == EHPC15Mode.Continuous)
-                            SetDispCtrlPurgeMode(DispA, DispB);
-                        break;
-                }
-
-                if (Idle_PostVacTime > 0)
-                {
-                    TaskGantry.SvCleanVac = true;
-                    int t = GDefine.GetTickCount() + Idle_PostVacTime;
-                    while (GDefine.GetTickCount() <= t) { Thread.Sleep(1); }
-                    TaskGantry.SvCleanVac = false;
-                }
-
-                GDefine.Status = EStatus.Ready;
-                return true;
-                _Stop:
-                TaskDisp.TrigOff(DispA, DispB);
-                GDefine.Status = EStatus.Stop;
-                return false;
-            }
-            catch (Exception Ex)
-            {
-                EMsg = EMsg + Ex.Message.ToString();
-                Msg MsgBox = new Msg();
-                MsgBox.Show(ErrCode.UNKNOWN_EX_ERR, EMsg, true);
-                return false;
-            }
-            finally
-            {
-                TaskDisp.FPressOff();
             }
         }
 

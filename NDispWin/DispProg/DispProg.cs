@@ -187,7 +187,6 @@ namespace NDispWin
             public static bool Purging = false;
             static DateTime dt_LastMove = DateTime.Now;
             static bool atIdle = false;//flag indicate at idle state
-            static frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
 
             public static void Reset()
             {
@@ -206,72 +205,29 @@ namespace NDispWin
                     return ((DateTime.Now - dt_LastMove).TotalSeconds > TaskDisp.Option_IdlePurgeTimer);
                 }
             }
-            public static void IdlePurge()
-            {
-                Purging = true;
-                try
-                {
-                    int i_HeadSelect = 0;
-
-                    switch (DispProg.Head_Operation)
-                    {
-                        case TaskDisp.EHeadOperation.Double:
-                        case TaskDisp.EHeadOperation.Sync:
-                            i_HeadSelect = 3;
-                            break;
-                        case TaskDisp.EHeadOperation.Single:
-                            i_HeadSelect = 1;
-                            break;
-                    }
-
-                    frm = new frm_DispCore_IdlePurge();
-                    frm.i_DispSelect = i_HeadSelect;
-                    frm.AutoStart = true;
-                    frm.ShowDialog();
-                    frm.TopMost = true;
-                    Reset();
-                }
-                catch { }
-                finally
-                {
-                    Purging = false;
-                }
-            }
-            public static void RunIdle()//return true if idle
+            public static void MoveToIdle()//move to idle
             {
                 if (atIdle) return;
 
-                if (GDefine.Status == EStatus.Ready || GDefine.Status == EStatus.Stop || GDefine.Status == EStatus.EndStop)
+                Event.OP_MOVE_TO_IDLE.Set();
+                TaskDisp.TaskMoveGZUp();
+
+                TPos3[] pos = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
+                switch ((TaskDisp.EMaintPos)TaskDisp.Idle_Position)
                 {
-                    if (TaskDisp.Option_EnableStartIdle && TaskDisp.Option_IdlePurgeTimer > 0)
-                        if ((DateTime.Now - dt_LastMove).TotalSeconds > TaskDisp.Option_IdlePurgeTimer)
-                        {
-                            Event.OP_IDLE_PURGE_START.Set();
-                            TaskDisp.TaskMoveGZUp();
-
-                            TPos3[] pos = new TPos3[2] { new TPos3(0, 0, 0), new TPos3(0, 0, 0) };
-                            switch ((TaskDisp.EMaintPos)TaskDisp.Idle_Position)
-                            {
-                                case TaskDisp.EMaintPos.Clean:
-                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Clean_Pos[0]), new TPos3(TaskDisp.Needle_Clean_Pos[1]) };
-                                    break;
-                                case TaskDisp.EMaintPos.Purge:
-                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Purge_Pos[0]), new TPos3(TaskDisp.Needle_Purge_Pos[1]) };
-                                    break;
-                                case TaskDisp.EMaintPos.Flush:
-                                    pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Flush_Pos[0]), new TPos3(TaskDisp.Needle_Flush_Pos[1]) };
-                                    break;
-                            }
-
-                            TaskDisp.TaskGotoTPos2(pos);
-                            atIdle = true;
-                        }
+                    case TaskDisp.EMaintPos.Clean:
+                        pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Clean_Pos[0]), new TPos3(TaskDisp.Needle_Clean_Pos[1]) };
+                        break;
+                    case TaskDisp.EMaintPos.Purge:
+                        pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Purge_Pos[0]), new TPos3(TaskDisp.Needle_Purge_Pos[1]) };
+                        break;
+                    case TaskDisp.EMaintPos.Flush:
+                        pos = new TPos3[2] { new TPos3(TaskDisp.Needle_Flush_Pos[0]), new TPos3(TaskDisp.Needle_Flush_Pos[1]) };
+                        break;
                 }
-            }
-            public static void StopPurge()
-            {
-                Event.OP_IDLE_PURGE_STOP.Set();
-                frm.Close();
+
+                TaskDisp.TaskGotoTPos2(pos);
+                atIdle = true;
             }
         }
 
@@ -2795,8 +2751,6 @@ namespace NDispWin
 
         public static bool TR_Run()
         {
-            if (Idle.Purging) Idle.StopPurge();
-
             Log.AddToLog("DispCore TR_Run.");
             string EMsg = "DispCore TR_Run.";
 

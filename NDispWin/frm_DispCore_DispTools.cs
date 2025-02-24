@@ -759,25 +759,6 @@ namespace NDispWin
         }
         private void btn_StartIdle_Click(object sender, EventArgs e)
         {
-            Event.DISPTOOLS_START_IDLE.Set();
-
-            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
-
-            int i_HeadSelect = 0;
-
-            switch (DispProg.Head_Operation)
-            {
-                case TaskDisp.EHeadOperation.Double:
-                case TaskDisp.EHeadOperation.Sync:
-                    i_HeadSelect = 3;
-                    break;
-                case TaskDisp.EHeadOperation.Single:
-                    i_HeadSelect = 1;
-                    break;
-            }
-            frm.i_DispSelect = i_HeadSelect;
-            frm.AutoStart = true;
-            frm.ShowDialog();
         }
 
         private void btn_Weight_Click(object sender, EventArgs e)

@@ -214,10 +214,6 @@
     <Compile Include="frmProcessing.designer.cs">
       <DependentUpon>frmProcessing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.cs" />
-    <Compile Include="Custom_VolumeAdjust\frm_Osram_eMos_Setup.designer.cs">
-      <DependentUpon>frm_Osram_eMos_Setup.cs</DependentUpon>
-    </Compile>
     <Compile Include="JogAndVision\frm_DispCore_JogGantry2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,18 +234,6 @@
       <DependentUpon>frm_Weighting.cs</DependentUpon>
     </Compile>
     <Compile Include="GControl.cs" />
-    <Compile Include="LotCtrl\frmLotEntryAnalogPrompt.cs" />
-    <Compile Include="LotCtrl\frmLotEntryAnalogPrompt.Designer.cs">
-      <DependentUpon>frmLotEntryAnalogPrompt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalogSetup.cs" />
-    <Compile Include="LotCtrl\frmLotEntryAnalogSetup.Designer.cs">
-      <DependentUpon>frmLotEntryAnalogSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frmLotEntryAnalog.cs" />
-    <Compile Include="LotCtrl\frmLotEntryAnalog.Designer.cs">
-      <DependentUpon>frmLotEntryAnalog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Settings\frmCameraSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,10 +267,6 @@
     </Compile>
     <Compile Include="DispProg\frmDispProgGroupDisp.Designer.cs">
       <DependentUpon>frmDispProgGroupDisp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LotCtrl\frm_LotEntryOsramEMos.cs" />
-    <Compile Include="LotCtrl\frm_LotEntryOsramEMos.designer.cs">
-      <DependentUpon>frm_LotEntryOsramEMos.cs</DependentUpon>
     </Compile>
     <Compile Include="LotCtrl\TELotInfo.cs" />
     <Compile Include="Vermes\TEVermesMDS3200.cs" />
@@ -1226,15 +1206,6 @@
     <EmbeddedResource Include="frm_Weighting.resx">
       <DependentUpon>frm_Weighting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalogPrompt.resx">
-      <DependentUpon>frmLotEntryAnalogPrompt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalogSetup.resx">
-      <DependentUpon>frmLotEntryAnalogSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frmLotEntryAnalog.resx">
-      <DependentUpon>frmLotEntryAnalog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Settings\frmCameraSetting.resx">
       <DependentUpon>frmCameraSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1251,9 +1222,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DispProg\frmDispProgGroupDisp.resx">
       <DependentUpon>frmDispProgGroupDisp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LotCtrl\frm_LotEntryOsramEMos.resx">
-      <DependentUpon>frm_LotEntryOsramEMos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Weight\frmWeightMeasure.resx">
       <DependentUpon>frmWeightMeasure.cs</DependentUpon>

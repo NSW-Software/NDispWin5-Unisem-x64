@@ -214,12 +214,6 @@ namespace NDispWin
             ShowPage(sender, frmVolOfst);
         }
 
-        private void btn_Idle_Click(object sender, EventArgs e)
-        {
-            frm_DispCore_IdlePurge frm = new frm_DispCore_IdlePurge();
-            frm.ShowDialog();
-        }
-
         private void tmr_Reticle_Tick(object sender, EventArgs e)
         {
 

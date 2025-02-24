@@ -65,15 +65,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbxIdlePosition = new System.Windows.Forms.ComboBox();
             this.lblIdlePurgeTimer = new System.Windows.Forms.Label();
-            this.lblIdlePurgePostVacTime = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblIdlePurgeInterval = new System.Windows.Forms.Label();
-            this.lblIdlePurgeDuration = new System.Windows.Forms.Label();
-            this.btnIdle = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
-            this.cbEnableStartIdle = new System.Windows.Forms.CheckBox();
             this.cbEnableProcessLog = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -532,23 +524,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.cbEnableIdleOnError);
             this.groupBox2.Controls.Add(this.cbIdleReturn);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.cbxIdlePosition);
             this.groupBox2.Controls.Add(this.lblIdlePurgeTimer);
-            this.groupBox2.Controls.Add(this.lblIdlePurgePostVacTime);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.lblIdlePurgeInterval);
-            this.groupBox2.Controls.Add(this.lblIdlePurgeDuration);
-            this.groupBox2.Controls.Add(this.btnIdle);
             this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.cbEnableStartIdle);
             this.groupBox2.Location = new System.Drawing.Point(6, 263);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(721, 153);
+            this.groupBox2.Size = new System.Drawing.Size(741, 88);
             this.groupBox2.TabIndex = 229;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto Idle";
@@ -557,7 +542,7 @@
             // 
             this.cbEnableIdleOnError.AccessibleDescription = "Enable Idle On Error (Vision and Height)";
             this.cbEnableIdleOnError.AutoSize = true;
-            this.cbEnableIdleOnError.Location = new System.Drawing.Point(6, 46);
+            this.cbEnableIdleOnError.Location = new System.Drawing.Point(6, 21);
             this.cbEnableIdleOnError.Name = "cbEnableIdleOnError";
             this.cbEnableIdleOnError.Size = new System.Drawing.Size(245, 18);
             this.cbEnableIdleOnError.TabIndex = 242;
@@ -569,7 +554,7 @@
             // 
             this.cbIdleReturn.AccessibleDescription = "Return";
             this.cbIdleReturn.AutoSize = true;
-            this.cbIdleReturn.Location = new System.Drawing.Point(361, 127);
+            this.cbIdleReturn.Location = new System.Drawing.Point(27, 48);
             this.cbIdleReturn.Name = "cbIdleReturn";
             this.cbIdleReturn.Size = new System.Drawing.Size(100, 18);
             this.cbIdleReturn.TabIndex = 241;
@@ -601,7 +586,7 @@
             // 
             this.lblIdlePurgeTimer.BackColor = System.Drawing.SystemColors.Window;
             this.lblIdlePurgeTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIdlePurgeTimer.Location = new System.Drawing.Point(268, 18);
+            this.lblIdlePurgeTimer.Location = new System.Drawing.Point(255, 45);
             this.lblIdlePurgeTimer.Margin = new System.Windows.Forms.Padding(2);
             this.lblIdlePurgeTimer.Name = "lblIdlePurgeTimer";
             this.lblIdlePurgeTimer.Size = new System.Drawing.Size(40, 23);
@@ -610,112 +595,16 @@
             this.lblIdlePurgeTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblIdlePurgeTimer.Click += new System.EventHandler(this.lblIdlePurgeTimer_Click);
             // 
-            // lblIdlePurgePostVacTime
-            // 
-            this.lblIdlePurgePostVacTime.BackColor = System.Drawing.SystemColors.Window;
-            this.lblIdlePurgePostVacTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIdlePurgePostVacTime.Location = new System.Drawing.Point(515, 99);
-            this.lblIdlePurgePostVacTime.Margin = new System.Windows.Forms.Padding(2);
-            this.lblIdlePurgePostVacTime.Name = "lblIdlePurgePostVacTime";
-            this.lblIdlePurgePostVacTime.Size = new System.Drawing.Size(75, 23);
-            this.lblIdlePurgePostVacTime.TabIndex = 238;
-            this.lblIdlePurgePostVacTime.Text = "999";
-            this.lblIdlePurgePostVacTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblIdlePurgePostVacTime.Click += new System.EventHandler(this.lblIdlePurgePostVacTime_Click);
-            // 
-            // label20
-            // 
-            this.label20.AccessibleDescription = "Post Vac Time (ms)";
-            this.label20.Location = new System.Drawing.Point(358, 99);
-            this.label20.Margin = new System.Windows.Forms.Padding(2);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(150, 23);
-            this.label20.TabIndex = 237;
-            this.label20.Text = "Post Vac Time (ms)";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label21
-            // 
-            this.label21.AccessibleDescription = "Purge Interval (s)";
-            this.label21.Location = new System.Drawing.Point(358, 45);
-            this.label21.Margin = new System.Windows.Forms.Padding(2);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(150, 23);
-            this.label21.TabIndex = 236;
-            this.label21.Text = "Purge Interval (s)";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label23
-            // 
-            this.label23.AccessibleDescription = "Purge Duration (ms)";
-            this.label23.Location = new System.Drawing.Point(358, 72);
-            this.label23.Margin = new System.Windows.Forms.Padding(2);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(150, 23);
-            this.label23.TabIndex = 235;
-            this.label23.Text = "Purge Duration (ms)";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblIdlePurgeInterval
-            // 
-            this.lblIdlePurgeInterval.BackColor = System.Drawing.SystemColors.Window;
-            this.lblIdlePurgeInterval.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIdlePurgeInterval.Location = new System.Drawing.Point(516, 45);
-            this.lblIdlePurgeInterval.Margin = new System.Windows.Forms.Padding(2);
-            this.lblIdlePurgeInterval.Name = "lblIdlePurgeInterval";
-            this.lblIdlePurgeInterval.Size = new System.Drawing.Size(75, 23);
-            this.lblIdlePurgeInterval.TabIndex = 234;
-            this.lblIdlePurgeInterval.Text = "999";
-            this.lblIdlePurgeInterval.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblIdlePurgeInterval.Click += new System.EventHandler(this.lblIdlePurgeInterval_Click);
-            // 
-            // lblIdlePurgeDuration
-            // 
-            this.lblIdlePurgeDuration.BackColor = System.Drawing.SystemColors.Window;
-            this.lblIdlePurgeDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblIdlePurgeDuration.Location = new System.Drawing.Point(515, 72);
-            this.lblIdlePurgeDuration.Margin = new System.Windows.Forms.Padding(2);
-            this.lblIdlePurgeDuration.Name = "lblIdlePurgeDuration";
-            this.lblIdlePurgeDuration.Size = new System.Drawing.Size(75, 23);
-            this.lblIdlePurgeDuration.TabIndex = 233;
-            this.lblIdlePurgeDuration.Text = "999";
-            this.lblIdlePurgeDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblIdlePurgeDuration.Click += new System.EventHandler(this.lblIdlePurgeDuration_Click);
-            // 
-            // btnIdle
-            // 
-            this.btnIdle.AccessibleDescription = "Idle";
-            this.btnIdle.Location = new System.Drawing.Point(594, 87);
-            this.btnIdle.Margin = new System.Windows.Forms.Padding(2);
-            this.btnIdle.Name = "btnIdle";
-            this.btnIdle.Size = new System.Drawing.Size(70, 35);
-            this.btnIdle.TabIndex = 232;
-            this.btnIdle.Text = "Idle";
-            this.btnIdle.UseVisualStyleBackColor = true;
-            this.btnIdle.Click += new System.EventHandler(this.btnIdle_Click);
-            // 
             // label24
             // 
             this.label24.AccessibleDescription = "Idle Purge Timer";
-            this.label24.Location = new System.Drawing.Point(163, 18);
+            this.label24.Location = new System.Drawing.Point(150, 45);
             this.label24.Margin = new System.Windows.Forms.Padding(2);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(101, 23);
             this.label24.TabIndex = 230;
             this.label24.Text = "Time To Idle (s)";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cbEnableStartIdle
-            // 
-            this.cbEnableStartIdle.AccessibleDescription = "Enable Start Idle";
-            this.cbEnableStartIdle.AutoSize = true;
-            this.cbEnableStartIdle.Location = new System.Drawing.Point(6, 21);
-            this.cbEnableStartIdle.Name = "cbEnableStartIdle";
-            this.cbEnableStartIdle.Size = new System.Drawing.Size(152, 18);
-            this.cbEnableStartIdle.TabIndex = 229;
-            this.cbEnableStartIdle.Text = "Enable Timer Start Idle";
-            this.cbEnableStartIdle.UseVisualStyleBackColor = true;
-            this.cbEnableStartIdle.Click += new System.EventHandler(this.cbEnableStartIdle_Click);
             // 
             // cbEnableProcessLog
             // 
@@ -1730,14 +1619,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbxIdlePosition;
         private System.Windows.Forms.Label lblIdlePurgeTimer;
-        private System.Windows.Forms.Label lblIdlePurgePostVacTime;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label lblIdlePurgeInterval;
-        private System.Windows.Forms.Label lblIdlePurgeDuration;
-        private System.Windows.Forms.Button btnIdle;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.CheckBox cbEnableStartIdle;
     }
 }

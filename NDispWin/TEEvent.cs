@@ -135,6 +135,7 @@ namespace NDispWin
         public static TEEvent OP_WEIGHT2_MEASURE = new TEEvent(DISPCORE_EVENT_OP + 6, "Weight2 Measure.");
         public static TEEvent OP_IDLE_PURGE_START = new TEEvent(DISPCORE_EVENT_OP + 10, "Start Idle Purge.");
         public static TEEvent OP_IDLE_PURGE_STOP = new TEEvent(DISPCORE_EVENT_OP + 11, "Stop Idle Purge.");
+        public static TEEvent OP_MOVE_TO_IDLE = new TEEvent(DISPCORE_EVENT_OP + 12, "Move to Idle.");
 
         public static TEEvent OP_DISP_LOAD_DEVICE = new TEEvent(DISPCORE_EVENT_OP + 15, "Load Device.");
         public static TEEvent OP_DISP_LOAD_DISP_RECIPE = new TEEvent(DISPCORE_EVENT_OP + 16, "Load Disp Recipe.");

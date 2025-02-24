@@ -59,7 +59,12 @@ namespace NDispWin
                     if (bClosed) break;
                     if (TaskDisp.Option_EnableIdleOnError && DispProg.Idle.Idling)
                     {
-                        DispProg.Idle.RunIdle();
+                        uint t = DispProg.Idle.Timer();
+
+                        DialogResult = DialogResult.Abort;
+                        Thread.Sleep(5);
+
+                        DispProg.Idle.MoveToIdle();
 
                         if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
                         {
@@ -67,18 +72,19 @@ namespace NDispWin
 
                             TaskDisp.Idle_Returned = true;
                             DispProg.UpdateIdleReturnMaps();
+                            DispProg.ClearRTDispData();
 
                             TaskConv.MoveProToIn();
                         _AbortReturn:;
                         }
-
-                        DialogResult = DialogResult.Abort;
-                        EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Error Unattended for {DispProg.Idle.Timer()}s");
+                        EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Vision error unattended for {t}s. Frame is returned to In.");
+                        break;
                     }
 
                     if (TaskDisp.Option_EnableStartIdle && DispProg.Idle.Idling)
                     {
                         DialogResult = DialogResult.Abort;
+                        break;
                     }
 
                     Thread.Sleep(5);
