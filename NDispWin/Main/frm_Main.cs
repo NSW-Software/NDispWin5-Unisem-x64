@@ -370,6 +370,14 @@ namespace NDispWin
                     tsslSECSGEMConnect2.BackColor = Color.Orange;
                 }
             }
+
+            switch (DispProg.Pump_Type)
+            {
+                case TaskDisp.EPumpType.Vermes:
+                case TaskDisp.EPumpType.Vermes1560:
+                    if (!TaskDisp.DispCtrlOpened(0)) TaskDisp.TeachNeedle_Completed = false;
+                    break;
+            }
         }
 
         private void tsbDevice_Click(object sender, EventArgs e)
@@ -640,14 +648,6 @@ namespace NDispWin
                 var committedBytes = new PerformanceCounter("Memory", "Committed Bytes");
                 var cachedBytes = new PerformanceCounter("Memory", "Cache Bytes");
                 Event.DEBUG_INFO.Set("Memory Total, Commit, Process Total Physical,Peak Physical, Private", $"{totalMemory.NextValue()},{committedBytes.NextValue() / (1024 * 1024)},{cachedBytes.NextValue() / (1024 * 1024)},{tpm},{ppm},{pmu} MB");
-            }
-
-            switch (DispProg.Pump_Type)
-            {
-                case TaskDisp.EPumpType.Vermes:
-                case TaskDisp.EPumpType.Vermes1560:
-                    if (!TaskDisp.DispCtrlOpened(0)) TaskDisp.TeachNeedle_Completed = false;
-                    break;
             }
         }
     }

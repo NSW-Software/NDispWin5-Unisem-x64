@@ -1763,7 +1763,7 @@ namespace NDispWin
                 SvStopperUp = false;
 
                 Msg MsgBox = new Msg();
-                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_UP_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
+                EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_STOPPER_DN_TIMEOUT, "PRE", EMcState.Error, EMsgBtn.smbRetry_Cancel, false);
                 switch (MsgRes)
                 {
                     case EMsgRes.smrRetry: goto _Retry;

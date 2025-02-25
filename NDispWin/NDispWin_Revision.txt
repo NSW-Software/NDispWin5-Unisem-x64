@@ -21,7 +21,14 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
+Ver 6.1.9.8 20250225 - Remote release to LRK/LT for UnisemCD - Gitted
+  - [Changes] Use frmHeightFailMsg to cater for Idle Return. Req LRK.
+  - [BugFix] ClearRTDispData() at DispProg.Run.
+  - [Chaanges] For Vermes pump, check Vermes disconnect interval at 1s.
+Ver 6.1.9.7 20250225 - Remote release to LRK/LT for UnisemCD - Gitted
+  - [Changes] Use frmHeightFailMsg to cater for Idle Return. Req LRK.
+  - [BugFix] Prevent multiple execution of Task for frmVisionFailMsg, frmVisionFailMsg2 and frmHeightFailMsg.
+  - [Changes] Change ResumeMap from EMapBin.Complete to EMapBin.BinNG, do not resume processed units. Req LRK.
 Ver 6.1.9.5 20250224 - Remote release to LYL/LRK/LT for UnisemCD - Gitted
   - [Changes] Removed IdlePurge, custom request to handle return frame for LRK.
   - [BugFix] Fix OpenLaser().CL3 infinite loop. Break after retry.

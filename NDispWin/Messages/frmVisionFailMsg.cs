@@ -59,8 +59,9 @@ namespace NDispWin
                     if (bClosed) break;
                     if (TaskDisp.Option_EnableIdleOnError && DispProg.Idle.Idling)
                     {
+                        bClosed = true;
+                        
                         uint t = DispProg.Idle.Timer();
-
                         DialogResult = DialogResult.Abort;
                         Thread.Sleep(5);
 
@@ -72,27 +73,19 @@ namespace NDispWin
 
                             TaskDisp.Idle_Returned = true;
                             DispProg.UpdateIdleReturnMaps();
-                            DispProg.ClearRTDispData();
-
                             TaskConv.MoveProToIn();
                         _AbortReturn:;
                         }
                         EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Vision error unattended for {t}s. Frame is returned to In.");
                         break;
                     }
-
-                    if (TaskDisp.Option_EnableStartIdle && DispProg.Idle.Idling)
-                    {
-                        DialogResult = DialogResult.Abort;
-                        break;
-                    }
-
                     Thread.Sleep(5);
                 }
             });
         }
         private void frmVisionFailMsg_FormClosed(object sender, FormClosedEventArgs e)
         {
+            bClosed = true;
             bmp_RefImage.Dispose();
             bmp_FoundImage.Dispose();
         }
@@ -216,10 +209,6 @@ namespace NDispWin
 
         private void tmr_Display_Tick(object sender, EventArgs e)
         {
-            if (TaskDisp.Option_EnableStartIdle && DispProg.Idle.Idling)
-            {
-                DialogResult = DialogResult.Abort;
-            }
         }
     }
 }

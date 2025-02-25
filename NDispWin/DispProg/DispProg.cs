@@ -552,7 +552,8 @@ namespace NDispWin
 
                 for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
                 {
-                    if (Map.CurrMap[ID].Bin[i] >= EMapBin.Complete)
+                    //if (Map.CurrMap[ID].Bin[i] >= EMapBin.Complete) v6.1.9.6
+                    if (Map.CurrMap[ID].Bin[i] >= EMapBin.BinNG)
                         Map.CurrMap[ID].Bin[i] = EMapBin.Bypass;
                     else
                         Map.CurrMap[ID].Bin[i] = EMapBin.None;
@@ -5308,109 +5309,11 @@ namespace NDispWin
                                                                 break;
                                                             }
                                                         }
+                                                        if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                                         Thread.Sleep(100);
                                                         goto _Pause;
                                                         #endregion
                                                 }
-                                                //frm_DispCore_VisionFailMsg frm = new frm_DispCore_VisionFailMsg();
-                                                //frm.ShowSkipButton = ActiveLine.IPara[11] > 0;
-                                                //Log.AddToLog("DO_REF Point 1 fail.");
-                                                //DialogResult dr = frm.ShowDialog(FailAction,
-                                                //    TaskVision.RefTemplate[CmdList.Line[Line].ID, (int)EVisionRef.No1].Image.ToBitmap(),
-                                                //    FoundDoRef1.ToBitmap(),//Bitmap,
-                                                //    v_s1, v_ox1, v_oy1, 0,
-                                                //    CmdList.Line[Line].DPara[0], CmdList.Line[Line].DPara[1], 0);
-
-                                                //SetCameraLive();
-
-                                                //switch (dr)
-                                                //{
-                                                //    #region
-                                                //    case DialogResult.Retry:
-                                                //        Log.AddToLog("DO_REF Retry.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        goto _RetryRef1;
-                                                //    case DialogResult.Ignore://Skip
-                                                //        OK1 = false;
-                                                //        Log.AddToLog("DO_REF Skip.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.OK://Manual Adjust
-                                                //        v_ox1 = TaskGantry.GXPos() - dx1;
-                                                //        v_oy1 = TaskGantry.GYPos() - dy1;
-                                                //        if (ActiveLine.DPara[7] > 0)//enable Verify Score
-                                                //        {
-                                                //            double v_ox = 0;
-                                                //            double v_oy = 0;
-                                                //            double v_s = 0;
-                                                //            if (!DoRef(ActiveLine, dx1, dy1, RefID, (int)EVisionRef.No1, out v_ox, out v_oy, out v_s, ref gray_FoundDoRef1)) goto _Error;
-
-                                                //            if (v_s < ActiveLine.DPara[7])
-                                                //            {
-                                                //                if (NUtils.UserAcc.Active.GroupID < 2)
-                                                //                {
-                                                //                    int i_UserIdx = NUtils.UserAcc.Active.UserIndex;
-                                                //                    NUtils.UserAcc.Users.LoginDlg();
-                                                //                    if (NUtils.UserAcc.Active.GroupID < 2)
-                                                //                    {
-                                                //                        Log.AddToLog("DO_REF Vision verification fail.");
-                                                //                        goto _Pause;
-                                                //                    }
-                                                //                    Log.AddToLog("DO_REF Vision verification - bypassed by User Level");
-                                                //                }
-                                                //                else
-                                                //                    Log.AddToLog("DO_REF Vision verification bypassed by default User Level");
-                                                //            }
-                                                //            else
-                                                //                Log.AddToLog("DO_REF Vision verification pass.");
-                                                //        }
-
-                                                //        #region Check Offset in Spec
-                                                //        if (Math.Abs(v_ox1) > ActiveLine.DPara[1] || Math.Abs(v_oy1) > ActiveLine.DPara[1])
-                                                //        {
-                                                //            Msg MsgBox = new Msg();
-                                                //            EMsgRes MsgRes = MsgBox.Show(ErrCode.DO_REF_OFFSET_OOS, EMcState.Warning, EMsgBtn.smbOK_Stop, false);
-                                                //            if (MsgRes == EMsgRes.smrStop)
-                                                //            {
-                                                //                goto _Pause;
-                                                //            }
-                                                //        }
-                                                //        #endregion
-                                                //        OK1 = true;
-                                                //        Log.AddToLog("DO_REF Manual OK.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.Yes://Accept Position
-                                                //        OK1 = true;
-                                                //        Log.AddToLog("DO_REF Accept.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.Cancel://Reject
-                                                //        BdStatus = EBoardStatus.Reject;
-                                                //        Log.AddToLog("DO_REF Cancel.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        goto _EndBoard;
-                                                //    default://Stop
-                                                //        for (int L = Line; L >= 0; L--)
-                                                //        {
-                                                //            if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                //            {
-                                                //                LastLine = L;
-                                                //                break;
-                                                //            }
-                                                //        }
-                                                //        Log.AddToLog("DO_REF Stop.");
-                                                //        //if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                                //        //{
-                                                //        //    Application.OpenForms[0].Invoke(new Action(() =>
-                                                //        //    {
-                                                //        //        TaskVision.frmCamera.SelectCamera(0);
-                                                //        //        TaskVision.frmCamera.Grab();
-                                                //        //    }));
-                                                //        //}
-                                                //        goto _Pause;
-                                                //        #endregion
-                                                //}
                                             }
                                             #endregion
                                         }
@@ -5565,100 +5468,11 @@ namespace NDispWin
                                                                 break;
                                                             }
                                                         }
+                                                        if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                                         Thread.Sleep(100);
                                                         goto _Pause;
                                                         #endregion
                                                 }
-                                                //frm_DispCore_VisionFailMsg frm = new frm_DispCore_VisionFailMsg();
-                                                //frm.ShowSkipButton = ActiveLine.IPara[11] > 0;
-                                                //Log.AddToLog("DO_REF Point 2 fail.");
-                                                //DialogResult dr = frm.ShowDialog(FailAction,
-                                                //    TaskVision.RefTemplate[CmdList.Line[Line].ID, (int)EVisionRef.No2].Image.ToBitmap(),
-                                                //    FoundDoRef2.ToBitmap(),
-                                                //    v_s2, v_ox2, v_oy2, Angle_Rad,
-                                                //    ActiveLine.DPara[0], ActiveLine.DPara[1], ActiveLine.DPara[2]);
-
-                                                //if (GDefine.CameraType[0] == GDefine.ECameraType.Spinnaker2)
-                                                //{
-                                                //    Application.OpenForms[0].Invoke(new Action(() =>
-                                                //    {
-
-                                                //        TaskVision.frmCamera.SelectCamera(0);
-                                                //        TaskVision.frmCamera.Grab();
-                                                //    }));
-                                                //}
-                                                //if (GDefine.CameraType[0] == GDefine.ECameraType.MVSGenTL)
-                                                //{
-                                                //    Application.OpenForms[0].Invoke(new Action(() =>
-                                                //    {
-                                                //        if (TaskVision.frmMVCGenTLCamera.Visible)
-                                                //        {
-                                                //            TaskVision.frmMVCGenTLCamera.SelectCamera(0);
-                                                //            if (TaskVision.frmMVCGenTLCamera.Visible) TaskVision.genTLCamera[0].StartGrab();
-                                                //        }
-                                                //    }));
-                                                //}
-
-                                                //switch (dr)
-                                                //{
-                                                //    case DialogResult.Retry:
-                                                //        Log.AddToLog("DO_REF Retry.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        goto _RetryRef1;
-                                                //    case DialogResult.Ignore:
-                                                //        OK2 = false;
-                                                //        Log.AddToLog("DO_REF Ignore.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.OK:
-                                                //        v_ox2 = TaskGantry.GXPos() - dx2;
-                                                //        v_oy2 = TaskGantry.GYPos() - dy2;
-                                                //        OK2 = true;
-
-                                                //        ndx2 = dx2 + v_ox2;
-                                                //        ndy2 = dy2 + v_oy2;
-
-                                                //        NewPt2 = new Point2D(ndx2, ndy2);
-                                                //        Angle_Rad = (double)NewPt2.Angle(NewPt1, OriPt1, OriPt2);
-                                                //        Angle_Deg = (Angle_Rad * 180) / Math.PI;
-
-                                                //        #region Check Offset and Angle in Spec
-                                                //        if (Math.Abs(Angle_Deg) > ActiveLine.DPara[2])
-                                                //        {
-                                                //            Msg MsgBox = new Msg();
-                                                //            EMsgRes MsgRes = MsgBox.Show(ErrCode.DO_REF_ANGLE_OOS, EMcState.Warning, EMsgBtn.smbOK_Stop, false);
-                                                //            if (MsgRes == EMsgRes.smrStop)
-                                                //            {
-                                                //                goto _Pause;
-                                                //            }
-                                                //        }
-                                                //        #endregion
-                                                //        OK2 = true;
-                                                //        Log.AddToLog("DO_REF Manual OK.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.Yes:
-                                                //        OK2 = true;
-                                                //        Log.AddToLog("DO_REF Accept.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        break;
-                                                //    case DialogResult.Cancel://Reject
-                                                //        BdStatus = EBoardStatus.Reject;
-                                                //        Log.AddToLog("DO_REF Cancel.");
-                                                //        DefineSafety.DoorLock = true;
-                                                //        goto _EndBoard;
-                                                //    default:
-                                                //        for (int L = Line; L >= 0; L--)
-                                                //        {
-                                                //            if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                //            {
-                                                //                LastLine = L;
-                                                //                break;
-                                                //            }
-                                                //        }
-                                                //        Log.AddToLog("DO_REF Stop.");
-                                                //        goto _Pause;
-                                                //}
                                             }
                                             #endregion
                                         }
@@ -6131,6 +5945,7 @@ namespace NDispWin
                                                         break;
                                                     }
                                                 }
+                                                if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                                 Thread.Sleep(100);
                                                 goto _Pause;
                                                 #endregion
@@ -6429,6 +6244,7 @@ namespace NDispWin
                                                             break;
                                                         }
                                                     }
+                                                    if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                                     Thread.Sleep(100);
                                                     goto _Pause;
                                                     #endregion
@@ -7073,6 +6889,7 @@ namespace NDispWin
                                                             break;
                                                         }
                                                     }
+                                                    if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                                     Thread.Sleep(100);
                                                     goto _Pause;
                                                     #endregion
@@ -7377,6 +7194,7 @@ namespace NDispWin
                                                     break;
                                                 }
                                             }
+                                            if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
                                             goto _Pause;
                                             break;
                                         case EExecuteDoHeight.EndDoHeight:
@@ -22316,26 +22134,43 @@ namespace NDispWin
                     if ((d <= d_RefHeight - d_RefHeightErrorTol) || (d >= d_RefHeight + d_RefHeightErrorTol))
                     {
                         HeightData.OK = false;
-                        Msg MsgBox = new Msg();
-                        EMsgRes MsgRes = MsgBox.Show(ErrCode.LASER_OUT_OF_REF_HEIGHT_TOL, "Ref Height = " + d_RefHeight.ToString("f4") + "\rCurrent Height = " + d.ToString("f4"), EMcState.Error, EMsgBtn.smbRetry_Stop | EMsgBtn.smbSkip, false);
 
-                        switch (MsgRes)
+                        //Msg MsgBox = new Msg();
+                        //EMsgRes MsgRes = MsgBox.Show(ErrCode.LASER_OUT_OF_REF_HEIGHT_TOL, "Ref Height = " + d_RefHeight.ToString("f4") + "\rCurrent Height = " + d.ToString("f4"), EMcState.Error, EMsgBtn.smbRetry_Stop | EMsgBtn.smbSkip, false);
+
+                        //switch (MsgRes)
+                        //{
+                        //    case EMsgRes.smrRetry: return EExecuteDoHeight.Retry;
+                        //    case EMsgRes.smrSkip:
+                        //        OK = 1;
+                        //        HeightData.OK = false;
+                        //        goto _SkipHeight;
+                        //    default://Stop
+                        //        i_DoHeightSkipCntr = 0;
+                        //        return EExecuteDoHeight.Pause;
+                        //}
+
+                        frm_DispCore_HeightFailMsg frm = new frm_DispCore_HeightFailMsg();
+                        frm.Message.Clear();
+                        frm.Message.Add("Laser out of RefHeight Tol.");
+                        frm.Message.Add("Ref Height = " + d_RefHeight.ToString("f4") + " Current Height = " + d.ToString("f4"));
+                        frm.Buttons = frm_DispCore_HeightFailMsg.Retry | frm_DispCore_HeightFailMsg.Stop | frm_DispCore_HeightFailMsg.Skip;
+
+                        DialogResult dr = frm.ShowDialog();
+                        switch (dr)
                         {
-                            case EMsgRes.smrRetry: return EExecuteDoHeight.Retry;
-                            case EMsgRes.smrSkip:
+                            case DialogResult.Retry:
+                                IO.SetState(EMcState.Run, DispProg.ProgramMode);
+                                DefineSafety.DoorLock = true;
+                                return EExecuteDoHeight.Retry;
+                            case DialogResult.Ignore://Skip
+                                IO.SetState(EMcState.Run, DispProg.ProgramMode);
                                 OK = 1;
-                                //goto _Continue;
                                 HeightData.OK = false;
                                 goto _SkipHeight;
-                            default://Stop
+                            default:
+                                IO.SetState(EMcState.Idle, DispProg.ProgramMode);
                                 i_DoHeightSkipCntr = 0;
-                                //clear all height data
-                                //RunTime.UIndex = 0;
-                                //for (int i = 0; i < MAX_IDS; i++)
-                                //    for (int j = 0; j < TLayout.MAX_UNITS; j++)
-                                //    {
-                                //        rt_HeightData[i, j] = new THeightData();
-                                //    }
                                 return EExecuteDoHeight.Pause;
                         }
                     }

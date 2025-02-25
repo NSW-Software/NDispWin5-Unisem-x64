@@ -38,6 +38,10 @@ namespace NDispWin
 
             Text = "Height Fail Message";
 
+            string msg = "";
+            foreach (string s in Message) msg = s + ", ";
+            Log.AddToLog(msg);
+
             Left = 0;
             Top = 0;
 
@@ -54,8 +58,9 @@ namespace NDispWin
                     if (bClosed) break;
                     if (TaskDisp.Option_EnableIdleOnError && DispProg.Idle.Idling)
                     {
-                        uint t = DispProg.Idle.Timer();
+                        bClosed = true;
 
+                        uint t = DispProg.Idle.Timer();
                         DialogResult = DialogResult.Abort;
                         Thread.Sleep(5);
 
@@ -67,22 +72,12 @@ namespace NDispWin
 
                             TaskDisp.Idle_Returned = true;
                             DispProg.UpdateIdleReturnMaps();
-                            DispProg.ClearRTDispData();
-
                             TaskConv.MoveProToIn();
                         _AbortReturn:;
                         }
-
                         EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Height error unattended for {t}s. Frame is returned to In.");
                         break;
                     }
-
-                    if (TaskDisp.Option_EnableStartIdle && DispProg.Idle.Idling)
-                    {
-                        DialogResult = DialogResult.Abort;
-                        break;
-                    }
-
                     Thread.Sleep(5);
                 }
             });
