@@ -20,7 +20,7 @@ namespace NDispWin
         public const int Stop = 0x04;
         public const int Accept = 0x08;
         public const int Reject = 0x10;
-        public int Buttons = Retry | Skip |Stop |Accept |Reject; 
+        public int Buttons = Retry | Skip |Stop |Accept |Reject;
 
         bool bClosed = false;
         public frm_DispCore_HeightFailMsg()
@@ -51,6 +51,8 @@ namespace NDispWin
             UpdateDisplay();
 
             IO.SetState(EMcState.Error);
+
+            if (DispProg.ProgramMode) return;
 
             Task.Run(() => {//no await
                 while (!bClosed)

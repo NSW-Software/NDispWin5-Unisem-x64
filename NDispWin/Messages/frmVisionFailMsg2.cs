@@ -78,6 +78,8 @@ namespace NDispWin
 
             IO.SetState(EMcState.Error);
 
+            if (DispProg.ProgramMode) return;
+
             Task.Run(() => {//no await
                 while (!bClosed)
                 {

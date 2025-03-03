@@ -3489,8 +3489,8 @@ namespace NDispWin
                 {
                     Msg MsgBox = new Msg();
                     EMsgRes MsgRes = MsgBox.Show(ErrCode.CONV_SENSOR_PART_PSNT, "PRO", EMcState.Error, EMsgBtn.smbStop, true);
-                    Status = EConvStatus.Stop; ;
-                    return true;
+                    goto _Error;
+                    //return true;
                 }
 
                 if (!Pro.StopperUp()) goto _Error;

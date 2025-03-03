@@ -53,6 +53,8 @@ namespace NDispWin
 
             btn_Skip.Visible = ShowSkipButton;
 
+            if (DispProg.ProgramMode) return;
+
             Task.Run(() => {//no await
                 while (!bClosed)
                 {

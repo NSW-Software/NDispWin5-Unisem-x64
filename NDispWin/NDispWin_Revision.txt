@@ -21,10 +21,14 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
+
+Ver 6.1.9.9 20250303 - Remote release to LRK/LT for UnisemCD - Gitted
+  - [BugFix] TashMHS.MoveToPro, Pro.SensPsnt detected set conveyor to alarm, as the frame status is unkown.
+  - [Changes] Skip IdleReturn execution at ProgMode for frmVisionFailMsg, frmVisionFailMsg2 and frmHeightFailMsg 
 Ver 6.1.9.8 20250225 - Remote release to LRK/LT for UnisemCD - Gitted
   - [Changes] Use frmHeightFailMsg to cater for Idle Return. Req LRK.
   - [BugFix] ClearRTDispData() at DispProg.Run.
-  - [Chaanges] For Vermes pump, check Vermes disconnect interval at 1s.
+  - [Changes] For Vermes pump, check Vermes disconnect interval at 1s.
 Ver 6.1.9.7 20250225 - Remote release to LRK/LT for UnisemCD - Gitted
   - [Changes] Use frmHeightFailMsg to cater for Idle Return. Req LRK.
   - [BugFix] Prevent multiple execution of Task for frmVisionFailMsg, frmVisionFailMsg2 and frmHeightFailMsg.
