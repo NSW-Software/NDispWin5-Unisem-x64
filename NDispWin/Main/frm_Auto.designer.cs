@@ -107,14 +107,16 @@
             this.tsslbl_LULDoor = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslblDoorLock = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslIdleTimer = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tmr_DateTime_100 = new System.Windows.Forms.Timer(this.components);
             this.tmr_Perf = new System.Windows.Forms.Timer(this.components);
             this.pnl_Right = new System.Windows.Forms.Panel();
             this.tmr_TR_Buttons = new System.Windows.Forms.Timer(this.components);
             this.tmr_1s = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslIdleTimer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslNeedleTeachStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnl_RightTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox_Logo)).BeginInit();
             this.pnl_RightBottom.SuspendLayout();
@@ -1084,7 +1086,9 @@
             this.toolStripStatusLabel3,
             this.tsslblDoorLock,
             this.toolStripStatusLabel4,
-            this.tsslIdleTimer});
+            this.tsslIdleTimer,
+            this.toolStripStatusLabel5,
+            this.tsslNeedleTeachStatus});
             this.ss_Bottom.Location = new System.Drawing.Point(3, 695);
             this.ss_Bottom.Name = "ss_Bottom";
             this.ss_Bottom.Size = new System.Drawing.Size(1019, 30);
@@ -1143,6 +1147,18 @@
             this.tsslblDoorLock.Text = "Door Lock";
             this.tsslblDoorLock.Click += new System.EventHandler(this.tsslblDoorLock_Click);
             // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(12, 25);
+            this.toolStripStatusLabel4.Text = "|";
+            // 
+            // tsslIdleTimer
+            // 
+            this.tsslIdleTimer.Name = "tsslIdleTimer";
+            this.tsslIdleTimer.Size = new System.Drawing.Size(55, 25);
+            this.tsslIdleTimer.Text = "Idle : 0 s";
+            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.tabControl);
@@ -1181,17 +1197,17 @@
             this.tmr_1s.Interval = 1000;
             this.tmr_1s.Tick += new System.EventHandler(this.tmr_1s_Tick);
             // 
-            // toolStripStatusLabel4
+            // toolStripStatusLabel5
             // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(12, 25);
-            this.toolStripStatusLabel4.Text = "|";
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(12, 25);
+            this.toolStripStatusLabel5.Text = "|";
             // 
-            // tsslIdleTimer
+            // tsslTeachNeedle
             // 
-            this.tsslIdleTimer.Name = "tsslIdleTimer";
-            this.tsslIdleTimer.Size = new System.Drawing.Size(55, 25);
-            this.tsslIdleTimer.Text = "Idle : 0 s";
+            this.tsslNeedleTeachStatus.Name = "tsslTeachNeedle";
+            this.tsslNeedleTeachStatus.Size = new System.Drawing.Size(83, 25);
+            this.tsslNeedleTeachStatus.Text = "Needle Teach";
             // 
             // frm_Auto
             // 
@@ -1323,5 +1339,7 @@
         private System.Windows.Forms.RichTextBox rtbPumpSettings;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel tsslIdleTimer;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel tsslNeedleTeachStatus;
     }
 }

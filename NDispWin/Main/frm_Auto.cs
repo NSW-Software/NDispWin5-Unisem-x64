@@ -262,6 +262,8 @@ namespace NDispWin
 
             //tsslblDoorLock.BackColor = ConvIO.DoorLock.Status ? Color.Red : this.BackColor;
             tsslblDoorLock.BackColor = DefineSafety.DoorLockStatus ? Color.Red : this.BackColor;
+
+            tsslNeedleTeachStatus.BackColor = TaskDisp.TeachNeedle_Completed ? Color.Lime : Color.Red;
             #endregion
 
             #region Manual Tab

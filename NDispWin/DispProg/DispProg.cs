@@ -5309,7 +5309,7 @@ namespace NDispWin
                                                                 break;
                                                             }
                                                         }
-                                                        if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                                        if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                         Thread.Sleep(100);
                                                         goto _Pause;
                                                         #endregion
@@ -5468,7 +5468,7 @@ namespace NDispWin
                                                                 break;
                                                             }
                                                         }
-                                                        if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                                        if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                         Thread.Sleep(100);
                                                         goto _Pause;
                                                         #endregion
@@ -5945,7 +5945,7 @@ namespace NDispWin
                                                         break;
                                                     }
                                                 }
-                                                if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                                if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                 Thread.Sleep(100);
                                                 goto _Pause;
                                                 #endregion
@@ -6244,7 +6244,7 @@ namespace NDispWin
                                                             break;
                                                         }
                                                     }
-                                                    if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                                    if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                     Thread.Sleep(100);
                                                     goto _Pause;
                                                     #endregion
@@ -6874,13 +6874,13 @@ namespace NDispWin
                                                 case DialogResult.Abort://Stop Button
                                                     IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Stop");
-                                                    LastLine++;
-                                                    DefineSafety.DoorLock = true;
-                                                    Thread.Sleep(100);
-                                                    goto _Pause;
-                                                default:
-                                                    IO.SetState(EMcState.Idle);
-                                                    Log.AddToLog("0" + (char)9 + "Default");
+                                                //    LastLine++;
+                                                //    DefineSafety.DoorLock = true;
+                                                //    Thread.Sleep(100);
+                                                //    goto _Pause;
+                                                //default:
+                                                //    IO.SetState(EMcState.Idle);
+                                                //    Log.AddToLog("0" + (char)9 + "Default");
                                                     for (int L = Line; L >= 0; L--)
                                                     {
                                                         if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
@@ -6889,7 +6889,7 @@ namespace NDispWin
                                                             break;
                                                         }
                                                     }
-                                                    if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                                    if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                     Thread.Sleep(100);
                                                     goto _Pause;
                                                     #endregion
@@ -7194,7 +7194,7 @@ namespace NDispWin
                                                     break;
                                                 }
                                             }
-                                            if (TaskDisp.Idle_Returned) DispProg.ClearRTDispData();
+                                            if (TaskDisp.Idle_Returned) ClearRTDispData();
                                             goto _Pause;
                                             break;
                                         case EExecuteDoHeight.EndDoHeight:

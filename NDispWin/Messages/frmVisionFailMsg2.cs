@@ -88,21 +88,28 @@ namespace NDispWin
                     {
                         bClosed = true;
 
-                        uint t = DispProg.Idle.Timer();
-                        DialogResult = DialogResult.Abort;
+                        if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
+                        {
+                            DispProg.UpdateIdleReturnMaps();
+                            if (TaskConv.Pre.Status != TaskConv.EProcessStatus.Empty || TaskConv.In.SensPsnt) goto _AbortReturn;
+                            TaskDisp.Idle_Returned = true;
+                        //TaskConv.MoveProToIn();
+                        _AbortReturn:;
+                        }
                         Thread.Sleep(5);
 
+                        uint t = DispProg.Idle.Timer();
+                        DialogResult = DialogResult.Abort;
                         DispProg.Idle.MoveToIdle();
 
                         if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
                         {
                             if (TaskConv.Pre.Status != TaskConv.EProcessStatus.Empty || TaskConv.In.SensPsnt) goto _AbortReturn;
-
                             TaskDisp.Idle_Returned = true;
-                            DispProg.UpdateIdleReturnMaps();
                             TaskConv.MoveProToIn();
                         _AbortReturn:;
                         }
+
                         EMsgRes MsgRes = new Msg().Show((int)ErrCode.AUTO_IDLE_ON_ERROR_EXECUTED, $"Vision error unattended for {t}s. Frame is returned to In.");
                         break;
                     }

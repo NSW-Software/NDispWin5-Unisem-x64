@@ -139,6 +139,7 @@
             this.lbox_Message.Name = "lbox_Message";
             this.lbox_Message.Size = new System.Drawing.Size(388, 70);
             this.lbox_Message.TabIndex = 24;
+            this.lbox_Message.SelectedIndexChanged += new System.EventHandler(this.lbox_Message_SelectedIndexChanged);
             // 
             // frm_DispCore_HeightFailMsg
             // 
