@@ -21,9 +21,13 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
+Ver 6.1.9.21 20250310 - Remote release to LRK/LT for UnisemCD - Gitted
+  - [Request] Added default IdleReturnMapBin as VVING.
+  - [BigFix] Update frm_DispCore_JogGantryVision Reticles.
+  - [Feature] Rename application as NDispWin-Unisem and NDispWin-Unisem x86
+  - [Changes] DO_VIS_INSP Stop will continue from LastLine, Stop will be continue from the last sequence
 Ver 6.1.9.17 20250307 - Remote release to LRK/LT for UnisemCD - Gitted
-  - Added TaskDisp.TeachNeedle_Completed display to frmAuto
+  - [Feature] Added TaskDisp.TeachNeedle_Completed display to frmAuto
   - [BugFix] Refactor frame return for frmVisionFailMsg, frmVisionFailMsg2 and frmHeightFailMsg 
 Ver 6.1.9.9 20250303 - Remote release to LRK/LT for UnisemCD - Gitted
   - [BugFix] TashMHS.MoveToPro, Pro.SensPsnt detected set conveyor to alarm, as the frame status is unkown.

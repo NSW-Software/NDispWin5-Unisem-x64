@@ -237,7 +237,7 @@ namespace NDispWin
 
     internal enum EExecCond { None, ContinueBoard, StartNthBoard };//condition to execute cmd, Cond Operator Cond Param
 
-    internal enum EMapBin
+    public enum EMapBin
     {
         None = 0, BinNG = 100,
         MapOK = 1, MapNG = 101,

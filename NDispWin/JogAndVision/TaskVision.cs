@@ -2886,8 +2886,7 @@ namespace NDispWin
 
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, 50), new SizeF(25, 25), Color.Green, "TL");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera(0);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -2902,8 +2901,7 @@ namespace NDispWin
 
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, 50), new SizeF(25, 25), Color.Green, "TR");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera(0);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -2918,8 +2916,7 @@ namespace NDispWin
 
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BR");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera(0);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -2934,8 +2931,7 @@ namespace NDispWin
 
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "BL");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera(0);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -2966,8 +2962,7 @@ namespace NDispWin
 
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CL");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera((int)CamID);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -2981,8 +2976,7 @@ namespace NDispWin
                                     frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] - 50, ImgHN[(int)CamID] / 2), new SizeF(25, 25), Color.Green, "CR");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera((int)CamID);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -3019,8 +3013,7 @@ namespace NDispWin
                                     frm.Inst = "Step 1/2: Jog Crosshair " + DrawCalStep.ToString() + " to a Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, 50), new SizeF(25, 25), Color.Green, "CT");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera((int)CamID);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }
@@ -3034,8 +3027,7 @@ namespace NDispWin
                                     frm.Inst = "Step 2/2: Jog Crosshair " + DrawCalStep.ToString() + " to same Ref Point";
                                     reticles.Reticle[0] = new TReticle2(TReticle2.EType.Cross, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(100, 100), Color.Green);
                                     reticles.Reticle[1] = new TReticle2(TReticle2.EType.Text, new PointF(ImgWN[(int)CamID] / 2, ImgHN[(int)CamID] - 50), new SizeF(25, 25), Color.Green, "CB");
-                                    frm.Reticles = new TReticles(reticles);
-                                    frm.ShowReticles = true;
+                                    frm.Reticles(reticles, true);
                                     frm.SelectCamera((int)CamID);
                                     if (frm.ShowDialog() == DialogResult.Cancel) return false;
                                 }

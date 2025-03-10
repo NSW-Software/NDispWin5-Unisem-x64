@@ -561,8 +561,11 @@ namespace NDispWin
             }
             return true;
         }
-        public static bool UpdateIdleReturnMaps()
+        public static bool UpdateIdleReturnMaps(EMapBin mapBin = EMapBin.None)
         {
+            if (mapBin > EMapBin.None)
+                Map.CurrMap[0].Bin[RunTime.UIndex] = mapBin;
+
             for (int ID = 0; ID < rt_LayoutCount; ID++)
             {
                 Map.IdleReturnMap[ID].Bin = (EMapBin[])Map.CurrMap[ID].Bin.Clone();
@@ -6838,7 +6841,7 @@ namespace NDispWin
                                             #region
                                             DefineSafety.DoorLock = false;
 
-                                            frmVisionFailMsg2 frmV = new frmVisionFailMsg2();
+                                            frmVisionFailMsg2 frmV = new frmVisionFailMsg2(EMapBin.VVING);
                                             Log.AddToLog("0" + (char)9 + "DoVisInsp Fail Unit No " + RunTime.UIndex.ToString());
                                             frmV.ShowAccept = true;
                                             frmV.ShowSkip = true;//updated 5.0.107 - 20210308 - KN
@@ -6874,21 +6877,21 @@ namespace NDispWin
                                                 case DialogResult.Abort://Stop Button
                                                     IO.SetState(EMcState.Idle);
                                                     Log.AddToLog("0" + (char)9 + "Stop");
-                                                //    LastLine++;
+                                                    //LastLine++;
                                                 //    DefineSafety.DoorLock = true;
                                                 //    Thread.Sleep(100);
                                                 //    goto _Pause;
                                                 //default:
                                                 //    IO.SetState(EMcState.Idle);
                                                 //    Log.AddToLog("0" + (char)9 + "Default");
-                                                    for (int L = Line; L >= 0; L--)
-                                                    {
-                                                        if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
-                                                        {
-                                                            LastLine = L;
-                                                            break;
-                                                        }
-                                                    }
+                                                    //for (int L = Line; L >= 0; L--)
+                                                    //{
+                                                    //    if (CmdList.Line[L].Cmd == ECmd.FOR_LAYOUT)
+                                                    //    {
+                                                    //        LastLine = L;
+                                                    //        break;
+                                                    //    }
+                                                    //}
                                                     if (TaskDisp.Idle_Returned) ClearRTDispData();
                                                     Thread.Sleep(100);
                                                     goto _Pause;

@@ -19,8 +19,8 @@ namespace NDispWin
         public bool ShowVision = false;
         public string Inst = "";
 
-        public TReticles Reticles = new TReticles();
-        public bool ShowReticles = true;
+        //public TReticles Reticles = new TReticles();
+        //public bool ShowReticles = true;
 
         public frm_DispCore_JogGantryVision()
         {
@@ -99,6 +99,12 @@ namespace NDispWin
         public void SelectCamera(int index)
         {
             TaskVisionfrmMVCGenTLCamera.SelectCamera(index);
+        }
+
+        public void Reticles(TReticles rectiles, bool show)
+        {
+            TaskVisionfrmMVCGenTLCamera.Reticles = new TReticles(rectiles);
+            TaskVisionfrmMVCGenTLCamera.ShowReticles = show;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)

@@ -21,12 +21,19 @@ namespace NDispWin
         frmMVCGenTLCamera TaskVisionfrmMVCGenTLCamera = new frmMVCGenTLCamera();
 
         bool bClosed = false;
+        EMapBin autoIdleBin = EMapBin.None;
 
-        public frmVisionFailMsg2()
+        public frmVisionFailMsg2(EMapBin mapBin)
         {
             InitializeComponent();
             GControl.LogForm(this);
-        } 
+            autoIdleBin = mapBin;
+        }
+
+        public frmVisionFailMsg2() : this(EMapBin.None)
+        {
+
+        }
 
         Size s_Form = new Size(0,0);
         Point p_Form = new Point(0, 0);
@@ -90,7 +97,7 @@ namespace NDispWin
 
                         if (TaskDisp.Idle_Return && TaskConv.Pro.Status >= TaskConv.EProcessStatus.Heating)
                         {
-                            DispProg.UpdateIdleReturnMaps();
+                            DispProg.UpdateIdleReturnMaps(autoIdleBin);
                             if (TaskConv.Pre.Status != TaskConv.EProcessStatus.Empty || TaskConv.In.SensPsnt) goto _AbortReturn;
                             TaskDisp.Idle_Returned = true;
                         //TaskConv.MoveProToIn();
