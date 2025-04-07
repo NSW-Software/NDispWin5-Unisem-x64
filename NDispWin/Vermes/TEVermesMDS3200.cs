@@ -446,23 +446,39 @@ namespace Vermes
                 return sp.IsOpen;
             }
         }
-        public void Close()
+        public bool IsAlive
         {
-            try
+            get
             {
-                sp.Close();
-                AddLog("Close");
-            }
-            catch (Exception Ex)
-            {
-                Ex.Message.ToString();
-            }
-            finally
-            {
-                CtrlModel = ECtrlModel.NONE;
-                _DeviceInfo = "";
+                try
+                {
+                    string rx = "";
+                    TXRX("*IDN?", ref rx);
+                }
+                catch
+                {
+                    return false;
+                }
+                return true;
             }
         }
+                public void Close()
+                {
+                    try
+                    {
+                        sp.Close();
+                        AddLog("Close");
+                    }
+                    catch (Exception Ex)
+                    {
+                        Ex.Message.ToString();
+                    }
+                    finally
+                    {
+                        CtrlModel = ECtrlModel.NONE;
+                        _DeviceInfo = "";
+                    }
+                }
 
         public void ShowControl()
         {

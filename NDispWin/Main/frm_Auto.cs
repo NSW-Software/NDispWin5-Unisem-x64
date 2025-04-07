@@ -711,6 +711,7 @@ namespace NDispWin
             {
                 Define_Run.TR_StartRun();
                 AutoRun();
+                //_ = AutoRunAsync();
             }
             else
             {
@@ -735,6 +736,9 @@ namespace NDispWin
 
         private async void AutoRun()
         {
+            if (_isAutoRunning) return;
+            _isAutoRunning = true;
+
             EnableControl(false);
 
             var taskGeneral = Task.Run(() =>//Check StopRun conditions
@@ -868,7 +872,288 @@ namespace NDispWin
             DefineSafety.DoorLock = false;
 
             EnableControl(true);
+
+            _isAutoRunning = false;
         }
+
+        private bool _isAutoRunning = false;
+        private async Task AutoRunAsync()
+        {
+            if (_isAutoRunning) return;
+            _isAutoRunning = true;
+
+            EnableControl(false);
+            await Task.Yield();
+
+            var cts = new CancellationTokenSource();
+
+            Task taskGeneral = MonitorGeneralAsync(cts.Token);
+            Task taskConv = MonitorConveyorAsync(cts.Token);
+            Task taskDisp = MonitorDispenserAsync(cts.Token);
+
+            try
+            {
+                await Task.WhenAll(taskGeneral, taskConv, taskDisp);
+            }
+            catch (Exception ex)
+            {
+                Event.DEBUG_INFO.Set("AutoRun", $"Unexpected exception: {ex.Message}");
+            }
+
+            // Reset states
+            TaskConv.In.Smema_DO_McReady = false;
+            TaskConv.In.Smema2_DO_BdReady = false;
+            TaskConv.Out.Smema_DO_BdReady = false;
+            TaskConv.Out.Smema2_DO_McReady = false;
+
+            if (GDefine.ConveyorType == GDefine.EConveyorType.CONVEYOR)
+            {
+                if (!MsgInfo.Showing) IO.SetState(EMcState.Idle);
+            }
+
+            DefineSafety.DoorLock = false;
+            EnableControl(true);
+            _isAutoRunning = false;
+        }
+        private async Task MonitorGeneralAsync(CancellationToken token)
+        {
+            //    var taskGeneral = Task.Run(() =>//Check StopRun conditions
+            //    {
+            //        while (Define_Run.TR_IsRunning)
+            //        {
+            //            if (!DefineSafety.DoorCheck_All(false))
+            //            {
+            //                GDefine.Status = EStatus.Stop;
+            //                Define_Run.TR_StopRun();
+            //                DefineSafety.DoorCheck_All(true);
+            //            }
+
+            //            if (GDefineN.LowPressureValid() && !GDefineN.DI_InPressureInRange)
+            //            {
+            //                GDefine.Status = EStatus.Stop;
+            //                Define_Run.TR_StopRun();
+
+            //                Msg MsgBox = new Msg();
+            //                MsgBox.Show(ErrCode.LOW_AIR_PRESSURE);
+            //            }
+
+            //            if (TaskConv.Pro.Status == TaskConv.EProcessStatus.InProcess &&
+            //              TaskConv.Pro.UseVac &&
+            //              !TaskConv.Pro.SensVac)
+            //            {
+            //                GDefine.Status = EStatus.Stop;
+            //                Define_Run.TR_StopRun();
+            //                Msg MsgBox = new Msg();
+            //                MsgBox.Show(ErrCode.CONV_VACUUM_LOW);
+            //            }
+
+            //            if (TaskConv.LeftMode == TaskConv.ELeftMode.ElevatorZ)
+            //            {
+            //                if (TaskElev.Left.WaitMagChange)
+            //                {
+            //                    if (TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty &&
+            //                        TaskConv.Pro.Status == TaskConv.EProcessStatus.Empty &&
+            //                        TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty)
+            //                    {
+            //                        GDefine.Status = EStatus.Stop;
+            //                        Define_Run.TR_StopRun();
+            //                        Msg MsgBox = new Msg();
+            //                        MsgBox.Show(ErrCode.IN_MAGAZINE_EMPTY_WORK_COMPLETE);
+            //                    }
+            //                }
+            //            }
+
+            //            try
+            //            {
+            //                if (DispProg.fPoolVermes)
+            //                {
+            //                    DispProg.fPoolVermes = false;
+            //                    if (!TaskDisp.Vermes3200[0].InRange)
+            //                    {
+            //                        GDefine.Status = EStatus.Stop;
+            //                        Define_Run.TR_StopRun();
+            //                        Msg MsgBox = new Msg();
+            //                        MsgBox.Show((int)EErrCode.DISPCTRL_TEMPERATURE_OUT_OF_TOLERANCE);
+            //                    }
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                GDefine.Status = EStatus.Stop;
+            //                Define_Run.TR_StopRun();
+            //                Msg MsgBox = new Msg();
+            //                MsgBox.Show(ErrCode.DISPCTRL_ERR, $" {ex.Message}");
+            //            }
+
+            //            Thread.Sleep(1000);
+            //        }
+            //    });
+            while (Define_Run.TR_IsRunning && !token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (!DefineSafety.DoorCheck_All(false))
+                    {
+                        DefineSafety.DoorCheck_All(true);
+                        StopWoMessage();
+                        break;
+                    }
+
+                    if (GDefineN.LowPressureValid() && !GDefineN.DI_InPressureInRange)
+                    {
+                        StopWithMessage((int)ErrCode.LOW_AIR_PRESSURE);
+                        break;
+                    }
+
+                    if (TaskConv.Pro.Status == TaskConv.EProcessStatus.InProcess &&
+                        TaskConv.Pro.UseVac &&
+                        !TaskConv.Pro.SensVac)
+                    {
+                        StopWithMessage((int)ErrCode.CONV_VACUUM_LOW);
+                        break;
+                    }
+
+                    if (TaskConv.LeftMode == TaskConv.ELeftMode.ElevatorZ &&
+                        TaskElev.Left.WaitMagChange &&
+                        TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty &&
+                        TaskConv.Pro.Status == TaskConv.EProcessStatus.Empty)
+                    {
+                        StopWithMessage((int)ErrCode.IN_MAGAZINE_EMPTY_WORK_COMPLETE);
+                        break;
+                    }
+                }
+                catch
+                {
+                    StopWoMessage();
+                    break;
+                }
+
+                try
+                    {
+                        if (DispProg.fPoolVermes)
+                    {
+                        DispProg.fPoolVermes = false;
+                        if (!TaskDisp.Vermes3200[0].InRange)
+                        {
+                            StopWithMessage((int)EErrCode.DISPCTRL_TEMPERATURE_OUT_OF_TOLERANCE);
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    StopWithMessage(ErrCode.DISPCTRL_ERR, ex.Message);
+                    break;
+                }
+
+                await Task.Delay(1000, token);
+            }
+        }
+        private async Task MonitorConveyorAsync(CancellationToken token)
+        {
+            var taskConv = Task.Run(() =>
+            {
+                while (Define_Run.TR_IsRunning)
+                {
+                    try
+                    {
+                        if (
+                            (NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.Stop) ||
+                            (NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.ErrorInit) ||
+                            (NDispWin.TaskConv.LeftMode == NDispWin.TaskConv.ELeftMode.ElevatorZ && NDispWin.TaskElev.Left.Status == NDispWin.TaskElev.EElevStatus.ErrorInit) ||
+                            (NDispWin.TaskConv.RightMode == NDispWin.TaskConv.ERightMode.ElevatorZ && NDispWin.TaskElev.Right.Status == NDispWin.TaskElev.EElevStatus.ErrorInit)
+                            )
+                        {
+                            Define_Run.TR_StopRun();
+                            return;
+                        }
+
+                        TaskConv.Run();
+                        Thread.Sleep(500);
+                    }
+                    catch
+                    {
+                        Event.DEBUG_INFO.Set("TaskConv.Run", "Exception");
+                        Define_Run.TR_StopRun();
+                    }
+                }
+            });
+            //while (Define_Run.TR_IsRunning && !token.IsCancellationRequested)
+            //{
+            //    try
+            //    {
+            //        if (NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.Stop ||
+            //            NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.ErrorInit ||
+            //            (NDispWin.TaskConv.LeftMode == NDispWin.TaskConv.ELeftMode.ElevatorZ &&
+            //             NDispWin.TaskElev.Left.Status == NDispWin.TaskElev.EElevStatus.ErrorInit) ||
+            //            (NDispWin.TaskConv.RightMode == NDispWin.TaskConv.ERightMode.ElevatorZ &&
+            //             NDispWin.TaskElev.Right.Status == NDispWin.TaskElev.EElevStatus.ErrorInit))
+            //        {
+            //            StopWoMessage();
+            //            break;
+            //        }
+
+            //        TaskConv.Run();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Event.DEBUG_INFO.Set("TaskConv.Run", $"Exception: {ex.Message}");
+            //        StopWoMessage();
+            //        break;
+            //    }
+
+            //    await Task.Delay(500, token);
+            //}
+        }
+        private async Task MonitorDispenserAsync(CancellationToken token)
+        {
+            //    var taskDisp = Task.Run(() =>
+            //    {
+            //        while (Define_Run.TR_IsRunning)
+            //        {
+            //            try
+            //            {
+            //                Define_Run.RunDispConv();
+            //                Thread.Sleep(100);
+            //            }
+            //            catch
+            //            {
+            //                Event.DEBUG_INFO.Set("TaskDisp.Run", "Exception");
+            //                Define_Run.TR_StopRun();
+            //            }
+            //        }
+            //    });
+            while (Define_Run.TR_IsRunning && !token.IsCancellationRequested)
+            {
+                try
+                {
+                    Define_Run.RunDispConv();
+                }
+                catch (Exception ex)
+                {
+                    Event.DEBUG_INFO.Set("TaskDisp.Run", $"Exception: {ex.Message}");
+                    StopWoMessage();
+                    break;
+                }
+
+                await Task.Delay(100, token);
+            }
+        }
+        private void StopWoMessage()
+        {
+            GDefine.Status = EStatus.Stop;
+            Define_Run.TR_StopRun();
+        }
+        private void StopWithMessage(int code, string message = null)
+        {
+            GDefine.Status = EStatus.Stop;
+            Define_Run.TR_StopRun();
+
+            Msg MsgBox = new Msg();
+            MsgBox.Show(code, message);
+        }
+
+
         private async void AutoRun_ManualLoad()
         {
             if (!DefineSafety.DoorCheck_All(true)) return;

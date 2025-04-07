@@ -21,6 +21,19 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
+
+
+
+Ver 6.1.9.24 20250407 - Remote release to LRK/LT for UnisemCD - Gitted
+  - [Improve] Add frmAuto _isAutoRunning checking to prevent multiple task intance.
+  - [Bugfix] Add check Vermes IsAlive and set TeachNeedle flag.
+Ver 6.1.9.23 20250403 - Remote release to LRK/LT for UnisemCD
+  - [Improve] DispProg turn TaskGantry.BVac1 = false for HM and PP pumps as the IO is managed by HPC2.
+  - [x] frm_Auto.AutoRunAsync() fire and forget prevent UI Hang.
+  - [Improve] DO_VISION and DO_REF to have individual skip counters, solve multiple command used interference.
+Ver 6.1.9.22 20250327 - Remote release to LRK/LT for UnisemCD
+  - [Refactor] Refactor frm_Auto.AutoRun loops to fully async/await version, prevent multi-instance task
+  - [Improve] Move Stats.Board.CondCounter[] increment from UNIT_COMPLETE to TCondition.
 Ver 6.1.9.21 20250310 - Remote release to LRK/LT for UnisemCD - Gitted
   - [Request] Added default IdleReturnMapBin as VVING.
   - [BigFix] Update frm_DispCore_JogGantryVision Reticles.

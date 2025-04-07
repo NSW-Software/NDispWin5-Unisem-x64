@@ -48,7 +48,7 @@ namespace NDispWin
                 ProcUnitCount[1] = 0;
             }
 
-            public static int[] DispCounter = new int[3] { 0, 0, 0 };// Head 1 Resetable counters 
+            public static int[] CondCounter = new int[3] { 0, 0, 0 };// Head 1 Resetable counters 
             public static int[] DispCount = new int[2] { 0, 0 };//Board Disp Count by Head
             public static int TotalDispCount//Board Total Unit Count
             {
@@ -61,9 +61,9 @@ namespace NDispWin
             {
                 DispCount[0] = 0;
                 DispCount[1] = 0;
-                DispCounter[0] = 0;
-                DispCounter[1] = 0;
-                DispCounter[2] = 0;
+                CondCounter[0] = 0;
+                CondCounter[1] = 0;
+                CondCounter[2] = 0;
             }
         }
 
@@ -4176,6 +4176,18 @@ namespace NDispWin
 
             private bool Run(ERunMode RunMode, double f_origin_x, double f_origin_y, double f_origin_z, double f_flowrate, double f_tweight, bool IsSub)//, bool SyncHead2)
             {
+                switch (DispProg.Pump_Type)
+                {
+                    case TaskDisp.EPumpType.HM:
+                    case TaskDisp.EPumpType.PP:
+                    case TaskDisp.EPumpType.PPD:
+                    case TaskDisp.EPumpType.PP2D:
+                        {//Turn Barral Vac off - vacuum is managed by controller. 
+                            TaskGantry.BVac1 = false;
+                            break;
+                        }
+                }
+
                 Idle.Reset();
                 pressVal = new double[] { 0, 0 };
                 progDispVol = new double[] { 0, 0 };
@@ -4550,7 +4562,7 @@ namespace NDispWin
                     }
                     #endregion
 
-                    int i_DoRefSkipCntr = 0;
+                    int[] i_DoRefSkipCntr = new int[16];
                     int i_DoHeightSkipCntr = 0;
 
                     int i_UnitSkipCount = 0;
@@ -4562,6 +4574,8 @@ namespace NDispWin
 
                     for (int Line = StartLine; Line < CmdList.Count; Line++)
                     {
+                        Thread.Sleep(100);
+
                     _Loop:
                         Idle.Reset();
 
@@ -5072,7 +5086,7 @@ namespace NDispWin
                             case ECmd.DO_REF:
                                 {
                                     EMsg = Msg + Enum.GetName(typeof(ECmd), ECmd.DO_REF);
-                                    int RefID = ActiveLine.ID;
+                                    int refID = ActiveLine.ID;
 
                                     #region Get current unit info
                                     int CColNo = 0; int CRowNo = 0; int UColNo = 0; int URowNo = 0;
@@ -5092,7 +5106,7 @@ namespace NDispWin
                                     else
                                         if (rt_Head1MapBin >= EMapBin.BinNG) goto _End;
 
-                                    if (rt_RefDatas[RefID].Data[RunTime.UIndex].Ready) goto _End;
+                                    if (rt_RefDatas[refID].Data[RunTime.UIndex].Ready) goto _End;
 
                                     b_Flag_ConsecutiveUnit = false;
 
@@ -5194,7 +5208,7 @@ namespace NDispWin
                                             #endregion
                                     }
 
-                                    TaskVision.LightingOn(TaskVision.LightRGB[RefID]);
+                                    TaskVision.LightingOn(TaskVision.LightRGB[refID]);
 
                                     #region assign position and do pt1 vision
                                     double dx1 = f_origin_x + d_Ref_Rel_X + ActiveLine.X[0];
@@ -5210,7 +5224,7 @@ namespace NDispWin
                                     double v_oy1 = 0;
                                     double v_s1 = 0;
                                     Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> gray_FoundDoRef1 = null;
-                                    if (!DoRef(ActiveLine, dx1, dy1, RefID, (int)EVisionRef.No1, out v_ox1, out v_oy1, out v_s1, ref gray_FoundDoRef1)) goto _Error;
+                                    if (!DoRef(ActiveLine, dx1, dy1, refID, (int)EVisionRef.No1, out v_ox1, out v_oy1, out v_s1, ref gray_FoundDoRef1)) goto _Error;
                                     v_ox1 = v_ox1 * TaskVision.DistPerPixelX[ActiveLine.IPara[1]];
                                     v_oy1 = v_oy1 * TaskVision.DistPerPixelY[ActiveLine.IPara[1]];
                                     bool OK1 = (Math.Abs(v_ox1) <= ActiveLine.DPara[1]) && (Math.Abs(v_oy1) <= ActiveLine.DPara[1]) && (Math.Abs(v_s1) >= ActiveLine.DPara[0]);
@@ -5224,12 +5238,12 @@ namespace NDispWin
                                     if (!OK1)
                                     {
                                         #region
-                                        i_DoRefSkipCntr++;
+                                        i_DoRefSkipCntr[refID]++;
                                         EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
                                         int SkipCount = CmdList.Line[Line].IPara[5];
-                                        if (i_DoRefSkipCntr > SkipCount)
+                                        if (i_DoRefSkipCntr[refID] > SkipCount)
                                         {
-                                            i_DoRefSkipCntr = 0;
+                                            i_DoRefSkipCntr[refID] = 0;
                                             #region
                                             if (FailAction == EFailAction.AutoReject)
                                             {
@@ -5323,7 +5337,7 @@ namespace NDispWin
                                         #endregion
                                     }
                                     else
-                                        if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr = 0;
+                                        if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr[refID] = 0;
 
                                     double ndx1 = dx1 + v_ox1;
                                     double ndy1 = dy1 + v_oy1;
@@ -5359,7 +5373,7 @@ namespace NDispWin
                                         double v_s2 = 0;
                                         Emgu.CV.Image<Emgu.CV.Structure.Gray, byte> gray_FoundDoRef2 = null;
                                         //if (!DoVision(ActiveLine, dx2, dy2, RefID, (int)EVisionRef.No2, out v_ox2, out v_oy2, out v_s2, ref FoundDoRef2)) goto _Error;
-                                        if (!DoRef(ActiveLine, dx2, dy2, RefID, (int)EVisionRef.No2, out v_ox2, out v_oy2, out v_s2, ref gray_FoundDoRef2)) goto _Error;
+                                        if (!DoRef(ActiveLine, dx2, dy2, refID, (int)EVisionRef.No2, out v_ox2, out v_oy2, out v_s2, ref gray_FoundDoRef2)) goto _Error;
                                         v_ox2 = v_ox2 * TaskVision.DistPerPixelX[ActiveLine.IPara[1]];
                                         v_oy2 = v_oy2 * TaskVision.DistPerPixelY[ActiveLine.IPara[1]];
                                         //v_s2 = v_s2;
@@ -5391,11 +5405,11 @@ namespace NDispWin
                                         {
                                             #region
                                             EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
-                                            i_DoRefSkipCntr++;
+                                            i_DoRefSkipCntr[refID]++;
                                             int SkipCount = CmdList.Line[Line].IPara[5];
-                                            if (i_DoRefSkipCntr > SkipCount)
+                                            if (i_DoRefSkipCntr[refID] > SkipCount)
                                             {
-                                                i_DoRefSkipCntr = 0;
+                                                i_DoRefSkipCntr[refID] = 0;
 
                                                 if (FailAction == EFailAction.AutoReject)
                                                 {
@@ -5480,7 +5494,7 @@ namespace NDispWin
                                             #endregion
                                         }
                                         else
-                                            i_DoRefSkipCntr = 0;
+                                            i_DoRefSkipCntr[refID] = 0;
 
                                         #region compute pt1 and pt2 distance
                                         {
@@ -5551,10 +5565,10 @@ namespace NDispWin
                                         {
                                             for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
                                             {
-                                                rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
+                                                rt_RefDatas[refID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
                                                 if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
                                                 {
-                                                    if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
+                                                    if (rt_RefDatas[refID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefOK;
                                                     else
                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefNG;
@@ -5577,10 +5591,10 @@ namespace NDispWin
                                                         {
                                                             for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
                                                             {
-                                                                rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                                rt_RefDatas[refID].Data[i].Copy(RefData);
                                                                 if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
                                                                 {
-                                                                    if (rt_RefDatas[RefID].Data[i].OK)
+                                                                    if (rt_RefDatas[refID].Data[i].OK)
                                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefOK;
                                                                     else
                                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefNG;
@@ -5592,10 +5606,10 @@ namespace NDispWin
                                                     {
                                                         for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                                         {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                            rt_RefDatas[refID].Data[i].Copy(RefData);
                                                             if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                             {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
+                                                                if (rt_RefDatas[refID].Data[i].OK)
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                                 else
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5619,10 +5633,10 @@ namespace NDispWin
 
                                                                 if (i_CColNo == CColNo && i_CRowNo == CRowNo)
                                                                 {
-                                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                                    rt_RefDatas[refID].Data[i].Copy(RefData);
                                                                     if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                                     {
-                                                                        if (rt_RefDatas[RefID].Data[i].OK)
+                                                                        if (rt_RefDatas[refID].Data[i].OK)
                                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                                         else
                                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5640,10 +5654,10 @@ namespace NDispWin
 
                                                             if (i_CColNo == CColNo && i_CRowNo == CRowNo)
                                                             {
-                                                                rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                                rt_RefDatas[refID].Data[i].Copy(RefData);
                                                                 if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                                 {
-                                                                    if (rt_RefDatas[RefID].Data[i].OK)
+                                                                    if (rt_RefDatas[refID].Data[i].OK)
                                                                         Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                                     else
                                                                         Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5664,10 +5678,10 @@ namespace NDispWin
 
                                                         if (i_CColNo == CColNo)
                                                         {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                            rt_RefDatas[refID].Data[i].Copy(RefData);
                                                             if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                             {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
+                                                                if (rt_RefDatas[refID].Data[i].OK)
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                                 else
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5686,10 +5700,10 @@ namespace NDispWin
 
                                                     if (i_CRowNo == CRowNo)// && i_UColNo == UColNo && i_URowNo == URowNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5702,10 +5716,10 @@ namespace NDispWin
                                                 #region
                                                 {
                                                     int i = RunTime.UIndex;
-                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
+                                                    rt_RefDatas[refID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
                                                     if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                     {
-                                                        if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
+                                                        if (rt_RefDatas[refID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                         else
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5723,10 +5737,10 @@ namespace NDispWin
 
                                                     if (i_ColNo == ColNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5745,10 +5759,10 @@ namespace NDispWin
 
                                                     if (i_RowNo == RowNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);// rt_RefData[RefID, i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)//if (rt_RefData[RefID, i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG;
@@ -5964,7 +5978,7 @@ namespace NDispWin
                                 #region
                                 {
                                     EMsg = Msg + Enum.GetName(typeof(ECmd), ECmd.DO_VISION);
-                                    int RefID = ActiveLine.ID;
+                                    int refID = ActiveLine.ID;
 
                                     #region Get current unit info
                                     int CColNo = 0; int CRowNo = 0; int UColNo = 0; int URowNo = 0;
@@ -5977,7 +5991,7 @@ namespace NDispWin
                                     double d_Ref_Rel_X = rt_Layout_Rel_X;
                                     double d_Ref_Rel_Y = rt_Layout_Rel_Y;
 
-                                    if (rt_RefDatas[RefID].Data[RunTime.UIndex].Ready) goto _End;
+                                    if (rt_RefDatas[refID].Data[RunTime.UIndex].Ready) goto _End;
 
                                     b_Flag_ConsecutiveUnit = false;
 
@@ -6090,7 +6104,7 @@ namespace NDispWin
                                         TranslatePos(dx, dy, rt_Head1RefData, ref dx, ref dy);
 
                                     _RetryRef1:
-                                    TaskVision.LightingOn(TaskVision.LightRGB[RefID]);
+                                    TaskVision.LightingOn(TaskVision.LightRGB[refID]);
 
                                     int ta1 = GDefine.GetTickCount();
 
@@ -6180,12 +6194,12 @@ namespace NDispWin
                                         if ((ActiveLine.IPara[3] & 0x01) == 0x01) SaveImage("NG");
 
                                         #region
-                                        i_DoRefSkipCntr++;
+                                        i_DoRefSkipCntr[refID]++;
                                         EFailAction FailAction = (EFailAction)ActiveLine.IPara[6];
                                         int SkipCount = CmdList.Line[Line].IPara[5];
-                                        if (i_DoRefSkipCntr > SkipCount)
+                                        if (i_DoRefSkipCntr[refID] > SkipCount)
                                         {
-                                            i_DoRefSkipCntr = 0;
+                                            i_DoRefSkipCntr[refID] = 0;
                                             #region
                                             if (FailAction == EFailAction.AutoReject)
                                             {
@@ -6259,7 +6273,7 @@ namespace NDispWin
                                     else
                                     {
                                         if ((ActiveLine.IPara[3] & 0x10) == 0x10) SaveImage("OK");
-                                        if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr = 0;
+                                        if (CmdList.Line[Line].IPara[0] != 2) i_DoRefSkipCntr[refID] = 0;
                                         SetCameraLive();
                                     }
 
@@ -6284,10 +6298,10 @@ namespace NDispWin
                                         {
                                             for (int i = 0; i < rt_Layouts[ID].TUCount; i++)
                                             {
-                                                rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                rt_RefDatas[refID].Data[i].Copy(RefData);
                                                 if (Map.CurrMap[ID].Bin[i] < EMapBin.BinNG)
                                                 {
-                                                    if (rt_RefDatas[RefID].Data[i].OK)
+                                                    if (rt_RefDatas[refID].Data[i].OK)
                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefOK2;
                                                     else
                                                         Map.CurrMap[ID].Bin[i] = EMapBin.RefNG2;
@@ -6305,10 +6319,10 @@ namespace NDispWin
                                                 #region
                                                 for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                                 {
-                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                    rt_RefDatas[refID].Data[i].Copy(RefData);
                                                     if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                     {
-                                                        if (rt_RefDatas[RefID].Data[i].OK)
+                                                        if (rt_RefDatas[refID].Data[i].OK)
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                         else
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6327,10 +6341,10 @@ namespace NDispWin
 
                                                         if (i_CColNo == CColNo && i_CRowNo == CRowNo)
                                                         {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                            rt_RefDatas[refID].Data[i].Copy(RefData);
                                                             if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                             {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
+                                                                if (rt_RefDatas[refID].Data[i].OK)
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                                 else
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6351,10 +6365,10 @@ namespace NDispWin
 
                                                         if (i_CColNo == CColNo)
                                                         {
-                                                            rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                            rt_RefDatas[refID].Data[i].Copy(RefData);
                                                             if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                             {
-                                                                if (rt_RefDatas[RefID].Data[i].OK)
+                                                                if (rt_RefDatas[refID].Data[i].OK)
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                                 else
                                                                     Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6374,10 +6388,10 @@ namespace NDispWin
 
                                                     if (i_CRowNo == CRowNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6390,10 +6404,10 @@ namespace NDispWin
                                                 #region
                                                 {
                                                     int i = RunTime.UIndex;
-                                                    rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                    rt_RefDatas[refID].Data[i].Copy(RefData);
                                                     if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                     {
-                                                        if (rt_RefDatas[RefID].Data[i].OK)
+                                                        if (rt_RefDatas[refID].Data[i].OK)
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                         else
                                                             Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6411,10 +6425,10 @@ namespace NDispWin
 
                                                     if (i_ColNo == ColNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -6433,10 +6447,10 @@ namespace NDispWin
 
                                                     if (i_RowNo == RowNo)
                                                     {
-                                                        rt_RefDatas[RefID].Data[i].Copy(RefData);
+                                                        rt_RefDatas[refID].Data[i].Copy(RefData);
                                                         if (Map.CurrMap[rt_LayoutID].Bin[i] < EMapBin.BinNG)
                                                         {
-                                                            if (rt_RefDatas[RefID].Data[i].OK)
+                                                            if (rt_RefDatas[refID].Data[i].OK)
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefOK2;
                                                             else
                                                                 Map.CurrMap[rt_LayoutID].Bin[i] = EMapBin.RefNG2;
@@ -8878,7 +8892,7 @@ namespace NDispWin
                                 {
                                     fPoolVermes = true;
 
-                                    EMsg = Msg + " UNIT_COMPLETE";
+                                    EMsg = Msg + " " + ((ECmd)CmdList.Line[Line].Cmd).ToString();
 
                                     bool unitComplete = CmdList.Line[Line].Cmd == ECmd.UNIT_COMPLETE;
 
@@ -8898,9 +8912,9 @@ namespace NDispWin
                                     }
                                     if (Map.CurrMap[rt_LayoutID].Bin[RunTime.UIndex] < EMapBin.BinNG)
                                     {
-                                        Stats.Board.DispCounter[0]++;
-                                        Stats.Board.DispCounter[1]++;
-                                        Stats.Board.DispCounter[2]++;
+                                        //Stats.Board.CondCounter[0]++;
+                                        //Stats.Board.DispCounter[1]++;
+                                        //Stats.Board.DispCounter[2]++;
                                         if (unitComplete)
                                             Map.CurrMap[rt_LayoutID].Bin[RunTime.UIndex] = EMapBin.Complete;
                                         else
@@ -9707,7 +9721,6 @@ namespace NDispWin
                     }
                     return true;
                 }
-
                 void CheckBoardYieldPrompt()
                 {
                     if (Options_CheckBoardYield > 0)
@@ -15478,8 +15491,8 @@ namespace NDispWin
                             {
                                 TaskDisp.SP.SP_AddOffPaths(Axis);
                             }
+                            break;
                         }
-                        break;
                     default:
                         CommonControl.P1245.PathAddDO(Axis, Output_DTrig, (RunMode == ERunMode.Normal && Disp));
                         break;
@@ -16003,8 +16016,11 @@ namespace NDispWin
 
                     CommonControl.P1245.PathBlendTime(TaskGantry.GXAxis, (uint)BlendTime);
 
+                    double cornerSpeed = Model.LineSpeed;
+                    if (Model.LineSpeed2 > 0) cornerSpeed = Model.LineSpeed2;
+
                         CommonControl.P1245.PathAdd(TaskGantry.GXAxis, TaskGantry.GYAxis, CControl2.EMoveCmd.Abs2DLine, true,
-                        Model.LineSpeed * TaskDisp.Option_CLineSpeedRatio, Model.LineSpeed * TaskDisp.Option_CLineSpeedRatio,
+                        cornerSpeed * TaskDisp.Option_CLineSpeedRatio, Model.LineSpeed * TaskDisp.Option_CLineSpeedRatio,
                         GXY.X, GXY.Y, 0, 0);
 
                     if (LineStart)//FirstPath) 
@@ -22585,26 +22601,35 @@ namespace NDispWin
                     case EDispProgCondExec.PPFilling:
                         return TaskDisp.IsFilling();
                     case EDispProgCondExec.Disp_Counter1:
-                        if (Stats.Board.DispCounter[0] >= Count)
                         {
-                            Stats.Board.DispCounter[0] = 0;
-                            return true;
+                            Stats.Board.CondCounter[0]++;
+                            if (Stats.Board.CondCounter[0] >= Count)
+                            {
+                                Stats.Board.CondCounter[0] = 0;
+                                return true;
+                            }
+                            break;
                         }
-                        break;
                     case EDispProgCondExec.Disp_Counter2:
-                        if (Stats.Board.DispCounter[1] >= Count)
                         {
-                            Stats.Board.DispCounter[1] = 0;
-                            return true;
+                            Stats.Board.CondCounter[1]++;
+                            if (Stats.Board.CondCounter[1] >= Count)
+                            {
+                                Stats.Board.CondCounter[1] = 0;
+                                return true;
+                            }
+                            break;
                         }
-                        break;
                     case EDispProgCondExec.Disp_Counter3:
-                        if (Stats.Board.DispCounter[2] >= Count)
                         {
-                            Stats.Board.DispCounter[2] = 0;
-                            return true;
+                            Stats.Board.CondCounter[2]++;
+                            if (Stats.Board.CondCounter[2] >= Count)
+                            {
+                                Stats.Board.CondCounter[2] = 0;
+                                return true;
+                            }
+                            break;
                         }
-                        break;
                     default:
                         throw new Exception("Condition is not supported.");
                 }

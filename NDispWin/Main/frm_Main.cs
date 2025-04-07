@@ -373,9 +373,9 @@ namespace NDispWin
 
             switch (DispProg.Pump_Type)
             {
-                case TaskDisp.EPumpType.Vermes:
-                case TaskDisp.EPumpType.Vermes1560:
-                    if (!TaskDisp.DispCtrlOpened(0)) TaskDisp.TeachNeedle_Completed = false;
+                case TaskDisp.EPumpType.Vermes: 
+                    if (!TaskDisp.TeachNeedle_Completed) return;
+                    if (!TaskDisp.Vermes3200[0].IsAlive) TaskDisp.TeachNeedle_Completed = false;
                     break;
             }
         }
