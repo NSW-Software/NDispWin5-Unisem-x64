@@ -314,10 +314,47 @@ namespace NDispWin
                         double d = TaskGantry.ZSensorPos;
                         if (d > TouchZEncd_Sensitivity || d < -TouchZEncd_Sensitivity)
                         {
-                            FineTouchZ = TaskGantry.LogicalPos(_Axis);
-                            FineZArr[i_TouchCount] = FineTouchZ;
-                            i_TouchCount++;
-                            break;
+                            switch (TaskDisp.TeachNeedle_ZTouchDetectMethod)
+                            {
+                                default:
+                                    FineTouchZ = TaskGantry.LogicalPos(_Axis);
+                                    if (!TaskGantry.ForceStop(_Axis)) goto _Fail;
+                                    if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
+
+                                    FineZArr[i_TouchCount] = FineTouchZ;
+                                    i_TouchCount++;
+                                    break;
+                                case TaskDisp.EZTouchDetectMethod.Lift:
+                                    {
+                                        if (!TaskGantry.ForceStop(_Axis)) goto _Fail;
+                                        if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
+
+                                        int loops = 0;
+                                        while (true)
+                                        {
+                                            loops++;
+                                            double d1 = TaskGantry.ZSensorPos;
+                                            if (!TaskGantry.MovePtpRel(_Axis, 0.002)) goto _Fail;
+                                            if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
+
+                                            if (d1 == TaskGantry.ZSensorPos)
+                                            {
+                                                FineTouchZ = TaskGantry.LogicalPos(_Axis);
+                                                FineZArr[i_TouchCount] = FineTouchZ;
+                                                i_TouchCount++;
+                                                break;
+                                            }
+
+                                            if (loops > 50)
+                                            {
+                                                Msg MsgBox = new Msg();
+                                                MsgBox.Show("EMode.Lift Error Lift Sensor detection error.");
+                                                goto _Fail;
+                                            }
+                                        }
+                                        break;
+                                    }
+                            }
                         }
                     }
                     catch { };

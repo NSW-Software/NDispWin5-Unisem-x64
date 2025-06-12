@@ -777,7 +777,7 @@ namespace NDispWin
                         {
                             if (TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty &&
                                 TaskConv.Pro.Status == TaskConv.EProcessStatus.Empty &&
-                                TaskConv.Pre.Status == TaskConv.EProcessStatus.Empty)
+                                TaskConv.Out.Status == TaskConv.EProcessStatus.Empty)
                             {
                                 GDefine.Status = EStatus.Stop;
                                 Define_Run.TR_StopRun();

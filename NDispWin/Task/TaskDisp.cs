@@ -5559,7 +5559,6 @@ namespace NDispWin
         {
             get
             {
-                //return Head_ZSensor_RefPosZ[0] - Head_ZSensor_RefPosZ_Setup[0];
                 return Head_ZSensor_RefPosZ[0] - Head_ZSensor_RefPosZ_Setup[0];
             }
         }

@@ -747,6 +747,13 @@ namespace NDispWin
         {
             if (!EnableRMS) return false;
 
+            int t = Environment.TickCount;
+            while (Environment.TickCount < t + 30000)
+            {
+                Thread.Sleep(1);
+                if (File.Exists(fileName)) break;
+            }
+
             if (!File.Exists(fileName))
             {
                 AddLog("Recipe file not found.");

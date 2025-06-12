@@ -22,8 +22,10 @@ Software Hang frequent
 Dispense Head Z Path
 
 
-
-
+Ver 6.1.9.26 20250616 - Remote release to LYL for UnisemCD - Gitted
+  - [Feature] Added TaskDisp.EZTouchDetectMethod.Lift for Encoder Z stage.
+  - [Improve] Added to PPSelect() delay 30s and checking for file exists to prevent file not complete download.
+  - [BugFix] Corrected AutoRun() checking work complete conveyor status
 Ver 6.1.9.24 20250407 - Remote release to LRK/LT for UnisemCD - Gitted
   - [Improve] Add frmAuto _isAutoRunning checking to prevent multiple task intance.
   - [Bugfix] Add check Vermes IsAlive and set TeachNeedle flag.
