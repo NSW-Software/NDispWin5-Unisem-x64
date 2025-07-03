@@ -4574,7 +4574,7 @@ namespace NDispWin
 
                     for (int Line = StartLine; Line < CmdList.Count; Line++)
                     {
-                        Thread.Sleep(100);
+                   //     Thread.Sleep(100);
 
                     _Loop:
                         Idle.Reset();
@@ -4745,28 +4745,31 @@ namespace NDispWin
                                     }
 
                                     LastInCluster = true;
-                                    if (!(b_SecondHalf || b_IsNeedle2))
-                                        rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex, ref LastUColNo, ref LastURowNo, ref LastCColNo, ref LastCRowNo);
-                                    for (int i = RunTime.UIndex; i < rt_Layouts[rt_LayoutID].TUCount; i++)
-                                    {
-                                        if (i == rt_Layouts[rt_LayoutID].TUCount)
-                                        {
-                                            break;
-                                        }
+                                    //if (!(b_SecondHalf || b_IsNeedle2))
+                                    //    rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex, ref LastUColNo, ref LastURowNo, ref LastCColNo, ref LastCRowNo);
+                                    //for (int i = RunTime.UIndex; i < rt_Layouts[rt_LayoutID].TUCount; i++)
+                                    //{
+                                    //    if (i == rt_Layouts[rt_LayoutID].TUCount)
+                                    //    {
+                                    //        break;
+                                    //    }
 
-                                        if (rt_SyncHead2)
-                                            if (rt_Layouts[rt_LayoutID].UnitNoIsHead2(i + 1)) continue;
-                                        if (DispProg.Pump_Type == TaskDisp.EPumpType.PP2D)
-                                        {
-                                            if (rt_Layouts[rt_LayoutID].UnitNoIsNeedle2(i + 1)) continue;
-                                        }
-                                        int NextUColNo = 0; int NextURowNo = 0; int NextCColNo = 0; int NextCRowNo = 0;
-                                        rt_Layouts[rt_LayoutID].UnitNoGetRC(i + 1, ref NextUColNo, ref NextURowNo, ref NextCColNo, ref NextCRowNo);
+                                    //    if (rt_SyncHead2)
+                                    //        if (rt_Layouts[rt_LayoutID].UnitNoIsHead2(i + 1)) continue;
+                                    //    if (DispProg.Pump_Type == TaskDisp.EPumpType.PP2D)
+                                    //    {
+                                    //        if (rt_Layouts[rt_LayoutID].UnitNoIsNeedle2(i + 1)) continue;
+                                    //    }
+                                    //    int NextUColNo = 0; int NextURowNo = 0; int NextCColNo = 0; int NextCRowNo = 0;
+                                    //    rt_Layouts[rt_LayoutID].UnitNoGetRC(i + 1, ref NextUColNo, ref NextURowNo, ref NextCColNo, ref NextCRowNo);
 
-                                        LastInCluster = (NextCColNo != LastCColNo || NextCRowNo != LastCRowNo);
-                                        break;
-                                    }
-
+                                    //    LastInCluster = (NextCColNo != LastCColNo || NextCRowNo != LastCRowNo);
+                                    //    break;
+                                    //}
+                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex, ref LastUColNo, ref LastURowNo, ref LastCColNo, ref LastCRowNo);
+                                    int NextUColNo = 0; int NextURowNo = 0; int NextCColNo = 0; int NextCRowNo = 0;
+                                    rt_Layouts[rt_LayoutID].UnitNoGetRC(RunTime.UIndex + 1, ref NextUColNo, ref NextURowNo, ref NextCColNo, ref NextCRowNo);
+                                    LastInCluster = (NextCColNo != LastCColNo || NextCRowNo != LastCRowNo);
                                     break;
                                 }
                             #endregion
@@ -19990,7 +19993,7 @@ namespace NDispWin
                 CControl2.TOutput[] Output = null;
                 Outputs(b_HeadRun, ref Output);
                 CControl2.TOutput[] VacOutput = null;
-                Vac_Outputs(b_HeadRun, ref VacOutput);
+                //Vac_Outputs(b_HeadRun, ref VacOutput);
 
                 if (RunMode == ERunMode.Normal || RunMode == ERunMode.Dry)
                 {
@@ -22112,7 +22115,7 @@ namespace NDispWin
             #region Add Laser Log
             for (int i = 0; i < Z.Count(); i++)
             {
-                if (Z[i] == 0) Z[i] = 0.00001;//DO NOT REMOVE, used as flag for height correction, KN
+                if (Z[i] == 0) Z[i] = 0.001;//DO NOT REMOVE, used as flag for height correction, KN
             }
             double Z_Ave = Math.Round(Z.Average(), 5);
            

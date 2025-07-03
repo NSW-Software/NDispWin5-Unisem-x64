@@ -329,6 +329,11 @@ namespace NDispWin
                                         if (!TaskGantry.ForceStop(_Axis)) goto _Fail;
                                         if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
 
+                                        //Move 5um to clear backlash
+                                        if (!TaskGantry.MovePtpRel(_Axis, 0.005)) goto _Fail;
+                                        if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
+                                        Thread.Sleep(50);
+
                                         int loops = 0;
                                         while (true)
                                         {
@@ -336,6 +341,7 @@ namespace NDispWin
                                             double d1 = TaskGantry.ZSensorPos;
                                             if (!TaskGantry.MovePtpRel(_Axis, 0.002)) goto _Fail;
                                             if (!TaskGantry.AxisWait(_Axis)) goto _Fail;
+                                            Thread.Sleep(50);
 
                                             if (d1 == TaskGantry.ZSensorPos)
                                             {

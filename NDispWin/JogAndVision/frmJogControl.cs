@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Threading.Tasks;
+using SpinnakerNET;
 
 namespace NDispWin
 {
@@ -460,6 +461,8 @@ namespace NDispWin
             if (e.Button != MouseButtons.Left) { return; }
             MouseDownEvent(sender, TaskGantry.GZAxis, false);
 
+            if (TaskGantry.GZPos() <= TaskGantry.ZHeightForSlowSpeed) return;
+
             //  Switch to slow speed if lower that set value
             await Task.Run(() =>
             {
@@ -572,6 +575,8 @@ namespace NDispWin
             bZ2Dn = true;
             if (e.Button != MouseButtons.Left) { return; }
             MouseDownEvent(sender, TaskGantry.GZ2Axis, false);
+
+            if (TaskGantry.GZ2Pos() <= TaskGantry.ZHeightForSlowSpeed) return;
 
             //  Switch to slow speed if lower that set value
             Task.Run(() =>

@@ -1,6 +1,8 @@
 ﻿namespace NDispWin
 {
     partial class frm_DispCore_DispProg_CreateMap
+
+
     {
         /// <summary>
         /// Required designer variable.
