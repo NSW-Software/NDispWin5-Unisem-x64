@@ -4574,7 +4574,7 @@ namespace NDispWin
 
                     for (int Line = StartLine; Line < CmdList.Count; Line++)
                     {
-                        Thread.Sleep(100);
+                   //     Thread.Sleep(100);
 
                     _Loop:
                         Idle.Reset();
@@ -19992,7 +19992,7 @@ namespace NDispWin
                 #region Set Paths REL Operation
                 CControl2.TOutput[] Output = null;
                 Outputs(b_HeadRun, ref Output);
-                //CControl2.TOutput[] VacOutput = null;
+                CControl2.TOutput[] VacOutput = null;
                 //Vac_Outputs(b_HeadRun, ref VacOutput);
 
                 if (RunMode == ERunMode.Normal || RunMode == ERunMode.Dry)
@@ -22115,7 +22115,7 @@ namespace NDispWin
             #region Add Laser Log
             for (int i = 0; i < Z.Count(); i++)
             {
-                if (Z[i] == 0) Z[i] = 0.00001;//DO NOT REMOVE, used as flag for height correction, KN
+                if (Z[i] == 0) Z[i] = 0.001;//DO NOT REMOVE, used as flag for height correction, KN
             }
             double Z_Ave = Math.Round(Z.Average(), 5);
            

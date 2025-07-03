@@ -21,13 +21,13 @@ Diff Height Result
 Software Hang frequent
 Dispense Head Z Path
 
-
 Todo: Remove Sync, Dual head support
 
 
-
-  - [Improve] frm_Auto.AutoRun() added Cancellation Token
-Ver 6.1.9.28 20250616 - Remote release to LYL for UnisemCD - Gitted
+Ver 6.1.9.29 20250703 - Remote release to LYL for UnisemCD - Gitted
+  - [Changes] Remove Thread.Sleep(100) in DispProg.Run for loop prevent delay. Unknown change origin.
+  - [Changes] DO_HEIGHT (Z[i] == 0) Z[i] = from 0.00001 to 0.001
+  - [Enhance] Add Z and Z2 MouseDn to return if slow.
   - [Improve] Refactor FOR_LAYOUT, prevent dual head checking.
   - [Enhance] Improve TaskDisp.EZTouchDetectMethod.Lift for Encoder Z stage to consider backlash and latency
 Ver 6.1.9.26 20250616 - Remote release to LYL for UnisemCD - Gitted
