@@ -22,6 +22,14 @@ Software Hang frequent
 Dispense Head Z Path
 
 
+Todo: Remove Sync, Dual head support
+
+
+
+  - [Improve] frm_Auto.AutoRun() added Cancellation Token
+Ver 6.1.9.28 20250616 - Remote release to LYL for UnisemCD - Gitted
+  - [Improve] Refactor FOR_LAYOUT, prevent dual head checking.
+  - [Enhance] Improve TaskDisp.EZTouchDetectMethod.Lift for Encoder Z stage to consider backlash and latency
 Ver 6.1.9.26 20250616 - Remote release to LYL for UnisemCD - Gitted
   - [Feature] Added TaskDisp.EZTouchDetectMethod.Lift for Encoder Z stage.
   - [Improve] Added to PPSelect() delay 30s and checking for file exists to prevent file not complete download.

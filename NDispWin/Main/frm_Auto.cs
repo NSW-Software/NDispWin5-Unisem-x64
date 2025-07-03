@@ -734,6 +734,8 @@ namespace NDispWin
             Close();
         }
 
+        //Task taskConv;
+        //CancellationTokenSource ctsConv = new CancellationTokenSource();
         private async void AutoRun()
         {
             if (_isAutoRunning) return;
@@ -840,6 +842,37 @@ namespace NDispWin
                     }
                 }
             });
+
+            //if (taskConv != null && !taskConv.IsCompleted) ctsConv.Cancel();
+
+            //ctsConv = new CancellationTokenSource(); 
+            //taskConv = Task.Run(() =>
+            //{
+            //    while (Define_Run.TR_IsRunning && !ctsConv.Token.IsCancellationRequested)
+            //    {
+            //        try
+            //        {
+            //            if (
+            //                (NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.Stop) ||
+            //                (NDispWin.TaskConv.Status == NDispWin.TaskConv.EConvStatus.ErrorInit) ||
+            //                (NDispWin.TaskConv.LeftMode == NDispWin.TaskConv.ELeftMode.ElevatorZ && NDispWin.TaskElev.Left.Status == NDispWin.TaskElev.EElevStatus.ErrorInit) ||
+            //                (NDispWin.TaskConv.RightMode == NDispWin.TaskConv.ERightMode.ElevatorZ && NDispWin.TaskElev.Right.Status == NDispWin.TaskElev.EElevStatus.ErrorInit)
+            //                )
+            //            {
+            //                Define_Run.TR_StopRun();
+            //                return;
+            //            }
+
+            //            TaskConv.Run();
+            //            Thread.Sleep(500);
+            //        }
+            //        catch
+            //        {
+            //            Event.DEBUG_INFO.Set("TaskConv.Run", "Exception");
+            //            Define_Run.TR_StopRun();
+            //        }
+            //    }
+            //}, ctsConv.Token);
 
             var taskDisp = Task.Run(() =>
             {
