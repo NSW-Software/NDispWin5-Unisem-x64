@@ -61,7 +61,8 @@ namespace NDispWin
 
             lbl_Time.Enabled = CmdLine.IPara[2] != 0;
             lbl_Delay.Enabled = CmdLine.IPara[2] != 0;
-            lbl_PostVacTime.Enabled = CmdLine.IPara[2] != 0; 
+            lbl_PostVacTime.Enabled = CmdLine.IPara[2] != 0;
+            lblPurgeStageCount.Text = $"{CmdLine.IPara[5]}"; 
 
             if (CmdLine.IPara[2] == 0)
             {

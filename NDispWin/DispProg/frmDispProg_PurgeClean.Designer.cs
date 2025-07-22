@@ -42,12 +42,14 @@
             this.btn_Cond = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lbox_Cond = new System.Windows.Forms.ListBox();
+            this.lblPurgeStageCount = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_Cancel
             // 
             this.btn_Cancel.AccessibleDescription = "Cancel";
-            this.btn_Cancel.Location = new System.Drawing.Point(167, 232);
+            this.btn_Cancel.Location = new System.Drawing.Point(167, 251);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 36);
@@ -59,7 +61,7 @@
             // btn_OK
             // 
             this.btn_OK.AccessibleDescription = "OK";
-            this.btn_OK.Location = new System.Drawing.Point(86, 232);
+            this.btn_OK.Location = new System.Drawing.Point(86, 251);
             this.btn_OK.Margin = new System.Windows.Forms.Padding(2);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(75, 36);
@@ -72,7 +74,7 @@
             // 
             this.lbl_Count.BackColor = System.Drawing.Color.White;
             this.lbl_Count.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Count.Location = new System.Drawing.Point(133, 106);
+            this.lbl_Count.Location = new System.Drawing.Point(167, 106);
             this.lbl_Count.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_Count.Name = "lbl_Count";
             this.lbl_Count.Size = new System.Drawing.Size(75, 23);
@@ -96,7 +98,7 @@
             // 
             this.lbl_Time.BackColor = System.Drawing.Color.White;
             this.lbl_Time.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Time.Location = new System.Drawing.Point(133, 133);
+            this.lbl_Time.Location = new System.Drawing.Point(167, 133);
             this.lbl_Time.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_Time.Name = "lbl_Time";
             this.lbl_Time.Size = new System.Drawing.Size(75, 23);
@@ -120,7 +122,7 @@
             // 
             this.lbl_Delay.BackColor = System.Drawing.Color.White;
             this.lbl_Delay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Delay.Location = new System.Drawing.Point(133, 160);
+            this.lbl_Delay.Location = new System.Drawing.Point(167, 160);
             this.lbl_Delay.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_Delay.Name = "lbl_Delay";
             this.lbl_Delay.Size = new System.Drawing.Size(75, 23);
@@ -144,7 +146,7 @@
             // 
             this.lbl_PostVacTime.BackColor = System.Drawing.Color.White;
             this.lbl_PostVacTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_PostVacTime.Location = new System.Drawing.Point(133, 187);
+            this.lbl_PostVacTime.Location = new System.Drawing.Point(167, 187);
             this.lbl_PostVacTime.Margin = new System.Windows.Forms.Padding(2);
             this.lbl_PostVacTime.Name = "lbl_PostVacTime";
             this.lbl_PostVacTime.Size = new System.Drawing.Size(75, 23);
@@ -167,7 +169,7 @@
             // btn_Setup
             // 
             this.btn_Setup.AccessibleDescription = "Setup";
-            this.btn_Setup.Location = new System.Drawing.Point(7, 232);
+            this.btn_Setup.Location = new System.Drawing.Point(7, 251);
             this.btn_Setup.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Setup.Name = "btn_Setup";
             this.btn_Setup.Size = new System.Drawing.Size(75, 36);
@@ -191,7 +193,7 @@
             // button1
             // 
             this.button1.AccessibleDescription = "Cancel";
-            this.button1.Location = new System.Drawing.Point(167, 232);
+            this.button1.Location = new System.Drawing.Point(167, 251);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 36);
@@ -210,11 +212,36 @@
             this.lbox_Cond.TabIndex = 44;
             this.lbox_Cond.SelectedIndexChanged += new System.EventHandler(this.lbox_Cond_SelectedIndexChanged);
             // 
+            // lblPurgeStageCount
+            // 
+            this.lblPurgeStageCount.BackColor = System.Drawing.Color.White;
+            this.lblPurgeStageCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblPurgeStageCount.Location = new System.Drawing.Point(167, 214);
+            this.lblPurgeStageCount.Margin = new System.Windows.Forms.Padding(2);
+            this.lblPurgeStageCount.Name = "lblPurgeStageCount";
+            this.lblPurgeStageCount.Size = new System.Drawing.Size(75, 23);
+            this.lblPurgeStageCount.TabIndex = 46;
+            this.lblPurgeStageCount.Text = "1";
+            this.lblPurgeStageCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AccessibleDescription = "Purge Stage (count)";
+            this.label5.Location = new System.Drawing.Point(7, 214);
+            this.label5.Margin = new System.Windows.Forms.Padding(2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 23);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Purge Stage (count)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frm_DispCore_DispProg_PurgeClean
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(272, 305);
             this.ControlBox = false;
+            this.Controls.Add(this.lblPurgeStageCount);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lbox_Cond);
             this.Controls.Add(this.btn_Cond);
             this.Controls.Add(this.btn_Setup);
@@ -257,5 +284,7 @@
         private System.Windows.Forms.Button btn_Cond;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox lbox_Cond;
+        private System.Windows.Forms.Label lblPurgeStageCount;
+        private System.Windows.Forms.Label label5;
     }
 }

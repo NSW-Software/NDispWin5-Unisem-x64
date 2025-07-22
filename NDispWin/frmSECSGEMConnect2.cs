@@ -581,13 +581,13 @@ namespace NDispWin
         public bool EnableAlarm = false;
         public bool EnableEvent = false;
         public bool EnableRMS = false;
-        public bool EnableDnloadStripMapE142 = false;
-        public bool EnableUploadStripMapE142 = false;
+        //public bool EnableDnloadStripMapE142 = false;
+        //public bool EnableUploadStripMapE142 = false;
         public bool useMapFile = false;
         public int TimeOut = 30000;
         public enum EStripMapFlip { Normal, FlipX, FlipY, FlipXY };
-        public EStripMapFlip StripMapDnloadFlip = EStripMapFlip.Normal;
-        public EStripMapFlip StripMapUploadFlip = EStripMapFlip.Normal;
+        //public EStripMapFlip StripMapDnloadFlip = EStripMapFlip.Normal;
+        //public EStripMapFlip StripMapUploadFlip = EStripMapFlip.Normal;
 
         #region Map Variables
         public enum EMapState { None, Requested, Loaded, NoFound, DecodeError, Uploaded, UploadFail}
@@ -647,7 +647,7 @@ namespace NDispWin
                 switch (data0)
                 {
                     case "DOWNLOAD":
-                        if (GDefine.sgc2.EnableDnloadStripMapE142 || GDefine.sgc2.EnableUploadStripMapE142)
+                        if (GDefine.EnableDnloadStripMapE142 || GDefine.EnableUploadStripMapE142)
                         {
                             if (data.Length == 1) AddLog("Download data incomplete.");
                             string content = rxData;
@@ -815,7 +815,7 @@ namespace NDispWin
 
         public void SendDownload(string stripID)
         {
-            if (GDefine.sgc2.EnableDnloadStripMapE142 || GDefine.sgc2.EnableUploadStripMapE142)
+            if (GDefine.EnableDnloadStripMapE142 || GDefine.EnableUploadStripMapE142)
             {
                 if (useMapFile)
                 {
@@ -902,7 +902,7 @@ namespace NDispWin
                     }
 
 
-                switch (StripMapDnloadFlip)
+                switch ((EStripMapFlip)GDefine.StripMapDnloadFlip)
                 {
                     default:
                     case EStripMapFlip.Normal:
@@ -954,7 +954,7 @@ namespace NDispWin
         {
             try
             {
-                if (!GDefine.sgc2.EnableUploadStripMapE142) return "";
+                if (!GDefine.EnableUploadStripMapE142) return "";
 
                 //Ver 5.2.90 abort if local xmlContent is empty
                 if (String.IsNullOrEmpty(xmlContent)) return "";
@@ -967,7 +967,7 @@ namespace NDispWin
                         tempMap[c, r] = map[c, r];
                     }
 
-                switch (StripMapUploadFlip)
+                switch ((EStripMapFlip)GDefine.StripMapUploadFlip)
                 {
                     default:
                     case EStripMapFlip.Normal:

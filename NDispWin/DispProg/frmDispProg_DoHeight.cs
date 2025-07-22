@@ -425,8 +425,34 @@ namespace NDispWin
                                 for (int i = 0; i < pts; i++)
                                 {
                                     PointD clstrOfst = new PointD(0, 0);
-                                    clstrOfst.X = (selectClstr.X * clstrColPitch.X) + (selectClstr.X * clstrRowPitch.X);
-                                    clstrOfst.Y = (selectClstr.Y * clstrColPitch.Y) + (selectClstr.Y * clstrRowPitch.Y);
+
+                                    TLayout.ECLayoutType CColLayoutType = (TLayout.ECLayoutType)CmdLine.IPara[6];
+                                    TLayout.ECLayoutType CRowLayoutType = (TLayout.ECLayoutType)CmdLine.IPara[7];
+
+                                    if (CColLayoutType == TLayout.ECLayoutType.Matrix && CRowLayoutType == TLayout.ECLayoutType.Matrix)
+                                    {
+                                        clstrOfst.X = (selectClstr.X * clstrColPitch.X) + (selectClstr.X * clstrRowPitch.X);
+                                        clstrOfst.Y = (selectClstr.Y * clstrColPitch.Y) + (selectClstr.Y * clstrRowPitch.Y);
+                                    }
+                                    else
+                                    if (CColLayoutType == TLayout.ECLayoutType.Matrix && CRowLayoutType == TLayout.ECLayoutType.MultiP)
+                                    {
+                                        clstrOfst.X = (selectClstr.X * clstrColPitch.X) + (selectClstr.X * clstrRowPitch.X);
+                                        clstrOfst.Y = CmdLine.C[selectClstr.Y] + CmdLine.D[selectClstr.Y];
+                                    }
+                                    else
+                                    if (CColLayoutType == TLayout.ECLayoutType.MultiP && CRowLayoutType == TLayout.ECLayoutType.Matrix)
+                                    {
+                                        clstrOfst.X = CmdLine.A[selectClstr.X] + CmdLine.B[selectClstr.X];
+                                        clstrOfst.Y = (selectClstr.Y * clstrColPitch.Y) + (selectClstr.Y * clstrRowPitch.Y);
+                                    }
+                                    //if (CColLayoutType == TLayout.ECLayoutType.MultiP && CRowLayoutType == TLayout.ECLayoutType.MultiP)
+                                    else
+                                    {
+                                        clstrOfst.X = CmdLine.A[selectClstr.X] + CmdLine.B[selectClstr.X];
+                                        clstrOfst.Y = CmdLine.C[selectClstr.Y] + CmdLine.D[selectClstr.Y];
+                                    }
+
                                     X.Add(DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i] + clstrOfst.X);
                                     Y.Add(DispProg.Origin(ERunStationNo.Station1).Y + CmdLine.Y[i] + clstrOfst.Y);
                                     Z.Add(0);

@@ -1584,12 +1584,12 @@ namespace NDispWin
             GDefine.sgc2.EnableRMS = IniFile.ReadBool("sgc2", "EnableRMS", false);
             GDefine.sgc2.TimeOut = IniFile.ReadInteger("sgc2", "TimeOut", 30000);
 
-            GDefine.sgc2.EnableDnloadStripMapE142 = IniFile.ReadBool("sgc2", "EnableDnloadStripMapE142", false);
-            s = IniFile.ReadString("sgc2", "StripMapDnloadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
-            Enum.TryParse(s, out GDefine.sgc2.StripMapDnloadFlip);
-            GDefine.sgc2.EnableUploadStripMapE142 = IniFile.ReadBool("sgc2", "EnableUploadStripMapE142", false);
-            s = IniFile.ReadString("sgc2", "StripMapUploadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
-            Enum.TryParse(s, out GDefine.sgc2.StripMapUploadFlip);
+            //GDefine.sgc2.EnableDnloadStripMapE142 = IniFile.ReadBool("sgc2", "EnableDnloadStripMapE142", false);
+            //s = IniFile.ReadString("sgc2", "StripMapDnloadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
+            //Enum.TryParse(s, out GDefine.sgc2.StripMapDnloadFlip);
+            //GDefine.sgc2.EnableUploadStripMapE142 = IniFile.ReadBool("sgc2", "EnableUploadStripMapE142", false);
+            //s = IniFile.ReadString("sgc2", "StripMapUploadFlip", SECSGEMConnect2.EStripMapFlip.Normal.ToString());
+            //Enum.TryParse(s, out GDefine.sgc2.StripMapUploadFlip);
 
             TaskDispCtrl.DispFuncs.Load();
             Pump.Action.Load();
@@ -1893,10 +1893,10 @@ namespace NDispWin
             IniFile.WriteBool("sgc2", "EnableRMS", GDefine.sgc2.EnableRMS);
             IniFile.WriteInteger("sgc2", "TimeOut", GDefine.sgc2.TimeOut);
 
-            IniFile.WriteBool("sgc2", "EnableDnloadStripMapE142", GDefine.sgc2.EnableDnloadStripMapE142);
-            IniFile.WriteString("sgc2", "StripMapDnloadFlip", GDefine.sgc2.StripMapDnloadFlip.ToString());
-            IniFile.WriteBool("sgc2", "EnableUploadStripMapE142", GDefine.sgc2.EnableUploadStripMapE142);
-            IniFile.WriteString("sgc2", "StripMapUploadFlip", GDefine.sgc2.StripMapUploadFlip.ToString());
+            //IniFile.WriteBool("sgc2", "EnableDnloadStripMapE142", GDefine.sgc2.EnableDnloadStripMapE142);
+            //IniFile.WriteString("sgc2", "StripMapDnloadFlip", GDefine.sgc2.StripMapDnloadFlip.ToString());
+            //IniFile.WriteBool("sgc2", "EnableUploadStripMapE142", GDefine.sgc2.EnableUploadStripMapE142);
+            //IniFile.WriteString("sgc2", "StripMapUploadFlip", GDefine.sgc2.StripMapUploadFlip.ToString());
 
             TaskDispCtrl.DispFuncs.Save();
             PurgeStage.SaveSetup();

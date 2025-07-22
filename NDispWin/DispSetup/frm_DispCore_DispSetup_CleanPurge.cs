@@ -100,34 +100,18 @@ namespace NDispWin
 
         private void btn_Set_Click(object sender, EventArgs e)
         {
+            TPos3 old = new TPos3(TaskDisp.Needle_Clean_Pos[0]);
+
             TaskDisp.Needle_Clean_Pos[0].X = TaskGantry.GXPos();
             TaskDisp.Needle_Clean_Pos[0].Y = TaskGantry.GYPos();
             TaskDisp.Needle_Clean_Pos[0].Z = TaskGantry.GZPos() - TaskDisp.Z1Offset;
 
-            if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-            {
-                TaskDisp.Needle_Clean_Pos[1].X = TaskGantry.GX2Pos();
-                TaskDisp.Needle_Clean_Pos[1].Y = TaskGantry.GY2Pos();
-                TaskDisp.Needle_Clean_Pos[1].Z = TaskGantry.GZ2Pos() - TaskDisp.Z2Offset; ;
-            }
-            else
-            {
-                TaskDisp.Needle_Clean_Pos[1].X = 0;
-                TaskDisp.Needle_Clean_Pos[1].Y = 0;
-                TaskDisp.Needle_Clean_Pos[1].Z = 0;
-            }
-
-            //if (TaskDisp.Needle_Purge_UseCleanPos)
-            //{
-            //    TaskDisp.Needle_Purge_Pos[0].X = TaskDisp.Needle_Clean_Pos[0].X;
-            //    TaskDisp.Needle_Purge_Pos[0].Y = TaskDisp.Needle_Clean_Pos[0].Y;
-            //    TaskDisp.Needle_Purge_Pos[0].Z = TaskDisp.Needle_Clean_Pos[0].Z;
-            //    TaskDisp.Needle_Purge_Pos[1].X = TaskDisp.Needle_Clean_Pos[1].X;
-            //    TaskDisp.Needle_Purge_Pos[1].Y = TaskDisp.Needle_Clean_Pos[1].Y;
-            //    TaskDisp.Needle_Purge_Pos[1].Z = TaskDisp.Needle_Clean_Pos[1].Z;
-            //}
+            TaskDisp.Needle_Clean_Pos[1].X = 0;
+            TaskDisp.Needle_Clean_Pos[1].Y = 0;
+            TaskDisp.Needle_Clean_Pos[1].Z = 0;
 
             TaskDisp.TaskMoveGZUp();
+            Log.OnSet("Clean Position", old, TaskDisp.Needle_Clean_Pos[0]);
             UpdateDisplay();
         }
         private void btn_Goto_Click(object sender, EventArgs e)
@@ -137,23 +121,18 @@ namespace NDispWin
 
         private void btn_SetPurgePos_Click(object sender, EventArgs e)
         {
+            TPos3 old = new TPos3(TaskDisp.Needle_Purge_Pos[0]);
+
             TaskDisp.Needle_Purge_Pos[0].X = TaskGantry.GXPos();
             TaskDisp.Needle_Purge_Pos[0].Y = TaskGantry.GYPos();
             TaskDisp.Needle_Purge_Pos[0].Z = TaskGantry.GZPos() - TaskDisp.Z1Offset;
 
-            if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-            {
-                TaskDisp.Needle_Purge_Pos[1].X = TaskGantry.GX2Pos();
-                TaskDisp.Needle_Purge_Pos[1].Y = TaskGantry.GY2Pos();
-                TaskDisp.Needle_Purge_Pos[1].Z = TaskGantry.GZ2Pos() - TaskDisp.Z2Offset;
-            }
-            else
-            {
-                TaskDisp.Needle_Purge_Pos[1].X = 0;
-                TaskDisp.Needle_Purge_Pos[1].Y = 0;
-                TaskDisp.Needle_Purge_Pos[1].Z = 0;
-            }
+            TaskDisp.Needle_Purge_Pos[1].X = 0;
+            TaskDisp.Needle_Purge_Pos[1].Y = 0;
+            TaskDisp.Needle_Purge_Pos[1].Z = 0;
+
             TaskDisp.TaskMoveGZUp();
+            Log.OnSet("Purge Position", old, TaskDisp.Needle_Purge_Pos[0]);
             UpdateDisplay();
         }
         private void btn_GotoPurgePos_Click(object sender, EventArgs e)
@@ -163,23 +142,18 @@ namespace NDispWin
 
         private void btn_SetFlushPos_Click(object sender, EventArgs e)
         {
+            TPos3 old = new TPos3(TaskDisp.Needle_Flush_Pos[0]);
+
             TaskDisp.Needle_Flush_Pos[0].X = TaskGantry.GXPos();
             TaskDisp.Needle_Flush_Pos[0].Y = TaskGantry.GYPos();
             TaskDisp.Needle_Flush_Pos[0].Z = TaskGantry.GZPos() - TaskDisp.Z1Offset;
 
-            if (GDefine.GantryConfig == GDefine.EGantryConfig.XY_ZX2Y2_Z2)
-            {
-                TaskDisp.Needle_Flush_Pos[1].X = TaskGantry.GX2Pos();
-                TaskDisp.Needle_Flush_Pos[1].Y = TaskGantry.GY2Pos();
-                TaskDisp.Needle_Flush_Pos[1].Z = TaskGantry.GZ2Pos() - TaskDisp.Z2Offset;
-            }
-            else
-            {
-                TaskDisp.Needle_Flush_Pos[1].X = 0;
-                TaskDisp.Needle_Flush_Pos[1].Y = 0;
-                TaskDisp.Needle_Flush_Pos[1].Z = 0;
-            }
+            TaskDisp.Needle_Flush_Pos[1].X = 0;
+            TaskDisp.Needle_Flush_Pos[1].Y = 0;
+            TaskDisp.Needle_Flush_Pos[1].Z = 0;
+
             TaskDisp.TaskMoveGZUp();
+            Log.OnSet("Flush Position", old, TaskDisp.Needle_Flush_Pos[0]);
             UpdateDisplay();
         }
 

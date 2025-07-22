@@ -1936,7 +1936,7 @@ namespace NDispWin
                                                             try
                                                             {
                                                                 reader.Read();
-                                                            DispProg.EnableDnloadStripMapE142 = Convert.ToBoolean(reader.Value);
+                                                                DispProg.EnableDnloadStripMapE142 = Convert.ToBoolean(reader.Value);
                                                             }
                                                             catch { };
                                                             break;
@@ -1948,8 +1948,22 @@ namespace NDispWin
                                                             }
                                                             catch { };
                                                             break;
-
-
+                                                        case "EnableUploadStripMapE142":
+                                                            try
+                                                            {
+                                                                reader.Read();
+                                                                DispProg.EnableUploadStripMapE142 = Convert.ToBoolean(reader.Value);
+                                                            }
+                                                            catch { };
+                                                            break;
+                                                        case "StripMapUploadFlip":
+                                                            try
+                                                            {
+                                                                reader.Read();
+                                                                DispProg.StripMapUploadFlip = Convert.ToInt32(reader.Value);
+                                                            }
+                                                            catch { };
+                                                            break;
                                                     }
                                                 }
                                             }
@@ -4467,7 +4481,7 @@ namespace NDispWin
                         rt_Singulated = false;
 
                         #region Recovery Upload
-                        if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.sgc2.EnableUploadStripMapE142)
+                        if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.EnableUploadStripMapE142)
                         {
                             var files = Directory.GetFiles(GDefine.StripMapDir.FullName, "*.txt", SearchOption.TopDirectoryOnly);
 
@@ -6977,7 +6991,7 @@ namespace NDispWin
                             case ECmd.READ_ID:
                                 {
                                     //Special condition for Unisem process half frame
-                                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.sgc2.EnableDnloadStripMapE142 || GDefine.sgc2.EnableUploadStripMapE142))
+                                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.EnableDnloadStripMapE142 || GDefine.EnableUploadStripMapE142))
                                     {
                                         //Skip Read ID
                                         if (TaskConv.Pro.rt_StType == TaskConv.EProStType.Disp2 && TaskConv.Pro.Status == TaskConv.EProcessStatus.InProcess) goto _End;
@@ -8278,6 +8292,15 @@ namespace NDispWin
                                         UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
+                                    if (ActiveLine.IPara[5] > 0)
+                                    {
+                                        if (!TaskDisp.PurgeStage.Execute(PurgeStage.Count)) goto _Pause;
+                                    }
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, true, false, false);
+                                    }
+
                                     break;
                                 }
                             #endregion
@@ -8346,6 +8369,14 @@ namespace NDispWin
                                         UnisemProcessLog(ActiveLine, true, false, false);
                                     }
 
+                                    if (ActiveLine.IPara[5] > 0)
+                                    {
+                                        if (!TaskDisp.PurgeStage.Execute(PurgeStage.Count)) goto _Pause;
+                                    }
+                                    if (DispProg.Options_EnableProcessLog)
+                                    {
+                                        UnisemProcessLog(ActiveLine, true, false, false);
+                                    }
                                     break;
                                 }
                             #endregion
@@ -9012,7 +9043,7 @@ namespace NDispWin
                                                 break;
                                         }
 
-                                        if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.sgc2.EnableUploadStripMapE142)
+                                        if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.EnableUploadStripMapE142)
                                         {
                                             int C = 0; int R = 0;
                                             try
@@ -17017,7 +17048,7 @@ namespace NDispWin
                 for (int j = 0; j < TLayout.MAX_UNITS; j++)
                     rt_Read_IDs[i, j] = "";
             }
-            if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.sgc2.EnableDnloadStripMapE142 || GDefine.sgc2.EnableUploadStripMapE142))
+            if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.EnableDnloadStripMapE142 || GDefine.EnableUploadStripMapE142))
             {
                 if (TaskConv.Pre.rt_StType == TaskConv.EPreStType.Disp1) rt_Read_IDs[0, 0] = lastID;
             }
@@ -21371,7 +21402,7 @@ namespace NDispWin
                         }
                     }
 
-                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.sgc2.EnableDnloadStripMapE142 || GDefine.sgc2.EnableUploadStripMapE142))
+                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && (GDefine.EnableDnloadStripMapE142 || GDefine.EnableUploadStripMapE142))
                     {
                         //special condition for Unisem process half frame
                         if (TaskConv.Pre.rt_StType == TaskConv.EPreStType.Disp1 && TaskConv.Pre.Status >= TaskConv.EProcessStatus.Heating)
@@ -21384,7 +21415,7 @@ namespace NDispWin
                                 if (GDefine.sgc2.MapState == SECSGEMConnect2.EMapState.Loaded)
                                 {
                                     #region update to rt_Map
-                                    if (GDefine.sgc2.EnableDnloadStripMapE142)
+                                    if (GDefine.EnableDnloadStripMapE142)
                                     {
                                         for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                         {
@@ -21446,7 +21477,7 @@ namespace NDispWin
                             if (GDefine.sgc2.MapState == SECSGEMConnect2.EMapState.Loaded)
                             {
                                 #region update to rt_Map
-                                if (GDefine.sgc2.EnableDnloadStripMapE142)
+                                if (GDefine.EnableDnloadStripMapE142)
                                 {
                                     for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                     {
@@ -21479,7 +21510,7 @@ namespace NDispWin
                                 if (GDefine.sgc2.MapState == SECSGEMConnect2.EMapState.Loaded)
                                 {
                                     #region update to rt_Map
-                                    if (GDefine.sgc2.EnableDnloadStripMapE142)
+                                    if (GDefine.EnableDnloadStripMapE142)
                                     {
                                         for (int i = 0; i < rt_Layouts[rt_LayoutID].TUCount; i++)
                                         {
@@ -21561,7 +21592,7 @@ namespace NDispWin
 
                 try
                 {
-                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.sgc2.EnableUploadStripMapE142)
+                    if (TaskDisp.Preference == TaskDisp.EPreference.Unisem && TaskDisp.SECSGEMProtocol == TaskDisp.ESECSGEMProtocol.SECSGEMConnect2 && GDefine.EnableUploadStripMapE142)
                     {
                         if (FrameNo == "")
                         {
@@ -22541,6 +22572,7 @@ namespace NDispWin
         Board_EveryNthUnit, Board_EveryNthShot,
         PPFilling, 
         Disp_Counter1, Disp_Counter2, Disp_Counter3,
+        Disp_CounterF1, Disp_CounterF2, Disp_CounterF3,
         FirstBoard,
     };
     internal enum EDispProgCondOperand
@@ -22629,6 +22661,45 @@ namespace NDispWin
                             if (Stats.Board.CondCounter[2] >= Count)
                             {
                                 Stats.Board.CondCounter[2] = 0;
+                                return true;
+                            }
+                            break;
+                        }
+                    case EDispProgCondExec.Disp_CounterF1:
+                        {
+                            //***Start of board clear counter
+                            if (Stats.ContinueBoard.DispCount[0] <= Count) Stats.Board.CondCounter[0] = 0;
+
+                            Stats.Board.CondCounter[0]++;
+                            //***Execute first X and subsequent X
+                            if (Stats.Board.CondCounter[0] <= Count || Stats.Board.CondCounter[0] % Count == 0)
+                            {
+                                return true;
+                            }
+                            break;
+                        }
+                    case EDispProgCondExec.Disp_CounterF2:
+                        {
+                            //***Start of board clear counter
+                            if (Stats.ContinueBoard.DispCount[1] <= Count) Stats.Board.CondCounter[1] = 0;
+
+                            Stats.Board.CondCounter[1]++;
+                            //***Execute first X and subsequent X
+                            if (Stats.Board.CondCounter[1] <= Count || Stats.Board.CondCounter[1] % Count == 0)
+                            {
+                                return true;
+                            }
+                            break;
+                        }
+                    case EDispProgCondExec.Disp_CounterF3:
+                        {
+                            //***Start of board clear counter
+                            if (Stats.ContinueBoard.DispCount[2] <= Count) Stats.Board.CondCounter[2] = 0;
+
+                            Stats.Board.CondCounter[2]++;
+                            //***Execute first X and subsequent X
+                            if (Stats.Board.CondCounter[2] <= Count || Stats.Board.CondCounter[2] % Count == 0)
+                            {
                                 return true;
                             }
                             break;
