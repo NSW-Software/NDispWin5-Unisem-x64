@@ -167,5 +167,11 @@ namespace NDispWin
         {
 
         }
+
+        private void lblPurgeStageCount_Click(object sender, EventArgs e)
+        {
+            UC.AdjustExec("Purge Stage, Count", ref CmdLine.IPara[5], 0, 10);
+            UpdateDisplay();
+        }
     }
 }

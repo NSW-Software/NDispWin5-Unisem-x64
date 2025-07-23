@@ -223,6 +223,7 @@
             this.lblPurgeStageCount.TabIndex = 46;
             this.lblPurgeStageCount.Text = "1";
             this.lblPurgeStageCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPurgeStageCount.Click += new System.EventHandler(this.lblPurgeStageCount_Click);
             // 
             // label5
             // 

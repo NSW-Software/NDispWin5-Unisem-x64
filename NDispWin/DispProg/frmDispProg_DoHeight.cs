@@ -107,9 +107,10 @@ namespace NDispWin
             }
         }
 
-        Point clstrCR = new Point(0, 0);
-        PointD clstrColPitch = new PointD(0, 0);
-        PointD clstrRowPitch = new PointD(0, 0);
+        //Point clstrCR = new Point(0, 0);
+        //PointD clstrColPitch = new PointD(0, 0);
+        //PointD clstrRowPitch = new PointD(0, 0);
+        DispProg.TLine layoutCmdLine;
         private void frmDispProg_DoHeight_Load(object sender, EventArgs e)
         {
             GControl.UpdateFormControl(this);
@@ -133,19 +134,19 @@ namespace NDispWin
             catch { };
 
             {//Check for Cluster information
-                clstrCR = new Point(0, 0);
-                clstrColPitch = new PointD(0, 0);
-                clstrRowPitch = new PointD(0, 0);
+                Point clstrCR = new Point(0, 0);
+                PointD clstrColPitch = new PointD(0, 0);
+                PointD clstrRowPitch = new PointD(0, 0);
 
                 for (int i = 0; i < DispProg.Script[0].CmdList.Count; i++)
                 {
-                    DispProg.TLine cmdLine = new DispProg.TLine(DispProg.Script[0].CmdList.Line[i]);
+                    layoutCmdLine = new DispProg.TLine(DispProg.Script[0].CmdList.Line[i]);
 
-                    if (cmdLine.Cmd == DispProg.ECmd.LAYOUT)
+                    if (layoutCmdLine.Cmd == DispProg.ECmd.LAYOUT)
                     {
-                        clstrCR = new Point(cmdLine.Index[6], cmdLine.Index[8]);
-                        clstrColPitch = new PointD(cmdLine.DPara[6], cmdLine.DPara[7]);
-                        clstrRowPitch = new PointD(cmdLine.DPara[8], cmdLine.DPara[9]);
+                        clstrCR = new Point(layoutCmdLine.Index[6], layoutCmdLine.Index[8]);
+                        //clstrColPitch = new PointD(layoutCmdLine.DPara[6], layoutCmdLine.DPara[7]);
+                        //clstrRowPitch = new PointD(layoutCmdLine.DPara[8], layoutCmdLine.DPara[9]);
 
                         cbxClstrC.Items.Clear();
                         for (int c = 0; c < clstrCR.X; c++) { cbxClstrC.Items.Add($"C {c + 1}"); };
@@ -426,8 +427,10 @@ namespace NDispWin
                                 {
                                     PointD clstrOfst = new PointD(0, 0);
 
-                                    TLayout.ECLayoutType CColLayoutType = (TLayout.ECLayoutType)CmdLine.IPara[6];
-                                    TLayout.ECLayoutType CRowLayoutType = (TLayout.ECLayoutType)CmdLine.IPara[7];
+                                    TLayout.ECLayoutType CColLayoutType = (TLayout.ECLayoutType)layoutCmdLine.IPara[6];
+                                    TLayout.ECLayoutType CRowLayoutType = (TLayout.ECLayoutType)layoutCmdLine.IPara[7];
+                                    PointD clstrColPitch = new PointD(layoutCmdLine.DPara[6], layoutCmdLine.DPara[7]);
+                                    PointD clstrRowPitch = new PointD(layoutCmdLine.DPara[8], layoutCmdLine.DPara[9]);
 
                                     if (CColLayoutType == TLayout.ECLayoutType.Matrix && CRowLayoutType == TLayout.ECLayoutType.Matrix)
                                     {
@@ -438,19 +441,19 @@ namespace NDispWin
                                     if (CColLayoutType == TLayout.ECLayoutType.Matrix && CRowLayoutType == TLayout.ECLayoutType.MultiP)
                                     {
                                         clstrOfst.X = (selectClstr.X * clstrColPitch.X) + (selectClstr.X * clstrRowPitch.X);
-                                        clstrOfst.Y = CmdLine.C[selectClstr.Y] + CmdLine.D[selectClstr.Y];
+                                        clstrOfst.Y = layoutCmdLine.C[selectClstr.Y] + layoutCmdLine.D[selectClstr.Y];
                                     }
                                     else
                                     if (CColLayoutType == TLayout.ECLayoutType.MultiP && CRowLayoutType == TLayout.ECLayoutType.Matrix)
                                     {
-                                        clstrOfst.X = CmdLine.A[selectClstr.X] + CmdLine.B[selectClstr.X];
+                                        clstrOfst.X = layoutCmdLine.A[selectClstr.X] + layoutCmdLine.B[selectClstr.X];
                                         clstrOfst.Y = (selectClstr.Y * clstrColPitch.Y) + (selectClstr.Y * clstrRowPitch.Y);
                                     }
                                     //if (CColLayoutType == TLayout.ECLayoutType.MultiP && CRowLayoutType == TLayout.ECLayoutType.MultiP)
                                     else
                                     {
-                                        clstrOfst.X = CmdLine.A[selectClstr.X] + CmdLine.B[selectClstr.X];
-                                        clstrOfst.Y = CmdLine.C[selectClstr.Y] + CmdLine.D[selectClstr.Y];
+                                        clstrOfst.X = layoutCmdLine.A[selectClstr.X] + layoutCmdLine.B[selectClstr.X];
+                                        clstrOfst.Y = layoutCmdLine.C[selectClstr.Y] + layoutCmdLine.D[selectClstr.Y];
                                     }
 
                                     X.Add(DispProg.Origin(ERunStationNo.Station1).X + CmdLine.X[i] + clstrOfst.X);

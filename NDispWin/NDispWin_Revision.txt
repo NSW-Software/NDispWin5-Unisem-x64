@@ -23,6 +23,8 @@ Dispense Head Z Path
 
 Todo: Remove Sync, Dual head support
 
+Ver 6.1.9.31 20250728 - Remote release to LYL for UnisemCD - Gitted
+  - [BugFix] Corrected DO_HEIGHT test for MultiP
 Ver 6.1.9.30 20250727 - Remote release to LYL for UnisemCD - Gitted
   - [Feature] Added option PurgeStage to PURGE and CLEAN
   - [BugFix] frmDoHeight.btnTest support MultiP clusters
