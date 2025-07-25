@@ -1018,6 +1018,21 @@ namespace NDispWin
                 return false;
             }
 
+            if (GDefine.ConveyorType == GDefine.EConveyorType.CONVEYOR)
+            {
+                if (TaskConv.LeftMode == TaskConv.ELeftMode.ElevatorZ)
+                {
+                    if (!TaskElev.Left.SensMagPsnt(1) &&
+                        !TaskElev.Left.SensMagPsnt(2) &&
+                        !TaskElev.Left.SensMagPsnt(3) &&
+                        !TaskElev.Left.SensMagPsnt(4))
+                    {
+                        MsgBox.Show(ErrCode.IN_MAGAZINE_NOT_PRESENT);
+                        return false;
+                    }
+                }
+            }
+
             if (NDispWin.TaskConv.StopInput)
             {
                 EMsgRes Res = MsgBox.Show(ErrCode.INPUT_IS_STOPPED, EMcState.Notice, EMsgBtn.smbOK_Cancel | EMsgBtn.smbStop, false);
@@ -2833,7 +2848,7 @@ namespace NDispWin
         }
         public static void OnSet(string ParamName, TPos3 Old, TPos3 New)
         {
-            OnAction("Set", ParamName, Old.X.ToString("f3") + "," + Old.Y.ToString("f3"), New.X.ToString("f3") + "," + New.Y.ToString("f3"));
+            OnAction("Set", ParamName, $"{Old.X:f3},{Old.Y:f3},{Old.Z:f3}", $"{New.X:f3},{New.Y:f3},{New.Z:f3}");
         }
         public static void OnSet(string ParamName, double Old, double New)
         {
